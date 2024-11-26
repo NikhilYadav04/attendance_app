@@ -4,15 +4,12 @@ const express = require("express");
 const router = express.Router();
 
 const otpGenerator = require("otp-generator");
-const twilio = require("twilio");
 const OtpModel = require("../models/otp");
+const twilioClient = require("../services/twilio.js");
 
-const accountSid = process.env.TWILIO_ACCOUNT_SID;
-const accountToken = process.env.TWILIO_ACCOUNT_TOKEN;
 const twilioNumber = process.env.TWILIO_PHONE_NUMBER;
 
 router.use(express.json());
-const twilioClient = new twilio(accountSid, accountToken);
 
 // send otp
 router.post("/send-otp", async (req, res) => {

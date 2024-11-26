@@ -5,14 +5,10 @@ const companyModel = require("../models/company");
 const reportModel = require("../models/attendance");
 const staffCountModel = require("../models/staffCount");
 const staffReportModel = require("../models/staffReport");
-const twilio = require("twilio");
 const employeeModel = require("../models/employee");
+const twilioClient = require("../services/twilio.js");
 
-const accountSid = process.env.TWILIO_ACCOUNT_SID;
-const accountToken = process.env.TWILIO_ACCOUNT_TOKEN;
 const twilioNumber = process.env.TWILIO_PHONE_NUMBER;
-
-const twilioClient = new twilio(accountSid, accountToken);
 
 const companyRouter = express.Router();
 
