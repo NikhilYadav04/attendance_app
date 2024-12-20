@@ -1,11 +1,11 @@
 import Joi from "joi";
 
-export const signupValidation = (req, res, next) => {
+export const companyAddValidation = (req, res, next) => {
   const schema = Joi.object({
-    name: Joi.string().min(1).max(10).required(),
-    phone: Joi.string().max(10).required(),
-    email: Joi.string().email().required(),
-    password: Joi.string().min(3).max(6).required(),
+    companyName: Joi.string().min(1).max(10).required(),
+    companyHR: Joi.string().min(1).max(10).required(),
+    companyID: Joi.string().min(1).max(5).required(),
+    companyCity : Joi.string().min(1).max(8).required(),
   });
 
   const { error } = schema.validate(req.body);
@@ -19,10 +19,13 @@ export const signupValidation = (req, res, next) => {
   next();
 };
 
-export const signinvalidation = (req, res, next) => {
+export const staffAddValidation = (req, res, next) => {
   const schema = Joi.object({
-    email: Joi.string().email().required(),
-    password: Joi.string().min(3).max(6).required(),
+    employeeName: Joi.string().min(1).max(10).required(),
+    employeeNumber: Joi.string().min(1).max(10).required(),
+    employeePosition: Joi.string().min(1).max(10).required(),
+    employeeCompany: Joi.string().min(1).max(10).required(),
+    companyID: Joi.string().min(1).max(5).required(),
   });
 
   const { error } = req.body;
