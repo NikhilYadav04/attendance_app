@@ -19,6 +19,17 @@ const attendanceSchema = new mongoose.Schema({
   },
 });
 
+const daysPresentSchema = new mongoose.Schema({
+  Month: {
+    required: true,
+    type: String,
+  },
+  daysPresent: {
+    required: true,
+    type: Number,
+  },
+});
+
 const reportSchema = new mongoose.Schema({
   employeeName: {
     required: true,
@@ -28,10 +39,7 @@ const reportSchema = new mongoose.Schema({
     required: true,
     type: String,
   },
-  daysPresent: {
-    required: true,
-    type: Number,
-  },
+  daysPresent: [daysPresentSchema],
   attendance: [attendanceSchema],
 });
 

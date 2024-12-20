@@ -8,11 +8,10 @@ attendanceRouter.use(express.json());
 // mark attendance
 attendanceRouter.post("/mark", async (req, res) => {
   try {
-    const { employeeName, InTime, OutTime, Date, isPresent } = req.body;
+    const { employeeName, InTime, OutTime, Date, isPresent, Month } = req.body;
 
     const report = await reportModel.findOneAndUpdate(
       { employeeName },
-      { $inc: { daysPresent: 1 } },
       { new: true }
     );
 
@@ -23,7 +22,13 @@ attendanceRouter.post("/mark", async (req, res) => {
       isPresent,
     };
 
+    let daysPresentBody = {
+      Month,
+      $inc : {daysPresent:1}
+    }
+
     await report.attendance.push(attendanceBody);
+    await report.daysPresent.push(daysPresentBody)
 
     await report.save();
 
@@ -91,7 +96,7 @@ attendanceRouter.post("/get-attend-days", async (req, res) => {
       });
     }
 
-    const days = report['daysPresent'];
+    const days = report["daysPresent"];
 
     return res.status(200).json({
       success: true,
