@@ -31,7 +31,7 @@ const daysPresentSchema = new mongoose.Schema({
 });
 
 const reportSchema = new mongoose.Schema({
-  employeeName: {
+  employeeID: {
     required: true,
     type: String,
   },

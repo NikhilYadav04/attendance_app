@@ -3,10 +3,11 @@ const reportModel = require("../models/attendance");
 
 export const mark = async (req, res) => {
   try {
-    const { employeeName, InTime, OutTime, Date, isPresent, Month } = req.body;
+    const {employeeID} = req.user;
+    const { InTime, OutTime, Date, isPresent, Month } = req.body;
 
     const report = await reportModel.findOneAndUpdate(
-      { employeeName },
+      { employeeID },
       { new: true }
     );
 
@@ -41,9 +42,10 @@ export const mark = async (req, res) => {
 
 export const get_attend = async (req, res) => {
   try {
-    const { employeeName, Date } = req.body;
+    const {employeeID} = req.user;
+    const { Date } = req.body;
 
-    const report = await reportModel.findOne({ employeeName });
+    const report = await reportModel.findOne({ employeeID });
 
     if (!report) {
       return res.status(400).json({
@@ -78,9 +80,8 @@ export const get_attend = async (req, res) => {
 
 export const get_attend_days = async (req, res) => {
   try {
-    const { employeeName } = req.body;
-
-    const report = await reportModel.findOne({ employeeName });
+    const {employeeID} = req.user;
+    const report = await reportModel.findOne({ employeeID });
 
     if (!report) {
       return res.status(400).json({

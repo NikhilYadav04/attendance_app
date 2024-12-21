@@ -2,7 +2,9 @@ const companyModel = require("../models/company");
 const reportModel = require("../models/attendance");
 const staffCountModel = require("../models/staffCount");
 const staffReportModel = require("../models/staffReport");
-const employeeModel = require("../models/employee");
+const jwt = require("jsonwebtoken");
+
+require("dotenv").config();
 
 export const add_company = async (req, res) => {
   try {
@@ -33,9 +35,20 @@ export const add_company = async (req, res) => {
 
     await staffCountBody.save();
 
+    const token = await jwt.sign(
+      {
+        companyName: companyName,
+        companyHR,
+        companyID,
+        companyCity,
+      },
+      process.env.COMPANY_TOKEN,
+      { expiresIn: "50m" }
+    );
+
     return res.status(200).json({
       success: true,
-      message: body,
+      message: token,
     });
   } catch (e) {
     return res.status(500).json({
@@ -72,9 +85,9 @@ export const login_as_hr = async (req, res) => {
 
 export const get_report = async (req, res) => {
   try {
-    const { employeeCompany } = req.body;
+    const { companyID } = req.user;
 
-    const body = await reportModel.find({ employeeCompany });
+    const body = await reportModel.find({ companyID });
 
     return res.status(200).json({
       success: true,
@@ -90,7 +103,8 @@ export const get_report = async (req, res) => {
 
 export const store_history = async (req, res) => {
   try {
-    const { companyName, totalCount, currentDate } = req.body;
+    const { companyName } = req.user;
+    const { totalCount, currentDate } = req.body;
 
     let historyBody = await staffReportModel.findOneAndUpdate(
       { companyName },
@@ -132,7 +146,7 @@ export const store_history = async (req, res) => {
 
 export const get_history = async (req, res) => {
   try {
-    const { companyName } = req.body;
+    const { companyName } = req.user;
 
     const body = await staffReportModel.findOne({ companyName });
     const countList = body.list;
@@ -151,7 +165,7 @@ export const get_history = async (req, res) => {
 
 export const history_list = async (req, res) => {
   try {
-    const { companyName } = req.body;
+    const { companyName } = req.user;
 
     const body = await staffReportModel.findOne({ companyName });
     const countList = await body.list;
@@ -164,6 +178,32 @@ export const history_list = async (req, res) => {
     return res.status(500).json({
       success: false,
       message: e.message,
+    });
+  }
+};
+
+export const get_ids = async (req, res) => {
+  try {
+    const { companyName } = req.user;
+
+    const body = await companyModel.findOne({ companyName });
+
+    if (!body) {
+      return res.status(401).json({
+        success: false,
+        message: "No Employees Found",
+      });
+    }
+    const id_list = body.companyMembers;
+
+    return res.status(200).json({
+      success: true,
+      message: id_list,
+    });
+  } catch (e) {
+    return res.status(500).json({
+      success: false,
+      message: `Error is : ${e.message}`,
     });
   }
 };

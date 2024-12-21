@@ -2,7 +2,8 @@ const locationModel = require("../models/location");
 
 export const store_location = async (req, res) => {
   try {
-    const { latitude, longitude, companyName, radius } = req.body;
+    const {companyName} = req.user;
+    const { latitude, longitude, radius } = req.body;
 
     const body = await locationModel.findOneAndUpdate(
       {
@@ -28,7 +29,7 @@ export const store_location = async (req, res) => {
 
 export const get_location = async (req, res) => {
   try {
-    const { companyName } = req.body;
+    const {companyName} = req.user;
 
     const body = await locationModel.findOne({ companyName });
 
