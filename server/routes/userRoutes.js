@@ -6,13 +6,17 @@ const router = express.Router();
 const otpGenerator = require("otp-generator");
 const OtpModel = require("../models/otp");
 const twilioClient = require("../services/twilio.js");
+const {
+  phoneValidation,
+  otpValidation,
+} = require("../middleware/authValidation.js");
 
 const twilioNumber = process.env.TWILIO_PHONE_NUMBER;
 
 router.use(express.json());
 
-// send otp
-router.post("/send-otp", async (req, res) => {
+//* send otp
+router.post("/send-otp", phoneValidation, async (req, res) => {
   try {
     const { phoneNumber } = req.body;
 
@@ -46,8 +50,8 @@ router.post("/send-otp", async (req, res) => {
   }
 });
 
-//verify otp
-router.post("/verify-otp", async (req, res) => {
+//* verify otp
+router.post("/verify-otp", otpValidation, async (req, res) => {
   try {
     const { otp } = req.body;
     console.log(otp);
