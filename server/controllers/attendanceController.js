@@ -1,15 +1,16 @@
-require("dotenv").config();
 const reportModel = require("../models/attendance");
 
-export const mark = async (req, res) => {
+require("dotenv").config();
+
+const mark = async (req, res) => {
   try {
-    const {employeeID} = req.user;
+    const { employeeID } = req.user;
+
     const { InTime, OutTime, Date, isPresent, Month } = req.body;
 
-    const report = await reportModel.findOneAndUpdate(
-      { employeeID },
-      { new: true }
-    );
+    const report = await reportModel.findOne({
+      employeeID: employeeID,
+    });
 
     let attendanceBody = {
       InTime,
@@ -18,13 +19,22 @@ export const mark = async (req, res) => {
       isPresent,
     };
 
-    let daysPresentBody = {
-      Month,
-      $inc: { daysPresent: 1 },
-    };
+    const monthIndex = report.daysPresent.findIndex(
+      (entry) => entry.Month === Month
+    );
+
+    if (monthIndex >= 0) {
+      if (isPresent) {
+        report.daysPresent[monthIndex].daysPresent += 1;
+      }
+    } else if (isPresent) {
+      report.daysPresent.push({
+        Month,
+        daysPresent: 1,
+      });
+    }
 
     await report.attendance.push(attendanceBody);
-    await report.daysPresent.push(daysPresentBody);
 
     await report.save();
 
@@ -40,9 +50,9 @@ export const mark = async (req, res) => {
   }
 };
 
-export const get_attend = async (req, res) => {
+const get_attend = async (req, res) => {
   try {
-    const {employeeID} = req.user;
+    const { employeeID } = req.user;
     const { Date } = req.body;
 
     const report = await reportModel.findOne({ employeeID });
@@ -78,9 +88,9 @@ export const get_attend = async (req, res) => {
   }
 };
 
-export const get_attend_days = async (req, res) => {
+const get_attend_days = async (req, res) => {
   try {
-    const {employeeID} = req.user;
+    const { employeeID } = req.user;
     const report = await reportModel.findOne({ employeeID });
 
     if (!report) {
@@ -103,3 +113,5 @@ export const get_attend_days = async (req, res) => {
     });
   }
 };
+
+module.exports = { mark, get_attend, get_attend_days };

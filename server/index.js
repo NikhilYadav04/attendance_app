@@ -2,11 +2,12 @@ require("dotenv").config();
 
 const express = require("express");
 const mongoose = require("mongoose");
-const router = require("./routes/userRoutes");
-const companyRouter = require("./routes/companyRoutes");
-const locationRouter = require("./routes/locationRoute");
-const employeeRouter = require("./routes/employeeRoute");
-const attendanceRouter = require("./routes/attendanceRoutes");
+const {router }= require("./routes/userRoutes.js");
+const {companyRouter} = require("./routes/companyRoutes.js")
+const {locationRouter} = require("./routes/locationRoute.js")
+const {employeeRouter} = require("./routes/employeeRoute.js");
+const {attendanceRouter} = require("./routes/attendanceRoutes.js");
+const { router1 } = require("./route_config/server.js");
 
 const app = express();
 
@@ -17,12 +18,14 @@ app.use(
     extended: true,
   })
 );
+app.use(express.json());
+app.use(router1)
 
-app.use("/api", router);
-app.use("/company",companyRouter);
-app.use("/location",locationRouter);
-app.use("/employee",employeeRouter);
-app.use("/attendance",attendanceRouter);
+router1.use("/api", router);
+router1.use("/company", companyRouter);
+router1.use("/location", locationRouter);
+router1.use("/employee", employeeRouter);
+router1.use("/attendance", attendanceRouter);
 
 mongoose
   .connect(DB)

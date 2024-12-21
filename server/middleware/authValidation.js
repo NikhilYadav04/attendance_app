@@ -1,6 +1,6 @@
-import Joi from "joi";
+const Joi = require("joi");
 
-export const companyAddValidation = (req, res, next) => {
+const companyAddValidation = (req, res, next) => {
   const schema = Joi.object({
     companyName: Joi.string().min(1).max(10).required(),
     companyHR: Joi.string().min(1).max(10).required(),
@@ -19,7 +19,7 @@ export const companyAddValidation = (req, res, next) => {
   next();
 };
 
-export const staffAddValidation = (req, res, next) => {
+const staffAddValidation = (req, res, next) => {
   const schema = Joi.object({
     employeeName: Joi.string().min(1).max(10).required(),
     employeeNumber: Joi.string().min(1).max(10).required(),
@@ -39,9 +39,57 @@ export const staffAddValidation = (req, res, next) => {
   next();
 };
 
-export const phoneValidation = (req, res, next) => {
+const HRloginValidation = (req, res, next) => {
   const schema = Joi.object({
-    phoneNumber : Joi.string()
+    companyName: Joi.string().min(1).max(10).required().messages({
+      "string.empty": "Company Name cannot be empty.",
+    }),
+    companyID: Joi.string().min(1).max(10).required().messages({
+      "string.empty": "Company ID cannot be empty.",
+    }),
+  });
+
+  const { error } = schema.validate(req.body);
+
+  if (error) {
+    return res.status(401).json({
+      success: false,
+      message: `Error Validating : ${error}`,
+    });
+  }
+  next();
+};
+
+const EmployeeJoinValidation = (req, res, next) => {
+  const schema = Joi.object({
+    companyName: Joi.string().min(1).max(10).required().messages({
+      "string.empty": "Company Name cannot be empty.",
+    }),
+    companyID: Joi.string().min(1).max(10).required().messages({
+      "string.empty": "Company ID cannot be empty.",
+    }),
+    employeeName: Joi.string().min(1).max(10).required().messages({
+      "string.empty": "Employee Name cannot be empty.",
+    }),
+    employeeID: Joi.string().min(1).max(20).required().messages({
+      "string.empty": "Employee ID cannot be empty.",
+    }),
+  });
+
+  const { error } = schema.validate(req.body);
+
+  if (error) {
+    return res.status(401).json({
+      success: false,
+      message: `Error Validating : ${error}`,
+    });
+  }
+  next();
+};
+
+const phoneValidation = (req, res, next) => {
+  const schema = Joi.object({
+    phoneNumber: Joi.string()
       .pattern(/^[0-9]{10}$/)
       .required()
       .messages({
@@ -62,7 +110,7 @@ export const phoneValidation = (req, res, next) => {
   next();
 };
 
-export const otpValidation = (req, res, next) => {
+const otpValidation = (req, res, next) => {
   const schema = Joi.object({
     otp: Joi.string()
       .pattern(/^[0-9]{6}$/)
@@ -83,4 +131,13 @@ export const otpValidation = (req, res, next) => {
     });
   }
   next();
+};
+
+module.exports = {
+  companyAddValidation,
+  staffAddValidation,
+  HRloginValidation,
+  EmployeeJoinValidation,
+  phoneValidation,
+  otpValidation,
 };

@@ -6,7 +6,7 @@ const jwt = require("jsonwebtoken");
 
 require("dotenv").config();
 
-export const add_company = async (req, res) => {
+const add_company = async (req, res) => {
   try {
     const { companyName, companyHR, companyID, companyCity } = req.body;
 
@@ -35,20 +35,9 @@ export const add_company = async (req, res) => {
 
     await staffCountBody.save();
 
-    const token = await jwt.sign(
-      {
-        companyName: companyName,
-        companyHR,
-        companyID,
-        companyCity,
-      },
-      process.env.COMPANY_TOKEN,
-      { expiresIn: "50m" }
-    );
-
     return res.status(200).json({
       success: true,
-      message: token,
+      message: "Company Created",
     });
   } catch (e) {
     return res.status(500).json({
@@ -58,7 +47,7 @@ export const add_company = async (req, res) => {
   }
 };
 
-export const login_as_hr = async (req, res) => {
+const login_as_hr = async (req, res) => {
   try {
     const { companyName, companyID } = req.body;
 
@@ -71,9 +60,18 @@ export const login_as_hr = async (req, res) => {
       });
     }
 
+    const token = await jwt.sign(
+      {
+        companyName: companyName,
+        companyID,
+      },
+      process.env.COMPANY_TOKEN,
+      { expiresIn: "50m" }
+    );
+
     return res.status(200).json({
       success: true,
-      message: "Company Login Success",
+      message: token,
     });
   } catch (e) {
     return res.status(500).json({
@@ -83,7 +81,7 @@ export const login_as_hr = async (req, res) => {
   }
 };
 
-export const get_report = async (req, res) => {
+const get_report = async (req, res) => {
   try {
     const { companyID } = req.user;
 
@@ -101,7 +99,7 @@ export const get_report = async (req, res) => {
   }
 };
 
-export const store_history = async (req, res) => {
+const store_history = async (req, res) => {
   try {
     const { companyName } = req.user;
     const { totalCount, currentDate } = req.body;
@@ -144,7 +142,7 @@ export const store_history = async (req, res) => {
   }
 };
 
-export const get_history = async (req, res) => {
+const get_history = async (req, res) => {
   try {
     const { companyName } = req.user;
 
@@ -163,7 +161,7 @@ export const get_history = async (req, res) => {
   }
 };
 
-export const history_list = async (req, res) => {
+const history_list = async (req, res) => {
   try {
     const { companyName } = req.user;
 
@@ -182,7 +180,7 @@ export const history_list = async (req, res) => {
   }
 };
 
-export const get_ids = async (req, res) => {
+const get_ids = async (req, res) => {
   try {
     const { companyName } = req.user;
 
@@ -206,4 +204,14 @@ export const get_ids = async (req, res) => {
       message: `Error is : ${e.message}`,
     });
   }
+};
+
+module.exports = {
+  add_company,
+  login_as_hr,
+  get_report,
+  store_history,
+  get_history,
+  history_list,
+  get_ids,
 };

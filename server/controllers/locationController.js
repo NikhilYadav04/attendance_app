@@ -1,6 +1,6 @@
 const locationModel = require("../models/location");
 
-export const store_location = async (req, res) => {
+const store_location = async (req, res) => {
   try {
     const {companyName} = req.user;
     const { latitude, longitude, radius } = req.body;
@@ -27,7 +27,7 @@ export const store_location = async (req, res) => {
   }
 };
 
-export const get_location = async (req, res) => {
+const get_location = async (req, res) => {
   try {
     const {companyName} = req.user;
 
@@ -44,3 +44,5 @@ export const get_location = async (req, res) => {
     });
   }
 };
+
+module.exports = {store_location,get_location}

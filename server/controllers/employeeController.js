@@ -6,7 +6,7 @@ const reportModel = require("../models/attendance");
 const staffCountModel = require("../models/staffCount");
 const jwt = require("jsonwebtoken");
 
-export const add_staff = async (req, res) => {
+const add_staff = async (req, res) => {
   try {
     const {
       employeeName,
@@ -46,8 +46,20 @@ export const add_staff = async (req, res) => {
     let attendanceBody = new reportModel({
       employeeID,
       employeeCompany,
-      daysPresent: [],
-      attendance: [],
+      daysPresent: [
+        {
+          Month: "April",
+          daysPresent: 25,
+        },
+      ],
+      attendance: [
+        {
+          InTime: "16:00",
+          OutTime: "17:00",
+          Date: "12/04/2024",
+          isPresent: true,
+        },
+      ],
     });
 
     await attendanceBody.save();
@@ -66,7 +78,7 @@ export const add_staff = async (req, res) => {
   }
 };
 
-export const join_employee = async (req, res) => {
+const join_employee = async (req, res) => {
   try {
     const { companyName, companyID, employeeName, employeeID } = req.body;
 
@@ -93,6 +105,7 @@ export const join_employee = async (req, res) => {
         companyName,
         employeeName,
         companyID,
+        employeeID
       },
       process.env.EMPLOYEE_TOKEN,
       { expiresIn: "50m" }
@@ -110,7 +123,7 @@ export const join_employee = async (req, res) => {
   }
 };
 
-export const get_history = async (req, res) => {
+const get_history = async (req, res) => {
   try {
     const { employeeID } = req.user;
 
@@ -130,7 +143,7 @@ export const get_history = async (req, res) => {
   }
 };
 
-export const change_count = async (req, res) => {
+const change_count = async (req, res) => {
   try {
     const { companyName } = req.user;
     const { inCount, outCount, TotalCount } = req.body;
@@ -159,7 +172,7 @@ export const change_count = async (req, res) => {
   }
 };
 
-export const get_count = async (req, res) => {
+const get_count = async (req, res) => {
   try {
     const { companyName } = req.user;
 
@@ -176,4 +189,12 @@ export const get_count = async (req, res) => {
       message: e.message,
     });
   }
+};
+
+module.exports = {
+  add_staff,
+  join_employee,
+  get_history,
+  change_count,
+  get_count,
 };

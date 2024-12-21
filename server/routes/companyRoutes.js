@@ -10,38 +10,37 @@ const {
   store_history,
   get_history,
   history_list,
+  get_ids,
 } = require("../controllers/companyController.js");
-const { companyAddValidation } = require("../middleware/authValidation.js");
-const {
-  default: authenticateToken,
-} = require("../middleware/tokenValidations.js");
+const { companyAddValidation, HRloginValidation } = require("../middleware/authValidation.js");
+const {authenticateTokenCompany } = require("../middleware/tokenValidations.js");
+
 
 const twilioNumber = process.env.TWILIO_PHONE_NUMBER;
 
 const companyRouter = express.Router();
-
 companyRouter.use(express.json());
 
 //*  add company
 companyRouter.post("/add-company", companyAddValidation, add_company);
 
 //*  login as HR
-companyRouter.post("/login-company", login_as_hr);
+companyRouter.post("/login-company", HRloginValidation, login_as_hr);
 
 //* get staff report
-companyRouter.get("/get-report", authenticateToken, get_report);
+companyRouter.get("/get-report", authenticateTokenCompany, get_report);
 
 //*  store staff count history
-companyRouter.post("/store-history", authenticateToken, store_history);
+companyRouter.post("/store-history", authenticateTokenCompany, store_history);
 
 //*  get staff count history
-companyRouter.get("/get-history", authenticateToken, get_history);
+companyRouter.get("/get-history",authenticateTokenCompany, get_history);
 
 //* get staff count history in form of list
-companyRouter.get("/history-list", authenticateToken, history_list);
+companyRouter.get("/history-list", authenticateTokenCompany, history_list);
 
 //* get all the employee id's
-companyRouter.get("/get/-ids",authenticateToken,get_ids)
+companyRouter.get("/get/-ids",authenticateTokenCompany,get_ids)
 
 //* send whatsapp notification
 companyRouter.post("/send-notifications", async (req, res) => {
@@ -70,4 +69,4 @@ companyRouter.post("/send-notifications", async (req, res) => {
   }
 });
 
-module.exports = companyRouter;
+module.exports = {companyRouter};
