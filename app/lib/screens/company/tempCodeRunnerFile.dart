@@ -1,6 +1,8 @@
 import 'package:attend_ease/providers/company_setup_provider.dart';
 import 'package:attend_ease/styling/colors.dart';
 import 'package:attend_ease/styling/scale.dart';
+import 'package:attend_ease/globalobjects/controllers.dart';
+import 'package:attend_ease/services/companyService.dart';
 import 'package:attend_ease/widgets/company/company_setup_screen_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -15,7 +17,9 @@ class CompanySetupScreen extends StatefulWidget {
 }
 
 class _CompanySetupScreenState extends State<CompanySetupScreen> {
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  bool isAlert = false;
+  bool isLoading = false;
+  final companyService CompanyService = companyService();
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +27,7 @@ class _CompanySetupScreenState extends State<CompanySetupScreen> {
     final currentWidth = MediaQuery.of(context).size.width;
     // ignore: deprecated_member_use
     final textScale = MediaQuery.of(context).textScaleFactor;
+    final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
     return Scaffold(
         resizeToAvoidBottomInset: true,
@@ -45,13 +50,13 @@ class _CompanySetupScreenState extends State<CompanySetupScreen> {
                           30, currentWidth, currentHeight),
                     ),
                     textField(
-                      currentWidth,
-                      currentHeight,
-                      textScale,
-                      " ABC pvt. ltd.",
-                      "Company Name",
-                      provider.companyNameController,
-                    ),
+                        currentWidth,
+                        currentHeight,
+                        textScale,
+                        " ABC pvt. ltd.",
+                        "Company Name",
+                        provider.companyNameController,
+                        formKey),
                     SizedBox(
                       height: responsiveContainerSize(
                           25, currentWidth, currentHeight),
@@ -62,13 +67,14 @@ class _CompanySetupScreenState extends State<CompanySetupScreen> {
                         textScale,
                         " Mr. Nikhil",
                         "Company HR",
-                        provider.companyHRController),
+                        provider.companyHRController,
+                        formKey),
                     SizedBox(
                       height: responsiveContainerSize(
                           25, currentWidth, currentHeight),
                     ),
                     textField(currentWidth, currentHeight, textScale, " ABCX3",
-                        "Company ID", provider.companyIDController),
+                        "Company ID", provider.companyIDController, formKey),
                     SizedBox(
                       height: responsiveContainerSize(
                           25, currentWidth, currentHeight),
@@ -79,7 +85,8 @@ class _CompanySetupScreenState extends State<CompanySetupScreen> {
                         textScale,
                         " eg. Mumbai",
                         "Company City",
-                        provider.companyCityController),
+                        provider.companyCityController,
+                        formKey),
                     SizedBox(
                       height: responsiveContainerSize(
                           40, currentWidth, currentHeight),
@@ -103,9 +110,7 @@ class _CompanySetupScreenState extends State<CompanySetupScreen> {
                                 65, currentWidth, currentWidth),
                             value: provider.isAlert,
                             onToggle: (val) {
-                              setState(() {
-                                provider.setAlert(val);
-                              });
+                              provider.setAlert(val);
                             }),
                       ],
                     ),

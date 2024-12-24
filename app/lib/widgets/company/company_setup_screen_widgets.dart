@@ -75,45 +75,61 @@ Widget tileWidget(double currentWidth, double currentHeight, double textScale) {
   );
 }
 
-Widget textField(double currentWidth, double currentHeight, double textScale,
-    String label, String title, TextEditingController textCOntroller) {
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Text(
-        title,
-        style: TextStyle(
-          color: Colors.grey.shade700,
-          fontSize:
-              responsiveFontSize(16, currentWidth, currentHeight, textScale),
-        ),
-      ),
-      SizedBox(
-        height: responsiveContainerSize(10, currentWidth, currentHeight),
-      ),
-      FormField(builder: (context) {
-        return TextField(
-          controller: textCOntroller,
-          decoration: InputDecoration(
-            label: Text(
-              label,
-              style: TextStyle(
-                  color: Colors.grey.shade500,
-                  fontSize:
-                      responsiveContainerSize(17, currentWidth, currentHeight)),
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(4),
-              borderSide: BorderSide(color: Colors.grey.shade500),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(4),
-              borderSide: const BorderSide(color:Colours.BUTTON_COLOR_1),
-            ),
+Widget textField(
+  double currentWidth,
+  double currentHeight,
+  double textScale,
+  String label,
+  String title,
+  TextEditingController textCOntroller,
+) {
+  return Form(
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          title,
+          style: TextStyle(
+            color: Colors.grey.shade700,
+            fontSize:
+                responsiveFontSize(16, currentWidth, currentHeight, textScale),
           ),
-        );
-      })
-    ],
+        ),
+        SizedBox(
+          height: responsiveContainerSize(10, currentWidth, currentHeight),
+        ),
+        FormField(builder: (context) {
+          return TextField(
+            controller: textCOntroller,
+            decoration: InputDecoration(
+              label: Text(
+                label,
+                style: TextStyle(
+                    color: Colors.grey.shade500,
+                    fontSize: responsiveContainerSize(
+                        17, currentWidth, currentHeight)),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(4),
+                borderSide: BorderSide(color: Colors.grey.shade500),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(4),
+                borderSide: const BorderSide(color: Colours.BUTTON_COLOR_1),
+              ),
+              errorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(4),
+                borderSide: const BorderSide(color: Colors.red),
+              ),
+              focusedErrorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(4),
+                borderSide: const BorderSide(color: Colors.red),
+              ),
+            ),
+          );
+        })
+      ],
+    ),
   );
 }
 
@@ -199,7 +215,8 @@ Widget companyLoginButton(void Function() onTap, double width, double height,
 
 Widget LoadingAnimationWidget(double width, double height, double textScale) {
   return Container(
-    padding: EdgeInsets.symmetric(horizontal: 18*horizontalPaddingFactor(width)),
+    padding:
+        EdgeInsets.symmetric(horizontal: 18 * horizontalPaddingFactor(width)),
     height: responsiveContainerSize(90, width, height),
     color: Colors.white,
     child: Row(

@@ -95,12 +95,12 @@ Widget bottomText(double width, double height, double textScaleFactor) {
   );
 }
 
-ToastificationItem toastMessage(
-    BuildContext context, String title, String description) {
+ToastificationItem toastMessage(BuildContext context, String title,
+    String description, ToastificationType type) {
   return toastification.show(
     context: context,
     alignment: Alignment.bottomCenter,
-    type: ToastificationType.warning,
+    type: type,
     style: ToastificationStyle.flatColored,
     autoCloseDuration: const Duration(seconds: 5),
     title: Text(
@@ -175,29 +175,31 @@ Widget descriptionText(
   );
 }
 
-Widget phoneNumberField(double width, double height, double textScaleFactor) {
+Widget phoneNumberField(double width, double height, double textScaleFactor,
+    GlobalKey<FormState> formKey, TextEditingController numberController) {
   return Container(
     padding:
         EdgeInsets.symmetric(horizontal: 6 * horizontalPaddingFactor(width)),
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: [
-        Image.asset(
-          "assets/login_screen/flag.png",
-          height: responsiveContainerSize(32, width, height),
-          width: responsiveContainerSize(32, width, height),
-        ),
-        Text(
-          " +91  ",
-          style: TextStyle(
-              fontSize: responsiveFontSize(24, width, height, textScaleFactor),
-              fontWeight: FontWeight.w500),
-        ),
-        Expanded(
-          child: Container(
-            height: responsiveContainerSize(50, width, height),
-            child: FormField(builder: (context) {
-              return TextField(
+    child: Form(
+      key: formKey,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Image.asset(
+            "assets/login_screen/flag.png",
+            height: responsiveContainerSize(32, width, height),
+            width: responsiveContainerSize(32, width, height),
+          ),
+          Text(
+            " +91  ",
+            style: TextStyle(
+                fontSize:
+                    responsiveFontSize(24, width, height, textScaleFactor),
+                fontWeight: FontWeight.w500),
+          ),
+          Expanded(
+            child: IntrinsicHeight(
+              child: TextFormField(
                 controller: numberController,
                 keyboardType: TextInputType.number,
                 style: TextStyle(
@@ -205,41 +207,66 @@ Widget phoneNumberField(double width, double height, double textScaleFactor) {
                         responsiveFontSize(20, width, height, textScaleFactor),
                     color: Colors.black),
                 decoration: InputDecoration(
-                    floatingLabelBehavior: FloatingLabelBehavior.never,
-                    label: Center(
-                      child: Text(
-                        "Enter your Phone Number",
-                        style: TextStyle(
-                            fontSize: responsiveFontSize(
-                                20, width, height, textScaleFactor),
-                            color: Colors.grey.shade800),
-                      ),
+                  floatingLabelBehavior: FloatingLabelBehavior.never,
+                  label: Center(
+                    child: Text(
+                      "Enter your Phone Number",
+                      style: TextStyle(
+                          fontSize: responsiveFontSize(
+                              20, width, height, textScaleFactor),
+                          color: Colors.grey.shade800),
                     ),
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(
-                          responsiveBorderRadius(4, width, height),
-                        ),
-                        borderSide: const BorderSide(color: Colors.grey)),
-                    focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(
-                          responsiveBorderRadius(4, width, height),
-                        ),
-                        borderSide: const BorderSide(color: Colours.BUTTON_COLOR_1)),
-                    enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(
-                          responsiveBorderRadius(4, width, height),
-                        ),
-                        borderSide: const BorderSide(color: Colors.grey))),
-              );
-            }),
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(
+                      responsiveBorderRadius(4, width, height),
+                    ),
+                    borderSide: const BorderSide(color: Colors.grey),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(
+                      responsiveBorderRadius(4, width, height),
+                    ),
+                    borderSide: const BorderSide(color: Colours.BUTTON_COLOR_1),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(
+                      responsiveBorderRadius(4, width, height),
+                    ),
+                    borderSide: const BorderSide(color: Colors.grey),
+                  ),
+                  errorBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(
+                      responsiveBorderRadius(4, width, height),
+                    ),
+                    borderSide: const BorderSide(color: Colors.red),
+                  ),
+                  focusedErrorBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(
+                      responsiveBorderRadius(4, width, height),
+                    ),
+                    borderSide: const BorderSide(color: Colors.red),
+                  ),
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Phone number cannot be empty';
+                  } else if (!RegExp(r'^\d{10}$').hasMatch(value)) {
+                    return 'Please enter a valid 10-digit phone number';
+                  }
+                  return null;
+                },
+              ),
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     ),
   );
 }
 
-Widget otpField(double width, double height, double textScaleFactor) {
+Widget otpField(double width, double height, double textScaleFactor,
+    TextEditingController otpController) {
   return Pinput(
     controller: otpController,
     length: 6,

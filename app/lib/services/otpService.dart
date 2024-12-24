@@ -20,9 +20,7 @@ class OtpService {
       if (res.statusCode == 200) {
         return "Success";
       } else {
-        var responseBody = jsonDecode(res.body);
-        // return "Code : ${res.statusCode} , ${responseBody["message"]}";
-        return ("Code : ${res.statusCode} , ${responseBody["message"]}");
+        return "";
       }
     } catch (e) {
       // return e.toString();
