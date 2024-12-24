@@ -40,7 +40,7 @@ class _EmployeeMainScreen2State extends State<EmployeeMainScreen2> {
   final companyService CompanyService = companyService();
 
   void verifyLocation() async {
-    eCName = await HelperFunctions.getEmployeeCOmpany();
+    // eCName = await HelperFunctions.getEmployeeCOmpany();
     String res = await LocationService.getLocation(eCName);
     if (res == "Success") {
       setState(() {
@@ -91,7 +91,7 @@ class _EmployeeMainScreen2State extends State<EmployeeMainScreen2> {
       InTime_Display = InTime;
       toastMessageSuccess(context, "Time", InTime);
     });
-    await HelperFunctions.setInTime(InTime);
+    // await HelperFunctions.setInTime(InTime);
     await CompanyService.changeCount(cName, 1, 0, 1);
   }
 
@@ -107,7 +107,7 @@ class _EmployeeMainScreen2State extends State<EmployeeMainScreen2> {
         TotalDays;
       });
       if (InTime != "00:00" && OutTime != "00:00") {
-        InTime_Display = await HelperFunctions.getInTime();
+        // InTime_Display = await HelperFunctions.getInTime();
         String res = await attendanceService.markAttendance(
             eName, InTime_Display, OutTime, Date, isPresent);
         if (res == "Success") {

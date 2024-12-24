@@ -56,7 +56,7 @@ class AttendanceService {
       print("FInalbody is ${finalBody}");
 
       if (res.statusCode == 200) {
-        InTime_Display = await HelperFunctions.getInTime();
+        // InTime_Display = await HelperFunctions.getInTime();
         InTime = finalBody['InTime'];
         OutTime = finalBody['OutTime'];
         isPresent = finalBody['isPresent'];

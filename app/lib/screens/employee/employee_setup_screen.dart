@@ -42,11 +42,11 @@ class _EmployeeSetupScreenState extends State<EmployeeSetupScreen> {
     isPresent = false;
     TotalDays = 0;
     if (res == "Success") {
-      await HelperFunctions.setStatus(true);
-      await HelperFunctions.setEmployeeCompany(employeeCompanyName);
-      await HelperFunctions.setEMployeeName(
-          employeeID.substring(0, employeeID.indexOf("_")));
-      await HelperFunctions.setEMployeeID(employeeID);
+      // await HelperFunctions.setStatus(true);
+      // await HelperFunctions.setEmployeeCompany(employeeCompanyName);
+      // await HelperFunctions.setEMployeeName(
+      //     employeeID.substring(0, employeeID.indexOf("_")));
+      // await HelperFunctions.setEMployeeID(employeeID);
       setState(() {
         isLoadingScreen = false;
         cName = employeeCompanyName;

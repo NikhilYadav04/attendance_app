@@ -18,6 +18,7 @@ class CompanySetupProvider extends ChangeNotifier {
   //* to toggle alert set or not
   void setAlert(bool value) {
     isAlert = value;
+    notifyListeners();
   }
 
   //* Add Company API Call Function
@@ -58,8 +59,9 @@ class CompanySetupProvider extends ChangeNotifier {
           toastMessage(context, "Error!", value, ToastificationType.error);
         }
       });
-    }else{
-      toastMessage(context, "Empty Details!", "Please fill all the fields", ToastificationType.error);
+    } else {
+      toastMessage(context, "Empty Details!", "Please fill all the fields",
+          ToastificationType.error);
     }
   }
 }

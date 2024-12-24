@@ -1,14 +1,10 @@
-import 'package:attend_ease/providers/otp_provider.dart';
+import 'package:attend_ease/providers/auth/otp_provider.dart';
 import 'package:attend_ease/styling/colors.dart';
 import 'package:attend_ease/styling/scale.dart';
-import 'package:attend_ease/globalobjects/controllers.dart';
-import 'package:attend_ease/globalobjects/variables.dart';
-import 'package:attend_ease/screens/home/home_screen.dart';
 import 'package:attend_ease/services/otpService.dart';
 import 'package:attend_ease/widgets/auth/otp_auth_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:wolt_modal_sheet/wolt_modal_sheet.dart';
 

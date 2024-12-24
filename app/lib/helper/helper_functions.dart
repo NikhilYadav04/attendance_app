@@ -1,95 +1,56 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HelperFunctions {
-  static String HR_KEY = "HR_TOKEN_KEY";
-  static String COMPANY_NAME_KEY = "COMPANY_NAME_TOKEN";
-  static String COMPANY_ID_KEY = "COMPANY_ID_TOKEN";
-  static String EMPLOYEE_NAME_KEY = "EMPLOYEE_NAME_TOKEN";
-  static String EMPLOYEE_ID_KEY = "EMPLOYEE_ID_TOKEN";
-  static String EMPLOYEE_COMPANY_ID = "EMPLOYEE_COMPANY_TOKEN";
-  static String IN_TIME_TOKEN = "IN_TIME_TOKEN";
+  static String LOGGED_IN_KEY_COMPANY = "COMPANY_KEY";
+  static String LOGGED_IN_KEY_EMPLOYEE = "EMPLOYEE_KEY";
+  static String LOGGED_IN_KEY = "LOGIN_KEY";
+  static String COMPANY_TOKEN = "TOKEN_COMPANY";
 
-// set to true when logged in and false when logged out
-  static Future<bool> setStatus(bool isLogIN) async {
+  //* set to true when user is logged to company account
+  static Future<bool> setLoggedInCompany(bool isLogIN) async {
     SharedPreferences sf = await SharedPreferences.getInstance();
-    return sf.setBool(HR_KEY, isLogIN);
+    return sf.setBool(LOGGED_IN_KEY_COMPANY, isLogIN);
   }
 
-// set company name
-  static Future<bool> setCompanyName(String companyName) async {
+  //* set to true when user is logged in as employee
+  static Future<bool> setLoggedInEmployee(bool isLogIN) async {
     SharedPreferences sf = await SharedPreferences.getInstance();
-    return sf.setString(COMPANY_NAME_KEY, companyName);
+    return sf.setBool(LOGGED_IN_KEY_EMPLOYEE, isLogIN);
   }
 
-// set company ID
-  static Future<bool> setCompanyID(String companyID) async {
+  //* set to true when user is logged in in any state
+  static Future<bool> setLoggedIn(bool isLogIN) async {
     SharedPreferences sf = await SharedPreferences.getInstance();
-    return sf.setString(COMPANY_ID_KEY, companyID);
+    return sf.setBool(LOGGED_IN_KEY, isLogIN);
   }
 
-// set Employee name
-  static Future<bool> setEMployeeName(String companyName) async {
+  //* store the token for company
+  static Future<bool> setCompanyToken(String token) async {
     SharedPreferences sf = await SharedPreferences.getInstance();
-    return sf.setString(EMPLOYEE_NAME_KEY, companyName);
+    return sf.setString(COMPANY_TOKEN, token);
   }
 
-// set Employee ID
-  static Future<bool> setEMployeeID(String employeeID) async {
+  //* get the token for company
+  static Future<String?> getCompanyToken() async {
     SharedPreferences sf = await SharedPreferences.getInstance();
-    return sf.setString(EMPLOYEE_ID_KEY, employeeID);
+    return sf.getString(COMPANY_TOKEN);
   }
 
-// set employee company name
-  static Future<bool?> setEmployeeCompany(String companyName) async {
+  //* get status if user is logged to company account
+  static Future<bool?> getLoggedInCompany() async {
     SharedPreferences sf = await SharedPreferences.getInstance();
-    return sf.setString(EMPLOYEE_COMPANY_ID, companyName);
+    return sf.getBool(LOGGED_IN_KEY_COMPANY);
   }
 
-// set the InTime
-  static Future<bool?> setInTime(String inTime) async {
+  //* get status is user is logged in as employee
+  static Future<bool?> getLoggedInEmployee() async {
     SharedPreferences sf = await SharedPreferences.getInstance();
-    return sf.setString(IN_TIME_TOKEN, inTime);
+    return sf.getBool(LOGGED_IN_KEY_EMPLOYEE);
   }
 
-// get the InTime
-  static Future<String?> getInTime() async {
+  //* get status if user is logged in in any state
+  static Future<bool?> getLoggedIn() async {
     SharedPreferences sf = await SharedPreferences.getInstance();
-    return sf.getString(IN_TIME_TOKEN);
-  }
-
-// get the status of logged in
-  static Future<bool?> getStatus() async {
-    SharedPreferences sf = await SharedPreferences.getInstance();
-    return sf.getBool(HR_KEY);
-  }
-
-// get company name
-  static Future<String?> getCompanyName() async {
-    SharedPreferences sf = await SharedPreferences.getInstance();
-    return sf.getString(COMPANY_NAME_KEY);
-  }
-
-// get company ID
-  static Future<String?> getCompanyID() async {
-    SharedPreferences sf = await SharedPreferences.getInstance();
-    return sf.getString(COMPANY_ID_KEY);
-  }
-
-// get EMployee name
-  static Future<String?> getEmployeeName() async {
-    SharedPreferences sf = await SharedPreferences.getInstance();
-    return sf.getString(EMPLOYEE_NAME_KEY);
-  }
-
-// get Employee ID
-  static Future<String?> getEMployeeID() async {
-    SharedPreferences sf = await SharedPreferences.getInstance();
-    return sf.getString(EMPLOYEE_ID_KEY);
-  }
-
-// get Employee COmpany
-  static Future<String?> getEmployeeCOmpany() async {
-    SharedPreferences sf = await SharedPreferences.getInstance();
-    return sf.getString(EMPLOYEE_COMPANY_ID);
+    return sf.getBool(LOGGED_IN_KEY);
   }
 }

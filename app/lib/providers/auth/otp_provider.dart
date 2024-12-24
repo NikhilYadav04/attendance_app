@@ -17,7 +17,8 @@ class OtpProvider extends ChangeNotifier {
   final otpService = OtpService();
 
   //* Function called when user submits number for OTP
-  void submitNumber(GlobalKey<FormState> formKey, BuildContext context,double width,double height,double textScaleFactor) async {
+  void submitNumber(GlobalKey<FormState> formKey, BuildContext context,
+      double width, double height, double textScaleFactor) async {
     if (formKey.currentState!.validate()) {
       isLoading = true;
       notifyListeners();
@@ -33,7 +34,9 @@ class OtpProvider extends ChangeNotifier {
               context,
               PageTransition(
                   child: SheetScreen2(
-                      width: width, height: height, textScaleFactor: textScaleFactor),
+                      width: width,
+                      height: height,
+                      textScaleFactor: textScaleFactor),
                   type: PageTransitionType.rightToLeft));
         } else {
           isLoading = false;
@@ -61,12 +64,14 @@ class OtpProvider extends ChangeNotifier {
           toastMessage(context, "Verified", "OTP has been verified !!",
               ToastificationType.success);
           Future.delayed(Duration(milliseconds: 500));
-          Navigator.push(
+          Navigator.pushAndRemoveUntil(
             context,
             PageTransition(
               child: HomeScreen(),
               type: PageTransitionType.bottomToTop,
             ),
+            (Route<dynamic> route) =>
+                false, // This removes all the previous routes.
           );
         } else {
           isLoading = false;

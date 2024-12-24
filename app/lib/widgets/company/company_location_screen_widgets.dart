@@ -58,7 +58,7 @@ Widget geoForceText(
 }
 
 Widget locationSetBox(
-    double currentWidth, double currentHeight, double textScale,void Function() onTap) {
+    double currentWidth, double currentHeight, double textScale,void Function() onTap,String latitude,String longitude) {
   return Container(
     padding: EdgeInsets.symmetric(
         horizontal: 10 * horizontalPaddingFactor(currentWidth)),

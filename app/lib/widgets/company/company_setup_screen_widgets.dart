@@ -13,12 +13,9 @@ AppBar appB(double currentWidth, double currentHeight, double textScale,
     actions: [
       IconButton(
           onPressed: () async {
-            await HelperFunctions.setStatus(false);
-            await HelperFunctions.setCompanyName("");
-            Navigator.push(
-                context,
-                PageTransition(
-                    child: OtpAuthScreen(), type: PageTransitionType.fade));
+            // await HelperFunctions.setStatus(false);
+            // await HelperFunctions.setCompanyName("");
+            Navigator.pop(context);
           },
           icon: Icon(Icons.exit_to_app))
     ],

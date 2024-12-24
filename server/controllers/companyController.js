@@ -35,9 +35,18 @@ const add_company = async (req, res) => {
 
     await staffCountBody.save();
 
+    const token = await jwt.sign(
+      {
+        companyName: companyName,
+        companyID,
+      },
+      process.env.COMPANY_TOKEN,
+      { expiresIn: "50m" }
+    );
+
     return res.status(200).json({
       success: true,
-      message: "Company Created",
+      message: token,
     });
   } catch (e) {
     return res.status(500).json({

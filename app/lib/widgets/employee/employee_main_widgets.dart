@@ -64,9 +64,9 @@ List<Widget> actions(
         )),
     IconButton(
       onPressed: () async {
-        await HelperFunctions.setStatus(false);
-        await HelperFunctions.setEMployeeName("");
-        await HelperFunctions.setEMployeeID("");
+        // await HelperFunctions.setStatus(false);
+        // await HelperFunctions.setEMployeeName("");
+        // await HelperFunctions.setEMployeeID("");
         Navigator.push(
             context,
             PageTransition(

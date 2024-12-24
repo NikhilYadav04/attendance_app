@@ -1,4 +1,4 @@
-import 'package:attend_ease/providers/company_setup_provider.dart';
+import 'package:attend_ease/providers/company/company_setup_provider.dart';
 import 'package:attend_ease/styling/colors.dart';
 import 'package:attend_ease/styling/scale.dart';
 import 'package:attend_ease/widgets/company/company_setup_screen_widgets.dart';
@@ -103,9 +103,7 @@ class _CompanySetupScreenState extends State<CompanySetupScreen> {
                                 65, currentWidth, currentWidth),
                             value: provider.isAlert,
                             onToggle: (val) {
-                              setState(() {
-                                provider.setAlert(val);
-                              });
+                              provider.setAlert(val);
                             }),
                       ],
                     ),

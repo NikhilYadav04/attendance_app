@@ -119,9 +119,9 @@ List<Widget> actionsHR(
         )),
     IconButton(
       onPressed: () async {
-        await HelperFunctions.setStatus(false);
-        await HelperFunctions.setCompanyName("");
-        await HelperFunctions.setCompanyID("");
+        // await HelperFunctions.setStatus(false);
+        // await HelperFunctions.setCompanyName("");
+        // await HelperFunctions.setCompanyID("");
         Navigator.push(
             context,
             PageTransition(

@@ -1,4 +1,4 @@
-import 'package:attend_ease/providers/otp_provider.dart';
+import 'package:attend_ease/providers/auth/otp_provider.dart';
 import 'package:attend_ease/styling/colors.dart';
 import 'package:attend_ease/styling/scale.dart';
 import 'package:attend_ease/globalobjects/controllers.dart';

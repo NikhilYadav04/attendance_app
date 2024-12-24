@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:attend_ease/helper/helper_functions.dart';
 import 'package:attend_ease/styling/url_constants.dart';
 import 'package:attend_ease/globalobjects/variables.dart';
 import 'package:attend_ease/models/companyModel.dart';
@@ -27,6 +28,8 @@ class companyService {
       if (res.statusCode == 200) {
         var body = jsonDecode(res.body);
 
+        //* store the token
+        await HelperFunctions.setCompanyToken(body["message"]);
         return "Success";
       } else if (res.statusCode == 401) {
         var body = jsonDecode(res.body);

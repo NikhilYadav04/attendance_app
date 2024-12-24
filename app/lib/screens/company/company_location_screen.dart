@@ -1,17 +1,14 @@
+import 'package:attend_ease/providers/company/company_location_provider.dart';
 import 'package:attend_ease/styling/colors.dart';
 import 'package:attend_ease/styling/scale.dart';
 import 'package:attend_ease/globalobjects/variables.dart';
-import 'package:attend_ease/helper/helper_functions.dart';
-import 'package:attend_ease/screens/company/company_hr_screen.dart';
-import 'package:attend_ease/services/locationService.dart';
 import 'package:attend_ease/widgets/company/company_location_screen_widgets.dart';
-import 'package:attend_ease/widgets/auth/otp_auth_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:page_transition/page_transition.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:provider/provider.dart';
 
 class CompanyLocationScreen extends StatefulWidget {
-  final String? companyName;
+  final String companyName;
   CompanyLocationScreen({super.key, required this.companyName});
 
   @override
@@ -19,47 +16,6 @@ class CompanyLocationScreen extends StatefulWidget {
 }
 
 class _CompanyLocationScreenState extends State<CompanyLocationScreen> {
-  final locationService LocationService = locationService();
-  void getCurrentLocation() async {
-    LocationPermission permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied ||
-        permission == LocationPermission.deniedForever) {
-      toastMessageError(context, "Error!", "Permission Denied");
-      // ignore: unused_local_variable
-      LocationPermission ask = await Geolocator.requestPermission();
-    } else {
-      Position currentPosition = await Geolocator.getCurrentPosition(
-          desiredAccuracy: LocationAccuracy.best);
-
-      setState(() {
-        latitude = currentPosition.latitude.toString();
-        longitude = currentPosition.longitude.toString();
-      });
-      String res = await LocationService.setLocation(
-          latitude, longitude, companyName, sliderValue);
-      if (res == "Stored") {
-        toastMessageSuccess(
-            context, "Success!", "Your location is Set Successfully");
-      } else {
-        toastMessageError(context, "Error!", res);
-      }
-    }
-  }
-
-  void checkSTatus() async {
-    if (longitude != "") {
-      await HelperFunctions.setStatus(true);
-      // await HelperFunctions.setCompanyName(companyName);
-      Navigator.push(
-          context,
-          PageTransition(
-              child: CompanyHrScreen(), type: PageTransitionType.rightToLeft));
-    } else {
-      toastMessageError(
-          context, "Error!", "Set Your Location Co-ordinates First");
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     final currentHeight = MediaQuery.of(context).size.height;
@@ -68,86 +24,88 @@ class _CompanyLocationScreenState extends State<CompanyLocationScreen> {
 
     return Scaffold(
       appBar: appBLocation(currentWidth, currentHeight, textScale, context),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            mapWidget(),
-            Container(
-              padding: EdgeInsets.symmetric(
-                  horizontal: 12 * horizontalPaddingFactor(currentWidth)),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    height: responsiveContainerSize(
-                        20, currentWidth, currentHeight),
-                  ),
-                  pageText(currentWidth, currentHeight, textScale,
-                      "Tell us your company address!"),
-                  geoForceText(currentWidth, currentHeight, textScale),
-                  SizedBox(
-                    height: responsiveContainerSize(
-                        30, currentWidth, currentHeight),
-                  ),
-                  pageText(currentWidth, currentHeight, textScale,
-                      "Company location"),
-                  SizedBox(
-                    height: responsiveContainerSize(
-                        10, currentWidth, currentHeight),
-                  ),
-                  locationSetBox(currentWidth, currentHeight, textScale,
-                      getCurrentLocation),
-                  SizedBox(
-                    height: responsiveContainerSize(
-                        20, currentWidth, currentHeight),
-                  ),
-                  Container(
-                      padding: EdgeInsets.symmetric(
-                          horizontal:
-                              5 * horizontalPaddingFactor(currentWidth)),
+      body: SingleChildScrollView(child: Consumer<CompanyLocationProvider>(
+        builder: (context, provider, _) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              mapWidget(),
+              Container(
+                padding: EdgeInsets.symmetric(
+                    horizontal: 12 * horizontalPaddingFactor(currentWidth)),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
                       height: responsiveContainerSize(
-                          170, currentWidth, currentHeight),
-                      decoration: BoxDecoration(
-                        color:Colours.BUTTON_COLOR_2,
-                        borderRadius: BorderRadius.circular(6),
-                      ),
-                      child: Column(
-                        children: [
-                          locationRadiusBox(
-                              currentWidth, currentHeight, textScale),
-                          Expanded(
-                            child: Slider(
-                                activeColor: Colours.BUTTON_COLOR_1,
-                                value: sliderValue,
-                                label: "$sliderValue m",
-                                max: 500,
-                                divisions: 400,
-                                onChanged: (val) {
-                                  setState(() {
-                                    sliderValue = val;
-                                  });
-                                }),
-                          ),
-                          rangeWidget(currentWidth, currentHeight, textScale),
-                          SizedBox(
-                            height: responsiveContainerSize(
-                                15, currentWidth, currentHeight),
-                          ),
-                        ],
-                      )),
-                  SizedBox(
-                    height: responsiveContainerSize(
-                        30, currentWidth, currentHeight),
-                  ),
-                  continueButton(checkSTatus, currentWidth, currentHeight,
-                      textScale, context)
-                ],
+                          20, currentWidth, currentHeight),
+                    ),
+                    pageText(currentWidth, currentHeight, textScale,
+                        "Tell us your company address!"),
+                    geoForceText(currentWidth, currentHeight, textScale),
+                    SizedBox(
+                      height: responsiveContainerSize(
+                          30, currentWidth, currentHeight),
+                    ),
+                    pageText(currentWidth, currentHeight, textScale,
+                        "Company location"),
+                    SizedBox(
+                      height: responsiveContainerSize(
+                          10, currentWidth, currentHeight),
+                    ),
+                    locationSetBox(currentWidth, currentHeight, textScale, () {
+                      provider.setLocation(context, widget.companyName);
+                    },provider.latitude,provider.longitude),
+                    SizedBox(
+                      height: responsiveContainerSize(
+                          20, currentWidth, currentHeight),
+                    ),
+                    Container(
+                        padding: EdgeInsets.symmetric(
+                            horizontal:
+                                5 * horizontalPaddingFactor(currentWidth)),
+                        height: responsiveContainerSize(
+                            170, currentWidth, currentHeight),
+                        decoration: BoxDecoration(
+                          color: Colours.BUTTON_COLOR_2,
+                          borderRadius: BorderRadius.circular(6),
+                        ),
+                        child: Column(
+                          children: [
+                            locationRadiusBox(
+                                currentWidth, currentHeight, textScale),
+                            Expanded(
+                              child: Slider(
+                                  activeColor: Colours.BUTTON_COLOR_1,
+                                  value: provider.sliderValue,
+                                  label: "${provider.sliderValue} m",
+                                  max: 500,
+                                  divisions: 400,
+                                  onChanged: (val) {
+                                    provider.changeRadius(val);
+                                  }),
+                            ),
+                            rangeWidget(currentWidth, currentHeight, textScale),
+                            SizedBox(
+                              height: responsiveContainerSize(
+                                  15, currentWidth, currentHeight),
+                            ),
+                          ],
+                        )),
+                    SizedBox(
+                      height: responsiveContainerSize(
+                          30, currentWidth, currentHeight),
+                    ),
+                   provider.isLoading ? SpinKitCircle(color: Colours.BUTTON_COLOR_1,size: 30,)  : continueButton(() {
+                      provider.storeLocation(companyName, context);
+                    }, currentWidth, currentHeight, textScale, context)
+                  ],
+                ),
               ),
-            ),
-          ],
-        ),
-      ),
+            ],
+          );
+        },
+      )),
     );
   }
 }

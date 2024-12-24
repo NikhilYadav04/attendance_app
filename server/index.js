@@ -2,11 +2,11 @@ require("dotenv").config();
 
 const express = require("express");
 const mongoose = require("mongoose");
-const {router }= require("./routes/userRoutes.js");
-const {companyRouter} = require("./routes/companyRoutes.js")
-const {locationRouter} = require("./routes/locationRoute.js")
-const {employeeRouter} = require("./routes/employeeRoute.js");
-const {attendanceRouter} = require("./routes/attendanceRoutes.js");
+const { router } = require("./routes/userRoutes.js");
+const { companyRouter } = require("./routes/companyRoutes.js");
+const { locationRouter } = require("./routes/locationRoute.js");
+const { employeeRouter } = require("./routes/employeeRoute.js");
+const { attendanceRouter } = require("./routes/attendanceRoutes.js");
 const { router1 } = require("./route_config/server.js");
 
 const app = express();
@@ -18,8 +18,13 @@ app.use(
     extended: true,
   })
 );
+
+app.get("/", async (req, res) => {
+  return res.send("Hello Nikhil");
+});
+
 app.use(express.json());
-app.use(router1)
+app.use(router1);
 
 router1.use("/api", router);
 router1.use("/company", companyRouter);

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:attend_ease/helper/helper_functions.dart';
 import 'package:attend_ease/styling/url_constants.dart';
 import 'package:attend_ease/globalobjects/variables.dart';
 import 'package:attend_ease/models/locationModel.dart';
@@ -7,8 +8,8 @@ import 'package:http/http.dart' as http;
 
 class locationService {
   // set location
-  Future<String> setLocation(String? latitude, String? longitude,
-      String companyName, double radius) async {
+  Future<String> setLocation(
+      String? latitude, String? longitude, double radius) async {
     try {
       Uri url = Uri.parse(set_location_baseUrl);
 
@@ -17,10 +18,13 @@ class locationService {
           longitude: longitude,
           companyName: companyName,
           radius: radius);
+      
+      var token = await HelperFunctions.getCompanyToken();
 
       var res = await http.post(url,
           headers: {
             'Content-Type': 'application/json',
+            'Authorization': 'Bearer ${token}'
           },
           body: locationBody.toJson());
       var body = jsonDecode(res.body);

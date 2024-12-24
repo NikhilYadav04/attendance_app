@@ -32,7 +32,7 @@ class _CompanyLoginScreenState extends State<CompanyLoginScreen> {
     companyLoginName = companyLoginNameController.text;
     companyLoginID = companyLoginIDController.text;
     String res = await CompanyService.loginCompany(companyLoginName, companyLoginID);
-    await HelperFunctions.setStatus(true);
+    // await HelperFunctions.setStatus(true);
     if (res == "Success") {
       setState(() {
         cName = companyLoginName;
