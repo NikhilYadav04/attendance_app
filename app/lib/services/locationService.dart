@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:attend_ease/constants/url_constants.dart';
+import 'package:attend_ease/styling/url_constants.dart';
 import 'package:attend_ease/globalobjects/variables.dart';
 import 'package:attend_ease/models/locationModel.dart';
 import 'package:http/http.dart' as http;

@@ -51,6 +51,7 @@ dependencies:
   local_auth: ^2.3.0
   zego_uikit_prebuilt_call: ^4.14.3
   table_calendar: ^3.1.2
+  provider: ^6.1.2
   # image auth packages
 
 dev_dependencies:
