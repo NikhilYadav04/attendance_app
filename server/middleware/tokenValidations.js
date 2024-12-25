@@ -13,6 +13,7 @@ const authenticateTokenCompany = (req, res, next) => {
   }
 
   const token = auth.split(" ")[1];
+ 
   try {
     const decoded = jwt.verify(token, process.env.COMPANY_TOKEN);
     req.user = decoded;

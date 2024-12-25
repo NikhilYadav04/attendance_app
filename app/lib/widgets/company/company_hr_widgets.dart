@@ -167,9 +167,9 @@ Widget attendCountWidget(
       borderRadius: BorderRadius.circular(6),
       gradient: const LinearGradient(
         colors: [
-          // GRADIENT_1,
-          // GRADIENT_2,
-          // GRADIENT_1,
+          Colours.GRADIENT_1,
+          Colours.GRADIENT_2,
+          Colours.GRADIENT_1,
         ],
         begin: Alignment.centerLeft,
         end: Alignment.centerRight,

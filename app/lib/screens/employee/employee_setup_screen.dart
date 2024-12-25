@@ -1,17 +1,13 @@
+import 'package:attend_ease/providers/employee/employee_login_provider.dart';
 import 'package:attend_ease/styling/colors.dart';
 import 'package:attend_ease/styling/scale.dart';
-import 'package:attend_ease/globalobjects/controllers.dart';
-import 'package:attend_ease/globalobjects/variables.dart';
-import 'package:attend_ease/helper/helper_functions.dart';
 import 'package:attend_ease/screens/auth/company_login_screen.dart';
-import 'package:attend_ease/screens/employee/employee_main_screen.dart';
-import 'package:attend_ease/services/employeeService.dart';
 import 'package:attend_ease/widgets/company/company_setup_screen_widgets.dart';
 import 'package:attend_ease/widgets/employee/employee_setup_screen_widgets.dart';
-import 'package:attend_ease/widgets/auth/otp_auth_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:provider/provider.dart';
 
 class EmployeeSetupScreen extends StatefulWidget {
   const EmployeeSetupScreen({super.key});
@@ -21,52 +17,6 @@ class EmployeeSetupScreen extends StatefulWidget {
 }
 
 class _EmployeeSetupScreenState extends State<EmployeeSetupScreen> {
-  final Employeeservice employeeservice = Employeeservice();
-  bool isLoading = false;
-  bool isLoadingScreen = false;
-
-  void continueButtonPressed() async {
-    setState(() {
-      isLoadingScreen = true;
-    });
-    employeeCompanyName = employeeCompanyNameController.text;
-    employeeID = employeeIDController.text;
-
-    var res = await employeeservice.joinCOmpany(
-        employeeCompanyName, employeeID.substring(employeeID.indexOf("_") + 1),
-        employeeID.substring(0,employeeID.indexOf("_"))
-        );
-    InTime = "";
-    OutTime = "";
-    Date = "";
-    isPresent = false;
-    TotalDays = 0;
-    if (res == "Success") {
-      // await HelperFunctions.setStatus(true);
-      // await HelperFunctions.setEmployeeCompany(employeeCompanyName);
-      // await HelperFunctions.setEMployeeName(
-      //     employeeID.substring(0, employeeID.indexOf("_")));
-      // await HelperFunctions.setEMployeeID(employeeID);
-      setState(() {
-        isLoadingScreen = false;
-        cName = employeeCompanyName;
-        eName = employeeID.substring(0, employeeID.indexOf("_"));
-        print("EName is :${eName}");
-        eID = employeeID.substring(employeeID.indexOf("_") + 1);
-      });
-      Navigator.push(
-          context,
-          PageTransition(
-              child: EmployeeMainScreen(),
-              type: PageTransitionType.rightToLeft));
-    } else {
-      setState(() {
-        isLoadingScreen = false;
-      });
-      toastMessageError(context, "Error!", res);
-    }
-  }
-
   void HRButtonPressed() async {
     Navigator.push(
         context,
@@ -81,14 +31,10 @@ class _EmployeeSetupScreenState extends State<EmployeeSetupScreen> {
     // ignore: deprecated_member_use
     final textScale = MediaQuery.of(context).textScaleFactor;
     return Scaffold(
-      appBar: appBEmployee(currentWidth, currentHeight, textScale, context),
-      body: isLoadingScreen
-          ? const Center(
-              child: CircularProgressIndicator(
-                color: Colours.DARK_BLUE,
-              ),
-            )
-          : Container(
+        appBar: appBEmployee(currentWidth, currentHeight, textScale, context),
+        body: Consumer<EmployeeLoginProvider>(
+          builder: (context, provider, _) {
+            return Container(
               padding: EdgeInsets.symmetric(
                 horizontal: 11 * horizontalPaddingFactor(currentWidth),
               ),
@@ -110,7 +56,19 @@ class _EmployeeSetupScreenState extends State<EmployeeSetupScreen> {
                       textScale,
                       " ABC pvt. ltd.",
                       "Company Name",
-                      employeeCompanyNameController,
+                      provider.companyNameController,
+                    ),
+                    SizedBox(
+                      height: responsiveContainerSize(
+                          30, currentWidth, currentHeight),
+                    ),
+                    textFieldEmployee(
+                      currentWidth,
+                      currentHeight,
+                      textScale,
+                      "Rakesh",
+                      "Employee Name",
+                      provider.employeeNameController,
                     ),
                     SizedBox(
                       height: responsiveContainerSize(
@@ -122,19 +80,7 @@ class _EmployeeSetupScreenState extends State<EmployeeSetupScreen> {
                       textScale,
                       "XXX_123",
                       "Employee ID",
-                      employeeIDController,
-                    ),
-                    SizedBox(
-                      height: responsiveContainerSize(
-                          30, currentWidth, currentHeight),
-                    ),
-                    textFieldEmployee(
-                      currentWidth,
-                      currentHeight,
-                      textScale,
-                      "Intern_Unpaid",
-                      "Branch (Optional)",
-                      employeeBranchController,
+                      provider.employeeIDController,
                     ),
                     SizedBox(
                       height: responsiveContainerSize(
@@ -157,11 +103,9 @@ class _EmployeeSetupScreenState extends State<EmployeeSetupScreen> {
                                 38, currentWidth, currentWidth),
                             width: responsiveContainerSize(
                                 65, currentWidth, currentWidth),
-                            value: isLoading,
+                            value: provider.isAlert,
                             onToggle: (val) {
-                              setState(() {
-                                isLoading = val;
-                              });
+                              provider.setAlert(val);
                             }),
                       ],
                     ),
@@ -169,8 +113,9 @@ class _EmployeeSetupScreenState extends State<EmployeeSetupScreen> {
                       height: responsiveContainerSize(
                           30, currentWidth, currentHeight),
                     ),
-                    companyButton(continueButtonPressed, currentWidth,
-                        currentHeight, textScale, context),
+                    companyButton(() {
+                      provider.loginEmployee(context);
+                    }, currentWidth, currentHeight, textScale, context),
                     SizedBox(
                       height: responsiveContainerSize(
                           8, currentWidth, currentHeight),
@@ -188,7 +133,8 @@ class _EmployeeSetupScreenState extends State<EmployeeSetupScreen> {
                   ],
                 ),
               ),
-            ),
-    );
+            );
+          },
+        ));
   }
 }

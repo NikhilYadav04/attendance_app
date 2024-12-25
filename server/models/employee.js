@@ -17,7 +17,7 @@ const employeeSchema = new mongoose.Schema({
     required: true,
     type: String,
   },
-  employeeCompany: {
+  companyName: {
     required: true,
     type: String,
   },

@@ -15,7 +15,7 @@ const employeeRouter = express.Router();
 employeeRouter.use(express.json());
 
 //* add staff
-employeeRouter.post("/add-employee", staffAddValidation, add_staff);
+employeeRouter.post("/add-employee", staffAddValidation, authenticateTokenCompany, add_staff);
 
 //* join company
 employeeRouter.post("/join-employee", EmployeeJoinValidation, join_employee);

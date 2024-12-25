@@ -30,6 +30,7 @@ class companyService {
 
         //* store the token
         await HelperFunctions.setCompanyToken(body["message"]);
+        await HelperFunctions.setEmployeeToken("");
         return "Success";
       } else if (res.statusCode == 401) {
         var body = jsonDecode(res.body);
@@ -49,29 +50,32 @@ class companyService {
     try {
       Uri url = Uri.parse(login_company_baseUrl);
 
-      CompanyModel companyModel = CompanyModel(
-          companyName: companyName,
-          companyHR: "",
-          companyID: companyID,
-          companyCity: "");
+      var reqBody = jsonEncode({
+        'companyName': companyName,
+        'companyID': companyID,
+      });
 
-      var res = await http.post(url,
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: companyModel.toJson());
-
-      var body = jsonDecode(res.body);
+      var res = await http.post(
+        url,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: reqBody,
+      );
 
       if (res.statusCode == 200) {
+        var body = jsonDecode(res.body);
+        //* Store the token
+        await HelperFunctions.setCompanyToken(body["message"]);
+        await HelperFunctions.setEmployeeToken("");
         return "Success";
-      } else if (res.statusCode == 401) {
-        return body['message'];
       } else {
-        return body['message'];
+        // Parse the error message
+        var body = jsonDecode(res.body);
+        return body['message'] ?? "An unexpected error occurred";
       }
     } catch (e) {
-      return e.toString();
+      return "Error: ${e.toString()}";
     }
   }
 

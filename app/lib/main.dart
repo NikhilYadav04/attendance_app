@@ -1,7 +1,10 @@
 import 'package:attend_ease/globalobjects/variables.dart';
 import 'package:attend_ease/providers/company/company_location_provider.dart';
+import 'package:attend_ease/providers/company/company_login_provider.dart';
 import 'package:attend_ease/providers/company/company_setup_provider.dart';
 import 'package:attend_ease/providers/auth/otp_provider.dart';
+import 'package:attend_ease/providers/employee/employee_add_provider.dart';
+import 'package:attend_ease/providers/employee/employee_login_provider.dart';
 import 'package:attend_ease/screens/auth/otp_auth_screen.dart';
 import 'package:attend_ease/screens/company/company_location_screen.dart';
 import 'package:attend_ease/screens/home/home_screen.dart';
@@ -26,7 +29,10 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => OtpProvider()),
         ChangeNotifierProvider(create: (_) => CompanySetupProvider()),
-        ChangeNotifierProvider(create: (_) => CompanyLocationProvider())
+        ChangeNotifierProvider(create: (_) => CompanyLocationProvider()),
+        ChangeNotifierProvider(create: (_) => CompanyLoginProvider()),
+        ChangeNotifierProvider(create: (_) => EmployeeLoginProvider()),
+        ChangeNotifierProvider(create: (_) => EmployeeAddProvider())
       ],
       child: LayoutBuilder(builder: (context, constraints) {
         SizeConfig().init(constraints);

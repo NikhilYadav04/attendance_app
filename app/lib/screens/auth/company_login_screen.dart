@@ -1,17 +1,13 @@
+import 'package:attend_ease/providers/company/company_login_provider.dart';
 import 'package:attend_ease/styling/colors.dart';
 import 'package:attend_ease/styling/scale.dart';
-import 'package:attend_ease/globalobjects/controllers.dart';
-import 'package:attend_ease/globalobjects/variables.dart';
-import 'package:attend_ease/helper/helper_functions.dart';
-import 'package:attend_ease/screens/company/company_hr_screen.dart';
-import 'package:attend_ease/services/companyService.dart';
 import 'package:attend_ease/widgets/company/company_login_widgets.dart';
 import 'package:attend_ease/widgets/company/company_setup_screen_widgets.dart';
 import 'package:attend_ease/widgets/employee/employee_setup_screen_widgets.dart';
-import 'package:attend_ease/widgets/auth/otp_auth_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_switch/flutter_switch.dart';
-import 'package:page_transition/page_transition.dart';
+import 'package:provider/provider.dart';
 
 class CompanyLoginScreen extends StatefulWidget {
   const CompanyLoginScreen({super.key});
@@ -21,35 +17,6 @@ class CompanyLoginScreen extends StatefulWidget {
 }
 
 class _CompanyLoginScreenState extends State<CompanyLoginScreen> {
-  bool isLoadingScreen = false;
-  bool isLoading = false;
-  final companyService CompanyService = companyService();
-
-  void continueButtonPressed() async {
-    setState(() {
-      isLoadingScreen = true;
-    });
-    companyLoginName = companyLoginNameController.text;
-    companyLoginID = companyLoginIDController.text;
-    String res = await CompanyService.loginCompany(companyLoginName, companyLoginID);
-    // await HelperFunctions.setStatus(true);
-    if (res == "Success") {
-      setState(() {
-        cName = companyLoginName;
-        cID = companyLoginID;
-      });
-      Navigator.push(
-          context,
-          PageTransition(
-              child: CompanyHrScreen(), type: PageTransitionType.rightToLeft));
-    } else {
-      setState(() {
-        isLoadingScreen = false;
-      });
-      toastMessageError(context, "Error", res);
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     final currentHeight = MediaQuery.of(context).size.height;
@@ -57,14 +24,11 @@ class _CompanyLoginScreenState extends State<CompanyLoginScreen> {
     // ignore: deprecated_member_use
     final textScale = MediaQuery.of(context).textScaleFactor;
     return Scaffold(
-      appBar: appBLoginCompany(currentWidth, currentHeight, textScale, context),
-      body: isLoadingScreen
-          ? const Center(
-              child: CircularProgressIndicator(
-                color: Colours.DARK_BLUE,
-              ),
-            )
-          : Container(
+        appBar:
+            appBLoginCompany(currentWidth, currentHeight, textScale, context),
+        body: Consumer<CompanyLoginProvider>(
+          builder: (context, provider, _) {
+            return Container(
               padding: EdgeInsets.symmetric(
                 horizontal: 11 * horizontalPaddingFactor(currentWidth),
               ),
@@ -87,7 +51,7 @@ class _CompanyLoginScreenState extends State<CompanyLoginScreen> {
                       textScale,
                       " ABC pvt. ltd.",
                       "Company Name",
-                      companyLoginNameController,
+                      provider.companyNameController,
                     ),
                     SizedBox(
                       height: responsiveContainerSize(
@@ -99,7 +63,7 @@ class _CompanyLoginScreenState extends State<CompanyLoginScreen> {
                       textScale,
                       "XXX_123",
                       "Company ID",
-                      companyLoginIDController,
+                      provider.companyIDController,
                     ),
                     SizedBox(
                       height: responsiveContainerSize(
@@ -122,11 +86,9 @@ class _CompanyLoginScreenState extends State<CompanyLoginScreen> {
                                 38, currentWidth, currentWidth),
                             width: responsiveContainerSize(
                                 65, currentWidth, currentWidth),
-                            value: isLoading,
+                            value: provider.isAlert,
                             onToggle: (val) {
-                              setState(() {
-                                isLoading = val;
-                              });
+                              provider.setAlert(val);
                             }),
                       ],
                     ),
@@ -134,12 +96,19 @@ class _CompanyLoginScreenState extends State<CompanyLoginScreen> {
                       height: responsiveContainerSize(
                           30, currentWidth, currentHeight),
                     ),
-                    companyButton(continueButtonPressed, currentWidth,
-                        currentHeight, textScale, context),
+                    provider.isLoading
+                        ? SpinKitCircle(
+                            color: Colours.BUTTON_COLOR_1,
+                            size: 30,
+                          )
+                        : companyButton(() {
+                            provider.loginCompany(context);
+                          }, currentWidth, currentHeight, textScale, context),
                   ],
                 ),
               ),
-            ),
-    );
+            );
+          },
+        ));
   }
 }

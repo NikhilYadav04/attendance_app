@@ -24,8 +24,6 @@ const staffAddValidation = (req, res, next) => {
     employeeName: Joi.string().min(1).max(10).required(),
     employeeNumber: Joi.string().min(1).max(10).required(),
     employeePosition: Joi.string().min(1).max(10).required(),
-    employeeCompany: Joi.string().min(1).max(10).required(),
-    companyID: Joi.string().min(1).max(5).required(),
   });
 
   const { error } = schema.validate(req.body);

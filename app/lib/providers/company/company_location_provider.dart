@@ -62,19 +62,32 @@ class CompanyLocationProvider extends ChangeNotifier {
         if (value == "Stored") {
           await HelperFunctions.setLoggedInCompany(true);
           await HelperFunctions.setLoggedIn(true);
+          await HelperFunctions.setLoggedInEmployee(false);
           isLoading = false;
           notifyListeners();
 
-          Navigator.push(
-              context,
-              PageTransition(
-                  child: CompanyHrScreen(),
-                  type: PageTransitionType.rightToLeft));
+          Navigator.pushAndRemoveUntil(
+            context,
+            PageTransition(
+              child: CompanyHrScreen(),
+              type: PageTransitionType.rightToLeft,
+            ),
+            (route) => false, // This removes all previous routes
+          );
         } else {
           isLoading = false;
           notifyListeners();
 
-          toastMessage(context, "Error", value, ToastificationType.error);
+          //* if jwt expires then
+          if (value == "jwt expired") {
+            toastMessage(
+                context,
+                "Error",
+                "Session Expired, Please Create Account Again",
+                ToastificationType.error);
+          } else {
+            toastMessage(context, "Error", value, ToastificationType.error);
+          }
         }
       });
     } else {

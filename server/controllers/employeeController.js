@@ -8,18 +8,17 @@ const jwt = require("jsonwebtoken");
 
 const add_staff = async (req, res) => {
   try {
-    const {
-      employeeName,
-      employeeNumber,
-      employeePosition,
-      employeeCompany,
-      companyID,
-    } = req.body;
+    const { companyName, companyID } = req.user;
+    const { employeeName, employeeNumber, employeePosition } = req.body;
 
     // we take details of employee and his company name and update employee list
     const body = await employeeModel.findOneAndUpdate(
-      { employeeName, employeeNumber, employeePosition, employeeCompany },
-      { employeeID: `${employeeName}_${employeeNumber.slice(1, 4)}` },
+      { employeeName, employeeNumber, employeePosition, companyName },
+      {
+        employeeID: `${employeeName}_${Math.floor(
+          1000 + Math.random() * 9000
+        )}`,
+      },
       { upsert: true, new: true, setDefaultsOnInsert: true }
     );
 
@@ -28,12 +27,14 @@ const add_staff = async (req, res) => {
       { companyID },
       {
         $push: {
-          companyMembers: `${employeeName}_${employeeNumber.slice(1, 4)}`,
+          companyMembers: `${employeeName}_${Math.floor(
+            1000 + Math.random() * 9000
+          )}`,
         },
       }
     );
 
-    employeeID = `${employeeName}_${employeeNumber.slice(1, 4)}`;
+    employeeID = `${employeeName}_${Math.floor(1000 + Math.random() * 9000)}`;
 
     if (!updateMember) {
       return res.status(400).json({
@@ -45,7 +46,7 @@ const add_staff = async (req, res) => {
     // then we make attendance field of that employee
     let attendanceBody = new reportModel({
       employeeID,
-      employeeCompany,
+      companyName,
       daysPresent: [
         {
           Month: "April",
@@ -80,18 +81,13 @@ const add_staff = async (req, res) => {
 
 const join_employee = async (req, res) => {
   try {
-    const { companyName, companyID, employeeName, employeeID } = req.body;
+    const { companyName, employeeName, employeeID } = req.body;
 
-    const company = await companyModel.findOne({ companyName, companyID });
-    const employee = await employeeModel.findOne({ employeeName, employeeID });
-
-    // check if company with id and name exists
-    if (!company) {
-      return res.status(401).json({
-        success: false,
-        message: "Invalid Details Found",
-      });
-    }
+    const employee = await employeeModel.findOne({
+      companyName,
+      employeeName,
+      employeeID,
+    });
 
     if (!employee) {
       return res.status(401).json({
@@ -104,8 +100,7 @@ const join_employee = async (req, res) => {
       {
         companyName,
         employeeName,
-        companyID,
-        employeeID
+        employeeID,
       },
       process.env.EMPLOYEE_TOKEN,
       { expiresIn: "50m" }
