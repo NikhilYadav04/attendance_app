@@ -38,6 +38,8 @@ class EmployeeLoginProvider extends ChangeNotifier {
           await HelperFunctions.setLoggedIn(true);
           await HelperFunctions.setLoggedInEmployee(true);
           await HelperFunctions.setLoggedInCompany(false);
+
+          toastMessage(context, "Success!", "Logged In ", ToastificationType.success);
           isLoading = false;
           notifyListeners();
 

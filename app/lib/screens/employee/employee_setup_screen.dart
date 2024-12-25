@@ -5,6 +5,7 @@ import 'package:attend_ease/screens/auth/company_login_screen.dart';
 import 'package:attend_ease/widgets/company/company_setup_screen_widgets.dart';
 import 'package:attend_ease/widgets/employee/employee_setup_screen_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
@@ -113,9 +114,14 @@ class _EmployeeSetupScreenState extends State<EmployeeSetupScreen> {
                       height: responsiveContainerSize(
                           30, currentWidth, currentHeight),
                     ),
-                    companyButton(() {
-                      provider.loginEmployee(context);
-                    }, currentWidth, currentHeight, textScale, context),
+                    provider.isLoading
+                        ? SpinKitCircle(
+                            color: Colours.BUTTON_COLOR_1,
+                            size: 30,
+                          )
+                        : companyButton(() {
+                            provider.loginEmployee(context);
+                          }, currentWidth, currentHeight, textScale, context),
                     SizedBox(
                       height: responsiveContainerSize(
                           8, currentWidth, currentHeight),

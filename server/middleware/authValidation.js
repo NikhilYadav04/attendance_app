@@ -63,9 +63,6 @@ const EmployeeJoinValidation = (req, res, next) => {
     companyName: Joi.string().min(1).max(10).required().messages({
       "string.empty": "Company Name cannot be empty.",
     }),
-    companyID: Joi.string().min(1).max(10).required().messages({
-      "string.empty": "Company ID cannot be empty.",
-    }),
     employeeName: Joi.string().min(1).max(10).required().messages({
       "string.empty": "Employee Name cannot be empty.",
     }),

@@ -49,7 +49,11 @@ class Employeeservice {
       String companyName, String employeeName, String employeeID) async {
     Uri url = Uri.parse(login_employee_baseURl);
 
-    var req_body = jsonEncode({companyName, employeeName, employeeID});
+    var req_body = jsonEncode({
+      'companyName': companyName,
+      'employeeName': employeeName,
+      'employeeID': employeeID
+    });
 
     try {
       var res = await http.post(url,

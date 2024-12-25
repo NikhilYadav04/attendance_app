@@ -117,21 +117,6 @@ List<Widget> actionsHR(
           Icons.notifications_none,
           size: responsiveContainerSize(32, width, height),
         )),
-    IconButton(
-      onPressed: () async {
-        // await HelperFunctions.setStatus(false);
-        // await HelperFunctions.setCompanyName("");
-        // await HelperFunctions.setCompanyID("");
-        Navigator.push(
-            context,
-            PageTransition(
-                child: OtpAuthScreen(), type: PageTransitionType.fade));
-      },
-      icon: Icon(
-        Icons.exit_to_app_rounded,
-        size: responsiveContainerSize(32, width, height),
-      ),
-    )
   ];
 }
 

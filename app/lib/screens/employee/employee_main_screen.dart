@@ -1,3 +1,5 @@
+import 'package:attend_ease/providers/employee/employee_main_screen_provider.dart';
+import 'package:attend_ease/screens/auth/otp_auth_screen.dart';
 import 'package:attend_ease/styling/colors.dart';
 import 'package:attend_ease/styling/scale.dart';
 import 'package:attend_ease/screens/employee/employee_main_screen_1.dart';
@@ -5,6 +7,9 @@ import 'package:attend_ease/screens/employee/employee_main_screen_2.dart';
 import 'package:attend_ease/screens/employee/employee_main_screen_3.dart';
 import 'package:attend_ease/widgets/employee/employee_main_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:page_transition/page_transition.dart';
+import 'package:provider/provider.dart';
 
 class EmployeeMainScreen extends StatefulWidget {
   const EmployeeMainScreen({super.key});
@@ -35,68 +40,100 @@ class _EmployeeMainScreenState extends State<EmployeeMainScreen>
   Widget build(BuildContext context) {
     final currentHeight = MediaQuery.of(context).size.height;
     final currentWidth = MediaQuery.of(context).size.width;
-    // ignore: deprecated_member_use
     final textScale = MediaQuery.of(context).textScaleFactor;
+
     return DefaultTabController(
       length: 3,
       child: SafeArea(
         child: Scaffold(
-          appBar: AppBar(
-            elevation: 0,
-            toolbarHeight:
-                responsiveContainerSize(75, currentWidth, currentHeight),
-            title: appBartitle(currentWidth, currentHeight, textScale),
-            actions: actions(currentWidth, currentHeight, textScale, context),
+          appBar: PreferredSize(
+            preferredSize: Size.fromHeight(
+                responsiveContainerSize(75, currentWidth, currentHeight)),
+            child: Consumer<EmployeeMainScreenProvider>(
+              builder: (context, provider, _) {
+                return AppBar(
+                  elevation: 0,
+                  toolbarHeight:
+                      responsiveContainerSize(75, currentWidth, currentHeight),
+                  title: appBartitle(currentWidth, currentHeight, textScale),
+                  actions: [
+                    provider.isLoading
+                        ? SpinKitSquareCircle(
+                            color: Colors.black,
+                            size: 30,
+                          )
+                        : IconButton(
+                            onPressed: () {
+                              provider.logoutEmployee(context);
+                            },
+                            icon: Icon(
+                              Icons.exit_to_app,
+                              size: responsiveContainerSize(
+                                  32, currentWidth, currentHeight),
+                            ),
+                          ),
+                  ],
+                );
+              },
+            ),
           ),
           body: Column(
             children: [
               TabBar(
-                  padding: EdgeInsets.only(
-                      top: 4 * verticalPaddingFactor(currentHeight)),
-                  indicatorColor: Colours.DARK_BLUE,
-                  indicatorWeight: 1,
-                  controller: tabController,
-                  tabs: [
-                    Tab(
-                      icon: Icon(
-                        Icons.home,
-                        size: responsiveContainerSize(
-                            34, currentWidth, currentHeight),
-                        color: Colours.DARK_BLUE,
-                      ),
+                padding: EdgeInsets.only(
+                    top: 4 * verticalPaddingFactor(currentHeight)),
+                indicatorColor: Colours.DARK_BLUE,
+                indicatorWeight: 1,
+                controller: tabController,
+                tabs: [
+                  Tab(
+                    icon: Icon(
+                      Icons.home,
+                      size: responsiveContainerSize(
+                          34, currentWidth, currentHeight),
+                      color: Colours.DARK_BLUE,
                     ),
-                    Tab(
-                      icon: Icon(
-                        Icons.person,
-                        size: responsiveContainerSize(
-                            34, currentWidth, currentHeight),
-                        color: Colours.DARK_BLUE,
-                      ),
+                  ),
+                  Tab(
+                    icon: Icon(
+                      Icons.person,
+                      size: responsiveContainerSize(
+                          34, currentWidth, currentHeight),
+                      color: Colours.DARK_BLUE,
                     ),
-                    Tab(
-                      icon: Icon(
-                        Icons.list_alt,
-                        size: responsiveContainerSize(
-                            34, currentWidth, currentHeight),
-                        color: Colours.DARK_BLUE,
-                      ),
+                  ),
+                  Tab(
+                    icon: Icon(
+                      Icons.list_alt,
+                      size: responsiveContainerSize(
+                          34, currentWidth, currentHeight),
+                      color: Colours.DARK_BLUE,
                     ),
-                  ]),
+                  ),
+                ],
+              ),
               Expanded(
-                  child: TabBarView(controller: tabController, children: [
-                EmployeeMainScreen1(
-                    width: currentWidth,
-                    height: currentHeight,
-                    textScaleFactor: textScale),
-                EmployeeMainScreen2(
-                    width: currentWidth,
-                    height: currentHeight,
-                    textScaleFactor: textScale),
-                EmployeeMainScreen3(
-                    width: currentWidth,
-                    height: currentHeight,
-                    textScaleFactor: textScale)
-              ]))
+                child: TabBarView(
+                  controller: tabController,
+                  children: [
+                    EmployeeMainScreen1(
+                      width: currentWidth,
+                      height: currentHeight,
+                      textScaleFactor: textScale,
+                    ),
+                    EmployeeMainScreen2(
+                      width: currentWidth,
+                      height: currentHeight,
+                      textScaleFactor: textScale,
+                    ),
+                    EmployeeMainScreen3(
+                      width: currentWidth,
+                      height: currentHeight,
+                      textScaleFactor: textScale,
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         ),
