@@ -48,9 +48,12 @@ class locationService {
 
       var token = await HelperFunctions.getEmployeeToken();
 
-      var res = await http.post(
+      var res = await http.get(
         url,
-        headers: {'Authorization': 'Bearer ${token}'},
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ${token}'
+        },
       );
 
       var resBody = jsonDecode(res.body);

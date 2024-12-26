@@ -2,11 +2,12 @@ const reportModel = require("../models/attendance");
 
 require("dotenv").config();
 
-const mark = async (req, res) => {
+const mark_in = async (req, res) => {
   try {
     const { employeeID } = req.user;
 
-    const { InTime, OutTime, Date, isPresent, Month , Year} = req.body;
+    const { InTime, Date, isPresent, Month, Year } = req.body;
+    const OutTime = "00:00";
 
     const report = await reportModel.findOne({
       employeeID: employeeID,
@@ -19,8 +20,55 @@ const mark = async (req, res) => {
       isPresent,
     };
 
+    console.log(attendanceBody);
+
+    await report.attendance.push(attendanceBody);
+
+    await report.save();
+
+    return res.status(200).json({
+      success: true,
+      message: "InTime Marked",
+    });
+  } catch (e) {
+    return res.status(500).json({
+      success: false,
+      message: e.message,
+    });
+  }
+};
+
+const mark_out = async (req, res) => {
+  try {
+    const { employeeID } = req.user;
+    const { InTime, OutTime, Date, isPresent, Month, Year } = req.body;
+
+    const report = await reportModel.findOne({ employeeID: employeeID });
+
+    if (!report) {
+      return res.status(404).json({
+        success: false,
+        message: "Doesn't Exists",
+      });
+    }
+
+    const attendanceBody = {
+      InTime,
+      OutTime,
+      Date,
+      isPresent,
+    };
+
+    const attendanceIndex = report.attendance.findIndex(
+      (entry) => entry.Date === Date
+    );
+
+    if (attendanceIndex >= 0) {
+      report.attendance[attendanceIndex] = attendanceBody;
+    }
+
     const monthIndex = report.daysPresent.findIndex(
-      (entry) => entry.Month === Month
+      (entry) => entry.Month === Month && entry.Year === Year
     );
 
     if (monthIndex >= 0) {
@@ -35,13 +83,11 @@ const mark = async (req, res) => {
       });
     }
 
-    await report.attendance.push(attendanceBody);
-
     await report.save();
 
     return res.status(200).json({
       success: true,
-      message: report.daysPresent,
+      message: 2,
     });
   } catch (e) {
     return res.status(500).json({
@@ -53,13 +99,16 @@ const mark = async (req, res) => {
 
 const get_attend = async (req, res) => {
   try {
-    const { employeeID } = req.user;
+    const { employeeID, employeeName } = req.user;
     const { Date } = req.body;
+
+    console.log(employeeID, employeeName);
+    console.log(`Date is ${Date}`);
 
     const report = await reportModel.findOne({ employeeID });
 
     if (!report) {
-      return res.status(400).json({
+      return res.status(404).json({
         success: false,
         message: "Doesn't Exists",
       });
@@ -71,15 +120,18 @@ const get_attend = async (req, res) => {
     });
 
     if (!attendanceRecord) {
-      return res.status(400).json({
+      return res.status(404).json({
         success: false,
         message: "Doesn't Exists",
       });
     }
 
+    console.log(attendanceRecord);
+
     return res.status(200).json({
       success: false,
       message: attendanceRecord,
+      name: employeeName,
     });
   } catch (e) {
     return res.status(500).json({
@@ -95,7 +147,7 @@ const get_attend_days = async (req, res) => {
     const report = await reportModel.findOne({ employeeID });
 
     if (!report) {
-      return res.status(400).json({
+      return res.status(404).json({
         success: false,
         message: "Doesn't Exists",
       });
@@ -115,4 +167,4 @@ const get_attend_days = async (req, res) => {
   }
 };
 
-module.exports = { mark, get_attend, get_attend_days };
+module.exports = { mark_in, mark_out, get_attend, get_attend_days };

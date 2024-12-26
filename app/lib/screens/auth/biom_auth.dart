@@ -16,56 +16,58 @@ class BiomAuth extends StatefulWidget {
 
 class _BiomAuthState extends State<BiomAuth> {
   late final LocalAuthentication auth;
-  bool _supoortState = false;
+  bool _supportState = false;
 
   Future<void> _getBiometrics() async {
-    List<BiometricType> availableBiometrics =
-        await auth.getAvailableBiometrics();
-
+    print("Getting biometrics...");
+    List<BiometricType> availableBiometrics = await auth.getAvailableBiometrics();
     if (!mounted) {
       return;
     }
-
     authenticate();
   }
 
   Future<void> authenticate() async {
     try {
+      print("Authenticating...");
       bool authenticated = await auth.authenticate(
-          options: const AuthenticationOptions(
-            stickyAuth: true,
-          ),
-          localizedReason: "Authenticate your Fingerprint To proceed further.");
+        options: const AuthenticationOptions(
+          stickyAuth: true,
+        ),
+        localizedReason: "Authenticate your Fingerprint To proceed further.",
+      );
       setState(() {
         widget.isBiometric = authenticated;
       });
+      print("Authentication result: ${widget.isBiometric}");
       widget.isBiometric
           ? Navigator.pop(context)
           : toastMessageError(context, "Error!", "Invalid Biometric ID");
     } catch (e) {
-      print(e);
+      print("Authentication error: $e");
     }
   }
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     auth = LocalAuthentication();
-    auth.isDeviceSupported().then((bool isDeviceSupported) => setState(() {
-          _supoortState = isDeviceSupported;
-        }));
-    if (!_supoortState) {
-      print("Eroor ");
-    }
+    auth.isDeviceSupported().then((bool isDeviceSupported) {
+      setState(() {
+        _supportState = isDeviceSupported;
+      });
+      if (!_supportState) {
+        print("Error: Device not supported");
+      }
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     final currentHeight = MediaQuery.of(context).size.height;
     final currentWidth = MediaQuery.of(context).size.width;
-    // ignore: deprecated_member_use
     final textScale = MediaQuery.of(context).textScaleFactor;
+
     return SafeArea(
       child: Scaffold(
         body: Container(
@@ -78,10 +80,8 @@ class _BiomAuthState extends State<BiomAuth> {
               children: [
                 LottieBuilder.asset(
                   "assets/animations/finger.json",
-                  height:
-                      responsiveContainerSize(350, currentWidth, currentHeight),
-                  width:
-                      responsiveContainerSize(350, currentWidth, currentHeight),
+                  height: responsiveContainerSize(350, currentWidth, currentHeight),
+                  width: responsiveContainerSize(350, currentWidth, currentHeight),
                 ),
                 Text(
                   "Click To Verify Biometric ID",
@@ -100,8 +100,7 @@ class _BiomAuthState extends State<BiomAuth> {
                       color: Colors.black),
                 ),
                 SizedBox(
-                  height:
-                      responsiveContainerSize(28, currentWidth, currentHeight),
+                  height: responsiveContainerSize(28, currentWidth, currentHeight),
                 ),
                 InkWell(
                   onTap: () {

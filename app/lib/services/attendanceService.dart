@@ -3,16 +3,47 @@ import 'dart:convert';
 import 'package:attend_ease/helper/helper_functions.dart';
 import 'package:attend_ease/styling/url_constants.dart';
 import 'package:attend_ease/globalobjects/variables.dart';
-import 'package:attend_ease/models/attendanceModel.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class AttendanceService {
-  // to mark attendance
-  Future<String> markAttendance(String? InTime, String OutTime, String Date,
+  // to mark attendance In And Out
+
+  Future<String> markAttendanceIn(String? InTime, String Date, bool isPresent,
+      String Month, String Year) async {
+    try {
+      Uri url = Uri.parse(mark_attendance_url_in);
+
+      var req_body = jsonEncode({
+        'InTime': InTime,
+        'Date': Date,
+        'isPresent': isPresent,
+        'Month': Month,
+        'Year': Year
+      });
+
+      var token = await HelperFunctions.getEmployeeToken();
+      var res = await http.post(url,
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ${token}'
+          },
+          body: req_body);
+      var body = jsonDecode(res.body);
+      if (res.statusCode == 200) {
+        return "Success";
+      } else {
+        return body['message'];
+      }
+    } catch (e) {
+      return "Error ${e.toString()}";
+    }
+  }
+
+  Future<String> markAttendanceOut(String? InTime, String OutTime, String Date,
       bool isPresent, String Month, String Year) async {
     try {
-      Uri url = Uri.parse(mark_attendance_url);
+      Uri url = Uri.parse(mark_attendance_url_out);
 
       var req_body = jsonEncode({
         'InTime': InTime,
@@ -23,7 +54,7 @@ class AttendanceService {
         'Year': Year
       });
 
-      var token = await HelperFunctions.getCompanyToken();
+      var token = await HelperFunctions.getEmployeeToken();
       var res = await http.post(url,
           headers: {
             'Content-Type': 'application/json',
@@ -32,13 +63,12 @@ class AttendanceService {
           body: req_body);
       var body = jsonDecode(res.body);
       if (res.statusCode == 200) {
-        TotalDays = body['message'];
         return "Success";
       } else {
         return body['message'];
       }
     } catch (e) {
-      return e.toString();
+      return "Error ${e.toString()}";
     }
   }
 
@@ -47,17 +77,18 @@ class AttendanceService {
     try {
       Uri uri = Uri.parse(get_attendance_url);
 
-      getAttendanceModel body =
-          getAttendanceModel(employeeName: "", Date: date);
+      var req_body = jsonEncode({'Date': date});
 
-      var token = await HelperFunctions.getCompanyToken();
+      var token = await HelperFunctions.getEmployeeToken();
 
       var res = await http.post(uri,
           headers: {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ${token}'
           },
-          body: body.toJson());
+          body: req_body);
+
+      print("Re Body isssssssssss ${req_body}");
 
       var resBody = jsonDecode(res.body);
       var finalBody = resBody['message'];

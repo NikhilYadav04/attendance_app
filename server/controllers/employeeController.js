@@ -11,13 +11,15 @@ const add_staff = async (req, res) => {
     const { companyName, companyID } = req.user;
     const { employeeName, employeeNumber, employeePosition } = req.body;
 
+    const employeeID = `${employeeName}_${Math.floor(
+      1000 + Math.random() * 9000
+    )}`;
+
     // we take details of employee and his company name and update employee list
     const body = await employeeModel.findOneAndUpdate(
       { employeeName, employeeNumber, employeePosition, companyName },
       {
-        employeeID: `${employeeName}_${Math.floor(
-          1000 + Math.random() * 9000
-        )}`,
+        employeeID: employeeID,
       },
       { upsert: true, new: true, setDefaultsOnInsert: true }
     );
@@ -27,14 +29,10 @@ const add_staff = async (req, res) => {
       { companyID },
       {
         $push: {
-          companyMembers: `${employeeName}_${Math.floor(
-            1000 + Math.random() * 9000
-          )}`,
+          companyMembers: employeeID,
         },
       }
     );
-
-    employeeID = `${employeeName}_${Math.floor(1000 + Math.random() * 9000)}`;
 
     if (!updateMember) {
       return res.status(400).json({
@@ -50,7 +48,7 @@ const add_staff = async (req, res) => {
       daysPresent: [
         {
           Month: "April",
-          Year : '2024',
+          Year: "2024",
           daysPresent: 25,
         },
       ],
@@ -127,7 +125,7 @@ const get_history = async (req, res) => {
 
     const list = body.attendance;
 
-    if(!list){
+    if (!list) {
       return res.status(401).json({
         success: false,
         message: "Doesn't Exists",

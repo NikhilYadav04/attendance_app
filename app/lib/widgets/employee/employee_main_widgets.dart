@@ -28,7 +28,7 @@ List subtitleEmployee = [
 Widget appBartitle(
   double width,
   double height,
-  double textScale,
+  double textScale,String? employeeName
 ) {
   return Row(
     children: [
@@ -41,7 +41,7 @@ Widget appBartitle(
         width: responsiveContainerSize(12, width, height),
       ),
       Text(
-        "${eName}",
+        "${employeeName}",
         style: TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.w500,
@@ -429,7 +429,7 @@ Widget attendanceReport(double width, double height, double textScale,
 }
 
 Widget attendCountWidgetEmployee(
-    double width, double height, double textScale,String? InTime,String? OutTime,String? Status) {
+    double width, double height, double textScale,String? InTime,String? OutTime,String? Status,String Date) {
   return Container(
     height: responsiveContainerSize(200, width, height),
     decoration: BoxDecoration(
@@ -484,7 +484,7 @@ Widget attendCountWidgetEmployee(
           SizedBox(
             height: responsiveContainerSize(10, width, height),
           ),
-          rowContentEMployee2(width, height, textScale,Status),
+          rowContentEMployee2(width, height, textScale,Date),
         ],
       ),
     ),
@@ -539,16 +539,16 @@ Widget rowCOntentEmployee1(double width, double height, double textScale,
   );
 }
 
-Widget rowContentEMployee2(double width, double height, double textScale,String? Status) {
+Widget rowContentEMployee2(double width, double height, double textScale,String? Date) {
   return Container(
     padding:
         EdgeInsets.symmetric(horizontal: 18 * horizontalPaddingFactor(width)),
     child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Center(
           child: Text(
-            "${Status}",
+            "Today's Date : ${Date}",
             style: TextStyle(
                 color: Colors.white,
                 fontFamily: "Tansek",

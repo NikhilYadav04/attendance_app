@@ -83,9 +83,9 @@ class Employeeservice {
     try {
       Uri url = Uri.parse(report_employee_baseURl);
 
-     var token = await HelperFunctions.getCompanyToken();
+     var token = await HelperFunctions.getEmployeeToken();
 
-      var res = await http.post(url,
+      var res = await http.get(url,
           headers: {
             'Content-Type': 'application/json',
             'Authorization' : 'Bearer ${token}'

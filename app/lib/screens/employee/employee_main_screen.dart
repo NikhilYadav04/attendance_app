@@ -1,3 +1,4 @@
+import 'package:attend_ease/helper/helper_functions.dart';
 import 'package:attend_ease/providers/employee/employee_main_screen_provider.dart';
 import 'package:attend_ease/screens/auth/otp_auth_screen.dart';
 import 'package:attend_ease/styling/colors.dart';
@@ -21,12 +22,20 @@ class EmployeeMainScreen extends StatefulWidget {
 class _EmployeeMainScreenState extends State<EmployeeMainScreen>
     with SingleTickerProviderStateMixin {
   late final TabController? tabController;
+  late String employeeName = "";
+
+  Future<void> _setName() async {
+    var name = await HelperFunctions.getEmployeeName();
+    setState(() {
+      employeeName = name!;
+    });
+  }
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     tabController = TabController(length: 3, vsync: this);
+    _setName(); // This will asynchronously fetch the name
   }
 
   @override
@@ -55,7 +64,8 @@ class _EmployeeMainScreenState extends State<EmployeeMainScreen>
                   elevation: 0,
                   toolbarHeight:
                       responsiveContainerSize(75, currentWidth, currentHeight),
-                  title: appBartitle(currentWidth, currentHeight, textScale),
+                  title: appBartitle(
+                      currentWidth, currentHeight, textScale, employeeName),
                   actions: [
                     provider.isLoading
                         ? SpinKitSquareCircle(

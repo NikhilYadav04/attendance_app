@@ -30,8 +30,11 @@ const store_location = async (req, res) => {
 const get_location = async (req, res) => {
   try {
     const {companyName} = req.user;
+    console.log(companyName);
 
     const body = await locationModel.findOne({ companyName });
+
+    console.log(body)
 
     return res.status(200).json({
       success: true,

@@ -24,7 +24,7 @@ class EmployeeAttendanceProvider extends ChangeNotifier {
   List<dynamic> attendanceRecords = [];
 
   bool isLoading = false;
-  bool isBiometric = false;
+  bool isBiometric = true;
   bool isPresent = false;
   bool inRadius = false;
   bool isLoadingList = false;
@@ -37,71 +37,58 @@ class EmployeeAttendanceProvider extends ChangeNotifier {
     var report = await attendanceService.getAttendance(Date, context);
 
     //* check if report exists for that date
-    if (report) {
-      if (report == "Doesn't Exists") {
-        OutTime = "";
-        Status = "No";
 
-        InTime = await HelperFunctions.getInTime();
-
-        isLoading = false;
-        isPresent = false;
-        notifyListeners();
-
-        //* check if JWT is Expired or Not
-      } else if (report.toString().contains("JWT expired")) {
-        await HelperFunctions.setLoggedIn(false);
-        await HelperFunctions.setLoggedInCompany(false);
-        await HelperFunctions.setLoggedInEmployee(false);
-        await HelperFunctions.setCompanyToken("");
-        await HelperFunctions.setEmployeeToken("");
-
-        Navigator.pushAndRemoveUntil(
-          context,
-          PageTransition(
-            child: HomeScreen(),
-            type: PageTransitionType.rightToLeft,
-          ),
-          (route) => false, //8 This removes all previous routes
-        );
-      } else if (report.toString().startsWith("Error")) {
-        isLoading = false;
-        isPresent = false;
-        notifyListeners();
-
-        toastMessage(
-            context, "Error!", report.toString(), ToastificationType.error);
-      } else {
-        InTime = report["InTime"];
-        OutTime = report["OutTime"];
-        Status = "Yes";
-
-        isLoading = false;
-        isPresent = true;
-        notifyListeners();
-      }
-    } else {
+    if (report == null) {
       isLoading = false;
       notifyListeners();
 
       toastMessage(context, "Error!", "Error fetching records",
           ToastificationType.error);
     }
-  }
 
-  //* Store the In-Time
-  void storeInTime() async {
-    isLoading = true;
-    notifyListeners();
+    if (report.toString() == "Doesn't Exists") {
+      InTime = "00:00";
+      OutTime = "00:00";
+      Status = "No";
+      print(Status);
 
-    String time = DateFormat('HH:mm').format(DateTime.now());
+      isLoading = false;
+      isPresent = false;
+      notifyListeners();
 
-    await HelperFunctions.setInTime(time);
-    await CompanyService.changeCount(1, 0, 0);
+      //* check if JWT is Expired or Not
+    } else if (report.toString().contains("JWT expired")) {
+      await HelperFunctions.setLoggedIn(false);
+      await HelperFunctions.setLoggedInCompany(false);
+      await HelperFunctions.setLoggedInEmployee(false);
+      await HelperFunctions.setCompanyToken("");
+      await HelperFunctions.setEmployeeToken("");
 
-    InTime = time;
-    isLoading = false;
-    notifyListeners();
+      Navigator.pushAndRemoveUntil(
+        context,
+        PageTransition(
+          child: HomeScreen(),
+          type: PageTransitionType.rightToLeft,
+        ),
+        (route) => false, //8 This removes all previous routes
+      );
+    } else if (report.toString().startsWith("Error")) {
+      isLoading = false;
+      isPresent = false;
+      notifyListeners();
+
+      toastMessage(
+          context, "Error!", report.toString(), ToastificationType.error);
+    } else {
+      InTime = report["InTime"];
+      OutTime = report["OutTime"];
+      Status = "Yes";
+
+      isLoading = false;
+      isPresent = report["isPresent"];
+
+      notifyListeners();
+    }
   }
 
   //* Change Biometric Status
@@ -111,7 +98,49 @@ class EmployeeAttendanceProvider extends ChangeNotifier {
   }
 
   //* Submit Attendance
-  void submitAttendance(
+  void submitAttendanceIn(
+      BuildContext context, String Date, String Month, String Year) async {
+    isLoading = true;
+    notifyListeners();
+
+    if (isBiometric) {
+      String time = DateFormat('HH:mm').format(DateTime.now());
+
+      await attendanceService
+          .markAttendanceIn(time, Date, false, Month, Year)
+          .then((value) async {
+        if (value == "Success") {
+          await CompanyService.changeCount(1, 0, 0);
+          isLoading = false;
+          notifyListeners();
+
+          toastMessage(context, "Marked!", "In-Time Marked Successfully",
+              ToastificationType.success);
+        } else if (value.toString().contains("jwt expired")) {
+          isLoading = false;
+          notifyListeners();
+
+          toastMessage(context, "Session Over!", "Login Again And Try Again",
+              ToastificationType.error);
+        } else {
+          isLoading = false;
+          notifyListeners();
+
+          toastMessage(context, "Error!", value, ToastificationType.error);
+        }
+      });
+    } else {
+      isLoading = false;
+      notifyListeners();
+      toastMessage(
+          context,
+          "Biometric Incomplete",
+          "Complete Biometric to submit attendance",
+          ToastificationType.warning);
+    }
+  }
+
+  void submitAttendanceOut(
       BuildContext context, String Date, String Month, String Year) async {
     isLoading = true;
     notifyListeners();
@@ -126,16 +155,24 @@ class EmployeeAttendanceProvider extends ChangeNotifier {
       } else {
         String time = DateFormat('HH:mm').format(DateTime.now());
         OutTime = time;
-        await CompanyService.changeCount(0, 1, 1);
+
         await attendanceService
-            .markAttendance(InTime, OutTime, Date, true, Month, Year)
-            .then((value) {
+            .markAttendanceOut(InTime, OutTime, Date, true, Month, Year)
+            .then((value) async {
+          await CompanyService.changeCount(0, 1, 1);
           if (value == "Success") {
             isLoading = false;
+            isPresent = true;
             notifyListeners();
 
             toastMessage(context, "Marked!", "Attendance marked successfully",
                 ToastificationType.success);
+          } else if (value.toString().contains("jwt expired")) {
+            isLoading = false;
+            notifyListeners();
+
+            toastMessage(context, "Session Over!", "Login Again And Try Again",
+                ToastificationType.error);
           } else {
             isLoading = false;
             notifyListeners();
@@ -160,6 +197,7 @@ class EmployeeAttendanceProvider extends ChangeNotifier {
     await LocationService.getLocation().then((value) async {
       if (value.toString().startsWith("Error")) {
         toastMessage(context, "Error", value, ToastificationType.error);
+        print("Error is ${value}");
       } else {
         double Latitude1 = double.parse(value["latitude"]);
         double Longitude1 = double.parse(value["longitude"]);

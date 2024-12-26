@@ -1,17 +1,11 @@
 import 'package:attend_ease/providers/attendance/employee_attendance_provider.dart';
 import 'package:attend_ease/styling/colors.dart';
 import 'package:attend_ease/styling/scale.dart';
-import 'package:attend_ease/globalobjects/variables.dart';
-import 'package:attend_ease/helper/helper_functions.dart';
 import 'package:attend_ease/screens/auth/biom_auth.dart';
-import 'package:attend_ease/services/attendanceService.dart';
-import 'package:attend_ease/services/companyService.dart';
-import 'package:attend_ease/services/locationService.dart';
 import 'package:attend_ease/widgets/company/company_setup_screen_widgets.dart';
 import 'package:attend_ease/widgets/employee/employee_main_widgets.dart';
-import 'package:attend_ease/widgets/auth/otp_auth_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:page_transition/page_transition.dart';
@@ -78,7 +72,10 @@ class _EmployeeMainScreen2State extends State<EmployeeMainScreen2> {
                   Navigator.push(
                       context,
                       PageTransition(
-                          child: BiomAuth(isBiometric: provider.isBiometric,), type: PageTransitionType.fade));
+                          child: BiomAuth(
+                            isBiometric: provider.isBiometric,
+                          ),
+                          type: PageTransitionType.fade));
                 },
                 widget.width,
                 widget.height,
@@ -102,20 +99,25 @@ class _EmployeeMainScreen2State extends State<EmployeeMainScreen2> {
                   ? attendCompleteText(
                       widget.width, widget.height, widget.textScaleFactor)
                   : provider.inRadius
-                      ? Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            attendButtonIn(() {
-                              provider.storeInTime();
-                            }, widget.width, widget.height,
-                                widget.textScaleFactor),
-                            attendButtonOut(() {
-                              provider.submitAttendance(
-                                  context, currentDate, month, Year);
-                            }, widget.width, widget.height,
-                                widget.textScaleFactor),
-                          ],
-                        )
+                      ? provider.isLoading
+                          ? SpinKitCircle(
+                              color: Colours.BUTTON_COLOR_2,
+                              size: 35,
+                            )
+                          : Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                attendButtonIn(() {
+                                  provider.submitAttendanceIn(context, currentDate, month, Year);
+                                }, widget.width, widget.height,
+                                    widget.textScaleFactor),
+                                attendButtonOut(() {
+                                  provider.submitAttendanceOut(
+                                      context, currentDate, month, Year);
+                                }, widget.width, widget.height,
+                                    widget.textScaleFactor),
+                              ],
+                            )
                       : LoadingAnimationWidget(
                           widget.width, widget.height, widget.textScaleFactor),
               provider.isPresent

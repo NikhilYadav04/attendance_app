@@ -29,12 +29,13 @@ class EmployeeMainScreen1 extends StatefulWidget {
 }
 
 class _EmployeeMainScreen1State extends State<EmployeeMainScreen1> {
+  late String Date = "";
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final provider = context.read<EmployeeAttendanceProvider>();
-      String Date = DateFormat('dd-MM-yyyy').format(DateTime.now());
+      Date = DateFormat('dd-MM-yyyy').format(DateTime.now());
       provider.fetchRecord(Date, context);
     });
   }
@@ -68,7 +69,7 @@ class _EmployeeMainScreen1State extends State<EmployeeMainScreen1> {
                         textScale,
                         provider.InTime,
                         provider.OutTime,
-                        provider.Status == "Yes" ? "Present" : "Absent"),
+                        provider.isPresent ? "Present" : "Absent",Date),
                 SizedBox(
                   height:
                       responsiveContainerSize(25, currentWidth, currentHeight),

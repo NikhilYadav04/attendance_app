@@ -22,7 +22,8 @@ const add_employee_baseURl = "http://$PC_IP/employee/add-employee";
 const login_employee_baseURl = "http://$PC_IP/employee/join-employee";
 
 //mark attendance
-const mark_attendance_url = "http://$PC_IP/attendance/mark";
+const mark_attendance_url_in = "http://$PC_IP/attendance/mark-in";
+const mark_attendance_url_out = "http://$PC_IP/attendance/mark-out";
 
 //get attendance
 const get_attendance_url = "http://$PC_IP/attendance/get-attend";
