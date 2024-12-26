@@ -1,4 +1,5 @@
 import 'package:attend_ease/helper/helper_functions.dart';
+import 'package:attend_ease/screens/home/home_screen.dart';
 import 'package:attend_ease/services/attendanceService.dart';
 import 'package:attend_ease/services/companyService.dart';
 import 'package:attend_ease/services/employeeService.dart';
@@ -7,13 +8,14 @@ import 'package:attend_ease/widgets/auth/otp_auth_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:toastification/toastification.dart';
 
 class EmployeeAttendanceProvider extends ChangeNotifier {
   final AttendanceService attendanceService = AttendanceService();
   final locationService LocationService = locationService();
   final companyService CompanyService = companyService();
-  final Employeeservice employeeservice =Employeeservice();
+  final Employeeservice employeeservice = Employeeservice();
 
   //* variables
   String? InTime = "00:00";
@@ -45,6 +47,23 @@ class EmployeeAttendanceProvider extends ChangeNotifier {
         isLoading = false;
         isPresent = false;
         notifyListeners();
+
+        //* check if JWT is Expired or Not
+      } else if (report.toString().contains("JWT expired")) {
+        await HelperFunctions.setLoggedIn(false);
+        await HelperFunctions.setLoggedInCompany(false);
+        await HelperFunctions.setLoggedInEmployee(false);
+        await HelperFunctions.setCompanyToken("");
+        await HelperFunctions.setEmployeeToken("");
+
+        Navigator.pushAndRemoveUntil(
+          context,
+          PageTransition(
+            child: HomeScreen(),
+            type: PageTransitionType.rightToLeft,
+          ),
+          (route) => false, //8 This removes all previous routes
+        );
       } else if (report.toString().startsWith("Error")) {
         isLoading = false;
         isPresent = false;
