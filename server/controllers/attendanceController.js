@@ -6,7 +6,7 @@ const mark = async (req, res) => {
   try {
     const { employeeID } = req.user;
 
-    const { InTime, OutTime, Date, isPresent, Month } = req.body;
+    const { InTime, OutTime, Date, isPresent, Month , Year} = req.body;
 
     const report = await reportModel.findOne({
       employeeID: employeeID,
@@ -30,6 +30,7 @@ const mark = async (req, res) => {
     } else if (isPresent) {
       report.daysPresent.push({
         Month,
+        Year,
         daysPresent: 1,
       });
     }

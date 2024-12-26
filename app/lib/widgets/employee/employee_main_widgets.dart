@@ -81,7 +81,7 @@ List<Widget> actions(
 }
 
 Widget upperBar(
-    double width, double height, double textScale, BuildContext context) {
+    double width, double height, double textScale, BuildContext context,String Date,String status) {
   return Container(
     decoration: const BoxDecoration(
       color: Colors.white,
@@ -152,17 +152,17 @@ Widget upperBar(
         SizedBox(
           height: responsiveContainerSize(15, width, height),
         ),
-        dateWidget(width, height, textScale)
+        dateWidget(width, height, textScale,Date,status)
       ],
     ),
   );
 }
 
-Widget dateWidget(double width, double height, double textScale) {
+Widget dateWidget(double width, double height, double textScale,String Date,String status) {
   return Center(
     child: RichText(
       text: TextSpan(
-        text: '24 August  ',
+        text: '${Date} ',
         style: GoogleFonts.notoSansOldHungarian(
           color: Colors.grey.shade900,
           fontWeight: FontWeight.w600,
@@ -170,7 +170,7 @@ Widget dateWidget(double width, double height, double textScale) {
         ),
         children: <TextSpan>[
           TextSpan(
-            text: isPresent ? "Present" : "Absent",
+            text: status,
             style: GoogleFonts.notoSansOldHungarian(
               color: Colors.red,
               fontWeight: FontWeight.bold,
@@ -426,91 +426,10 @@ Widget attendanceReport(double width, double height, double textScale,
           })
     ],
   );
-  // return Column(
-  //   children: [
-  //     Container(
-  //       color: BUTTON_COLOR_1,
-  //       child: Table(
-  //         border: TableBorder.all(
-  //           color: Colors.black,
-  //           style: BorderStyle.solid,
-  //           width: 1,
-  //         ),
-  //         children: [
-  //           TableRow(children: [
-  //             TableCell(
-  //                 child: Container(
-  //               height: 50,
-  //               child: tableText(width, height, textScale, "In Time"),
-  //             )),
-  //             TableCell(
-  //                 child: Container(
-  //               height: 50,
-  //               child: tableText(width, height, textScale, "Out Time"),
-  //             )),
-  //             TableCell(
-  //                 child: Container(
-  //               height: 50,
-  //               child: tableText(width, height, textScale, "Date"),
-  //             )),
-  //             TableCell(
-  //               child: Container(
-  //                   height: 50,
-  //                   child: tableText(width, height, textScale, "Status")),
-  //             )
-  //           ])
-  //         ],
-  //       ),
-  //     ),
-  //     ListView.builder(
-  //         shrinkWrap: true,
-  //         physics: NeverScrollableScrollPhysics(),
-  //         itemCount: report.length,
-  //         itemBuilder: (context, index) {
-  //           return Container(
-  //             child: Table(
-  //               border: TableBorder.all(
-  //                 color: Colors.black,
-  //                 style: BorderStyle.solid,
-  //                 width: 1,
-  //               ),
-  //               children: [
-  //                 TableRow(children: [
-  //                   TableCell(
-  //                       child: Container(
-  //                     height: 50,
-  //                     child: tableText(
-  //                         width, height, textScale, report[index]["InTime"]),
-  //                   )),
-  //                   TableCell(
-  //                       child: Container(
-  //                     height: 50,
-  //                     child: tableText(
-  //                         width, height, textScale, report[index]["OutTime"]),
-  //                   )),
-  //                   TableCell(
-  //                       child: Container(
-  //                     height: 50,
-  //                     child: tableText(
-  //                         width, height, textScale, report[index]["Date"]),
-  //                   )),
-  //                   TableCell(
-  //                     child: Container(
-  //                         height: 50,
-  //                         child: tableText(width, height, textScale,
-  //                             report[index]["isPresent"].toString())),
-  //                   )
-  //                 ])
-  //               ],
-  //             ),
-  //           );
-  //         })
-  //   ],
-  // );
 }
 
 Widget attendCountWidgetEmployee(
-    double width, double height, double textScale) {
+    double width, double height, double textScale,String? InTime,String? OutTime,String? Status) {
   return Container(
     height: responsiveContainerSize(200, width, height),
     decoration: BoxDecoration(
@@ -541,11 +460,11 @@ Widget attendCountWidgetEmployee(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     rowCOntentEmployee1(
-                        width, height, textScale, "In", InTime_Display),
+                        width, height, textScale, "In", InTime),
                     rowCOntentEmployee(
                         width, height, textScale, "Out", OutTime),
                     rowCOntentEmployee(
-                        width, height, textScale, "Status", "Yes")
+                        width, height, textScale, "Status", Status)
                   ],
                 ),
               ],
@@ -565,7 +484,7 @@ Widget attendCountWidgetEmployee(
           SizedBox(
             height: responsiveContainerSize(10, width, height),
           ),
-          rowContentEMployee2(width, height, textScale),
+          rowContentEMployee2(width, height, textScale,Status),
         ],
       ),
     ),
@@ -573,7 +492,7 @@ Widget attendCountWidgetEmployee(
 }
 
 Widget rowCOntentEmployee(double width, double height, double textScale,
-    String title, String status) {
+    String title, String? status) {
   return Column(
     children: [
       Text(
@@ -620,26 +539,21 @@ Widget rowCOntentEmployee1(double width, double height, double textScale,
   );
 }
 
-Widget rowContentEMployee2(double width, double height, double textScale) {
+Widget rowContentEMployee2(double width, double height, double textScale,String? Status) {
   return Container(
     padding:
         EdgeInsets.symmetric(horizontal: 18 * horizontalPaddingFactor(width)),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(
-          "Toal Days Present : ${TotalDays - 1}",
-          style: TextStyle(
-              color: Colors.white,
-              fontFamily: "Tansek",
-              fontSize: responsiveContainerSize(28, width, height)),
-        ),
-        Text(
-          isPresent ? "Status - Present " : "Status - Absent ",
-          style: TextStyle(
-              color: Colors.white,
-              fontFamily: "Tansek",
-              fontSize: responsiveContainerSize(28, width, height)),
+        Center(
+          child: Text(
+            "${Status}",
+            style: TextStyle(
+                color: Colors.white,
+                fontFamily: "Tansek",
+                fontSize: responsiveContainerSize(28, width, height)),
+          ),
         )
       ],
     ),
@@ -800,4 +714,3 @@ Widget cameraButton(void Function() onTap, double width, double height,
     ),
   );
 }
-

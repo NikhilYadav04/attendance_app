@@ -50,6 +50,7 @@ const add_staff = async (req, res) => {
       daysPresent: [
         {
           Month: "April",
+          Year : '2024',
           daysPresent: 25,
         },
       ],
@@ -125,6 +126,13 @@ const get_history = async (req, res) => {
     const body = await reportModel.findOne({ employeeID });
 
     const list = body.attendance;
+
+    if(!list){
+      return res.status(401).json({
+        success: false,
+        message: "Doesn't Exists",
+      });
+    }
 
     return res.status(200).json({
       success: true,

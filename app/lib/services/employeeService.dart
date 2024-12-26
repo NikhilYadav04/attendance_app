@@ -79,17 +79,18 @@ class Employeeservice {
   }
 
   // to get attendance report
-  Future<List<dynamic>> getReport(String? employeeName) async {
+  Future<dynamic> getReport() async {
     try {
       Uri url = Uri.parse(report_employee_baseURl);
 
-      var body = {"employeeName": employeeName};
+     var token = await HelperFunctions.getCompanyToken();
 
       var res = await http.post(url,
           headers: {
             'Content-Type': 'application/json',
+            'Authorization' : 'Bearer ${token}'
           },
-          body: jsonEncode(body));
+       );
 
       var resBody = jsonDecode(res.body);
 
@@ -97,11 +98,11 @@ class Employeeservice {
         List<dynamic> report = resBody['message'];
         return report;
       } else {
-        return [];
+        return resBody['message'];
       }
     } catch (e) {
       print("Error is ${e}");
-      return [];
+      return "Error is ${e.toString()}";
     }
   }
 }

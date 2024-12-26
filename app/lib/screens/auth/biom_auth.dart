@@ -1,6 +1,5 @@
 import 'package:attend_ease/styling/colors.dart';
 import 'package:attend_ease/styling/scale.dart';
-import 'package:attend_ease/globalobjects/variables.dart';
 import 'package:attend_ease/widgets/auth/otp_auth_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -8,7 +7,8 @@ import 'package:local_auth/local_auth.dart';
 import 'package:lottie/lottie.dart';
 
 class BiomAuth extends StatefulWidget {
-  const BiomAuth({super.key});
+  BiomAuth({super.key, required this.isBiometric});
+  bool isBiometric;
 
   @override
   State<BiomAuth> createState() => _BiomAuthState();
@@ -17,7 +17,6 @@ class BiomAuth extends StatefulWidget {
 class _BiomAuthState extends State<BiomAuth> {
   late final LocalAuthentication auth;
   bool _supoortState = false;
-  bool isValid = false;
 
   Future<void> _getBiometrics() async {
     List<BiometricType> availableBiometrics =
@@ -38,10 +37,9 @@ class _BiomAuthState extends State<BiomAuth> {
           ),
           localizedReason: "Authenticate your Fingerprint To proceed further.");
       setState(() {
-        isValid = authenticated;
-        isAuthenticate = isValid;
+        widget.isBiometric = authenticated;
       });
-      isValid
+      widget.isBiometric
           ? Navigator.pop(context)
           : toastMessageError(context, "Error!", "Invalid Biometric ID");
     } catch (e) {

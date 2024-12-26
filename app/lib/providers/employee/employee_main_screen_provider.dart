@@ -16,6 +16,7 @@ class EmployeeMainScreenProvider extends ChangeNotifier {
     await HelperFunctions.setLoggedInEmployee(false);
     await HelperFunctions.setCompanyToken("");
     await HelperFunctions.setEmployeeToken("");
+    await HelperFunctions.setInTime("00:00");
 
     isLoading = false;
     notifyListeners();

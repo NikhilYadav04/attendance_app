@@ -18,7 +18,7 @@ class locationService {
           longitude: longitude,
           companyName: companyName,
           radius: radius);
-      
+
       var token = await HelperFunctions.getCompanyToken();
 
       var res = await http.post(url,
@@ -42,17 +42,16 @@ class locationService {
   }
 
   // get location
-  Future<String> getLocation(String? companyName) async {
+  Future<dynamic> getLocation() async {
     try {
       Uri url = Uri.parse(get_location_baseUrl);
 
-      var body = {"companyName": companyName};
+      var token = await HelperFunctions.getEmployeeToken();
 
-      var res = await http.post(url,
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: jsonEncode(body));
+      var res = await http.post(
+        url,
+        headers: {'Authorization': 'Bearer ${token}'},
+      );
 
       var resBody = jsonDecode(res.body);
       var locationBody = resBody['message'];
@@ -60,16 +59,12 @@ class locationService {
       print("Radius id ${locationBody['radius']}");
 
       if (res.statusCode == 200) {
-        Latitude1 = double.parse(locationBody['latitude']);
-        Longitude1 = double.parse(locationBody['longitude']);
-        radius = locationBody['radius'];
-
-        return "Success";
+        return locationBody;
       } else {
         return resBody['message'];
       }
     } catch (e) {
-      return e.toString();
+      return "Error ${e.toString()}";
     }
   }
 }

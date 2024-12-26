@@ -136,21 +136,23 @@ class companyService {
   }
 
 //change staff count
-  Future<String> changeCount(
-      String? companyName, int inCount, int outCount, int TotalCount) async {
+  Future<String> changeCount(int inCount, int outCount, int TotalCount) async {
     try {
       Uri uri = Uri.parse(staff_change_count);
 
       var body = {
-        "companyName": companyName,
+        "companyName": "",
         "inCount": inCount,
         "outCount": outCount,
         "TotalCount": TotalCount
       };
 
+      var token = await HelperFunctions.getEmployeeToken();
+
       var res = await http.post(uri,
           headers: {
             'Content-Type': 'application/json',
+            'Authorization': 'Bearer ${token}'
           },
           body: jsonEncode(body));
 

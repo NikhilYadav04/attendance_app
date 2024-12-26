@@ -1,3 +1,5 @@
+import 'package:attend_ease/providers/attendance/employee_attendance_provider.dart';
+import 'package:attend_ease/styling/colors.dart';
 import 'package:attend_ease/styling/scale.dart';
 import 'package:attend_ease/globalobjects/variables.dart';
 import 'package:attend_ease/services/attendanceService.dart';
@@ -5,7 +7,9 @@ import 'package:attend_ease/services/employeeService.dart';
 import 'package:attend_ease/widgets/employee/employee_main_widgets.dart';
 import 'package:attend_ease/widgets/auth/otp_auth_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 // ignore: must_be_immutable
 class EmployeeMainScreen1 extends StatefulWidget {
@@ -25,47 +29,14 @@ class EmployeeMainScreen1 extends StatefulWidget {
 }
 
 class _EmployeeMainScreen1State extends State<EmployeeMainScreen1> {
-  final AttendanceService _attendanceService = AttendanceService();
-  final Employeeservice employeeservice = Employeeservice();
-  DateTime now = DateTime.now();
-  void _getData() async {
-    String res = await _attendanceService.getAttendance(
-        eName,  DateFormat('dd/MM/yy').format(now));
-    await _attendanceService.getAttendanceDays(eName);
-    print("Totaldays id ${TotalDays}");
-    if (res == "Success") {
-      setState(() {
-        InTime_Display;
-        InTime;
-        OutTime;
-        isPresent;
-        TotalDays;
-      });
-    } else {
-      setState(() {
-        InTime_Display="00:00";
-        InTime = "00:00";
-        OutTime = "00:00";
-        isPresent = false;
-        TotalDays = 0;
-      });
-      toastMessageError(context, "Error!", res);
-    }
-  }
-
-  void getList() async {
-    report = await employeeservice.getReport(eName);
-    // print("List is ${report[0]["InTime"]}");
-    //  print("List is ${report[0]["OutTime"]}");
-    //  print(report.length);
-  }
-
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    _getData();
-    getList();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final provider = context.read<EmployeeAttendanceProvider>();
+      String Date = DateFormat('dd-MM-yyyy').format(DateTime.now());
+      provider.fetchRecord(Date, context);
+    });
   }
 
   @override
@@ -75,41 +46,54 @@ class _EmployeeMainScreen1State extends State<EmployeeMainScreen1> {
     // ignore: deprecated_member_use
     final textScale = MediaQuery.of(context).textScaleFactor;
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Container(
-          padding: EdgeInsets.symmetric(
-              horizontal: 5 * horizontalPaddingFactor(currentWidth)),
-          child: Column(
-            children: [
-              SizedBox(
-                height:
-                    responsiveContainerSize(15, currentWidth, currentHeight),
-              ),
-              attendCountWidgetEmployee(currentWidth, currentHeight, textScale),
-              SizedBox(
-                height:
-                    responsiveContainerSize(25, currentWidth, currentHeight),
-              ),
-              Divider(
-                color: Colors.grey.shade300,
-                height: 5,
-                thickness: 2,
-                indent: 10,
-                endIndent: 10,
-              ),
-              SizedBox(
-                height:
-                    responsiveContainerSize(10, currentWidth, currentHeight),
-              ),
-              listWidgetEMployee(
-                  currentWidth, currentHeight, textScale, context),
-              Center(
-                  child: companyButtonEmployee(
-                      () {}, currentWidth, currentHeight, textScale, context))
-            ],
-          ),
-        ),
-      ),
+      body: SingleChildScrollView(child: Consumer<EmployeeAttendanceProvider>(
+        builder: (context, provider, _) {
+          return Container(
+            padding: EdgeInsets.symmetric(
+                horizontal: 5 * horizontalPaddingFactor(currentWidth)),
+            child: Column(
+              children: [
+                SizedBox(
+                  height:
+                      responsiveContainerSize(15, currentWidth, currentHeight),
+                ),
+                provider.isLoading
+                    ? SpinKitRotatingCircle(
+                        color: Colours.DARK_BLUE,
+                        size: 60,
+                      )
+                    : attendCountWidgetEmployee(
+                        currentWidth,
+                        currentHeight,
+                        textScale,
+                        provider.InTime,
+                        provider.OutTime,
+                        provider.Status == "Yes" ? "Present" : "Absent"),
+                SizedBox(
+                  height:
+                      responsiveContainerSize(25, currentWidth, currentHeight),
+                ),
+                Divider(
+                  color: Colors.grey.shade300,
+                  height: 5,
+                  thickness: 2,
+                  indent: 10,
+                  endIndent: 10,
+                ),
+                SizedBox(
+                  height:
+                      responsiveContainerSize(10, currentWidth, currentHeight),
+                ),
+                listWidgetEMployee(
+                    currentWidth, currentHeight, textScale, context),
+                Center(
+                    child: companyButtonEmployee(
+                        () {}, currentWidth, currentHeight, textScale, context))
+              ],
+            ),
+          );
+        },
+      )),
     );
   }
 }

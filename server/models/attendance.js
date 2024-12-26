@@ -24,6 +24,10 @@ const daysPresentSchema = new mongoose.Schema({
     required: true,
     type: String,
   },
+  Year: {
+    required: true,
+    type: String,
+  },
   daysPresent: {
     required: true,
     type: Number,

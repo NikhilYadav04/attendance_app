@@ -1,3 +1,4 @@
+import 'package:attend_ease/providers/attendance/employee_attendance_provider.dart';
 import 'package:attend_ease/styling/colors.dart';
 import 'package:attend_ease/styling/scale.dart';
 import 'package:attend_ease/globalobjects/variables.dart';
@@ -14,6 +15,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:provider/provider.dart';
 
 // ignore: must_be_immutable
 class EmployeeMainScreen2 extends StatefulWidget {
@@ -33,172 +35,107 @@ class EmployeeMainScreen2 extends StatefulWidget {
 }
 
 class _EmployeeMainScreen2State extends State<EmployeeMainScreen2> {
-  bool locationVerified = false;
-
-  final AttendanceService attendanceService = AttendanceService();
-  final locationService LocationService = locationService();
-  final companyService CompanyService = companyService();
-
-  void verifyLocation() async {
-    // eCName = await HelperFunctions.getEmployeeCOmpany();
-    String res = await LocationService.getLocation(eCName);
-    if (res == "Success") {
-      setState(() {
-        eCName;
-        Latitude1;
-        Longitude1;
-        radius;
-      });
-      LocationPermission permission = await Geolocator.checkPermission();
-      if (permission == LocationPermission.denied ||
-          permission == LocationPermission.deniedForever) {
-        // ignore: unused_local_variable
-        LocationPermission ask = await Geolocator.requestPermission();
-      } else {
-        Position currentPosition = await Geolocator.getCurrentPosition(
-            desiredAccuracy: LocationAccuracy.best);
-        setState(() {
-          Latitude2 = currentPosition.latitude;
-          Longitude2 = currentPosition.longitude;
-        });
-      }
-
-      double distance = Geolocator.distanceBetween(
-          Latitude1, Longitude2, Latitude2, Longitude2);
-
-      if (distance > radius) {
-        toastMessageError(context, "Error!", "Stay within office location!!");
-      } else {
-        print("Latitude1 is ${Latitude1}");
-        print("Longitude is ${Longitude1}");
-        print("Latitude2 is ${Latitude2}");
-        print("Longityude2 is ${Longitude2}");
-        print("distanceis ${distance}");
-        setState(() {
-          locationVerified = true;
-        });
-      }
-    } else {
-      print(res);
-      toastMessageError(context, "Error!", res);
-    }
-  }
-
-  void InPressed() async {
-    setState(() {
-      DateTime now = DateTime.now();
-      InTime = DateFormat('HH:mm').format(now);
-      InTime_Display = InTime;
-      toastMessageSuccess(context, "Time", InTime);
-    });
-    // await HelperFunctions.setInTime(InTime);
-    await CompanyService.changeCount(cName, 1, 0, 1);
-  }
-
-  void OutPressed() async {
-    if (isAuthenticate) {
-      setState(() {
-        DateTime now = DateTime.now();
-        if (InTime != "") {
-          OutTime = DateFormat('HH:mm').format(now);
-        }
-        Date = DateFormat('dd/MM/yy').format(now);
-        isPresent = true;
-        TotalDays;
-      });
-      if (InTime != "00:00" && OutTime != "00:00") {
-        // InTime_Display = await HelperFunctions.getInTime();
-        String res = await attendanceService.markAttendance(
-            eName, InTime_Display, OutTime, Date, isPresent);
-        if (res == "Success") {
-          toastMessageSuccess(context, "Done!", "TIme Marked");
-        } else {
-          toastMessageError(context, "Sorry!", res);
-        }
-        await CompanyService.changeCount(cName, 0, 1, 0);
-      }else{
-        toastMessageError(context, "Invalid", "Authenticate Your Biometric ID");
-      }
-    } else {
-      toastMessageError(context, "Mark !!", "Mark Your InTIme And OutTime");
-    }
-  }
-
+  late String currentDate;
+  late String month;
+  late String Year;
   @override
   void initState() {
     // TODO: implement initState
-    super.initState();
-    verifyLocation();
+    currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
+    month = DateFormat('MMMM').format(DateTime.now());
+    Year = DateFormat('yyyy').format(DateTime.now());
 
-    setState(() {
-      isAuthenticate;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<EmployeeAttendanceProvider>().checkRadius(context);
     });
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
       color: Colours.BUTTON_COLOR_2,
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            SizedBox(
-              height: responsiveContainerSize(0, widget.width, widget.height),
-            ),
-            upperBar(
-                widget.width, widget.height, widget.textScaleFactor, context),
-            cameraAuthenticate(
-              () {
-                Navigator.push(
-                    context,
-                    PageTransition(
-                        child: BiomAuth(), type: PageTransitionType.fade));
-              },
-              widget.width,
-              widget.height,
-              widget.textScaleFactor,
-              context,
-              isAuthenticate,
-              Text(
-                isAuthenticate
-                    ? "Your Biometric ID Is Verified"
-                    : "Click Here For Biometric Authentication",
-                style: GoogleFonts.notoSansOldHungarian(
-                    fontSize: responsiveFontSize(21.5, widget.width,
-                        widget.height, widget.textScaleFactor),
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black),
+      child: SingleChildScrollView(child: Consumer<EmployeeAttendanceProvider>(
+        builder: (context, provider, _) {
+          return Column(
+            children: [
+              SizedBox(
+                height: responsiveContainerSize(0, widget.width, widget.height),
               ),
-            ),
-            isPresent
-                ? attendCompleteText(
-                    widget.width, widget.height, widget.textScaleFactor)
-                : locationVerified
-                    ? Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          attendButtonIn(InPressed, widget.width, widget.height,
-                              widget.textScaleFactor),
-                          attendButtonOut(OutPressed, widget.width,
-                              widget.height, widget.textScaleFactor),
-                        ],
-                      )
-                    : LoadingAnimationWidget(
-                        widget.width, widget.height, widget.textScaleFactor),
-            isPresent
-                ? locationWidget(widget.width, widget.height,
-                    widget.textScaleFactor, "See You The Next Day....")
-                : locationVerified
-                    ? locationWidget(widget.width, widget.height,
-                        widget.textScaleFactor, "Your Location is Verified...")
-                    : locationWidget(
-                        widget.width,
-                        widget.height,
-                        widget.textScaleFactor,
-                        "Verifying Your Location Radius..."),
-          ],
-        ),
-      ),
+
+              //* To Display Date And Status
+              upperBar(
+                  widget.width,
+                  widget.height,
+                  widget.textScaleFactor,
+                  context,
+                  currentDate,
+                  provider.isPresent ? "Present" : "Absent"),
+
+              //* Biometric Authenticate
+              cameraAuthenticate(
+                () {
+                  Navigator.push(
+                      context,
+                      PageTransition(
+                          child: BiomAuth(isBiometric: provider.isBiometric,), type: PageTransitionType.fade));
+                },
+                widget.width,
+                widget.height,
+                widget.textScaleFactor,
+                context,
+                provider.isBiometric,
+                Text(
+                  provider.isBiometric
+                      ? "Your Biometric ID Is Verified"
+                      : "Click Here For Biometric Authentication",
+                  style: GoogleFonts.notoSansOldHungarian(
+                      fontSize: responsiveFontSize(21.5, widget.width,
+                          widget.height, widget.textScaleFactor),
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black),
+                ),
+              ),
+
+              //* Attendance Buttons And Location Verification Widget
+              provider.isPresent
+                  ? attendCompleteText(
+                      widget.width, widget.height, widget.textScaleFactor)
+                  : provider.inRadius
+                      ? Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            attendButtonIn(() {
+                              provider.storeInTime();
+                            }, widget.width, widget.height,
+                                widget.textScaleFactor),
+                            attendButtonOut(() {
+                              provider.submitAttendance(
+                                  context, currentDate, month, Year);
+                            }, widget.width, widget.height,
+                                widget.textScaleFactor),
+                          ],
+                        )
+                      : LoadingAnimationWidget(
+                          widget.width, widget.height, widget.textScaleFactor),
+              provider.isPresent
+                  ? locationWidget(widget.width, widget.height,
+                      widget.textScaleFactor, "See You The Next Day....")
+                  : provider.inRadius
+                      ? locationWidget(
+                          widget.width,
+                          widget.height,
+                          widget.textScaleFactor,
+                          "Your Location is Verified...")
+                      : locationWidget(
+                          widget.width,
+                          widget.height,
+                          widget.textScaleFactor,
+                          "Verifying Your Location Radius..."),
+            ],
+          );
+        },
+      )),
     );
   }
 }

@@ -6,6 +6,7 @@ class HelperFunctions {
   static String LOGGED_IN_KEY = "LOGIN_KEY";
   static String COMPANY_TOKEN = "TOKEN_COMPANY";
   static String EMPLOYEE_TOKEN = "TOKEN_EMPLOYEE";
+  static String IN_TIME_KEY = "TIME_TOKEN";
 
   //* set to true when user is logged to company account
   static Future<bool> setLoggedInCompany(bool isLogIN) async {
@@ -35,6 +36,18 @@ class HelperFunctions {
   static Future<bool> setEmployeeToken(String token) async {
     SharedPreferences sf = await SharedPreferences.getInstance();
     return sf.setString(EMPLOYEE_TOKEN, token);
+  }
+
+  //* store the In-Time
+  static Future<bool> setInTime(String time) async {
+    SharedPreferences sf = await SharedPreferences.getInstance();
+    return sf.setString(time, IN_TIME_KEY);
+  }
+
+  //* get the In-Time
+  static Future<String?> getInTime() async {
+    SharedPreferences sf = await SharedPreferences.getInstance();
+    return sf.getString(IN_TIME_KEY);
   }
 
   //* get the token for employee
