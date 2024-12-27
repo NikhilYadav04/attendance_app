@@ -246,8 +246,6 @@ class EmployeeAttendanceProvider extends ChangeNotifier {
         double Longitude1 = double.parse(value["longitude"]);
         double Latitude2 = 0.0;
         double Longitude2 = 0.0;
-        print(
-            "location issssssssssssssss ${Latitude1} ${Latitude2} ${Longitude1} ${ double.parse(value["radius"]).runtimeType}");
         double radius = double.parse(value["radius"]);
 
         //* calculate the range if employee is in radius

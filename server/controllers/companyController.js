@@ -99,6 +99,7 @@ const login_as_hr = async (req, res) => {
 const get_report = async (req, res) => {
   try {
     const { companyID } = req.user;
+    console.log(companyID);
 
     const body = await reportModel.find({ companyID });
 
@@ -152,7 +153,7 @@ const store_history = async (req, res) => {
           Date: currentDate,
           In: 0,
           Out: 0,
-          Total:0,
+          Total: 0,
           submit: true,
         });
       }
@@ -162,7 +163,7 @@ const store_history = async (req, res) => {
           Date: currentDate,
           In: 0,
           Out: 0,
-          Total:0,
+          Total: 0,
           submit: true,
         },
       ];
@@ -175,7 +176,7 @@ const store_history = async (req, res) => {
       message: "Submitted",
     });
   } catch (e) {
-    console.log(e.message)
+    console.log(e.message);
     return res.status(500).json({
       success: false,
       message: e.message,
@@ -189,7 +190,15 @@ const get_history = async (req, res) => {
     const { employeeID } = req.body;
 
     const body = await reportModel.findOne({ companyName, employeeID });
+
     const countList = body.daysPresent;
+
+    if (countList == null || !countList) {
+      return res.status(401).json({
+        success: false,
+        message: "Empty Body",
+      });
+    }
 
     return res.status(200).json({
       success: true,

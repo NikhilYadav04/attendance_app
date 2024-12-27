@@ -124,10 +124,11 @@ class CompanyAttendanceProvider extends ChangeNotifier {
 
   //* Get All ID's
   void getIDs(BuildContext context) async {
+    attendanceIDList.clear();
     isLoadingID = true;
     notifyListeners();
 
-    const String url = 'http://localhost:2000/company/get/-ids';
+    const String url = 'http://192.168.56.1/company/get/-ids';
 
     try {
       // Retrieve the token
@@ -164,6 +165,7 @@ class CompanyAttendanceProvider extends ChangeNotifier {
 
   //* Get Report Of A Particular Employee
   void getIDReport(BuildContext context, String employeeID) async {
+    attendanceEmployeeList.clear();
     isLoadingID = true;
     notifyListeners();
 
@@ -173,6 +175,9 @@ class CompanyAttendanceProvider extends ChangeNotifier {
         notifyListeners();
 
         toastMessageError(context, "Error!", value.toString());
+      } else if (value == "Empty Body" || value == null) {
+        isLoadingID = false;
+        notifyListeners();
       } else {
         attendanceEmployeeList = value;
 

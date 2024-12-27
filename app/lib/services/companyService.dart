@@ -214,10 +214,12 @@ class companyService {
           },
           body: jsonEncode(body));
       var resBody = jsonDecode(res.body);
-      List<dynamic> list = resBody['message'];
 
       if (res.statusCode == 200) {
+        var list = resBody['message'];
         return list;
+      } else {
+        return resBody["message"];
       }
     } catch (e) {
       return e.toString();
