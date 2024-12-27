@@ -1,7 +1,9 @@
+import 'dart:convert';
+
 import 'package:attend_ease/helper/helper_functions.dart';
 import 'package:attend_ease/screens/home/home_screen.dart';
 import 'package:attend_ease/services/companyService.dart';
-import 'package:attend_ease/styling/url_constants.dart';
+import 'package:http/http.dart' as http;
 import 'package:attend_ease/widgets/auth/otp_auth_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
@@ -15,19 +17,19 @@ class CompanyAttendanceProvider extends ChangeNotifier {
   String Out = "0";
   String Total = "";
   String Date = "";
-  String? companyName = "";
   List<dynamic> attendaneCountList = [];
+  List<dynamic> attendanceIDList = [];
+  List<dynamic> attendanceEmployeeList = [];
 
   bool isLoading = false;
   bool isLoadingCountList = false;
+  bool isLoadingID = false;
   bool isSubmit = false;
 
   //* Fetch The Records
   void fetchRecords(BuildContext context) async {
     isLoading = true;
     notifyListeners();
-
-    companyName = await HelperFunctions.getCompanyName();
 
     await CompanyService.getCount().then((value) async {
       if (value.toString().contains("jwt expired")) {
@@ -62,9 +64,9 @@ class CompanyAttendanceProvider extends ChangeNotifier {
         isLoading = false;
         notifyListeners();
       } else {
-        In = value["In"];
-        Out = value["Out"];
-        Total = value["Total"];
+        In = value["In"].toString();
+        Out = value["Out"].toString();
+        Total = value["Total"].toString();
         isSubmit = value["submit"];
 
         isLoading = false;
@@ -99,6 +101,7 @@ class CompanyAttendanceProvider extends ChangeNotifier {
 
   //* Get STaff Count List
   void getCountList(BuildContext context) async {
+    attendaneCountList.clear();
     isLoadingCountList = true;
     notifyListeners();
 
@@ -119,5 +122,63 @@ class CompanyAttendanceProvider extends ChangeNotifier {
     });
   }
 
- 
+  //* Get All ID's
+  void getIDs(BuildContext context) async {
+    isLoadingID = true;
+    notifyListeners();
+
+    const String url = 'http://localhost:2000/company/get/-ids';
+
+    try {
+      // Retrieve the token
+      var token = await HelperFunctions.getCompanyToken();
+
+      // Make the GET request
+      final response = await http.get(
+        Uri.parse(url),
+        headers: {
+          'Authorization': 'Bearer $token',
+          'Content-Type': 'application/json',
+        },
+      );
+
+      if (response.statusCode == 200) {
+        var data = jsonDecode(response.body);
+        attendanceIDList = data['message'];
+
+        isLoadingID = false;
+        notifyListeners();
+      } else if (response.statusCode == 401) {
+        attendanceIDList = [];
+
+        isLoadingID = false;
+        notifyListeners();
+      }
+    } catch (e) {
+      isLoadingID = false;
+      notifyListeners();
+
+      toastMessage(context, "Error!", e.toString(), ToastificationType.error);
+    }
+  }
+
+  //* Get Report Of A Particular Employee
+  void getIDReport(BuildContext context, String employeeID) async {
+    isLoadingID = true;
+    notifyListeners();
+
+    await CompanyService.getCountHistory(employeeID).then((value) {
+      if (value.toString().startsWith("Error")) {
+        isLoadingID = false;
+        notifyListeners();
+
+        toastMessageError(context, "Error!", value.toString());
+      } else {
+        attendanceEmployeeList = value;
+
+        isLoadingID = false;
+        notifyListeners();
+      }
+    });
+  }
 }

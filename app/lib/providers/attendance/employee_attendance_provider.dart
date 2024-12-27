@@ -237,56 +237,61 @@ class EmployeeAttendanceProvider extends ChangeNotifier {
 
   //* Verify if employee is in attendance radius
   void checkRadius(BuildContext context) async {
-    if (!isPresent) {
-      await LocationService.getLocation().then((value) async {
-        if (value.toString().startsWith("Error")) {
-          toastMessage(context, "Error", value, ToastificationType.error);
-          print("Error is ${value}");
+    await LocationService.getLocation().then((value) async {
+      if (value.toString().startsWith("Error")) {
+        toastMessage(context, "Error", value, ToastificationType.error);
+        print("Error is ${value}");
+      } else {
+        double Latitude1 = double.parse(value["latitude"]);
+        double Longitude1 = double.parse(value["longitude"]);
+        double Latitude2 = 0.0;
+        double Longitude2 = 0.0;
+        print(
+            "location issssssssssssssss ${Latitude1} ${Latitude2} ${Longitude1} ${ double.parse(value["radius"]).runtimeType}");
+        double radius = double.parse(value["radius"]);
+
+        //* calculate the range if employee is in radius
+        LocationPermission permission = await Geolocator.checkPermission();
+        if (permission == LocationPermission.denied ||
+            permission == LocationPermission.deniedForever) {
+          // ignore: unused_local_variable
+          LocationPermission ask = await Geolocator.requestPermission();
         } else {
-          double Latitude1 = double.parse(value["latitude"]);
-          double Longitude1 = double.parse(value["longitude"]);
-          double Latitude2 = 0.0;
-          double Longitude2 = 0.0;
-          double radius = value["radius"];
-
-          //* calculate the range if employee is in radius
-          LocationPermission permission = await Geolocator.checkPermission();
-          if (permission == LocationPermission.denied ||
-              permission == LocationPermission.deniedForever) {
-            // ignore: unused_local_variable
-            LocationPermission ask = await Geolocator.requestPermission();
-          } else {
-            Position currentPosition = await Geolocator.getCurrentPosition(
-                desiredAccuracy: LocationAccuracy.best);
-            Latitude2 = currentPosition.latitude;
-            Longitude2 = currentPosition.longitude;
-          }
-
-          double distance = Geolocator.distanceBetween(
-              Latitude1, Longitude1, Latitude2, Longitude2);
-
-          if (distance <= radius) {
-            inRadius = true;
-            notifyListeners();
-            toastMessage(
-              context,
-              "Location verified",
-              "Your are within office radius!!.",
-              ToastificationType.success,
-            );
-          } else {
-            inRadius = false;
-            notifyListeners();
-            toastMessage(
-              context,
-              "Stay Within Office Radius",
-              "Please stay within the office range to mark your attendance.",
-              ToastificationType.warning,
-            );
-          }
+          Position currentPosition = await Geolocator.getCurrentPosition(
+              desiredAccuracy: LocationAccuracy.best);
+          Latitude2 = currentPosition.latitude;
+          Longitude2 = currentPosition.longitude;
         }
-      });
-    } else {}
+
+        double distance = Geolocator.distanceBetween(
+            Latitude1, Longitude1, Latitude2, Longitude2);
+
+        if (distance <= radius) {
+          inRadius = true;
+          notifyListeners();
+          toastMessage(
+            context,
+            "Location verified",
+            "Your are within office radius!!.",
+            ToastificationType.success,
+          );
+        } else {
+          inRadius = false;
+          notifyListeners();
+          toastMessage(
+            context,
+            "Stay Within Office Radius",
+            "Please stay within the office range to mark your attendance.",
+            ToastificationType.warning,
+          );
+        }
+      }
+    });
+    // if (!isPresent) {
+
+    // } else {
+
+    // }
   }
 
   //* get attendance history list of employee

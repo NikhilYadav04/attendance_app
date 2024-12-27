@@ -210,17 +210,16 @@ const get_count = async (req, res) => {
     const { companyName } = req.user;
 
     const body = await staffCountModel.findOne({ companyName });
-    // console.log(body)
 
     let currentDate = new Date();
-    let Date = `${currentDate.getDate().toString().padStart(2, "0")}-${(
+    let Date1 = `${currentDate.getDate().toString().padStart(2, "0")}-${(
       currentDate.getMonth() + 1
     )
       .toString()
       .padStart(2, "0")}-${currentDate.getFullYear()}`;
 
     const countIndex = await body.counts.findIndex(
-      (count) => count.Date === Date
+      (count) => count.Date === Date1
     );
 
     if (countIndex >= 0) {

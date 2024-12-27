@@ -33,7 +33,7 @@ companyRouter.get("/get-report", authenticateTokenCompany, get_report);
 //*  store staff count history
 companyRouter.post("/store-history", authenticateTokenCompany, store_history);
 
-//*  get staff count history
+//*  get staff count history for a particular employee
 companyRouter.get("/get-history",authenticateTokenCompany, get_history);
 
 //* get staff count history in form of list

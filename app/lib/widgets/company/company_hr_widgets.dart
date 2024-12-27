@@ -120,7 +120,8 @@ List<Widget> actionsHR(
   ];
 }
 
-Widget appBtitleHR(double width, double height, double textScale) {
+Widget appBtitleHR(
+    double width, double height, double textScale, String? companyName) {
   return AppBar(
     title: Row(
       children: [
@@ -133,7 +134,7 @@ Widget appBtitleHR(double width, double height, double textScale) {
           width: responsiveContainerSize(12, width, height),
         ),
         Text(
-          "${cName}",
+          "${companyName}",
           style: TextStyle(
               color: Colors.black,
               fontWeight: FontWeight.w500,
@@ -145,7 +146,15 @@ Widget appBtitleHR(double width, double height, double textScale) {
 }
 
 Widget attendCountWidget(
-    double width, double height, double textScale, void Function() ontap) {
+    double width,
+    double height,
+    double textScale,
+    void Function() ontap,
+    String inCount,
+    String outCount,
+    String Total,
+    String Date,
+    bool isSubmit) {
   return Container(
     height: responsiveContainerSize(200, width, height),
     decoration: BoxDecoration(
@@ -177,8 +186,7 @@ Widget attendCountWidget(
                   children: [
                     rowCOntent(width, height, textScale, "In", inCount),
                     rowCOntent(width, height, textScale, "Out", outCount),
-                    rowCOntentDate(
-                        width, height, textScale, "Date", currentDate)
+                    rowCOntentDate(width, height, textScale, "Date", Date)
                   ],
                 ),
               ],
@@ -198,7 +206,7 @@ Widget attendCountWidget(
           SizedBox(
             height: responsiveContainerSize(10, width, height),
           ),
-          rowContent2(width, height, textScale, ontap),
+          rowContent2(width, height, textScale, ontap, Total, isSubmit),
         ],
       ),
     ),
@@ -206,7 +214,7 @@ Widget attendCountWidget(
 }
 
 Widget rowCOntent(
-    double width, double height, double textScale, String title, int Count) {
+    double width, double height, double textScale, String title, String Count) {
   return Column(
     children: [
       Text(
@@ -253,8 +261,8 @@ Widget rowCOntentDate(
   );
 }
 
-Widget rowContent2(
-    double width, double height, double textScale, void Function() ontap) {
+Widget rowContent2(double width, double height, double textScale,
+    void Function() ontap, String Total, bool isSubmit) {
   return Container(
     padding:
         EdgeInsets.symmetric(horizontal: 18 * horizontalPaddingFactor(width)),
@@ -262,14 +270,14 @@ Widget rowContent2(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          "Total Staff - ${totalCount}",
+          "Total Staff - ${Total}",
           style: TextStyle(
               color: Colors.white,
               fontFamily: "Tansek",
               fontSize: responsiveContainerSize(30, width, height)),
         ),
         GestureDetector(
-          onTap: ontap,
+          onTap: isSubmit ? () {} : ontap,
           child: Text(
             isSubmit ? "Submitted" : "Submit Attendance  >",
             style: TextStyle(
@@ -400,11 +408,6 @@ Widget listApproval(double width, double height, double textScale,
           children: [
             TableRow(children: [
               TableCell(
-                  child: Container(
-                height: 50,
-                child: staffTextText(width, height, textScale, "Staff Present"),
-              )),
-              TableCell(
                 child: Container(
                     height: 50,
                     child: staffTextText(width, height, textScale, "Date")),
@@ -412,7 +415,8 @@ Widget listApproval(double width, double height, double textScale,
               TableCell(
                   child: Container(
                 height: 50,
-                child: staffTextText(width, height, textScale, "Total Staff"),
+                child: staffTextText(
+                    width, height, textScale, "Total Staff Present"),
               )),
             ])
           ],
@@ -436,18 +440,12 @@ Widget listApproval(double width, double height, double textScale,
                         child: Container(
                       height: 50,
                       child: staffTextText(width, height, textScale,
-                          staffList[index]['totalCount'].toString()),
-                    )),
-                    TableCell(
-                        child: Container(
-                      height: 50,
-                      child: staffTextText(width, height, textScale,
                           staffList[index]['currentDate']),
                     )),
                     TableCell(
                         child: Container(
                       height: 50,
-                      child: staffTextText(width, height, textScale, "60"),
+                      child: staffTextText(width, height, textScale, staffList[index]['totalCount'].toString()),
                     )),
                   ])
                 ],

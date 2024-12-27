@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const countSchema = new mongoose.Schema({
   Date: {
     required: true,
-    type: Number,
+    type: String,
   },
   In: {
     required: true,

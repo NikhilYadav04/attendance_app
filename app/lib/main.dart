@@ -1,5 +1,6 @@
 // ignore_for_file: constant_pattern_never_matches_value_type
 
+import 'package:attend_ease/providers/attendance/company_attendance_provider.dart';
 import 'package:attend_ease/providers/attendance/employee_attendance_provider.dart';
 import 'package:attend_ease/providers/company/company_location_provider.dart';
 import 'package:attend_ease/providers/company/company_login_provider.dart';
@@ -43,7 +44,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => EmployeeAddProvider()),
         ChangeNotifierProvider(create: (_) => CompanyMainScreenProvider()),
         ChangeNotifierProvider(create: (_) => EmployeeMainScreenProvider()),
-        ChangeNotifierProvider(create: (_) => EmployeeAttendanceProvider(),)
+        ChangeNotifierProvider(create: (_) => EmployeeAttendanceProvider(),),
+        ChangeNotifierProvider(create: (_) => CompanyAttendanceProvider(),),
       ],
       child: LayoutBuilder(builder: (context, constraints) {
         SizeConfig().init(constraints);

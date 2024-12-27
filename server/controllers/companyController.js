@@ -3,6 +3,7 @@ const reportModel = require("../models/attendance");
 const staffCountModel = require("../models/staffCount");
 const staffReportModel = require("../models/staffReport");
 const jwt = require("jsonwebtoken");
+const employeeModel = require("../models/employee");
 
 require("dotenv").config();
 
@@ -25,13 +26,20 @@ const add_company = async (req, res) => {
       { upsert: true, new: true, setDefaultsOnInsert: true }
     );
 
-    //create staffcount model
+    //* create staffcount model
     let staffCountBody = new staffCountModel({
       companyName,
       counts: [],
     });
 
+    //* create staff report model
+    let staffReportBody = new staffReportModel({
+      companyName,
+      list: [],
+    });
+
     await staffCountBody.save();
+    await staffReportBody.save();
 
     const token = await jwt.sign(
       {
@@ -131,32 +139,43 @@ const store_history = async (req, res) => {
       companyName,
     });
 
-    const CountIndex = await report.counts.findIndex(
-      (count) => count.Date === currentDate
-    );
+    //* if counts is empty add a new record and save and if non-empty make the submit to true
+    if (report.counts && report.counts.length > 0) {
+      const CountIndex = report.counts.findIndex(
+        (count) => count.Date === currentDate
+      );
 
-    if (CountIndex >= 0) {
-      report.counts[CountIndex].submit = true;
-
-      return res.status(200).json({
-        success: true,
-        message: "Submitted",
-      });
+      if (CountIndex >= 0) {
+        report.counts[CountIndex].submit = true;
+      } else {
+        report.counts.push({
+          Date: currentDate,
+          In: 0,
+          Out: 0,
+          Total:0,
+          submit: true,
+        });
+      }
     } else {
-      let body = {
-        Date: currentDate,
-        In: 0,
-        Out: 0,
-        Total: 0,
-        submit: true,
-      };
-
-      return res.status(200).json({
-        success: true,
-        message: "Submitted",
-      });
+      report.counts = [
+        {
+          Date: currentDate,
+          In: 0,
+          Out: 0,
+          Total:0,
+          submit: true,
+        },
+      ];
     }
+
+    await report.save();
+
+    return res.status(200).json({
+      success: true,
+      message: "Submitted",
+    });
   } catch (e) {
+    console.log(e.message)
     return res.status(500).json({
       success: false,
       message: e.message,
@@ -167,9 +186,10 @@ const store_history = async (req, res) => {
 const get_history = async (req, res) => {
   try {
     const { companyName } = req.user;
+    const { employeeID } = req.body;
 
-    const body = await staffReportModel.findOne({ companyName });
-    const countList = body.list;
+    const body = await reportModel.findOne({ companyName, employeeID });
+    const countList = body.daysPresent;
 
     return res.status(200).json({
       success: true,
@@ -189,6 +209,8 @@ const history_list = async (req, res) => {
 
     const body = await staffReportModel.findOne({ companyName });
     const countList = await body.list;
+
+    console.log(countList);
 
     return res.status(200).json({
       success: true,

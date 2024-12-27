@@ -1,3 +1,4 @@
+import 'package:attend_ease/helper/helper_functions.dart';
 import 'package:attend_ease/providers/company/company_main_screen_provider.dart';
 import 'package:attend_ease/styling/colors.dart';
 import 'package:attend_ease/styling/scale.dart';
@@ -19,12 +20,20 @@ class CompanyHrScreen extends StatefulWidget {
 class _CompanyHrScreenState extends State<CompanyHrScreen>
     with SingleTickerProviderStateMixin {
   late final TabController tabController;
+  String? companyName = "";
+
+  void _getName() async {
+    String? name = await HelperFunctions.getCompanyName();
+    setState(() {
+      companyName = name;
+    });
+  }
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     tabController = TabController(length: 3, vsync: this);
+    _getName();
   }
 
   @override
@@ -54,7 +63,8 @@ class _CompanyHrScreenState extends State<CompanyHrScreen>
                   elevation: 0,
                   toolbarHeight:
                       responsiveContainerSize(75, currentWidth, currentHeight),
-                  title: appBtitleHR(currentWidth, currentHeight, textScale),
+                  title: appBtitleHR(
+                      currentWidth, currentHeight, textScale, companyName),
                   actions: [
                     provider.isLoading
                         ? SpinKitSquareCircle(

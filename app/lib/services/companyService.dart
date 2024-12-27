@@ -199,26 +199,25 @@ class companyService {
   }
 
 //get staff count history
-  Future<String> getCountHistory(String? companyName) async {
+  Future<dynamic> getCountHistory(String? employeeID) async {
     try {
       Uri uri = Uri.parse(get_staff_history);
 
-      var body = {"companyName": companyName};
+      var body = {"employeeID": employeeID};
+
+      var token = await HelperFunctions.getCompanyToken();
 
       var res = await http.post(uri,
           headers: {
             'Content-Type': 'application/json',
+            'Authorization': 'Bearer ${token}'
           },
           body: jsonEncode(body));
       var resBody = jsonDecode(res.body);
-      List<dynamic> message = resBody['message'];
-
-      isSubmit = message[0]['isSubmit'];
+      List<dynamic> list = resBody['message'];
 
       if (res.statusCode == 200) {
-        return isSubmit.toString();
-      } else {
-        return resBody['message'];
+        return list;
       }
     } catch (e) {
       return e.toString();

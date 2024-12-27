@@ -39,7 +39,7 @@ class CompanySetupProvider extends ChangeNotifier {
               companyCityController.text)
           .then((value) async{
         if (value == "Success") {
-          await HelperFunctions.setCompanyName(companyNameController.text.toLowerCase());
+          await HelperFunctions.setCompanyName(companyNameController.text.toString());
           isLoading = false;
           notifyListeners();
 

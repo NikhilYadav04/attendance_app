@@ -57,12 +57,14 @@ class CompanyLocationProvider extends ChangeNotifier {
       isLoading = true;
       notifyListeners();
 
-      await LocationService.setLocation(latitude, longitude, sliderValue)
+      await LocationService.setLocation(latitude, longitude, sliderValue.toString())
           .then((value) async {
         if (value == "Stored") {
           await HelperFunctions.setLoggedInCompany(true);
           await HelperFunctions.setLoggedIn(true);
           await HelperFunctions.setLoggedInEmployee(false);
+          latitude = "Your Location Co-ordinates";
+          longitude = "";
           isLoading = false;
           notifyListeners();
 

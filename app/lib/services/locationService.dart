@@ -2,22 +2,20 @@ import 'dart:convert';
 
 import 'package:attend_ease/helper/helper_functions.dart';
 import 'package:attend_ease/styling/url_constants.dart';
-import 'package:attend_ease/globalobjects/variables.dart';
-import 'package:attend_ease/models/locationModel.dart';
 import 'package:http/http.dart' as http;
 
 class locationService {
   // set location
   Future<String> setLocation(
-      String? latitude, String? longitude, double radius) async {
+      String? latitude, String? longitude, String radius) async {
     try {
       Uri url = Uri.parse(set_location_baseUrl);
 
-      Locationmodel locationBody = Locationmodel(
-          latitude: latitude,
-          longitude: longitude,
-          companyName: companyName,
-          radius: radius);
+      var req_body = jsonEncode({
+        "latitude":latitude,
+        "longitude":longitude,
+        "radius":radius
+      });
 
       var token = await HelperFunctions.getCompanyToken();
 
@@ -26,7 +24,7 @@ class locationService {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ${token}'
           },
-          body: locationBody.toJson());
+          body: req_body);
       var body = jsonDecode(res.body);
       print(body);
       if (res.statusCode == 200) {
