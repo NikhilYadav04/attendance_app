@@ -24,7 +24,7 @@ class EmployeeAttendanceProvider extends ChangeNotifier {
   List<dynamic> attendanceRecords = [];
 
   bool isLoading = false;
-  bool isBiometric = true;
+  bool isBiometric = false;
   bool isPresent = false;
   bool inRadius = false;
   bool isLoadingList = false;
@@ -53,16 +53,21 @@ class EmployeeAttendanceProvider extends ChangeNotifier {
       print(Status);
 
       isLoading = false;
+      isBiometric = false;
+      inRadius = false;
       isPresent = false;
       notifyListeners();
 
       //* check if JWT is Expired or Not
-    } else if (report.toString().contains("JWT expired")) {
+    } else if (report.toString().contains("jwt expired")) {
       await HelperFunctions.setLoggedIn(false);
       await HelperFunctions.setLoggedInCompany(false);
       await HelperFunctions.setLoggedInEmployee(false);
       await HelperFunctions.setCompanyToken("");
       await HelperFunctions.setEmployeeToken("");
+
+      isLoading = false;
+      notifyListeners();
 
       Navigator.pushAndRemoveUntil(
         context,
@@ -194,52 +199,60 @@ class EmployeeAttendanceProvider extends ChangeNotifier {
 
   //* Verify if employee is in attendance radius
   void checkRadius(BuildContext context) async {
-    await LocationService.getLocation().then((value) async {
-      if (value.toString().startsWith("Error")) {
-        toastMessage(context, "Error", value, ToastificationType.error);
-        print("Error is ${value}");
-      } else {
-        double Latitude1 = double.parse(value["latitude"]);
-        double Longitude1 = double.parse(value["longitude"]);
-        double Latitude2 = 0.0;
-        double Longitude2 = 0.0;
-        double radius = value["radius"];
-
-        //* calculate the range if employee is in radius
-        LocationPermission permission = await Geolocator.checkPermission();
-        if (permission == LocationPermission.denied ||
-            permission == LocationPermission.deniedForever) {
-          // ignore: unused_local_variable
-          LocationPermission ask = await Geolocator.requestPermission();
+    if (!isPresent) {
+      await LocationService.getLocation().then((value) async {
+        if (value.toString().startsWith("Error")) {
+          toastMessage(context, "Error", value, ToastificationType.error);
+          print("Error is ${value}");
         } else {
-          Position currentPosition = await Geolocator.getCurrentPosition(
-              desiredAccuracy: LocationAccuracy.best);
-          Latitude2 = currentPosition.latitude;
-          Longitude2 = currentPosition.longitude;
-        }
+          double Latitude1 = double.parse(value["latitude"]);
+          double Longitude1 = double.parse(value["longitude"]);
+          double Latitude2 = 0.0;
+          double Longitude2 = 0.0;
+          double radius = value["radius"];
 
-        double distance = Geolocator.distanceBetween(
-            Latitude1, Longitude1, Latitude2, Longitude2);
+          //* calculate the range if employee is in radius
+          LocationPermission permission = await Geolocator.checkPermission();
+          if (permission == LocationPermission.denied ||
+              permission == LocationPermission.deniedForever) {
+            // ignore: unused_local_variable
+            LocationPermission ask = await Geolocator.requestPermission();
+          } else {
+            Position currentPosition = await Geolocator.getCurrentPosition(
+                desiredAccuracy: LocationAccuracy.best);
+            Latitude2 = currentPosition.latitude;
+            Longitude2 = currentPosition.longitude;
+          }
 
-        if (distance <= radius) {
-          inRadius = true;
-          notifyListeners();
-        } else {
-          inRadius = false;
-          notifyListeners();
-          toastMessage(
-            context,
-            "Stay Within Office Radius",
-            "Please stay within the office range to mark your attendance.",
-            ToastificationType.warning,
-          );
+          double distance = Geolocator.distanceBetween(
+              Latitude1, Longitude1, Latitude2, Longitude2);
+
+          if (distance <= radius) {
+            inRadius = true;
+            notifyListeners();
+            toastMessage(
+              context,
+              "Location verified",
+              "Your are within office radius!!.",
+              ToastificationType.success,
+            );
+          } else {
+            inRadius = false;
+            notifyListeners();
+            toastMessage(
+              context,
+              "Stay Within Office Radius",
+              "Please stay within the office range to mark your attendance.",
+              ToastificationType.warning,
+            );
+          }
         }
-      }
-    });
+      });
+    } else {}
   }
 
   //* get attendance history list of employee
-  void fetchAttendanceList(BuildContext context) async {
+  Future<dynamic> fetchAttendanceList(BuildContext context) async {
     isLoadingList = true;
     notifyListeners();
 

@@ -6,7 +6,6 @@ import 'package:attend_ease/widgets/company/company_setup_screen_widgets.dart';
 import 'package:attend_ease/widgets/employee/employee_main_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
@@ -72,10 +71,7 @@ class _EmployeeMainScreen2State extends State<EmployeeMainScreen2> {
                   Navigator.push(
                       context,
                       PageTransition(
-                          child: BiomAuth(
-                            isBiometric: provider.isBiometric,
-                          ),
-                          type: PageTransitionType.fade));
+                          child: BiomAuth(), type: PageTransitionType.fade));
                 },
                 widget.width,
                 widget.height,
@@ -86,11 +82,11 @@ class _EmployeeMainScreen2State extends State<EmployeeMainScreen2> {
                   provider.isBiometric
                       ? "Your Biometric ID Is Verified"
                       : "Click Here For Biometric Authentication",
-                  style: GoogleFonts.notoSansOldHungarian(
-                      fontSize: responsiveFontSize(21.5, widget.width,
-                          widget.height, widget.textScaleFactor),
+                  style: TextStyle(
+                      fontSize: 21.5,
+                      color: Colors.black,
                       fontWeight: FontWeight.bold,
-                      color: Colors.black),
+                      fontFamily: "Kumbh-Med"),
                 ),
               ),
 
@@ -108,7 +104,8 @@ class _EmployeeMainScreen2State extends State<EmployeeMainScreen2> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 attendButtonIn(() {
-                                  provider.submitAttendanceIn(context, currentDate, month, Year);
+                                  provider.submitAttendanceIn(
+                                      context, currentDate, month, Year);
                                 }, widget.width, widget.height,
                                     widget.textScaleFactor),
                                 attendButtonOut(() {

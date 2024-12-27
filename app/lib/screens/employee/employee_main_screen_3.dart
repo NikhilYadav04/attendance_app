@@ -34,22 +34,26 @@ class _EmployeeMainScreen3State extends State<EmployeeMainScreen3> {
   DateTime _selectedDay = DateTime.now();
   DateTime _focusedDay = DateTime.now();
   final Employeeservice employeeservice = Employeeservice();
-  List<dynamic> redDates = [];
+  List<DateTime> redDates = [];
   List<dynamic> temp = [];
 
   //* Format the dates at which employee is present
   void fetchDates(List<dynamic> list) {
-    for (int i = 0; i < list.length; i++) {
-      if (list[i]['isPresent'] == true) {
-        String DateString = list[i]['Date'];
-        List<String> parts = DateString.split('-');
-        // splits the date sring by '/'
-        int day = int.parse(parts[0]);
-        int month = int.parse(parts[1]);
-        int year = int.parse(parts[2]);
-        redDates.add(DateTime.utc(year, month, day));
-        print("list is ${list}");
-        print("Redlist is ${redDates}}");
+    redDates.clear();
+    for (var record in list) {
+      if (record['isPresent'] == true) {
+        String dateString = record['Date'];
+        List<String> parts = dateString.split('-');
+        if (parts.length == 3) {
+          try {
+            int day = int.parse(parts[0]);
+            int month = int.parse(parts[1]);
+            int year = int.parse(parts[2]);
+            redDates.add(DateTime(year, month, day));
+          } catch (e) {
+            debugPrint("Error parsing date: $e");
+          }
+        }
       }
     }
   }
@@ -57,49 +61,48 @@ class _EmployeeMainScreen3State extends State<EmployeeMainScreen3> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() {
+
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
       final provider = context.read<EmployeeAttendanceProvider>();
-      provider.fetchAttendanceList(context);
-      temp = provider.attendanceRecords;
+      await provider.fetchAttendanceList(context).then((_) {
+        fetchDates(provider.attendanceRecords);
+        setState(() {});
+      });
     });
-    setState(() {
-      temp;
-    });
-    fetchDates(temp);
   }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: SingleChildScrollView(child: Consumer<EmployeeAttendanceProvider>(
-          builder: (context, provider, _) {
-            return provider.isLoadingList
-                ? Center(
-                    child: SpinKitFadingCircle(
-                      color: Colours.DARK_BLUE,
-                      size: 80,
-                    ),
-                  )
-                : provider.attendanceRecords.isEmpty
-                    ? Center(
-                        child: Text("No Records Available"),
-                      )
-                    : Container(
-                        color: Colours.BUTTON_COLOR_2,
-                        padding: EdgeInsets.symmetric(
-                            horizontal:
-                                3 * horizontalPaddingFactor(widget.height)),
-                        child: Column(
-                          children: [
-                            SizedBox(
-                              height: responsiveContainerSize(
-                                  18, widget.width, widget.height),
-                            ),
-                            // heading widget
-                            ExpansionTile(
-                              title: Container(
-                                child: Center(
+        body: SingleChildScrollView(
+          child: Consumer<EmployeeAttendanceProvider>(
+            builder: (context, provider, _) {
+              return provider.isLoadingList
+                  ? Center(
+                      child: SpinKitFadingCircle(
+                        color: Colours.DARK_BLUE,
+                        size: 80,
+                      ),
+                    )
+                  : provider.attendanceRecords.isEmpty
+                      ? Center(
+                          child: Text("No Records Available"),
+                        )
+                      : Container(
+                          color: Colours.BUTTON_COLOR_2,
+                          padding: EdgeInsets.symmetric(
+                              horizontal:
+                                  3 * horizontalPaddingFactor(widget.height)),
+                          child: Column(
+                            children: [
+                              SizedBox(
+                                height: responsiveContainerSize(
+                                    18, widget.width, widget.height),
+                              ),
+                              // Heading widget
+                              ExpansionTile(
+                                title: Center(
                                   child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
@@ -107,111 +110,114 @@ class _EmployeeMainScreen3State extends State<EmployeeMainScreen3> {
                                       Text(
                                         "Attendance Report",
                                         style: GoogleFonts.montserrat(
-                                            shadows: [
-                                              Shadow(
-                                                  color: Colors.yellow,
-                                                  blurRadius:
-                                                      responsiveBorderRadius(
-                                                          2,
-                                                          widget.width,
-                                                          widget.height))
-                                            ],
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: responsiveFontSize(
-                                                30,
-                                                widget.width,
-                                                widget.height,
-                                                widget.textScaleFactor)),
+                                          shadows: [
+                                            Shadow(
+                                                color: Colors.yellow,
+                                                blurRadius:
+                                                    responsiveBorderRadius(
+                                                        2,
+                                                        widget.width,
+                                                        widget.height)),
+                                          ],
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: responsiveFontSize(
+                                              30,
+                                              widget.width,
+                                              widget.height,
+                                              widget.textScaleFactor),
+                                        ),
                                       ),
                                     ],
                                   ),
                                 ),
-                              ),
-                              children: [
-                                Container(
-                                  color: Colors.white,
-                                  child: TableCalendar(
-                                    rowHeight: 50,
-                                    daysOfWeekHeight: 40,
-                                    firstDay: DateTime.utc(2024, 1, 1),
-                                    lastDay: DateTime.utc(2025, 12, 1),
-                                    focusedDay: _focusedDay,
-                                    calendarFormat: _calendarFormat,
-                                    selectedDayPredicate: (day) {
-                                      return isSameDay(_selectedDay, day);
-                                    },
-                                    onDaySelected: (selectedDay, focusedDay) {
-                                      setState(() {
-                                        _selectedDay = selectedDay;
-                                        _focusedDay = focusedDay;
-                                      });
-                                    },
-                                    headerStyle: const HeaderStyle(
-                                        titleCentered: true,
-                                        formatButtonVisible: false),
-                                    calendarStyle: const CalendarStyle(
-                                      // Customizing the appearance of the calendar
-                                      todayDecoration: BoxDecoration(
-                                        color: Colors.blue,
-                                        shape: BoxShape.rectangle,
-                                      ),
-                                      selectedDecoration: BoxDecoration(
-                                        color: Colors.yellow,
-                                        shape: BoxShape.rectangle,
-                                      ),
-                                      defaultDecoration: BoxDecoration(
-                                        shape: BoxShape.rectangle,
-                                      ),
-                                      weekendTextStyle: TextStyle(
-                                          color: Colors
-                                              .red), // Example of weekend text color
-                                    ),
-                                    calendarBuilders: CalendarBuilders(
-                                      defaultBuilder:
-                                          (context, day, focusedDay) {
-                                        bool isRedDate = redDates.contains(day);
-
-                                        return Container(
-                                          decoration: BoxDecoration(
-                                            color: isRedDate
-                                                ? Colors.green
-                                                : Colors.transparent,
-                                            shape: BoxShape.circle,
-                                            // borderRadius: BorderRadius.circular(8.0),
-                                          ),
-                                          alignment: Alignment.center,
-                                          child: Text(
-                                            day.day.toString(),
-                                            style: TextStyle(
-                                              color: isRedDate
-                                                  ? Colors.white
-                                                  : Colors.black,
-                                            ),
-                                          ),
-                                        );
+                                children: [
+                                  Container(
+                                    color: Colors.white,
+                                    child: TableCalendar(
+                                      rowHeight: 50,
+                                      daysOfWeekHeight: 40,
+                                      firstDay: DateTime.utc(2024, 1, 1),
+                                      lastDay: DateTime.utc(2025, 12, 1),
+                                      focusedDay: _focusedDay,
+                                      calendarFormat: _calendarFormat,
+                                      selectedDayPredicate: (day) {
+                                        return isSameDay(_selectedDay, day);
                                       },
+                                      onDaySelected: (selectedDay, focusedDay) {
+                                        setState(() {
+                                          _selectedDay = selectedDay;
+                                          _focusedDay = focusedDay;
+                                        });
+                                      },
+                                      headerStyle: const HeaderStyle(
+                                        titleCentered: true,
+                                        formatButtonVisible: false,
+                                      ),
+                                      calendarStyle: const CalendarStyle(
+                                        todayDecoration: BoxDecoration(
+                                          color: Colors.blue,
+                                          shape: BoxShape.rectangle,
+                                        ),
+                                        selectedDecoration: BoxDecoration(
+                                          color: Colors.yellow,
+                                          shape: BoxShape.rectangle,
+                                        ),
+                                        defaultDecoration: BoxDecoration(
+                                          shape: BoxShape.rectangle,
+                                        ),
+                                        weekendTextStyle:
+                                            TextStyle(color: Colors.red),
+                                      ),
+                                      calendarBuilders: CalendarBuilders(
+                                        defaultBuilder: (context, day, _) {
+                                          bool isRedDate = redDates.any(
+                                            (redDate) =>
+                                                redDate.year == day.year &&
+                                                redDate.month == day.month &&
+                                                redDate.day == day.day,
+                                          );
+
+                                          return Container(
+                                            decoration: BoxDecoration(
+                                              color: isRedDate
+                                                  ? Colors.green
+                                                  : Colors.transparent,
+                                              shape: BoxShape.circle,
+                                            ),
+                                            alignment: Alignment.center,
+                                            child: Text(
+                                              day.day.toString(),
+                                              style: TextStyle(
+                                                color: isRedDate
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ],
-                            ),
-
-                            SizedBox(
-                              height: responsiveContainerSize(
-                                  20, widget.width, widget.height),
-                            ),
-                            attendanceReport(
+                                ],
+                              ),
+                              SizedBox(
+                                height: responsiveContainerSize(
+                                    20, widget.width, widget.height),
+                              ),
+                              attendanceReport(
                                 widget.width,
                                 widget.height,
                                 widget.textScaleFactor,
                                 context,
-                                provider.attendanceRecords)
-                          ],
-                        ),
-                      );
-          },
-        )),
+                                provider.attendanceRecords,
+                              ),
+                            ],
+                          ),
+                        );
+            },
+          ),
+        ),
       ),
     );
   }

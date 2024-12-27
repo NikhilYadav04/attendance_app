@@ -46,19 +46,19 @@ const add_staff = async (req, res) => {
       employeeID,
       companyName,
       daysPresent: [
-        {
-          Month: "April",
-          Year: "2024",
-          daysPresent: 25,
-        },
+        // {
+        //   Month: "April",
+        //   Year: "2024",
+        //   daysPresent: 25,
+        // },
       ],
       attendance: [
-        {
-          InTime: "16:00",
-          OutTime: "17:00",
-          Date: "12/04/2024",
-          isPresent: true,
-        },
+        // {
+        //   InTime: "16:00",
+        //   OutTime: "17:00",
+        //   Date: "12/04/2024",
+        //   isPresent: true,
+        // },
       ],
     });
 
