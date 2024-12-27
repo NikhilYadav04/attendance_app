@@ -7,6 +7,7 @@ class HelperFunctions {
   static String COMPANY_TOKEN = "TOKEN_COMPANY";
   static String EMPLOYEE_TOKEN = "TOKEN_EMPLOYEE";
   static String EMPLOYEE_NAME_TOKEN = "EMPLOYEE_NAME_TOKEN";
+  static String COMPANY_NAME_TOKEN = "COMPANY_NAME_TOKEN";
 
   //* set to true when user is logged to company account
   static Future<bool> setLoggedInCompany(bool isLogIN) async {
@@ -42,6 +43,18 @@ class HelperFunctions {
   static Future<bool> setEmployeeName(String employeeName) async {
     SharedPreferences sf = await SharedPreferences.getInstance();
     return sf.setString(EMPLOYEE_NAME_TOKEN, employeeName);
+  }
+
+   //* Store The Company Name
+  static Future<bool> setCompanyName(String companyName) async {
+    SharedPreferences sf = await SharedPreferences.getInstance();
+    return sf.setString(COMPANY_NAME_TOKEN,companyName);
+  }
+
+  //* Get The Company Name
+  static Future<String?> getCompanyName() async {
+    SharedPreferences sf = await SharedPreferences.getInstance();
+    return sf.getString(COMPANY_NAME_TOKEN);
   }
 
   //* Get The Employee Name

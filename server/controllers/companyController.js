@@ -28,9 +28,7 @@ const add_company = async (req, res) => {
     //create staffcount model
     let staffCountBody = new staffCountModel({
       companyName,
-      In: 0,
-      Out: 0,
-      Total: 0,
+      counts: [],
     });
 
     await staffCountBody.save();
@@ -113,6 +111,7 @@ const store_history = async (req, res) => {
     const { companyName } = req.user;
     const { totalCount, currentDate } = req.body;
 
+    //* store the report(counts) for that day
     let historyBody = await staffReportModel.findOneAndUpdate(
       { companyName },
       {
@@ -127,22 +126,36 @@ const store_history = async (req, res) => {
       { new: true, upsert: true }
     );
 
-    const body = await staffReportModel.findOne({ companyName });
-
-    //reset the counts of in and out after submission
-    const countBody = await staffCountModel.findOne({ companyName });
-    if (countBody) {
-      countBody["In"] = 0;
-      countBody["Out"] = 0;
-      countBody["Total"] = 0;
-
-      await countBody.save(); // Save the changes to the database
-    }
-
-    return res.status(200).json({
-      success: true,
-      message: body,
+    //* make Submit True In Staff Counts Schema
+    const report = await staffCountModel.findOne({
+      companyName,
     });
+
+    const CountIndex = await report.counts.findIndex(
+      (count) => count.Date === currentDate
+    );
+
+    if (CountIndex >= 0) {
+      report.counts[CountIndex].submit = true;
+
+      return res.status(200).json({
+        success: true,
+        message: "Submitted",
+      });
+    } else {
+      let body = {
+        Date: currentDate,
+        In: 0,
+        Out: 0,
+        Total: 0,
+        submit: true,
+      };
+
+      return res.status(200).json({
+        success: true,
+        message: "Submitted",
+      });
+    }
   } catch (e) {
     return res.status(500).json({
       success: false,

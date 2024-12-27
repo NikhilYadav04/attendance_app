@@ -1,3 +1,4 @@
+import 'package:attend_ease/helper/helper_functions.dart';
 import 'package:attend_ease/screens/company/company_location_screen.dart';
 import 'package:attend_ease/services/companyService.dart';
 import 'package:attend_ease/widgets/auth/otp_auth_widgets.dart';
@@ -36,8 +37,9 @@ class CompanySetupProvider extends ChangeNotifier {
               companyHRController.text,
               companyIDController.text,
               companyCityController.text)
-          .then((value) {
+          .then((value) async{
         if (value == "Success") {
+          await HelperFunctions.setCompanyName(companyNameController.text.toLowerCase());
           isLoading = false;
           notifyListeners();
 

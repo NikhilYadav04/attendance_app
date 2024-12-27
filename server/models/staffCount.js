@@ -1,10 +1,9 @@
 const mongoose = require("mongoose");
 
-const staffSchema = new mongoose.Schema({
-    
-  companyName: {
+const countSchema = new mongoose.Schema({
+  Date: {
     required: true,
-    type: String,
+    type: Number,
   },
   In: {
     required: true,
@@ -18,6 +17,18 @@ const staffSchema = new mongoose.Schema({
     required: true,
     type: Number,
   },
+  submit: {
+    required: true,
+    type: Boolean,
+  },
+});
+
+const staffSchema = new mongoose.Schema({
+  companyName: {
+    required: true,
+    type: String,
+  },
+  counts: [countSchema],
 });
 
 const staffCountModel = mongoose.model("staffCount", staffSchema);

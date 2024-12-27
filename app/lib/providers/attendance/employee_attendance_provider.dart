@@ -108,32 +108,51 @@ class EmployeeAttendanceProvider extends ChangeNotifier {
     isLoading = true;
     notifyListeners();
 
+    //* mark attendance only if biometric is verified
     if (isBiometric) {
       String time = DateFormat('HH:mm').format(DateTime.now());
 
-      await attendanceService
-          .markAttendanceIn(time, Date, false, Month, Year)
-          .then((value) async {
-        if (value == "Success") {
-          await CompanyService.changeCount(1, 0, 0);
-          isLoading = false;
-          notifyListeners();
+      //* check if attendance report is submitted or not
+      var check = await CompanyService.changeCount(1, 0, 0);
 
-          toastMessage(context, "Marked!", "In-Time Marked Successfully",
-              ToastificationType.success);
-        } else if (value.toString().contains("jwt expired")) {
-          isLoading = false;
-          notifyListeners();
+      if (check == "Success") {
+        await attendanceService
+            .markAttendanceIn(time, Date, false, Month, Year)
+            .then((value) async {
+          if (value == "Success") {
+            isLoading = false;
+            notifyListeners();
 
-          toastMessage(context, "Session Over!", "Login Again And Try Again",
-              ToastificationType.error);
-        } else {
-          isLoading = false;
-          notifyListeners();
+            toastMessage(context, "Marked!", "In-Time Marked Successfully",
+                ToastificationType.success);
+          } else if (value.toString().contains("jwt expired")) {
+            isLoading = false;
+            notifyListeners();
 
-          toastMessage(context, "Error!", value, ToastificationType.error);
-        }
-      });
+            toastMessage(context, "Session Over!", "Login Again And Try Again",
+                ToastificationType.error);
+          } else {
+            isLoading = false;
+            notifyListeners();
+
+            toastMessage(context, "Error!", value, ToastificationType.error);
+          }
+        });
+      } else if (check == "Submitted") {
+        isLoading = false;
+        notifyListeners();
+
+        toastMessage(
+            context,
+            "Cannot Mark",
+            "Attendance Report Submitted for Today",
+            ToastificationType.warning);
+      } else {
+        isLoading = false;
+        notifyListeners();
+
+        toastMessage(context, "Error!", check, ToastificationType.error);
+      }
     } else {
       isLoading = false;
       notifyListeners();
@@ -150,41 +169,60 @@ class EmployeeAttendanceProvider extends ChangeNotifier {
     isLoading = true;
     notifyListeners();
 
+    //* check if attendance report is submitted or not
+    var check = await CompanyService.changeCount(0, 1, 1);
+
+    //* mark attendance only if biometric is verified
     if (isBiometric) {
-      //* check if InTime is marked
-      if (InTime == "00:00") {
+      if (check == "Success") {
+        //* check if InTime is marked
+        if (InTime == "00:00") {
+          isLoading = false;
+          notifyListeners();
+          toastMessage(context, "Mark In-Time", "Please mark In-Time First",
+              ToastificationType.warning);
+        } else {
+          String time = DateFormat('HH:mm').format(DateTime.now());
+          OutTime = time;
+
+          await attendanceService
+              .markAttendanceOut(InTime, OutTime, Date, true, Month, Year)
+              .then((value) async {
+            if (value == "Success") {
+              isLoading = false;
+              isPresent = true;
+              notifyListeners();
+
+              toastMessage(context, "Marked!", "Attendance marked successfully",
+                  ToastificationType.success);
+            } else if (value.toString().contains("jwt expired")) {
+              isLoading = false;
+              notifyListeners();
+
+              toastMessage(context, "Session Over!",
+                  "Login Again And Try Again", ToastificationType.error);
+            } else {
+              isLoading = false;
+              notifyListeners();
+
+              toastMessage(context, "Error!", value, ToastificationType.error);
+            }
+          });
+        }
+      } else if (check == "Submitted") {
         isLoading = false;
         notifyListeners();
-        toastMessage(context, "Mark In-Time", "Please mark In-Time First",
+
+        toastMessage(
+            context,
+            "Cannot Mark",
+            "Attendance Report Submitted for Today",
             ToastificationType.warning);
       } else {
-        String time = DateFormat('HH:mm').format(DateTime.now());
-        OutTime = time;
+        isLoading = false;
+        notifyListeners();
 
-        await attendanceService
-            .markAttendanceOut(InTime, OutTime, Date, true, Month, Year)
-            .then((value) async {
-          await CompanyService.changeCount(0, 1, 1);
-          if (value == "Success") {
-            isLoading = false;
-            isPresent = true;
-            notifyListeners();
-
-            toastMessage(context, "Marked!", "Attendance marked successfully",
-                ToastificationType.success);
-          } else if (value.toString().contains("jwt expired")) {
-            isLoading = false;
-            notifyListeners();
-
-            toastMessage(context, "Session Over!", "Login Again And Try Again",
-                ToastificationType.error);
-          } else {
-            isLoading = false;
-            notifyListeners();
-
-            toastMessage(context, "Error!", value, ToastificationType.error);
-          }
-        });
+        toastMessage(context, "Error!", check, ToastificationType.error);
       }
     } else {
       isLoading = false;

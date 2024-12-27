@@ -149,22 +149,54 @@ const change_count = async (req, res) => {
     const { companyName } = req.user;
     const { inCount, outCount, TotalCount } = req.body;
 
+    //* Fetch The Current Date
+    let currentDate = new Date();
+    let formattedDate = `${currentDate
+      .getDate()
+      .toString()
+      .padStart(2, "0")}-${(currentDate.getMonth() + 1)
+      .toString()
+      .padStart(2, "0")}-${currentDate.getFullYear()}`;
+
     const updatedEmployee = await staffCountModel.findOneAndUpdate(
       { companyName: companyName },
-      {
-        $inc: {
-          In: inCount,
-          Out: outCount,
-          Total: TotalCount,
-        },
-      },
       { new: true }
     );
 
-    return res.status(200).json({
-      success: true,
-      message: updatedEmployee,
-    });
+    const CountIndex = await updatedEmployee.counts.findIndex(
+      (count) => count.Date === formattedDate
+    );
+
+    if (CountIndex >= 0) {
+      if (updatedEmployee.counts[CountIndex].submit) {
+        return res.status(400).json({
+          success: false,
+          message: "Submitted",
+        });
+      } else {
+        updatedEmployee.counts[CountIndex].In += inCount;
+        updatedEmployee.counts[CountIndex].Out += outCount;
+        updatedEmployee.counts[CountIndex].Total += TotalCount;
+
+        return res.status(200).json({
+          success: true,
+          message: "Updated",
+        });
+      }
+    } else {
+      updatedEmployee.counts.push({
+        Date: formattedDate,
+        In: inCount,
+        Out: outCount,
+        Total: TotalCount,
+        submit: false,
+      });
+
+      return res.status(200).json({
+        success: true,
+        message: "Updated",
+      });
+    }
   } catch (e) {
     return res.status(500).json({
       success: false,
@@ -180,10 +212,29 @@ const get_count = async (req, res) => {
     const body = await staffCountModel.findOne({ companyName });
     // console.log(body)
 
-    return res.status(200).json({
-      success: true,
-      message: body,
-    });
+    let currentDate = new Date();
+    let Date = `${currentDate.getDate().toString().padStart(2, "0")}-${(
+      currentDate.getMonth() + 1
+    )
+      .toString()
+      .padStart(2, "0")}-${currentDate.getFullYear()}`;
+
+    const countIndex = await body.counts.findIndex(
+      (count) => count.Date === Date
+    );
+
+    if (countIndex >= 0) {
+      const countBody = body.counts[countIndex];
+      return res.status(200).json({
+        success: true,
+        message: countBody,
+      });
+    } else {
+      return res.status(404).json({
+        success: true,
+        message: "No Records",
+      });
+    }
   } catch (e) {
     return res.status(500).json({
       success: false,

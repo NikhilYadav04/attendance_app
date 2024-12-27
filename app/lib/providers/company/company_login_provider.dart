@@ -35,6 +35,7 @@ class CompanyLoginProvider extends ChangeNotifier {
           await HelperFunctions.setLoggedInCompany(true);
           await HelperFunctions.setLoggedIn(true);
           await HelperFunctions.setLoggedInEmployee(false);
+          await HelperFunctions.setCompanyName(companyNameController.text.toString());
           isLoading = false;
           notifyListeners();
 

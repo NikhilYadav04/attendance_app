@@ -17,6 +17,8 @@ class CompanyMainScreenProvider extends ChangeNotifier {
     await HelperFunctions.setCompanyToken("");
     await HelperFunctions.setEmployeeToken("");
     await HelperFunctions.setEmployeeName("");
+    await HelperFunctions.setCompanyName("");
+    
 
     isLoading = false;
     notifyListeners();
