@@ -90,6 +90,7 @@ class EmployeeAttendanceProvider extends ChangeNotifier {
       Status = "Yes";
 
       isLoading = false;
+      inRadius = false;
       isPresent = report["isPresent"];
 
       notifyListeners();
@@ -237,7 +238,8 @@ class EmployeeAttendanceProvider extends ChangeNotifier {
 
   //* Verify if employee is in attendance radius
   void checkRadius(BuildContext context) async {
-    await LocationService.getLocation().then((value) async {
+    if(!isPresent){
+      await LocationService.getLocation().then((value) async {
       if (value.toString().startsWith("Error")) {
         toastMessage(context, "Error", value, ToastificationType.error);
         print("Error is ${value}");
@@ -284,12 +286,11 @@ class EmployeeAttendanceProvider extends ChangeNotifier {
           );
         }
       }
-    });
-    // if (!isPresent) {
-
-    // } else {
-
-    // }
+    }
+    );
+    }else{
+      
+    }
   }
 
   //* get attendance history list of employee

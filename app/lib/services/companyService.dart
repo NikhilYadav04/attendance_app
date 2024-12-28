@@ -139,7 +139,6 @@ class companyService {
       Uri uri = Uri.parse(staff_change_count);
 
       var body = {
-        "companyName": "",
         "inCount": inCount,
         "outCount": outCount,
         "TotalCount": TotalCount

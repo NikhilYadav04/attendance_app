@@ -123,7 +123,7 @@ const get_history = async (req, res) => {
 
     const body = await reportModel.findOne({ employeeID });
 
-    const list = body.attendance;
+    let list = body.attendance;
 
     if (!list) {
       return res.status(401).json({
@@ -132,9 +132,13 @@ const get_history = async (req, res) => {
       });
     }
 
+    new_list = [];
+
+    new_list = list.filter((attendance) => attendance.isPresent === true);
+
     return res.status(200).json({
       success: true,
-      message: list,
+      message: new_list,
     });
   } catch (e) {
     return res.status(500).json({
@@ -158,14 +162,14 @@ const change_count = async (req, res) => {
       .toString()
       .padStart(2, "0")}-${currentDate.getFullYear()}`;
 
-    const updatedEmployee = await staffCountModel.findOneAndUpdate(
-      { companyName: companyName },
-      { new: true }
-    );
+    const updatedEmployee = await staffCountModel.findOne({
+      companyName: companyName,
+    });
 
     const CountIndex = await updatedEmployee.counts.findIndex(
       (count) => count.Date === formattedDate
     );
+    console.log(`CountIndex ${CountIndex}`);
 
     if (CountIndex >= 0) {
       if (updatedEmployee.counts[CountIndex].submit) {
@@ -177,6 +181,10 @@ const change_count = async (req, res) => {
         updatedEmployee.counts[CountIndex].In += inCount;
         updatedEmployee.counts[CountIndex].Out += outCount;
         updatedEmployee.counts[CountIndex].Total += TotalCount;
+
+        updatedEmployee.markModified(`counts.${CountIndex}`);
+
+        await updatedEmployee.save();
 
         return res.status(200).json({
           success: true,
@@ -191,6 +199,8 @@ const change_count = async (req, res) => {
         Total: TotalCount,
         submit: false,
       });
+
+      await updatedEmployee.save();
 
       return res.status(200).json({
         success: true,

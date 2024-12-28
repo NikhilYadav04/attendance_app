@@ -152,7 +152,7 @@ class _StaffListScreen2State extends State<StaffListScreen2> {
                                                   height: 50,
                                                   child: Center(
                                                     child: Text(
-                                                      "${Percentage}",
+                                                      "${Percentage.toStringAsFixed(2)} %",
                                                       style: TextStyle(
                                                           color:
                                                               Percentage >= 75.0

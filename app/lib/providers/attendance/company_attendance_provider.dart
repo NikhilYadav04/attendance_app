@@ -32,7 +32,8 @@ class CompanyAttendanceProvider extends ChangeNotifier {
     notifyListeners();
 
     await CompanyService.getCount().then((value) async {
-      if (value.toString().contains("jwt expired")) {
+      if (value.toString().contains("jwt expired") ||
+          value.toString().contains("Unauthorized: JWT is required")) {
         await HelperFunctions.setLoggedIn(false);
         await HelperFunctions.setLoggedInCompany(false);
         await HelperFunctions.setLoggedInEmployee(false);
