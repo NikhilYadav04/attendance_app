@@ -97,7 +97,7 @@ class _CompanyLocationScreenState extends State<CompanyLocationScreen> {
                           30, currentWidth, currentHeight),
                     ),
                    provider.isLoading ? SpinKitCircle(color: Colours.BUTTON_COLOR_1,size: 30,)  : continueButton(() {
-                      provider.storeLocation(companyName, context);
+                      provider.storeLocation(widget.companyName, context);
                     }, currentWidth, currentHeight, textScale, context)
                   ],
                 ),

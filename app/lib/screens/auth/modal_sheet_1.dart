@@ -1,7 +1,6 @@
 import 'package:attend_ease/providers/auth/otp_provider.dart';
 import 'package:attend_ease/styling/colors.dart';
 import 'package:attend_ease/styling/scale.dart';
-import 'package:attend_ease/globalobjects/controllers.dart';
 import 'package:attend_ease/globalobjects/variables.dart';
 import 'package:attend_ease/screens/auth/modal_sheet_2.dart';
 import 'package:attend_ease/services/otpService.dart';

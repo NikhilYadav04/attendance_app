@@ -1,7 +1,6 @@
 import 'package:another_carousel_pro/another_carousel_pro.dart';
 import 'package:attend_ease/styling/colors.dart';
 import 'package:attend_ease/styling/scale.dart';
-import 'package:attend_ease/globalobjects/controllers.dart';
 import 'package:attend_ease/screens/auth/modal_sheet_1.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';

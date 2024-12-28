@@ -25,28 +25,33 @@ class CompanyLocationProvider extends ChangeNotifier {
 
   //* Function to set latitude and longitude
   void setLocation(BuildContext context, String companyName) async {
-    LocationPermission permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied ||
-        permission == LocationPermission.deniedForever) {
-      toastMessageError(context, "Error!", "Permission Denied");
-      await Geolocator.requestPermission();
+    bool isEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!isEnabled) {
+      toastMessageError(context, "Error!", "Location Services Not Enabled");
     } else {
-      Position currentPosition = await Geolocator.getCurrentPosition(
-          desiredAccuracy: LocationAccuracy.best);
-
-      latitude = currentPosition.latitude.toString();
-      longitude = currentPosition.longitude.toString();
-      notifyListeners();
-
-      if (latitude.isNotEmpty && longitude.isNotEmpty) {
-        toastMessage(
-            context,
-            "Success",
-            "Location co-ordinates set successfully",
-            ToastificationType.success);
+      LocationPermission permission = await Geolocator.checkPermission();
+      if (permission == LocationPermission.denied ||
+          permission == LocationPermission.deniedForever) {
+        toastMessageError(context, "Error!", "Permission Denied");
+        await Geolocator.requestPermission();
       } else {
-        toastMessage(context, "Error", "Cannot Set Location co-ordinates",
-            ToastificationType.warning);
+        Position currentPosition = await Geolocator.getCurrentPosition(
+            desiredAccuracy: LocationAccuracy.best);
+
+        latitude = currentPosition.latitude.toString();
+        longitude = currentPosition.longitude.toString();
+        notifyListeners();
+
+        if (latitude.isNotEmpty && longitude.isNotEmpty) {
+          toastMessage(
+              context,
+              "Success",
+              "Location co-ordinates set successfully",
+              ToastificationType.success);
+        } else {
+          toastMessage(context, "Error", "Cannot Set Location co-ordinates",
+              ToastificationType.warning);
+        }
       }
     }
   }
@@ -57,7 +62,8 @@ class CompanyLocationProvider extends ChangeNotifier {
       isLoading = true;
       notifyListeners();
 
-      await LocationService.setLocation(latitude, longitude, sliderValue.toString())
+      await LocationService.setLocation(
+              latitude, longitude, sliderValue.toString())
           .then((value) async {
         if (value == "Stored") {
           await HelperFunctions.setLoggedInCompany(true);

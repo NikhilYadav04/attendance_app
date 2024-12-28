@@ -1,11 +1,8 @@
 import 'package:attend_ease/providers/employee/employee_add_provider.dart';
 import 'package:attend_ease/styling/colors.dart';
 import 'package:attend_ease/styling/scale.dart';
-import 'package:attend_ease/globalobjects/controllers.dart';
 import 'package:attend_ease/globalobjects/variables.dart';
-import 'package:attend_ease/services/employeeService.dart';
 import 'package:attend_ease/widgets/company/add_staff_widgets.dart';
-import 'package:attend_ease/widgets/auth/otp_auth_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
