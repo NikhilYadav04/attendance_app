@@ -7,6 +7,7 @@ const {
   get_history,
   change_count,
   get_count,
+  remove_staff,
 } = require("../controllers/employeeController.js");
 const { staffAddValidation, EmployeeJoinValidation } = require("../middleware/authValidation.js");
 const {  authenticateTokenEmployee, authenticateTokenCompany } = require("../middleware/tokenValidations.js");
@@ -16,6 +17,9 @@ employeeRouter.use(express.json());
 
 //* add staff
 employeeRouter.post("/add-employee", staffAddValidation, authenticateTokenCompany, add_staff);
+
+//*remove staff
+employeeRouter.post("/remove-employee",authenticateTokenCompany,remove_staff);
 
 //* join company
 employeeRouter.post("/join-employee", EmployeeJoinValidation, join_employee);

@@ -73,6 +73,12 @@ class _CompanySetupScreenState extends State<CompanySetupScreen> {
                       height: responsiveContainerSize(
                           25, currentWidth, currentHeight),
                     ),
+                    textFieldNumber(currentWidth, currentHeight, textScale, " 91XXX2XXX3",
+                        "Phone Number", provider.companyHRNumberController),
+                    SizedBox(
+                      height: responsiveContainerSize(
+                          25, currentWidth, currentHeight),
+                    ),
                     textField(
                         currentWidth,
                         currentHeight,
@@ -118,7 +124,11 @@ class _CompanySetupScreenState extends State<CompanySetupScreen> {
                           )
                         : companyButton(() {
                             provider.addCompany(formKey, context);
-                          }, currentWidth, currentHeight, textScale, context)
+                          }, currentWidth, currentHeight, textScale, context),
+                    SizedBox(
+                      height: responsiveContainerSize(
+                          25, currentWidth, currentHeight),
+                    ),
                   ],
                 ),
               ),

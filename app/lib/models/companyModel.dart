@@ -3,23 +3,26 @@ import 'dart:convert';
 
 // ignore: camel_case_types
 class CompanyModel {
-  String companyName;
-  String companyHR;
-  String companyID;
-  String companyCity;
+  final String companyName;
+  final String companyHR;
+  final String companyID;
+  final String HRNumber;
+  final String companyCity;
 
   CompanyModel({
     required this.companyName,
     required this.companyHR,
     required this.companyID,
+    required this.HRNumber,
     required this.companyCity,
   });
 
   Map<String, dynamic> toMap() {
-    return {
+    return <String, dynamic>{
       'companyName': companyName,
       'companyHR': companyHR,
       'companyID': companyID,
+      'HRNumber': HRNumber,
       'companyCity': companyCity,
     };
   }
@@ -29,12 +32,12 @@ class CompanyModel {
       companyName: map['companyName'] as String,
       companyHR: map['companyHR'] as String,
       companyID: map['companyID'] as String,
+      HRNumber: map['HRNumber'] as String,
       companyCity: map['companyCity'] as String,
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory CompanyModel.fromJson(String source) =>
-      CompanyModel.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory CompanyModel.fromJson(String source) => CompanyModel.fromMap(json.decode(source) as Map<String, dynamic>);
 }

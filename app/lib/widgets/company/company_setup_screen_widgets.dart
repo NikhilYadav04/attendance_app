@@ -1,11 +1,8 @@
 import 'package:attend_ease/styling/colors.dart';
 import 'package:attend_ease/styling/scale.dart';
-import 'package:attend_ease/helper/helper_functions.dart';
-import 'package:attend_ease/screens/auth/otp_auth_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
-import 'package:page_transition/page_transition.dart';
 
 AppBar appB(double currentWidth, double currentHeight, double textScale,
     BuildContext context) {
@@ -228,6 +225,65 @@ Widget LoadingAnimationWidget(double width, double height, double textScale) {
                 fontWeight: FontWeight.bold,
                 fontSize: responsiveFontSize(26, width, height, textScale),
                 color: Colors.black))
+      ],
+    ),
+  );
+}
+
+Widget textFieldNumber(
+  double currentWidth,
+  double currentHeight,
+  double textScale,
+  String label,
+  String title,
+  TextEditingController textCOntroller,
+) {
+  return Form(
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          title,
+          style: TextStyle(
+            color: Colors.grey.shade700,
+            fontSize:
+                responsiveFontSize(16, currentWidth, currentHeight, textScale),
+          ),
+        ),
+        SizedBox(
+          height: responsiveContainerSize(10, currentWidth, currentHeight),
+        ),
+        FormField(builder: (context) {
+          return TextField(
+            keyboardType: TextInputType.phone,
+            controller: textCOntroller,
+            decoration: InputDecoration(
+              label: Text(
+                label,
+                style: TextStyle(
+                    color: Colors.grey.shade500,
+                    fontSize: responsiveContainerSize(
+                        17, currentWidth, currentHeight)),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(4),
+                borderSide: BorderSide(color: Colors.grey.shade500),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(4),
+                borderSide: const BorderSide(color: Colours.BUTTON_COLOR_1),
+              ),
+              errorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(4),
+                borderSide: const BorderSide(color: Colors.red),
+              ),
+              focusedErrorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(4),
+                borderSide: const BorderSide(color: Colors.red),
+              ),
+            ),
+          );
+        })
       ],
     ),
   );

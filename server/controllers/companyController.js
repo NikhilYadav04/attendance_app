@@ -9,7 +9,8 @@ require("dotenv").config();
 
 const add_company = async (req, res) => {
   try {
-    const { companyName, companyHR, companyID, companyCity } = req.body;
+    const { companyName, companyHR, companyID, companyCity, HRNumber } =
+      req.body;
 
     const companyFOund = await companyModel.findOne({ companyName, companyID });
 
@@ -21,7 +22,7 @@ const add_company = async (req, res) => {
     }
 
     const body = await companyModel.findOneAndUpdate(
-      { companyName, companyHR, companyID, companyCity },
+      { companyName, companyHR, companyID,HRNumber ,companyCity },
       { $push: { companyMembers: `${companyHR}_HR` } },
       { upsert: true, new: true, setDefaultsOnInsert: true }
     );

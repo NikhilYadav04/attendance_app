@@ -5,6 +5,7 @@ const companyAddValidation = (req, res, next) => {
     companyName: Joi.string().min(1).max(10).required(),
     companyHR: Joi.string().min(1).max(10).required(),
     companyID: Joi.string().min(1).max(5).required(),
+    HRNumber: Joi.string().max(10).required(),
     companyCity: Joi.string().min(1).max(8).required(),
   });
 

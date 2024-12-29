@@ -12,6 +12,7 @@ class CompanySetupProvider extends ChangeNotifier {
   final TextEditingController companyHRController = TextEditingController();
   final TextEditingController companyIDController = TextEditingController();
   final TextEditingController companyCityController = TextEditingController();
+  final TextEditingController companyHRNumberController = TextEditingController();
 
   bool isLoading = false;
   bool isAlert = false;
@@ -29,13 +30,14 @@ class CompanySetupProvider extends ChangeNotifier {
     if (companyNameController.text.isNotEmpty &&
         companyHRController.text.isNotEmpty &&
         companyCityController.text.isNotEmpty &&
-        companyIDController.text.isNotEmpty) {
+        companyIDController.text.isNotEmpty && companyHRNumberController.text.isNotEmpty) {
       isLoading = true;
       notifyListeners();
       await CompanyService.addCompany(
               companyNameController.text,
               companyHRController.text,
               companyIDController.text,
+              companyHRNumberController.text,
               companyCityController.text)
           .then((value) async{
         if (value == "Success") {

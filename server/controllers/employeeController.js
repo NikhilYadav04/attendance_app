@@ -78,6 +78,39 @@ const add_staff = async (req, res) => {
   }
 };
 
+const remove_staff = async (req, res) => {
+  try {
+    const { companyName } = req.user;
+    const { employeeID } = req.body;
+
+    if (!employeeID) {
+      return res.status(400).json({
+        success: false,
+        message: "Employee ID is required",
+      });
+    }
+
+    const result = await companyModel.findOneAndUpdate(
+      { companyName },
+      { $pull: { companyMembers: employeeID } },
+      { new: true }
+    );
+
+    await employeeModel.findOneAndDelete({ employeeID: employeeID });
+    await reportModel.findOneAndDelete({ employeeID: employeeID });
+
+    return res.status(200).json({
+      success: true,
+      message: "Staff Removed",
+    });
+  } catch (e) {
+    return res.status(500).json({
+      success: false,
+      message: e.message,
+    });
+  }
+};
+
 const join_employee = async (req, res) => {
   try {
     const { companyName, employeeName, employeeID } = req.body;
@@ -254,6 +287,7 @@ const get_count = async (req, res) => {
 
 module.exports = {
   add_staff,
+  remove_staff,
   join_employee,
   get_history,
   change_count,

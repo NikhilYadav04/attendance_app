@@ -2,14 +2,13 @@ import 'dart:convert';
 
 import 'package:attend_ease/helper/helper_functions.dart';
 import 'package:attend_ease/styling/url_constants.dart';
-import 'package:attend_ease/globalobjects/variables.dart';
 import 'package:attend_ease/models/companyModel.dart';
 import 'package:http/http.dart' as http;
 
 class companyService {
   //add Company
   Future<String> addCompany(String companyName, String companyHR,
-      String companyID, String companyCity) async {
+      String companyID,String HRNumber, String companyCity) async {
     try {
       Uri url = Uri.parse(add_company_baseUrl);
 
@@ -17,7 +16,9 @@ class companyService {
           companyName: companyName,
           companyHR: companyHR,
           companyID: companyID,
-          companyCity: companyCity);
+          companyCity: companyCity,
+          HRNumber: HRNumber
+          );
 
       var res = await http.post(url,
           headers: {
