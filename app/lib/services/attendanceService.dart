@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:attend_ease/helper/helper_functions.dart';
@@ -23,18 +24,22 @@ class AttendanceService {
       });
 
       var token = await HelperFunctions.getEmployeeToken();
-      var res = await http.post(url,
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ${token}'
-          },
-          body: req_body);
+      var res = await http
+          .post(url,
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ${token}'
+              },
+              body: req_body)
+          .timeout(Duration(seconds: 3));
       var body = jsonDecode(res.body);
       if (res.statusCode == 200) {
         return "Success";
       } else {
         return body['message'];
       }
+    } on TimeoutException {
+      return "Error : Server is taking too long to respond. Try again later.";
     } catch (e) {
       return "Error ${e.toString()}";
     }
@@ -55,18 +60,22 @@ class AttendanceService {
       });
 
       var token = await HelperFunctions.getEmployeeToken();
-      var res = await http.post(url,
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ${token}'
-          },
-          body: req_body);
+      var res = await http
+          .post(url,
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ${token}'
+              },
+              body: req_body)
+          .timeout(Duration(seconds: 3));
       var body = jsonDecode(res.body);
       if (res.statusCode == 200) {
         return "Success";
       } else {
         return body['message'];
       }
+    } on TimeoutException {
+      return "Error : Server is taking too long to respond. Try again later.";
     } catch (e) {
       return "Error ${e.toString()}";
     }
@@ -81,12 +90,14 @@ class AttendanceService {
 
       var token = await HelperFunctions.getEmployeeToken();
 
-      var res = await http.post(uri,
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ${token}'
-          },
-          body: req_body);
+      var res = await http
+          .post(uri,
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ${token}'
+              },
+              body: req_body)
+          .timeout(Duration(seconds: 3));
 
       print("Re Body isssssssssss ${req_body}");
 
@@ -99,6 +110,8 @@ class AttendanceService {
       } else {
         return resBody['message'];
       }
+    } on TimeoutException {
+      return "Error : Server is taking too long to respond. Try again later.";
     } catch (e) {
       print(e.toString());
       return "Error ${e.toString()}";
@@ -115,7 +128,7 @@ class AttendanceService {
       var res = await http.post(uri, headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ${token}'
-      });
+      }).timeout(Duration(seconds: 3));
 
       var resBody = jsonDecode(res.body);
 
@@ -124,6 +137,8 @@ class AttendanceService {
       } else {
         return resBody['message'];
       }
+    } on TimeoutException {
+      return "Error : Server is taking too long to respond. Try again later.";
     } catch (e) {
       return "Error ${e.toString()}";
     }

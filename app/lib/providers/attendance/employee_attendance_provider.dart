@@ -5,6 +5,7 @@ import 'package:attend_ease/services/companyService.dart';
 import 'package:attend_ease/services/employeeService.dart';
 import 'package:attend_ease/services/locationService.dart';
 import 'package:attend_ease/widgets/auth/otp_auth_widgets.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
@@ -34,40 +35,14 @@ class EmployeeAttendanceProvider extends ChangeNotifier {
     isLoading = true;
     notifyListeners();
 
-    var report = await attendanceService.getAttendance(Date, context);
-
-    //* check if report exists for that date
-
-    if (report == null) {
+    final connectivityStatus = await Connectivity().checkConnectivity();
+    if (connectivityStatus[0] == ConnectivityResult.none ||
+        connectivityStatus[0] == ConnectionState.none) {
       isLoading = false;
       notifyListeners();
 
-      toastMessage(context, "Error!", "Error fetching records",
+      toastMessage(context, "No Internet!", "Check Your Internet Connection",
           ToastificationType.error);
-    }
-
-    if (report.toString() == "Doesn't Exists") {
-      InTime = "00:00";
-      OutTime = "00:00";
-      Status = "No";
-      print(Status);
-
-      isLoading = false;
-      isBiometric = false;
-      inRadius = false;
-      isPresent = false;
-      notifyListeners();
-
-      //* check if JWT is Expired or Not
-    } else if (report.toString().contains("jwt expired")) {
-      await HelperFunctions.setLoggedIn(false);
-      await HelperFunctions.setLoggedInCompany(false);
-      await HelperFunctions.setLoggedInEmployee(false);
-      await HelperFunctions.setCompanyToken("");
-      await HelperFunctions.setEmployeeToken("");
-
-      isLoading = false;
-      notifyListeners();
 
       Navigator.pushAndRemoveUntil(
         context,
@@ -77,23 +52,68 @@ class EmployeeAttendanceProvider extends ChangeNotifier {
         ),
         (route) => false, //8 This removes all previous routes
       );
-    } else if (report.toString().startsWith("Error")) {
-      isLoading = false;
-      isPresent = false;
-      notifyListeners();
-
-      toastMessage(
-          context, "Error!", report.toString(), ToastificationType.error);
     } else {
-      InTime = report["InTime"];
-      OutTime = report["OutTime"];
-      Status = "Yes";
+      var report = await attendanceService.getAttendance(Date, context);
 
-      isLoading = false;
-      inRadius = false;
-      isPresent = report["isPresent"];
+      //* check if report exists for that date
 
-      notifyListeners();
+      if (report == null) {
+        isLoading = false;
+        notifyListeners();
+
+        toastMessage(context, "Error!", "Error fetching records",
+            ToastificationType.error);
+      }
+
+      if (report.toString() == "Doesn't Exists") {
+        InTime = "00:00";
+        OutTime = "00:00";
+        Status = "No";
+        print(Status);
+
+        isLoading = false;
+        isBiometric = false;
+        inRadius = false;
+        isPresent = false;
+        notifyListeners();
+
+        //* check if JWT is Expired or Not
+      } else if (report.toString().contains("jwt expired")) {
+        await HelperFunctions.setLoggedIn(false);
+        await HelperFunctions.setLoggedInCompany(false);
+        await HelperFunctions.setLoggedInEmployee(false);
+        await HelperFunctions.setCompanyToken("");
+        await HelperFunctions.setEmployeeToken("");
+
+        isLoading = false;
+        notifyListeners();
+
+        Navigator.pushAndRemoveUntil(
+          context,
+          PageTransition(
+            child: HomeScreen(),
+            type: PageTransitionType.rightToLeft,
+          ),
+          (route) => false, //8 This removes all previous routes
+        );
+      } else if (report.toString().startsWith("Error")) {
+        isLoading = false;
+        isPresent = false;
+        notifyListeners();
+
+        toastMessage(
+            context, "Error!", report.toString(), ToastificationType.error);
+      } else {
+        InTime = report["InTime"];
+        OutTime = report["OutTime"];
+        Status = "Yes";
+
+        isLoading = false;
+        inRadius = false;
+        isPresent = report["isPresent"];
+
+        notifyListeners();
+      }
     }
   }
 
@@ -109,92 +129,31 @@ class EmployeeAttendanceProvider extends ChangeNotifier {
     isLoading = true;
     notifyListeners();
 
-    //* mark attendance only if biometric is verified
-    if (isBiometric) {
-      String time = DateFormat('HH:mm').format(DateTime.now());
-
-      //* check if attendance report is submitted or not
-      var check = await CompanyService.changeCount(1, 0, 0);
-
-      if (check == "Success") {
-        await attendanceService
-            .markAttendanceIn(time, Date, false, Month, Year)
-            .then((value) async {
-          if (value == "Success") {
-            isLoading = false;
-            notifyListeners();
-
-            toastMessage(context, "Marked!", "In-Time Marked Successfully",
-                ToastificationType.success);
-          } else if (value.toString().contains("jwt expired")) {
-            isLoading = false;
-            notifyListeners();
-
-            toastMessage(context, "Session Over!", "Login Again And Try Again",
-                ToastificationType.error);
-          } else {
-            isLoading = false;
-            notifyListeners();
-
-            toastMessage(context, "Error!", value, ToastificationType.error);
-          }
-        });
-      } else if (check == "Submitted") {
-        isLoading = false;
-        notifyListeners();
-
-        toastMessage(
-            context,
-            "Cannot Mark",
-            "Attendance Report Submitted for Today",
-            ToastificationType.warning);
-      } else {
-        isLoading = false;
-        notifyListeners();
-
-        toastMessage(context, "Error!", check, ToastificationType.error);
-      }
-    } else {
+    final connectivityStatus = await Connectivity().checkConnectivity();
+    if (connectivityStatus[0] == ConnectivityResult.none ||
+        connectivityStatus[0] == ConnectionState.none) {
       isLoading = false;
       notifyListeners();
-      toastMessage(
-          context,
-          "Biometric Incomplete",
-          "Complete Biometric to submit attendance",
-          ToastificationType.warning);
-    }
-  }
 
-  void submitAttendanceOut(
-      BuildContext context, String Date, String Month, String Year) async {
-    isLoading = true;
-    notifyListeners();
+      toastMessage(context, "No Internet!", "Check Your Internet Connection",
+          ToastificationType.error);
+    } else {
+      //* mark attendance only if biometric is verified
+      if (isBiometric) {
+        String time = DateFormat('HH:mm').format(DateTime.now());
 
-    //* check if attendance report is submitted or not
-    var check = await CompanyService.changeCount(0, 1, 1);
+        //* check if attendance report is submitted or not
+        var check = await CompanyService.changeCount(1, 0, 0);
 
-    //* mark attendance only if biometric is verified
-    if (isBiometric) {
-      if (check == "Success") {
-        //* check if InTime is marked
-        if (InTime == "00:00") {
-          isLoading = false;
-          notifyListeners();
-          toastMessage(context, "Mark In-Time", "Please mark In-Time First",
-              ToastificationType.warning);
-        } else {
-          String time = DateFormat('HH:mm').format(DateTime.now());
-          OutTime = time;
-
+        if (check == "Success") {
           await attendanceService
-              .markAttendanceOut(InTime, OutTime, Date, true, Month, Year)
+              .markAttendanceIn(time, Date, false, Month, Year)
               .then((value) async {
             if (value == "Success") {
               isLoading = false;
-              isPresent = true;
               notifyListeners();
 
-              toastMessage(context, "Marked!", "Attendance marked successfully",
+              toastMessage(context, "Marked!", "In-Time Marked Successfully",
                   ToastificationType.success);
             } else if (value.toString().contains("jwt expired")) {
               isLoading = false;
@@ -209,88 +168,170 @@ class EmployeeAttendanceProvider extends ChangeNotifier {
               toastMessage(context, "Error!", value, ToastificationType.error);
             }
           });
-        }
-      } else if (check == "Submitted") {
-        isLoading = false;
-        notifyListeners();
+        } else if (check == "Submitted") {
+          isLoading = false;
+          notifyListeners();
 
-        toastMessage(
-            context,
-            "Cannot Mark",
-            "Attendance Report Submitted for Today",
-            ToastificationType.warning);
+          toastMessage(
+              context,
+              "Cannot Mark",
+              "Attendance Report Submitted for Today",
+              ToastificationType.warning);
+        } else {
+          isLoading = false;
+          notifyListeners();
+
+          toastMessage(context, "Error!", check, ToastificationType.error);
+        }
       } else {
         isLoading = false;
         notifyListeners();
-
-        toastMessage(context, "Error!", check, ToastificationType.error);
+        toastMessage(
+            context,
+            "Biometric Incomplete",
+            "Complete Biometric to submit attendance",
+            ToastificationType.warning);
       }
-    } else {
+    }
+  }
+
+  void submitAttendanceOut(
+      BuildContext context, String Date, String Month, String Year) async {
+    isLoading = true;
+    notifyListeners();
+
+    final connectivityStatus = await Connectivity().checkConnectivity();
+    if (connectivityStatus[0] == ConnectivityResult.none ||
+        connectivityStatus[0] == ConnectionState.none) {
       isLoading = false;
       notifyListeners();
-      toastMessage(
-          context,
-          "Biometric Incomplete",
-          "Complete Biometric to submit attendance",
-          ToastificationType.warning);
+
+      toastMessage(context, "No Internet!", "Check Your Internet Connection",
+          ToastificationType.error);
+    } else {
+      //* check if attendance report is submitted or not
+      var check = await CompanyService.changeCount(0, 1, 1);
+
+      //* mark attendance only if biometric is verified
+      if (isBiometric) {
+        if (check == "Success") {
+          //* check if InTime is marked
+          if (InTime == "00:00") {
+            isLoading = false;
+            notifyListeners();
+            toastMessage(context, "Mark In-Time", "Please mark In-Time First",
+                ToastificationType.warning);
+          } else {
+            String time = DateFormat('HH:mm').format(DateTime.now());
+            OutTime = time;
+
+            await attendanceService
+                .markAttendanceOut(InTime, OutTime, Date, true, Month, Year)
+                .then((value) async {
+              if (value == "Success") {
+                isLoading = false;
+                isPresent = true;
+                notifyListeners();
+
+                toastMessage(
+                    context,
+                    "Marked!",
+                    "Attendance marked successfully",
+                    ToastificationType.success);
+              } else if (value.toString().contains("jwt expired")) {
+                isLoading = false;
+                notifyListeners();
+
+                toastMessage(context, "Session Over!",
+                    "Login Again And Try Again", ToastificationType.error);
+              } else {
+                isLoading = false;
+                notifyListeners();
+
+                toastMessage(
+                    context, "Error!", value, ToastificationType.error);
+              }
+            });
+          }
+        } else if (check == "Submitted") {
+          isLoading = false;
+          notifyListeners();
+
+          toastMessage(
+              context,
+              "Cannot Mark",
+              "Attendance Report Submitted for Today",
+              ToastificationType.warning);
+        } else {
+          isLoading = false;
+          notifyListeners();
+
+          toastMessage(context, "Error!", check, ToastificationType.error);
+        }
+      } else {
+        isLoading = false;
+        notifyListeners();
+        toastMessage(
+            context,
+            "Biometric Incomplete",
+            "Complete Biometric to submit attendance",
+            ToastificationType.warning);
+      }
     }
   }
 
   //* Verify if employee is in attendance radius
   void checkRadius(BuildContext context) async {
-    if(!isPresent){
+    if (!isPresent) {
       await LocationService.getLocation().then((value) async {
-      if (value.toString().startsWith("Error")) {
-        toastMessage(context, "Error", value, ToastificationType.error);
-        print("Error is ${value}");
-      } else {
-        double Latitude1 = double.parse(value["latitude"]);
-        double Longitude1 = double.parse(value["longitude"]);
-        double Latitude2 = 0.0;
-        double Longitude2 = 0.0;
-        double radius = double.parse(value["radius"]);
-
-        //* calculate the range if employee is in radius
-        LocationPermission permission = await Geolocator.checkPermission();
-        if (permission == LocationPermission.denied ||
-            permission == LocationPermission.deniedForever) {
-          // ignore: unused_local_variable
-          LocationPermission ask = await Geolocator.requestPermission();
+        if (value.toString().startsWith("Error")) {
+          toastMessage(context, "Error", value, ToastificationType.error);
+          print("Error is ${value}");
         } else {
-          Position currentPosition = await Geolocator.getCurrentPosition(
-              desiredAccuracy: LocationAccuracy.best);
-          Latitude2 = currentPosition.latitude;
-          Longitude2 = currentPosition.longitude;
-        }
+          double Latitude1 = double.parse(value["latitude"]);
+          double Longitude1 = double.parse(value["longitude"]);
+          double Latitude2 = 0.0;
+          double Longitude2 = 0.0;
+          double radius = double.parse(value["radius"]);
 
-        double distance = Geolocator.distanceBetween(
-            Latitude1, Longitude1, Latitude2, Longitude2);
+          //* calculate the range if employee is in radius
+          LocationPermission permission = await Geolocator.checkPermission();
+          if (permission == LocationPermission.denied ||
+              permission == LocationPermission.deniedForever) {
+            // ignore: unused_local_variable
+            LocationPermission ask = await Geolocator.requestPermission();
+          } else {
+            Position currentPosition = await Geolocator.getCurrentPosition(
+                desiredAccuracy: LocationAccuracy.best);
+            Latitude2 = currentPosition.latitude;
+            Longitude2 = currentPosition.longitude;
+          }
 
-        if (distance <= radius) {
-          inRadius = true;
-          notifyListeners();
-          toastMessage(
-            context,
-            "Location verified",
-            "Your are within office radius!!.",
-            ToastificationType.success,
-          );
-        } else {
-          inRadius = false;
-          notifyListeners();
-          toastMessage(
-            context,
-            "Stay Within Office Radius",
-            "Please stay within the office range to mark your attendance.",
-            ToastificationType.warning,
-          );
+          double distance = Geolocator.distanceBetween(
+              Latitude1, Longitude1, Latitude2, Longitude2);
+
+          if (distance <= radius) {
+            inRadius = true;
+            notifyListeners();
+            toastMessage(
+              context,
+              "Location verified",
+              "Your are within office radius!!.",
+              ToastificationType.success,
+            );
+          } else {
+            inRadius = false;
+            notifyListeners();
+            toastMessage(
+              context,
+              "Stay Within Office Radius",
+              "Please stay within the office range to mark your attendance.",
+              ToastificationType.warning,
+            );
+          }
         }
-      }
-    }
-    );
-    }else{
-      
-    }
+      });
+    } else {}
   }
 
   //* get attendance history list of employee
@@ -298,23 +339,35 @@ class EmployeeAttendanceProvider extends ChangeNotifier {
     isLoadingList = true;
     notifyListeners();
 
-    await employeeservice.getReport().then((value) {
-      if (value == "Doesn't Exists") {
-        attendanceRecords = [];
+    final connectivityStatus = await Connectivity().checkConnectivity();
+    if (connectivityStatus[0] == ConnectivityResult.none ||
+        connectivityStatus[0] == ConnectionState.none) {
+      isLoadingList = false;
+      notifyListeners();
 
-        isLoadingList = false;
-        notifyListeners();
-      } else if (value.toString().startsWith("Error")) {
-        isLoadingList = false;
-        notifyListeners();
+      toastMessage(context, "No Internet!", "Check Your Internet Connection",
+          ToastificationType.error);
+    } else {
+      await employeeservice.getReport().then((value) {
+        if (value == "Doesn't Exists") {
+          attendanceRecords = [];
 
-        toastMessageError(context, "Error!", value.toString());
-      } else {
-        attendanceRecords = value;
+          isLoadingList = false;
+          notifyListeners();
+        } else if (value.toString().startsWith("Error")) {
+          isLoadingList = false;
+          notifyListeners();
 
-        isLoadingList = false;
-        notifyListeners();
-      }
-    });
+          toastMessageError(context, "Error!", value.toString());
+        } else {
+          attendanceRecords = value;
+
+          isLoadingList = false;
+          notifyListeners();
+        }
+      });
+    }
   }
 }
+
+

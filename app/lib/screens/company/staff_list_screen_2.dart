@@ -141,8 +141,7 @@ class _StaffListScreen2State extends State<StaffListScreen2> {
                                                         "${PercentageFormatter.calculateDayPercentage(provider.attendanceEmployeeList[index]["Month"], provider.attendanceEmployeeList[index]["daysPresent"]).floorToDouble()} %",
                                                         style: GoogleFonts
                                                             .montserrat(
-                                                          color: Colors
-                                                              .grey.shade800,
+                                                          color: PercentageFormatter.calculateDayPercentage(provider.attendanceEmployeeList[index]["Month"], provider.attendanceEmployeeList[index]["daysPresent"]).floorToDouble() > 75.0 ?  Colors.green : Colors.red,
                                                           fontWeight:
                                                               FontWeight.bold,
                                                           fontSize: 23,

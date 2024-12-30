@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:attend_ease/helper/helper_functions.dart';
 import 'package:attend_ease/screens/home/home_screen.dart';
 import 'package:attend_ease/services/companyService.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:http/http.dart' as http;
 import 'package:attend_ease/widgets/auth/otp_auth_widgets.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +16,7 @@ class CompanyAttendanceProvider extends ChangeNotifier {
   //* variables
   String In = "0";
   String Out = "0";
-  String Total = "";
+  String Total = "0";
   String Date = "";
   List<dynamic> attendaneCountList = [];
   List<dynamic> attendanceIDList = [];
@@ -31,49 +32,67 @@ class CompanyAttendanceProvider extends ChangeNotifier {
     isLoading = true;
     notifyListeners();
 
-    await CompanyService.getCount().then((value) async {
-      if (value.toString().contains("jwt expired") ||
-          value.toString().contains("Unauthorized: JWT is required")) {
-        await HelperFunctions.setLoggedIn(false);
-        await HelperFunctions.setLoggedInCompany(false);
-        await HelperFunctions.setLoggedInEmployee(false);
-        await HelperFunctions.setCompanyToken("");
-        await HelperFunctions.setEmployeeToken("");
+    final connectivityStatus = await Connectivity().checkConnectivity();
+    if (connectivityStatus[0] == ConnectivityResult.none ||
+        connectivityStatus[0] == ConnectionState.none) {
+      isLoading = false;
+      notifyListeners();
 
-        isLoading = false;
-        notifyListeners();
+      toastMessage(context, "No Internet!", "Check Your Internet Connection",
+          ToastificationType.error);
 
-        Navigator.pushAndRemoveUntil(
-            context,
-            PageTransition(
-              child: HomeScreen(),
-              type: PageTransitionType.rightToLeft,
-            ),
-            (route) => false);
-      } else if (value.toString().startsWith("Error")) {
-        isLoading = false;
-        notifyListeners();
+      Navigator.pushAndRemoveUntil(
+          context,
+          PageTransition(
+            child: HomeScreen(),
+            type: PageTransitionType.rightToLeft,
+          ),
+          (route) => false);
+    } else {
+      await CompanyService.getCount().then((value) async {
+        if (value.toString().contains("jwt expired") ||
+            value.toString().contains("Unauthorized: JWT is required")) {
+          await HelperFunctions.setLoggedIn(false);
+          await HelperFunctions.setLoggedInCompany(false);
+          await HelperFunctions.setLoggedInEmployee(false);
+          await HelperFunctions.setCompanyToken("");
+          await HelperFunctions.setEmployeeToken("");
 
-        toastMessage(
-            context, "Error!", value.toString(), ToastificationType.error);
-      } else if (value.toString() == "No Records") {
-        In = "0";
-        Out = "0";
-        Total = "0";
-        isSubmit = false;
+          isLoading = false;
+          notifyListeners();
 
-        isLoading = false;
-        notifyListeners();
-      } else {
-        In = value["In"].toString();
-        Out = value["Out"].toString();
-        Total = value["Total"].toString();
-        isSubmit = value["submit"];
+          Navigator.pushAndRemoveUntil(
+              context,
+              PageTransition(
+                child: HomeScreen(),
+                type: PageTransitionType.rightToLeft,
+              ),
+              (route) => false);
+        } else if (value.toString().startsWith("Error")) {
+          isLoading = false;
+          notifyListeners();
 
-        isLoading = false;
-        notifyListeners();
-      }
-    });
+          toastMessage(
+              context, "Error!", value.toString(), ToastificationType.error);
+        } else if (value.toString() == "No Records") {
+          In = "0";
+          Out = "0";
+          Total = "0";
+          isSubmit = false;
+
+          isLoading = false;
+          notifyListeners();
+        } else {
+          In = value["In"].toString();
+          Out = value["Out"].toString();
+          Total = value["Total"].toString();
+          isSubmit = value["submit"];
+
+          isLoading = false;
+          notifyListeners();
+        }
+      });
+    }
   }
 
   //* Submit The Attendance
@@ -81,23 +100,33 @@ class CompanyAttendanceProvider extends ChangeNotifier {
     isLoading = true;
     notifyListeners();
 
-    await CompanyService.storeCountHistory(int.parse(Total), Date)
-        .then((value) {
-      if (value == "Success") {
-        isLoading = false;
-        isSubmit = true;
+    final connectivityStatus = await Connectivity().checkConnectivity();
+    if (connectivityStatus[0] == ConnectivityResult.none ||
+        connectivityStatus[0] == ConnectionState.none) {
+      isLoading = false;
+      notifyListeners();
 
-        notifyListeners();
+      toastMessage(context, "No Internet!", "Check Your Internet Connection",
+          ToastificationType.error);
+    } else {
+      await CompanyService.storeCountHistory(int.parse(Total), Date)
+          .then((value) {
+        if (value == "Success") {
+          isLoading = false;
+          isSubmit = true;
 
-        toastMessage(context, "Submitted", "Attendance Report Submitted Today",
-            ToastificationType.success);
-      } else {
-        isLoading = false;
-        notifyListeners();
+          notifyListeners();
 
-        toastMessage(context, "Error!", value, ToastificationType.error);
-      }
-    });
+          toastMessage(context, "Submitted",
+              "Attendance Report Submitted Today", ToastificationType.success);
+        } else {
+          isLoading = false;
+          notifyListeners();
+
+          toastMessage(context, "Error!", value, ToastificationType.error);
+        }
+      });
+    }
   }
 
   //* Get STaff Count List
@@ -106,21 +135,31 @@ class CompanyAttendanceProvider extends ChangeNotifier {
     isLoadingCountList = true;
     notifyListeners();
 
-    await CompanyService.getCountList().then((value) {
-      if (!value.isNotEmpty) {
-        isLoadingCountList = false;
-        notifyListeners();
-      } else if (value.toString().startsWith("Error")) {
-        isLoadingCountList = false;
-        notifyListeners();
+    final connectivityStatus = await Connectivity().checkConnectivity();
+    if (connectivityStatus[0] == ConnectivityResult.none ||
+        connectivityStatus[0] == ConnectionState.none) {
+      isLoadingCountList = false;
+      notifyListeners();
 
-        toastMessage(context, "Error!", value, ToastificationType.error);
-      } else {
-        attendaneCountList = value;
-        isLoadingCountList = false;
-        notifyListeners();
-      }
-    });
+      toastMessage(context, "No Internet!", "Check Your Internet Connection",
+          ToastificationType.error);
+    } else {
+      await CompanyService.getCountList().then((value) {
+        if (!value.isNotEmpty) {
+          isLoadingCountList = false;
+          notifyListeners();
+        } else if (value.toString().startsWith("Error")) {
+          isLoadingCountList = false;
+          notifyListeners();
+
+          toastMessage(context, "Error!", value, ToastificationType.error);
+        } else {
+          attendaneCountList = value;
+          isLoadingCountList = false;
+          notifyListeners();
+        }
+      });
+    }
   }
 
   //* Get All ID's
@@ -129,38 +168,48 @@ class CompanyAttendanceProvider extends ChangeNotifier {
     isLoadingID = true;
     notifyListeners();
 
-    const String url = 'http://192.168.56.1/company/get/-ids';
-
-    try {
-      // Retrieve the token
-      var token = await HelperFunctions.getCompanyToken();
-
-      // Make the GET request
-      final response = await http.get(
-        Uri.parse(url),
-        headers: {
-          'Authorization': 'Bearer $token',
-          'Content-Type': 'application/json',
-        },
-      );
-
-      if (response.statusCode == 200) {
-        var data = jsonDecode(response.body);
-        attendanceIDList = data['message'];
-
-        isLoadingID = false;
-        notifyListeners();
-      } else if (response.statusCode == 404) {
-        attendanceIDList = [];
-
-        isLoadingID = false;
-        notifyListeners();
-      }
-    } catch (e) {
+    final connectivityStatus = await Connectivity().checkConnectivity();
+    if (connectivityStatus[0] == ConnectivityResult.none ||
+        connectivityStatus[0] == ConnectionState.none) {
       isLoadingID = false;
       notifyListeners();
 
-      toastMessage(context, "Error!", e.toString(), ToastificationType.error);
+      toastMessage(context, "No Internet!", "Check Your Internet Connection",
+          ToastificationType.error);
+    } else {
+      const String url = 'http://192.168.56.1/company/get/-ids';
+
+      try {
+        // Retrieve the token
+        var token = await HelperFunctions.getCompanyToken();
+
+        // Make the GET request
+        final response = await http.get(
+          Uri.parse(url),
+          headers: {
+            'Authorization': 'Bearer $token',
+            'Content-Type': 'application/json',
+          },
+        );
+
+        if (response.statusCode == 200) {
+          var data = jsonDecode(response.body);
+          attendanceIDList = data['message'];
+
+          isLoadingID = false;
+          notifyListeners();
+        } else if (response.statusCode == 404) {
+          attendanceIDList = [];
+
+          isLoadingID = false;
+          notifyListeners();
+        }
+      } catch (e) {
+        isLoadingID = false;
+        notifyListeners();
+
+        toastMessage(context, "Error!", e.toString(), ToastificationType.error);
+      }
     }
   }
 
@@ -169,6 +218,16 @@ class CompanyAttendanceProvider extends ChangeNotifier {
     attendanceEmployeeList.clear();
     isLoadingID = true;
     notifyListeners();
+
+    final connectivityStatus = await Connectivity().checkConnectivity();
+    if (connectivityStatus[0] == ConnectivityResult.none ||
+        connectivityStatus[0] == ConnectionState.none) {
+      isLoadingID = false;
+      notifyListeners();
+
+      toastMessage(context, "No Internet!", "Check Your Internet Connection",
+          ToastificationType.error);
+    }
 
     await CompanyService.getCountHistory(employeeID).then((value) {
       if (value.toString().startsWith("Error")) {
@@ -188,3 +247,5 @@ class CompanyAttendanceProvider extends ChangeNotifier {
     });
   }
 }
+
+

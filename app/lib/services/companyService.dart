@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:attend_ease/helper/helper_functions.dart';
@@ -8,7 +9,7 @@ import 'package:http/http.dart' as http;
 class companyService {
   //add Company
   Future<String> addCompany(String companyName, String companyHR,
-      String companyID,String HRNumber, String companyCity) async {
+      String companyID, String HRNumber, String companyCity) async {
     try {
       Uri url = Uri.parse(add_company_baseUrl);
 
@@ -17,14 +18,15 @@ class companyService {
           companyHR: companyHR,
           companyID: companyID,
           companyCity: companyCity,
-          HRNumber: HRNumber
-          );
+          HRNumber: HRNumber);
 
-      var res = await http.post(url,
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: companyBody.toJson());
+      var res = await http
+          .post(url,
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: companyBody.toJson())
+          .timeout(Duration(seconds: 3));
 
       if (res.statusCode == 200) {
         var body = jsonDecode(res.body);
@@ -41,6 +43,8 @@ class companyService {
         print(body['message']);
         return body['message'];
       }
+    } on TimeoutException {
+      return "Error : Server is taking too long to respond. Try again later.";
     } catch (e) {
       return e.toString();
     }
@@ -56,13 +60,15 @@ class companyService {
         'companyID': companyID,
       });
 
-      var res = await http.post(
-        url,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: reqBody,
-      );
+      var res = await http
+          .post(
+            url,
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: reqBody,
+          )
+          .timeout(Duration(seconds: 3));
 
       if (res.statusCode == 200) {
         var body = jsonDecode(res.body);
@@ -75,6 +81,8 @@ class companyService {
         var body = jsonDecode(res.body);
         return body['message'] ?? "An unexpected error occurred";
       }
+    } on TimeoutException {
+      return "Error : Server is taking too long to respond. Try again later.";
     } catch (e) {
       return "Error: ${e.toString()}";
     }
@@ -87,11 +95,13 @@ class companyService {
 
       var body = {"employeeCompany": employeeCompany};
 
-      var res = await http.post(uri,
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: jsonEncode(body));
+      var res = await http
+          .post(uri,
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: jsonEncode(body))
+          .timeout(Duration(seconds: 3));
 
       var resBody = jsonDecode(res.body);
       List<dynamic> report = resBody['message'];
@@ -101,6 +111,8 @@ class companyService {
       } else {
         return [];
       }
+    } on TimeoutException {
+      return [];
     } catch (e) {
       return [];
     }
@@ -119,7 +131,7 @@ class companyService {
           'Content-Type': 'application/json',
           'Authorization': "Bearer ${token}",
         },
-      );
+      ).timeout(Duration(seconds: 1));
 
       var resBody = jsonDecode(res.body);
       var staffCount = resBody['message'];
@@ -129,6 +141,8 @@ class companyService {
       } else {
         return resBody['message'];
       }
+    } on TimeoutException {
+      return "Error : Server is taking too long to respond. Try again later.";
     } catch (e) {
       return "Error ${e.toString()}";
     }
@@ -147,12 +161,14 @@ class companyService {
 
       var token = await HelperFunctions.getEmployeeToken();
 
-      var res = await http.post(uri,
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ${token}'
-          },
-          body: jsonEncode(body));
+      var res = await http
+          .post(uri,
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ${token}'
+              },
+              body: jsonEncode(body))
+          .timeout(Duration(seconds: 3));
 
       var resBody = jsonDecode(res.body);
 
@@ -161,6 +177,8 @@ class companyService {
       } else {
         return resBody['message'];
       }
+    } on TimeoutException {
+      return "Error : Server is taking too long to respond. Try again later.";
     } catch (e) {
       return e.toString();
     }
@@ -179,12 +197,14 @@ class companyService {
         "currentDate": currentDate
       };
 
-      var res = await http.post(uri,
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ${token}'
-          },
-          body: jsonEncode(body));
+      var res = await http
+          .post(uri,
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ${token}'
+              },
+              body: jsonEncode(body))
+          .timeout(Duration(seconds: 3));
 
       var resBody = jsonDecode(res.body);
 
@@ -193,6 +213,8 @@ class companyService {
       } else {
         return resBody['message'];
       }
+    } on TimeoutException {
+      return "Error : Server is taking too long to respond. Try again later.";
     } catch (e) {
       return e.toString();
     }
@@ -207,12 +229,14 @@ class companyService {
 
       var token = await HelperFunctions.getCompanyToken();
 
-      var res = await http.post(uri,
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ${token}'
-          },
-          body: jsonEncode(body));
+      var res = await http
+          .post(uri,
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ${token}'
+              },
+              body: jsonEncode(body))
+          .timeout(Duration(seconds: 3));
       var resBody = jsonDecode(res.body);
 
       if (res.statusCode == 200) {
@@ -221,6 +245,8 @@ class companyService {
       } else {
         return resBody["message"];
       }
+    } on TimeoutException {
+      return "Error : Server is taking too long to respond. Try again later.";
     } catch (e) {
       return e.toString();
     }
@@ -239,7 +265,7 @@ class companyService {
           'Content-Type': 'application/json',
           'Authorization': 'Bearer ${token}'
         },
-      );
+      ).timeout(Duration(seconds: 3));
       var resBody = jsonDecode(res.body);
       List<dynamic> resList = resBody['message'];
       if (res.statusCode == 200) {
@@ -247,6 +273,8 @@ class companyService {
       } else {
         return [];
       }
+    } on TimeoutException {
+      return "Error : Server is taking too long to respond. Try again later.";
     } catch (e) {
       return "Error ${e.toString()}";
     }
@@ -263,7 +291,7 @@ class companyService {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: jsonEncode(body));
+          body: jsonEncode(body)).timeout(Duration(seconds: 3));
       var resBody = jsonDecode(res.body);
 
       if (res.statusCode == 200) {
@@ -271,6 +299,8 @@ class companyService {
       } else {
         return resBody['message'];
       }
+    }on TimeoutException {
+        return "Error : Server is taking too long to respond. Try again later.";
     } catch (e) {
       return e.toString();
     }

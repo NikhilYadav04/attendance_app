@@ -18,7 +18,6 @@ class CompanyMainScreenProvider extends ChangeNotifier {
     await HelperFunctions.setEmployeeToken("");
     await HelperFunctions.setEmployeeName("");
     await HelperFunctions.setCompanyName("");
-    
 
     isLoading = false;
     notifyListeners();
@@ -32,3 +31,4 @@ class CompanyMainScreenProvider extends ChangeNotifier {
         (Route<dynamic> route) => false);
   }
 }
+

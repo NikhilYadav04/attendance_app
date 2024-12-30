@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:attend_ease/helper/helper_functions.dart';
@@ -11,20 +12,19 @@ class locationService {
     try {
       Uri url = Uri.parse(set_location_baseUrl);
 
-      var req_body = jsonEncode({
-        "latitude":latitude,
-        "longitude":longitude,
-        "radius":radius
-      });
+      var req_body = jsonEncode(
+          {"latitude": latitude, "longitude": longitude, "radius": radius});
 
       var token = await HelperFunctions.getCompanyToken();
 
-      var res = await http.post(url,
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ${token}'
-          },
-          body: req_body);
+      var res = await http
+          .post(url,
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ${token}'
+              },
+              body: req_body)
+          .timeout(Duration(seconds: 3));
       var body = jsonDecode(res.body);
       print(body);
       if (res.statusCode == 200) {
@@ -34,6 +34,8 @@ class locationService {
         print(body["message"]);
         return body['message'];
       }
+    } on TimeoutException {
+      return "Error : Server is taking too long to respond. Try again later.";
     } catch (e) {
       return e.toString();
     }
@@ -52,7 +54,7 @@ class locationService {
           'Content-Type': 'application/json',
           'Authorization': 'Bearer ${token}'
         },
-      );
+      ).timeout(Duration(seconds: 3));
 
       var resBody = jsonDecode(res.body);
       var locationBody = resBody['message'];
@@ -64,6 +66,8 @@ class locationService {
       } else {
         return resBody['message'];
       }
+    } on TimeoutException {
+      return "Error : Server is taking too long to respond. Try again later.";
     } catch (e) {
       return "Error ${e.toString()}";
     }

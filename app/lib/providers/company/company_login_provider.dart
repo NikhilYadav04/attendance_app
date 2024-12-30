@@ -2,6 +2,7 @@ import 'package:attend_ease/helper/helper_functions.dart';
 import 'package:attend_ease/screens/company/company_hr_screen.dart';
 import 'package:attend_ease/services/companyService.dart';
 import 'package:attend_ease/widgets/auth/otp_auth_widgets.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:toastification/toastification.dart';
@@ -28,31 +29,42 @@ class CompanyLoginProvider extends ChangeNotifier {
       isLoading = true;
       notifyListeners();
 
-      await CompanyService.loginCompany(
-              companyNameController.text, companyIDController.text)
-          .then((value) async{
-        if (value == "Success") {
-          await HelperFunctions.setLoggedInCompany(true);
-          await HelperFunctions.setLoggedIn(true);
-          await HelperFunctions.setLoggedInEmployee(false);
-          await HelperFunctions.setCompanyName(companyNameController.text.toString());
-          isLoading = false;
-          notifyListeners();
+      final connectivityStatus = await Connectivity().checkConnectivity();
+      if (connectivityStatus[0] == ConnectivityResult.none ||
+          connectivityStatus[0] == ConnectionState.none) {
+        isLoading = false;
+        notifyListeners();
 
-          Navigator.pushAndRemoveUntil(
-            context,
-            PageTransition(
-              child: CompanyHrScreen(),
-              type: PageTransitionType.rightToLeft,
-            ),
-            (route) => false, // This removes all previous routes
-          );
-        } else {
-          isLoading = false;
-          notifyListeners();
-          toastMessage(context, "Error!", value, ToastificationType.error);
-        }
-      });
+        toastMessage(context, "No Internet!", "Check Your Internet Connection",
+            ToastificationType.error);
+      } else {
+        await CompanyService.loginCompany(
+                companyNameController.text, companyIDController.text)
+            .then((value) async {
+          if (value == "Success") {
+            await HelperFunctions.setLoggedInCompany(true);
+            await HelperFunctions.setLoggedIn(true);
+            await HelperFunctions.setLoggedInEmployee(false);
+            await HelperFunctions.setCompanyName(
+                companyNameController.text.toString());
+            isLoading = false;
+            notifyListeners();
+
+            Navigator.pushAndRemoveUntil(
+              context,
+              PageTransition(
+                child: CompanyHrScreen(),
+                type: PageTransitionType.rightToLeft,
+              ),
+              (route) => false, // This removes all previous routes
+            );
+          } else {
+            isLoading = false;
+            notifyListeners();
+            toastMessage(context, "Error!", value, ToastificationType.error);
+          }
+        });
+      }
     } else {
       toastMessage(context, "Empty Details!", "Please fill all the fields",
           ToastificationType.warning);

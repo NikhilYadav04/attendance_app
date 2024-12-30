@@ -2,6 +2,7 @@ import 'package:attend_ease/helper/helper_functions.dart';
 import 'package:attend_ease/screens/employee/employee_main_screen.dart';
 import 'package:attend_ease/services/employeeService.dart';
 import 'package:attend_ease/widgets/auth/otp_auth_widgets.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:toastification/toastification.dart';
@@ -30,36 +31,46 @@ class EmployeeLoginProvider extends ChangeNotifier {
       isLoading = true;
       notifyListeners();
 
-      await employeeservice
-          .joinCOmpany(companyNameController.text, employeeNameController.text,
-              employeeIDController.text)
-          .then((value) async {
-        if (value == "Success") {
-          await HelperFunctions.setLoggedIn(true);
-          await HelperFunctions.setLoggedInEmployee(true);
-          await HelperFunctions.setLoggedInCompany(false);
-          await HelperFunctions.setEmployeeName(
-              employeeNameController.text.toString());
+      final connectivityStatus = await Connectivity().checkConnectivity();
+      if (connectivityStatus[0] == ConnectivityResult.none ||
+          connectivityStatus[0] == ConnectionState.none) {
+        isLoading = false;
+        notifyListeners();
 
-          toastMessage(
-              context, "Success!", "Logged In ", ToastificationType.success);
-          isLoading = false;
-          notifyListeners();
+        toastMessage(context, "No Internet!", "Check Your Internet Connection",
+            ToastificationType.error);
+      } else {
+        await employeeservice
+            .joinCOmpany(companyNameController.text,
+                employeeNameController.text, employeeIDController.text)
+            .then((value) async {
+          if (value == "Success") {
+            await HelperFunctions.setLoggedIn(true);
+            await HelperFunctions.setLoggedInEmployee(true);
+            await HelperFunctions.setLoggedInCompany(false);
+            await HelperFunctions.setEmployeeName(
+                employeeNameController.text.toString());
 
-          Navigator.pushAndRemoveUntil(
-            context,
-            PageTransition(
-                child: EmployeeMainScreen(),
-                type: PageTransitionType.rightToLeft),
-            (route) => false,
-          );
-        } else {
-          isLoading = false;
-          notifyListeners();
+            toastMessage(
+                context, "Success!", "Logged In ", ToastificationType.success);
+            isLoading = false;
+            notifyListeners();
 
-          toastMessage(context, "Error!", value, ToastificationType.error);
-        }
-      });
+            Navigator.pushAndRemoveUntil(
+              context,
+              PageTransition(
+                  child: EmployeeMainScreen(),
+                  type: PageTransitionType.rightToLeft),
+              (route) => false,
+            );
+          } else {
+            isLoading = false;
+            notifyListeners();
+
+            toastMessage(context, "Error!", value, ToastificationType.error);
+          }
+        });
+      }
     } else {
       toastMessage(context, "Empty Details!", "Please fill all the fields",
           ToastificationType.warning);
@@ -75,3 +86,13 @@ class EmployeeLoginProvider extends ChangeNotifier {
     employeeIDController.dispose();
   }
 }
+
+// isLoading = false;
+//       notifyListeners();
+
+//       toastMessage(context, "No Internet!", "Check Your Internet Connection", ToastificationType.error);
+
+// final connectivityStatus = await Connectivity().checkConnectivity();
+//     if (connectivityStatus == ConnectivityResult.none ||
+//         connectivityStatus == ConnectionState.none) {
+//     }
