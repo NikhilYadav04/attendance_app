@@ -10,8 +10,10 @@ class EmployeeAddProvider extends ChangeNotifier {
       TextEditingController();
   final TextEditingController employeeNumberController =
       TextEditingController();
+  final TextEditingController employeeIDController = TextEditingController();
 
   bool isLoading = false;
+  bool isLoadingRem = false;
 
   //* Function for add Staff API Call
   final Employeeservice employeeservice = Employeeservice();
@@ -45,6 +47,29 @@ class EmployeeAddProvider extends ChangeNotifier {
     }
   }
 
+  void RemStaff(BuildContext context) async{
+    if (employeeIDController.text.isNotEmpty) {
+      isLoadingRem = true;
+      notifyListeners();
+      await employeeservice.removeEmployee(employeeIDController.text).then((value){
+       if (value == "Success") {
+          isLoadingRem = false;
+          notifyListeners();
+          print(value);
+          toastMessageSuccess(context, "Success", "Employee Removed");
+        } else {
+          isLoadingRem = false;
+          notifyListeners();
+          print(value);
+          toastMessage(context, "Error!", value, ToastificationType.error);
+        }
+      });
+    } else {
+      toastMessage(context, "Empty Details!", "Please fill all the fields",
+          ToastificationType.warning);
+    }
+  }
+
   @override
   void dispose() {
     // TODO: implement dispose
@@ -52,5 +77,6 @@ class EmployeeAddProvider extends ChangeNotifier {
     employeeNameController.dispose();
     employeeNumberController.dispose();
     employeePositionController.dispose();
+    employeeIDController.dispose();
   }
 }

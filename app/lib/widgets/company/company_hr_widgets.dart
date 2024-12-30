@@ -1,3 +1,4 @@
+import 'package:attend_ease/helper/date_time_formatter.dart';
 import 'package:attend_ease/styling/colors.dart';
 import 'package:attend_ease/styling/scale.dart';
 import 'package:attend_ease/globalobjects/variables.dart';
@@ -5,6 +6,7 @@ import 'package:attend_ease/helper/helper_functions.dart';
 import 'package:attend_ease/screens/company/add_staff_screen.dart';
 import 'package:attend_ease/screens/auth/otp_auth_screen.dart';
 import 'package:attend_ease/services/companyService.dart';
+import 'package:attend_ease/widgets/employee/employee_main_widgets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -291,35 +293,22 @@ Widget rowContent2(double width, double height, double textScale,
   );
 }
 
-Widget floatButton(
-    double width, double height, double textScale, BuildContext context) {
+Widget floatButton(double width, double height, double textScale,
+    BuildContext context, IconData icon, void Function() onTap) {
   return Container(
-    height: responsiveContainerSize(50, width, height),
-    width: responsiveContainerSize(152, width, height),
+    height: responsiveContainerSize(60, width, height),
+    width: responsiveContainerSize(70, width, height),
     child: FloatingActionButton(
+        shape: CircleBorder(),
         elevation: 2,
-        backgroundColor: Colours.BUTTON_COLOR_1,
-        onPressed: () {
-          Navigator.push(
-              context,
-              PageTransition(
-                  child: AddStaffScreen(), type: PageTransitionType.fade));
-        },
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              Icons.add,
-              color: Colors.white,
-              size: responsiveContainerSize(28, width, height),
-            ),
-            Text(
-              " Add Staff",
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: responsiveFontSize(20, width, height, textScale)),
-            ),
-          ],
+        backgroundColor: Colours.GRADIENT_2,
+        onPressed: onTap,
+        child: Center(
+          child: Icon(
+            icon,
+            color: Colors.white,
+            size: 35,
+          ),
         )),
   );
 }
@@ -385,7 +374,7 @@ Widget approveTextEmployee(
     double width, double height, double textScale, String text) {
   return Center(
     child: Text(text,
-        style: GoogleFonts.notoSansOldHungarian(
+        style: GoogleFonts.montserrat(
           color: Colors.grey.shade900,
           fontWeight: FontWeight.bold,
           fontSize: responsiveFontSize(35, width, height, textScale),
@@ -397,58 +386,70 @@ Widget listApproval(double width, double height, double textScale,
     BuildContext context, List<dynamic> staffList) {
   return Column(
     children: [
-      Container(
-        color: Colours.BUTTON_COLOR_1,
-        child: Table(
-          border: TableBorder.all(
-            color: Colors.black,
-            style: BorderStyle.solid,
-            width: 1,
-          ),
-          children: [
-            TableRow(children: [
-              TableCell(
-                child: Container(
-                    height: 50,
-                    child: staffTextText(width, height, textScale, "Date")),
-              ),
-              TableCell(
-                  child: Container(
-                height: 50,
-                child: staffTextText(
-                    width, height, textScale, "Total Staff Present"),
-              )),
-            ])
-          ],
-        ),
-      ),
       ListView.builder(
           shrinkWrap: true,
           physics: NeverScrollableScrollPhysics(),
           itemCount: staffList.length,
           itemBuilder: (context, index) {
-            return Container(
-              child: Table(
-                border: TableBorder.all(
-                  color: Colors.black,
-                  style: BorderStyle.solid,
-                  width: 1,
+            return Padding(
+              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 12),
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 15, vertical: 13),
+                height: 140,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.grey.shade700,
+                          spreadRadius: 1.5,
+                          blurRadius: 2)
+                    ]),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      DateTimeFormatter.formatDate(staffList[index]["currentDate"]),
+                      style: GoogleFonts.montserrat(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 24,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 18,
+                    ),
+                    Row(
+                      children: [
+                        Row(
+                          children: [
+                            boxIcon(Icons.group),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Text("Total Staff Present : ",
+                                style: GoogleFonts.montserrat(
+                                  color: Colors.grey.shade800,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 23,
+                                )),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                                "${staffList[index]["totalCount"]}",
+                                style: GoogleFonts.montserrat(
+                                  color: Colors.grey.shade800,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 24,
+                                )),
+                          ],
+                        ),
+                      ],
+                    )
+                  ],
                 ),
-                children: [
-                  TableRow(children: [
-                    TableCell(
-                        child: Container(
-                      height: 50,
-                      child: staffTextText(width, height, textScale,
-                          staffList[index]['currentDate']),
-                    )),
-                    TableCell(
-                        child: Container(
-                      height: 50,
-                      child: staffTextText(width, height, textScale, staffList[index]['totalCount'].toString()),
-                    )),
-                  ])
-                ],
               ),
             );
           })
@@ -459,10 +460,10 @@ Widget listApproval(double width, double height, double textScale,
 Widget staffText(double width, double height, double textScale, String text) {
   return Center(
     child: Text(text,
-        style: GoogleFonts.notoSansOldHungarian(
+        style: GoogleFonts.montserrat(
           color: Colors.grey.shade900,
           fontWeight: FontWeight.bold,
-          fontSize: responsiveFontSize(30, width, height, textScale),
+          fontSize: responsiveFontSize(34, width, height, textScale),
         )),
   );
 }

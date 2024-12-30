@@ -1,3 +1,4 @@
+import 'package:attend_ease/helper/date_time_formatter.dart';
 import 'package:attend_ease/styling/colors.dart';
 import 'package:attend_ease/styling/scale.dart';
 import 'package:attend_ease/globalobjects/variables.dart';
@@ -26,10 +27,7 @@ List subtitleEmployee = [
 ];
 
 Widget appBartitle(
-  double width,
-  double height,
-  double textScale,String? employeeName
-) {
+    double width, double height, double textScale, String? employeeName) {
   return Row(
     children: [
       Icon(
@@ -80,8 +78,8 @@ List<Widget> actions(
   ];
 }
 
-Widget upperBar(
-    double width, double height, double textScale, BuildContext context,String Date,String status) {
+Widget upperBar(double width, double height, double textScale,
+    BuildContext context, String Date, String status) {
   return Container(
     decoration: const BoxDecoration(
       color: Colors.white,
@@ -152,13 +150,14 @@ Widget upperBar(
         SizedBox(
           height: responsiveContainerSize(15, width, height),
         ),
-        dateWidget(width, height, textScale,Date,status)
+        dateWidget(width, height, textScale, Date, status)
       ],
     ),
   );
 }
 
-Widget dateWidget(double width, double height, double textScale,String Date,String status) {
+Widget dateWidget(
+    double width, double height, double textScale, String Date, String status) {
   return Center(
     child: RichText(
       text: TextSpan(
@@ -292,7 +291,7 @@ Widget buttonWIdget(
 Widget locationWidget(
     double width, double height, double textScale, String text) {
   return Container(
-    height: responsiveContainerSize(55, width, height),
+    height: responsiveContainerSize(60, width, height),
     color: Colors.blue.shade300,
     child: Center(
       child: Text(
@@ -360,65 +359,75 @@ Widget attendanceReport(double width, double height, double textScale,
     children: [
       ListView.builder(
           shrinkWrap: true,
-          itemCount: report.length,
           physics: NeverScrollableScrollPhysics(),
+          itemCount: report.length,
           itemBuilder: (context, index) {
-            return Container(
-              margin: EdgeInsets.only(bottom: 15),
-              decoration: BoxDecoration(
-                color: Colors.grey.shade300,
-                border: Border.all(
-                  color: Colors.black,
-                  width: 2.0,
-                ),
-                borderRadius: BorderRadius.circular(4.0),
-              ),
-              child: ListTile(
-                leading: CircleAvatar(
-                  radius: responsiveBorderRadius(17, width, height),
-                  backgroundColor: Colors.blue,
-                  child: Center(
-                    child: Text(
-                      "${index + 1}",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontFamily: "Kumbh-Med",
-                          fontWeight: FontWeight.bold,
-                          fontSize: responsiveFontSize(
-                              16.5, width, height, textScale)),
-                    ),
-                  ),
-                ),
-                title: Text(
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontFamily: "Kumbh-Med",
-                        fontWeight: FontWeight.bold,
-                        fontSize:
-                            responsiveFontSize(18, width, height, textScale)),
-                    report[index]["Date"]),
-                trailing: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.end,
+            return Padding(
+              padding: EdgeInsets.symmetric(horizontal: 10,vertical: 12),
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 15, vertical: 13),
+                height: 140,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.grey.shade700, spreadRadius: 1.5, blurRadius: 2)
+                    ]),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      report[index]["InTime"],
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontFamily: "Kumbh-Med",
-                          fontWeight: FontWeight.bold,
-                          fontSize:
-                              responsiveFontSize(18, width, height, textScale)),
+                      DateTimeFormatter.formatDate(report[index]["Date"]),
+                      style: GoogleFonts.montserrat(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 24,
+                      ),
                     ),
-                    Text(
-                      report[index]["OutTime"],
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontFamily: "Kumbh-Med",
-                          fontWeight: FontWeight.bold,
-                          fontSize:
-                              responsiveFontSize(18, width, height, textScale)),
+                    SizedBox(
+                      height: 18,
                     ),
+                    Row(
+                      children: [
+                        Row(
+                          children: [
+                            boxIcon(Icons.logout),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                                DateTimeFormatter.formatTime(
+                                    report[index]["InTime"]),
+                                style: GoogleFonts.montserrat(
+                                  color: Colors.grey.shade800,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 23,
+                                )),
+                          ],
+                        ),
+                        SizedBox(
+                          width: 25,
+                        ),
+                        Row(
+                          children: [
+                            boxIcon(Icons.logout),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                                DateTimeFormatter.formatTime(
+                                    report[index]["OutTime"]),
+                                style: GoogleFonts.montserrat(
+                                  color: Colors.grey.shade800,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 23,
+                                )),
+                          ],
+                        ),
+                      ],
+                    )
                   ],
                 ),
               ),
@@ -428,8 +437,26 @@ Widget attendanceReport(double width, double height, double textScale,
   );
 }
 
-Widget attendCountWidgetEmployee(
-    double width, double height, double textScale,String? InTime,String? OutTime,String? Status,String Date) {
+Widget boxIcon(IconData icon) {
+  return Container(
+    height: 55,
+    width: 55,
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(12),
+      color: Colours.BUTTON_COLOR_2,
+    ),
+    child: Center(
+      child: Icon(
+        icon,
+        size: 30,
+        color: Colours.BUTTON_COLOR_1,
+      ),
+    ),
+  );
+}
+
+Widget attendCountWidgetEmployee(double width, double height, double textScale,
+    String? InTime, String? OutTime, String? Status, String Date) {
   return Container(
     height: responsiveContainerSize(200, width, height),
     decoration: BoxDecoration(
@@ -459,8 +486,7 @@ Widget attendCountWidgetEmployee(
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    rowCOntentEmployee1(
-                        width, height, textScale, "In", InTime),
+                    rowCOntentEmployee1(width, height, textScale, "In", InTime),
                     rowCOntentEmployee(
                         width, height, textScale, "Out", OutTime),
                     rowCOntentEmployee(
@@ -484,7 +510,7 @@ Widget attendCountWidgetEmployee(
           SizedBox(
             height: responsiveContainerSize(10, width, height),
           ),
-          rowContentEMployee2(width, height, textScale,Date),
+          rowContentEMployee2(width, height, textScale, Date),
         ],
       ),
     ),
@@ -539,7 +565,8 @@ Widget rowCOntentEmployee1(double width, double height, double textScale,
   );
 }
 
-Widget rowContentEMployee2(double width, double height, double textScale,String? Date) {
+Widget rowContentEMployee2(
+    double width, double height, double textScale, String? Date) {
   return Container(
     padding:
         EdgeInsets.symmetric(horizontal: 18 * horizontalPaddingFactor(width)),
@@ -637,7 +664,7 @@ Widget companyButtonEmployee(void Function() onTap, double width, double height,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            "Office Chatroom",
+            "Request Office Leave",
             style: TextStyle(
                 color: Colors.white,
                 fontSize:
@@ -646,7 +673,7 @@ Widget companyButtonEmployee(void Function() onTap, double width, double height,
           ),
           IconButton(
             icon: Icon(
-              Icons.chat,
+              Icons.calendar_month_rounded,
               color: Colors.white,
               size: responsiveContainerSize(30, width, height),
             ),

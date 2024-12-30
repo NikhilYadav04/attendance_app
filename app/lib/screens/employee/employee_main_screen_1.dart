@@ -87,6 +87,7 @@ class _EmployeeMainScreen1State extends State<EmployeeMainScreen1> {
                 ),
                 listWidgetEMployee(
                     currentWidth, currentHeight, textScale, context),
+                SizedBox(height: 38,),
                 Center(
                     child: companyButtonEmployee(
                         () {}, currentWidth, currentHeight, textScale, context))

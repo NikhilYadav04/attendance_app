@@ -86,7 +86,7 @@ class _AddStaffScreenState extends State<AddStaffScreen> {
                       )
                     : addEmployeeButton(() {
                         provider.addStaff(context);
-                      }, currentWidth, currentHeight, textScale, context)
+                      }, currentWidth, currentHeight, textScale, context,"Add Employee")
               ],
             ),
           );

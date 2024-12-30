@@ -32,6 +32,7 @@ class _ApprovalReqScreenState extends State<ApprovalReqScreen> {
     // ignore: deprecated_member_use
     final textScale = MediaQuery.of(context).textScaleFactor;
     return Scaffold(
+      backgroundColor: Colours.BUTTON_COLOR_2,
       body: SingleChildScrollView(child: Consumer<CompanyAttendanceProvider>(
         builder: (context, provider, _) {
           return Column(

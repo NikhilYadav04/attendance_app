@@ -3,8 +3,10 @@ import 'package:attend_ease/providers/attendance/company_attendance_provider.dar
 import 'package:attend_ease/styling/colors.dart';
 import 'package:attend_ease/styling/scale.dart';
 import 'package:attend_ease/widgets/company/company_hr_widgets.dart';
+import 'package:attend_ease/widgets/employee/employee_main_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class StaffListScreen2 extends StatefulWidget {
@@ -34,6 +36,7 @@ class _StaffListScreen2State extends State<StaffListScreen2> {
     final textScale = MediaQuery.of(context).textScaleFactor;
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Colours.BUTTON_COLOR_2,
         body: SingleChildScrollView(
           child: Consumer<CompanyAttendanceProvider>(
             builder: (context, provider, _) {
@@ -43,9 +46,26 @@ class _StaffListScreen2State extends State<StaffListScreen2> {
                 child: Column(
                   children: [
                     SizedBox(
-                      height: responsiveContainerSize(15, width, height),
+                      height: responsiveContainerSize(20, width, height),
                     ),
-                    staffText(width, height, textScale, "Employee Report"),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 12),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          staffText(width, height, textScale, "Employee Report"),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: Icon(
+                              Icons.logout,
+                              size: 36,
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
                     SizedBox(
                       height: responsiveContainerSize(20, width, height),
                     ),
@@ -58,118 +78,84 @@ class _StaffListScreen2State extends State<StaffListScreen2> {
                           )
                         : Column(
                             children: [
-                              Container(
-                                color: Colours.BUTTON_COLOR_1,
-                                child: Table(
-                                  border: TableBorder.all(
-                                    color: Colors.black,
-                                    style: BorderStyle.solid,
-                                    width: 1,
-                                  ),
-                                  children: [
-                                    TableRow(children: [
-                                      TableCell(
-                                          child: Container(
-                                        height: 50,
-                                        child: staffTextText(
-                                            width, height, textScale, "Month"),
-                                      )),
-                                      TableCell(
-                                          child: Container(
-                                        height: 50,
-                                        child: staffTextText(
-                                            width, height, textScale, "Year"),
-                                      )),
-                                      TableCell(
-                                          child: Container(
-                                        height: 50,
-                                        child: staffTextText(width, height,
-                                            textScale, "Percentage"),
-                                      )),
-                                    ])
-                                  ],
-                                ),
-                              ),
-                              provider.attendanceEmployeeList.isEmpty
-                                  ? Center(
-                                      child: Text(
-                                        "No Record Available",
-                                        style: TextStyle(
-                                            color: Colours.DARK_BLUE,
-                                            fontFamily: "Tansek",
-                                            fontSize: 52),
-                                      ),
-                                    )
-                                  : ListView.builder(
-                                      shrinkWrap: true,
-                                      physics: NeverScrollableScrollPhysics(),
-                                      itemCount: provider
-                                          .attendanceEmployeeList.length,
-                                      itemBuilder: (context, index) {
-                                        var Percentage = PercentageFormatter
-                                            .calculateDayPercentage(
-                                                provider.attendanceEmployeeList[
-                                                    index]["Month"],
-                                                provider.attendanceEmployeeList[
-                                                    index]["daysPresent"]);
-                                        return Container(
-                                          child: Table(
-                                            border: TableBorder.all(
-                                              color: Colors.black,
-                                              style: BorderStyle.solid,
-                                              width: 1,
+                              ListView.builder(
+                                  shrinkWrap: true,
+                                  physics: NeverScrollableScrollPhysics(),
+                                  itemCount:
+                                      provider.attendanceEmployeeList.length,
+                                  itemBuilder: (context, index) {
+                                    return Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 10, vertical: 12),
+                                      child: Container(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 15, vertical: 13),
+                                        height: 140,
+                                        width: double.infinity,
+                                        decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                  color: Colors.grey.shade700,
+                                                  spreadRadius: 1.5,
+                                                  blurRadius: 2)
+                                            ]),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              " ${provider.attendanceEmployeeList[index]["Month"]}, ${provider.attendanceEmployeeList[index]["Year"]}",
+                                              style: GoogleFonts.montserrat(
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 24,
+                                              ),
                                             ),
-                                            children: [
-                                              TableRow(children: [
-                                                TableCell(
-                                                    child: Container(
-                                                  height: 50,
-                                                  child: staffTextText(
-                                                      width,
-                                                      height,
-                                                      textScale,
-                                                      provider.attendanceEmployeeList[
-                                                          index]["Month"]),
-                                                )),
-                                                TableCell(
-                                                    child: Container(
-                                                  height: 50,
-                                                  child: Center(
-                                                    child: Text(
-                                                      provider.attendanceEmployeeList[
-                                                          index]["Year"],
-                                                      style: TextStyle(
-                                                          color: Colors.black,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                          fontSize: 35,
-                                                          fontFamily: "Tansek"),
+                                            SizedBox(
+                                              height: 18,
+                                            ),
+                                            Row(
+                                              children: [
+                                                Row(
+                                                  children: [
+                                                    boxIcon(Icons.percent),
+                                                    SizedBox(
+                                                      width: 10,
                                                     ),
-                                                  ),
-                                                )),
-                                                TableCell(
-                                                    child: Container(
-                                                  height: 50,
-                                                  child: Center(
-                                                    child: Text(
-                                                      "${Percentage.toStringAsFixed(2)} %",
-                                                      style: TextStyle(
-                                                          color:
-                                                              Percentage >= 75.0
-                                                                  ? Colors.green
-                                                                  : Colors.red,
+                                                    Text("Percentage : ",
+                                                        style: GoogleFonts
+                                                            .montserrat(
+                                                          color: Colors
+                                                              .grey.shade800,
                                                           fontWeight:
-                                                              FontWeight.w500,
-                                                          fontSize: 35,
-                                                          fontFamily: "Tansek"),
+                                                              FontWeight.bold,
+                                                          fontSize: 23,
+                                                        )),
+                                                    SizedBox(
+                                                      width: 10,
                                                     ),
-                                                  ),
-                                                )),
-                                              ])
-                                            ],
-                                          ),
-                                        );
-                                      })
+                                                    Text(
+                                                        "${PercentageFormatter.calculateDayPercentage(provider.attendanceEmployeeList[index]["Month"], provider.attendanceEmployeeList[index]["daysPresent"]).floorToDouble()} %",
+                                                        style: GoogleFonts
+                                                            .montserrat(
+                                                          color: Colors
+                                                              .grey.shade800,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize: 23,
+                                                        )),
+                                                  ],
+                                                ),
+                                              ],
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    );
+                                  })
                             ],
                           )
                   ],

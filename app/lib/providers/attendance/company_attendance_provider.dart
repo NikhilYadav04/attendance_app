@@ -150,7 +150,7 @@ class CompanyAttendanceProvider extends ChangeNotifier {
 
         isLoadingID = false;
         notifyListeners();
-      } else if (response.statusCode == 401) {
+      } else if (response.statusCode == 404) {
         attendanceIDList = [];
 
         isLoadingID = false;

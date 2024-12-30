@@ -22,7 +22,7 @@ const add_company = async (req, res) => {
     }
 
     const body = await companyModel.findOneAndUpdate(
-      { companyName, companyHR, companyID,HRNumber ,companyCity },
+      { companyName, companyHR, companyID, HRNumber, companyCity },
       { $push: { companyMembers: `${companyHR}_HR` } },
       { upsert: true, new: true, setDefaultsOnInsert: true }
     );
@@ -238,19 +238,20 @@ const get_ids = async (req, res) => {
   try {
     const { companyName } = req.user;
 
-    const body = await companyModel.findOne({ companyName });
+    const body = await employeeModel
+      .find({ companyName })
+      .select("employeeID employeePosition");
 
-    if (!body) {
-      return res.status(401).json({
+    if (body.length == 0) {
+      return res.status(404).json({
         success: false,
-        message: "No Employees Found",
+        message: [],
       });
     }
-    const id_list = body.companyMembers;
 
     return res.status(200).json({
       success: true,
-      message: id_list,
+      message: body,
     });
   } catch (e) {
     return res.status(500).json({

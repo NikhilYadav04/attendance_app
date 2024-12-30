@@ -75,6 +75,7 @@ class _EmployeeMainScreen3State extends State<EmployeeMainScreen3> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Colours.BUTTON_COLOR_2,
         body: SingleChildScrollView(
           child: Consumer<EmployeeAttendanceProvider>(
             builder: (context, provider, _) {
@@ -203,7 +204,7 @@ class _EmployeeMainScreen3State extends State<EmployeeMainScreen3> {
                               ),
                               SizedBox(
                                 height: responsiveContainerSize(
-                                    20, widget.width, widget.height),
+                                    12, widget.width, widget.height),
                               ),
                               attendanceReport(
                                 widget.width,

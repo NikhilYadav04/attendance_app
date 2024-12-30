@@ -1,4 +1,6 @@
 import 'package:attend_ease/providers/attendance/company_attendance_provider.dart';
+import 'package:attend_ease/screens/company/add_staff_screen.dart';
+import 'package:attend_ease/screens/company/remove_staff_screen.dart';
 import 'package:attend_ease/styling/colors.dart';
 import 'package:attend_ease/styling/scale.dart';
 import 'package:attend_ease/globalobjects/variables.dart';
@@ -8,6 +10,7 @@ import 'package:attend_ease/widgets/auth/otp_auth_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
 class CompanyHrScreen1 extends StatefulWidget {
@@ -44,6 +47,7 @@ class _CompanyHrScreen1State extends State<CompanyHrScreen1> {
     final textScale = MediaQuery.of(context).textScaleFactor;
 
     return Scaffold(
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: SingleChildScrollView(child: Consumer<CompanyAttendanceProvider>(
         builder: (context, provider, _) {
           return Container(
@@ -86,8 +90,46 @@ class _CompanyHrScreen1State extends State<CompanyHrScreen1> {
           );
         },
       )),
-      floatingActionButton:
-          floatButton(currentWidth, currentHeight, textScale, context),
+      floatingActionButton: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 12),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Tooltip(
+              margin: EdgeInsets.only(bottom: 5),
+              textStyle: TextStyle(
+                  color: Colors.black, fontSize: 32, fontFamily: "Tansek"),
+              decoration: BoxDecoration(color: Colors.transparent),
+              message: "Add Staff",
+              child: floatButton(
+                  currentWidth, currentHeight, textScale, context, Icons.add,
+                  () {
+                Navigator.push(
+                    context,
+                    PageTransition(
+                        child: AddStaffScreen(),
+                        type: PageTransitionType.fade));
+              }),
+            ),
+            Tooltip(
+              margin: EdgeInsets.only(bottom: 5, left: 10),
+              textStyle: TextStyle(
+                  color: Colors.black, fontSize: 32, fontFamily: "Tansek"),
+              decoration: BoxDecoration(color: Colors.transparent),
+              message: "Remove Staff",
+              child: floatButton(
+                  currentWidth, currentHeight, textScale, context, Icons.delete,
+                  () {
+                Navigator.push(
+                    context,
+                    PageTransition(
+                        child: RemoveStaffScreen(),
+                        type: PageTransitionType.fade));
+              }),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

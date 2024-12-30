@@ -19,6 +19,7 @@ const get_location_baseUrl = "http://$PC_IP/location/get-location";
 
 //employee add and setup
 const add_employee_baseURl = "http://$PC_IP/employee/add-employee";
+const remove_employee_baseURl = "http://$PC_IP/employee/remove-employee";
 const login_employee_baseURl = "http://$PC_IP/employee/join-employee";
 
 //mark attendance

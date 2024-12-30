@@ -92,9 +92,19 @@ const remove_staff = async (req, res) => {
 
     const result = await companyModel.findOneAndUpdate(
       { companyName },
-      { $pull: { companyMembers: employeeID } },
-      { new: true }
+      { $pull: { companyMembers: employeeID } }
     );
+
+    const checkIndex = await result.companyMembers.findIndex(
+      (results) => results === employeeID
+    );
+
+    if (!result || checkIndex < 0) {
+      return res.status(404).json({
+        success: false,
+        message: "No Records Found",
+      });
+    }
 
     await employeeModel.findOneAndDelete({ employeeID: employeeID });
     await reportModel.findOneAndDelete({ employeeID: employeeID });

@@ -44,6 +44,40 @@ class Employeeservice {
     }
   }
 
+   Future<String> removeEmployee(
+    String employeeID
+  ) async {
+    Uri url = Uri.parse(remove_employee_baseURl);
+
+    var req_body = jsonEncode({
+      'employeeID':employeeID
+    });
+    print(req_body);
+    var token = await HelperFunctions.getCompanyToken();
+    print(token);
+
+    try {
+      var res = await http.post(url,
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ${token}'
+          },
+          body: req_body);
+
+      var body = jsonDecode(res.body);
+
+      if (res.statusCode == 200) {
+        return "Success";
+      } else if (res.statusCode == 400) {
+        return body['message'];
+      } else {
+        return body['message'];
+      }
+    } catch (e) {
+      return e.toString();
+    }
+  }
+ 
   // to join company
   Future<String> joinCOmpany(
       String companyName, String employeeName, String employeeID) async {

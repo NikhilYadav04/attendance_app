@@ -68,4 +68,6 @@ class CompanySetupProvider extends ChangeNotifier {
           ToastificationType.error);
     }
   }
+
+  
 }

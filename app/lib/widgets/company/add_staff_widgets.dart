@@ -29,6 +29,33 @@ AppBar appBStaff(double currentWidth, double currentHeight, double textScale,
   );
 }
 
+AppBar appBRemStaff(double currentWidth, double currentHeight, double textScale,
+    BuildContext context) {
+  return AppBar(
+    actions: [
+      IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(Icons.exit_to_app))
+    ],
+    automaticallyImplyLeading: false,
+    backgroundColor: Colors.white,
+    title: Text(
+      "Remove Employee Record",
+      style: TextStyle(
+          color: Colors.black,
+          fontFamily: "Tansek",
+          fontWeight: FontWeight.w500,
+          fontSize:
+              responsiveFontSize(34, currentWidth, currentHeight, textScale)),
+    ),
+    toolbarHeight: responsiveContainerSize(75, currentWidth, currentHeight),
+    elevation: 5,
+    shadowColor: Colors.grey,
+  );
+}
+
 Widget textFieldStaff(
     double currentWidth,
     double currentHeight,
@@ -196,7 +223,7 @@ Widget addText(double currentWidth, double currentHeight, double textScale) {
 }
 
 Widget addEmployeeButton(void Function() onTap, double width, double height,
-    double textScaleFactor, BuildContext context) {
+    double textScaleFactor, BuildContext context,String text) {
   return InkWell(
     onTap: onTap,
     child: Container(
@@ -214,7 +241,7 @@ Widget addEmployeeButton(void Function() onTap, double width, double height,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            "Add Employee",
+            text,
             style: TextStyle(
                 color: Colors.white,
                 fontSize:
