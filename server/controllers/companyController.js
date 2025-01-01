@@ -4,6 +4,8 @@ const staffCountModel = require("../models/staffCount");
 const staffReportModel = require("../models/staffReport");
 const jwt = require("jsonwebtoken");
 const employeeModel = require("../models/employee");
+const crypto = require("crypto");
+const { HR_leave_model } = require("../models/leave");
 
 require("dotenv").config();
 
@@ -39,8 +41,19 @@ const add_company = async (req, res) => {
       list: [],
     });
 
-    await staffCountBody.save();
-    await staffReportBody.save();
+    //* create hr leave model
+    let hrLeaveBody = new HR_leave_model({
+      companyName,
+      Approved_Leaves: [],
+      Pending_Leaves: [],
+      Rejected_Leaves: [],
+    });
+
+    await Promise.all([
+      staffCountBody.save(),
+      staffReportBody.save(),
+      hrLeaveBody.save(),
+    ]);
 
     const token = await jwt.sign(
       {

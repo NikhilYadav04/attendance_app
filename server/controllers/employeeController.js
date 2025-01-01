@@ -5,15 +5,14 @@ const companyModel = require("../models/company");
 const reportModel = require("../models/attendance");
 const staffCountModel = require("../models/staffCount");
 const jwt = require("jsonwebtoken");
+const crypto = require('crypto')
 
 const add_staff = async (req, res) => {
   try {
     const { companyName, companyID } = req.user;
     const { employeeName, employeeNumber, employeePosition } = req.body;
 
-    const employeeID = `${employeeName}_${Math.floor(
-      1000 + Math.random() * 9000
-    )}`;
+    const employeeID = `${employeeName}_${crypto.randomBytes(3).toString('hex')}`;
 
     // we take details of employee and his company name and update employee list
     const body = await employeeModel.findOneAndUpdate(

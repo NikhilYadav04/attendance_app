@@ -8,6 +8,7 @@ const { locationRouter } = require("./routes/locationRoute.js");
 const { employeeRouter } = require("./routes/employeeRoute.js");
 const { attendanceRouter } = require("./routes/attendanceRoutes.js");
 const { router1 } = require("./route_config/server.js");
+const { leaveRouter } = require("./routes/leaveRoute.js");
 
 const app = express();
 
@@ -31,6 +32,7 @@ router1.use("/company", companyRouter);
 router1.use("/location", locationRouter);
 router1.use("/employee", employeeRouter);
 router1.use("/attendance", attendanceRouter);
+router1.use("/leave", leaveRouter);
 
 mongoose
   .connect(DB)
