@@ -131,7 +131,7 @@ class companyService {
           'Content-Type': 'application/json',
           'Authorization': "Bearer ${token}",
         },
-      ).timeout(Duration(seconds: 1));
+      ).timeout(Duration(seconds: 3));
 
       var resBody = jsonDecode(res.body);
       var staffCount = resBody['message'];
