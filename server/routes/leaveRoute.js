@@ -2,12 +2,13 @@ require("dotenv").config();
 const express = require("express");
 const { request_leave, ar_leave, fetch_leaves_HR, fetch_leaves_employee } = require("../controllers/leaveController.js");
 const { authenticateTokenEmployee, authenticateTokenCompany } = require("../middleware/tokenValidations.js");
+const { leaveValidation } = require("../middleware/authValidation.js");
 
 const leaveRouter = express.Router();
 leaveRouter.use(express.json());
 
 //* request a leave
-leaveRouter.post("/request-leave",authenticateTokenEmployee,request_leave);
+leaveRouter.post("/request-leave",leaveValidation,authenticateTokenEmployee,request_leave);
 
 //* approve or reject a leave
 leaveRouter.post("/ar_leave",authenticateTokenCompany,ar_leave);

@@ -25,11 +25,11 @@ const request_leave = async (req, res) => {
       companyName,
     });
 
-    const check = body.Pending_Leaves.filter(
+    const check = body.Pending_Leaves.findIndex(
       (leave) => leave.employeeID === employeeID
     );
 
-    if (check > 0) {
+    if (check >= 0) {
       return res.status(400).json({
         success: false,
         message: "You have already requested a leave",
@@ -109,7 +109,7 @@ const ar_leave = async (req, res) => {
         message: `Leave ${Leave_Status}`,
       });
     }
-    return res.status(404).json({
+    return res.status(400).json({
       success: true,
       message: `Error`,
     });

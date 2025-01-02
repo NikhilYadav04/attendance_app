@@ -129,11 +129,31 @@ const otpValidation = (req, res, next) => {
   next();
 };
 
+const leaveValidation = (req, res, next) => {
+  const schema = Joi.object({
+    Leave_Reason: Joi.string().min(1).max(1000).required().messages({
+      "string.empty": "Leave Reason cannot be empty.",
+      "string.pattern.base": "Leave Reason must be less than 1000 characters",
+      "any.required": "Leave Reason is required.",
+    }),
+  });
+
+  const { error } = schema.validate(req.body);
+
+  if (error) {
+    return res.status(401).json({
+      success: false,
+      message: `${error.details[0].message}`,
+    });
+  }
+  next();
+};
+
 module.exports = {
   companyAddValidation,
   staffAddValidation,
   HRloginValidation,
   EmployeeJoinValidation,
   phoneValidation,
-  otpValidation,
+  otpValidation,leaveValidation
 };
