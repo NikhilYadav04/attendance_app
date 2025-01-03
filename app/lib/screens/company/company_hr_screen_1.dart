@@ -1,12 +1,12 @@
+import 'dart:async';
+
 import 'package:attend_ease/providers/attendance/company_attendance_provider.dart';
 import 'package:attend_ease/screens/company/add_staff_screen.dart';
 import 'package:attend_ease/screens/company/remove_staff_screen.dart';
 import 'package:attend_ease/styling/colors.dart';
 import 'package:attend_ease/styling/scale.dart';
-import 'package:attend_ease/globalobjects/variables.dart';
 import 'package:attend_ease/services/companyService.dart';
 import 'package:attend_ease/widgets/company/company_hr_widgets.dart';
-import 'package:attend_ease/widgets/auth/otp_auth_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart';
@@ -23,6 +23,7 @@ class CompanyHrScreen1 extends StatefulWidget {
 class _CompanyHrScreen1State extends State<CompanyHrScreen1> {
   final companyService CompanyService = companyService();
   DateTime now = DateTime.now();
+  Timer? _timer;
   bool await = true;
 
   @override
@@ -32,10 +33,20 @@ class _CompanyHrScreen1State extends State<CompanyHrScreen1> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final provider = context.read<CompanyAttendanceProvider>();
       provider.fetchRecords(context);
+
       String Date = DateFormat('dd-MM-yyyy').format(DateTime.now());
       setState(() {
         provider.Date = Date;
       });
+
+      //* For periodic fetching of data
+      // _timer = Timer.periodic(Duration(seconds: 5), (timer) {
+      //   provider.fetchRecords(context);
+      //   String date = DateFormat('dd-MM-yyyy').format(DateTime.now());
+      //   setState(() {
+      //     provider.Date = date;
+      //   });
+      // });
     });
   }
 

@@ -38,7 +38,7 @@ const request_leave = async (req, res) => {
       Leave_Reason,
       Leave_Status,
       Leave_ID,
-      Leave_Count : leave_counts_body.leaveCount
+      Leave_Count: leave_counts_body.leaveCount,
     };
 
     const check_index = body.Pending_Leaves.findIndex(
@@ -169,6 +169,7 @@ const fetch_leaves_employee = async (req, res) => {
     const leave_list_rejected = [];
 
     body = await HR_leave_model.findOne({ companyName });
+    const count_body = await employeeModel.findOne({ employeeID });
 
     for (const schema of body.Pending_Leaves) {
       if (schema.employeeID === employeeID) {
@@ -192,6 +193,7 @@ const fetch_leaves_employee = async (req, res) => {
       pending: leave_list_pending,
       approved: leave_list_approved,
       rejected: leave_list_rejected,
+      count: count_body.leaveCount,
     });
   } catch (e) {
     return res.status(500).json({

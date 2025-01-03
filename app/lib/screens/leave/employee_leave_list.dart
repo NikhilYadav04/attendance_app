@@ -52,8 +52,7 @@ class _EmployeeLeaveListState extends State<EmployeeLeaveList> {
                 SizedBox(
                   height: 15,
                 ),
-                approveTextEmployee(
-                    currentWidth, currentHeight, textScale, "Your Leaves"),
+                approveTextEmployee(currentWidth, currentHeight, textScale, "Your Leaves"),
                 SizedBox(
                   height: 30,
                 ),
@@ -98,12 +97,19 @@ class _EmployeeLeaveListState extends State<EmployeeLeaveList> {
                                     Colors.blue,
                                     Color.fromARGB(255, 212, 229, 243),
                                     () {}),
+                                 cards(
+                                    "Leaves\nRemaining",
+                                    provider.count.toString()
+                                        .toString(),
+                                    Colours.BUTTON_COLOR_1,
+                                    Colours.BUTTON_COLOR_2,
+                                    () {}),
                               ],
                             ),
                           ],
                         )),
                 SizedBox(
-                  height: 30,
+                  height: 40,
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 18),

@@ -2,6 +2,7 @@ require("dotenv").config();
 
 const express = require("express");
 const mongoose = require("mongoose");
+const cors = require("cors");
 const { router } = require("./routes/userRoutes.js");
 const { companyRouter } = require("./routes/companyRoutes.js");
 const { locationRouter } = require("./routes/locationRoute.js");
@@ -10,7 +11,18 @@ const { attendanceRouter } = require("./routes/attendanceRoutes.js");
 const { router1 } = require("./route_config/server.js");
 const { leaveRouter } = require("./routes/leaveRoute.js");
 
+const corsOptions = {
+  origin: "*",
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true,
+};
+
+// ["http://example.com", "http://localhost:2000","http://192.168.56.1:2000"]
+
 const app = express();
+
+app.use(cors(corsOptions));
 
 const PORT = process.env.PORT || 2000;
 const DB = process.env.DB;

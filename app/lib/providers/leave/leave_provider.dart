@@ -31,6 +31,7 @@ class LeaveProvider extends ChangeNotifier {
   bool isLoadingList = false;
 
   int dynamic_length = 0;
+  int count = 0;
 
   String buttonState = "rejected";
 
@@ -61,8 +62,8 @@ class LeaveProvider extends ChangeNotifier {
       notifyListeners();
 
       await leaveService
-          .reqLeave(LeaveTitleController.text, StartDateController.text, EndDateController.text, "Pending",
-              LeaveReasonController.text)
+          .reqLeave(LeaveTitleController.text, StartDateController.text,
+              EndDateController.text, "Pending", LeaveReasonController.text)
           .then((value) {
         if (value == "Success") {
           isLoadingReq = false;
@@ -99,9 +100,13 @@ class LeaveProvider extends ChangeNotifier {
     isLoadingApp = true;
     notifyListeners();
 
-    await leaveService.arLeave(Leave_Status, Leave_ID).then((value) {
+    await leaveService.arLeave(Leave_Status, Leave_ID).then((value) async {
       if (value == "Success") {
         isLoadingApp = false;
+        notifyListeners();
+
+        //* Fetch list again to show updated list
+        await fetchLeavesHR(context);
         notifyListeners();
 
         toastMessageSuccess(context, "Success", 'Leave ${Leave_Status}');
@@ -152,6 +157,7 @@ class LeaveProvider extends ChangeNotifier {
     Pending_List_Employee.clear();
     Approved_List_Employee.clear();
     Rejected_List_Employee.clear();
+    count = 0;
 
     isLoadingList = true;
     notifyListeners();
@@ -160,6 +166,7 @@ class LeaveProvider extends ChangeNotifier {
       if (value.toString().startsWith("Error")) {
         isLoadingList = false;
         notifyListeners();
+        count = 0;
 
         toastMessageError(context, "Error fetching leaves", value);
       } else {
@@ -169,6 +176,7 @@ class LeaveProvider extends ChangeNotifier {
         Pending_List_Employee = value['pending'];
         Approved_List_Employee = value['approved'];
         Rejected_List_Employee = value['rejected'];
+        count = value["count"];
       }
     });
   }

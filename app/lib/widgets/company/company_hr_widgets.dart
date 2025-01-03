@@ -382,6 +382,30 @@ Widget approveTextEmployee(
   );
 }
 
+Widget approveTextEmployee1(
+    double width, double height, double textScale, String text, String count) {
+  return Padding(
+    padding: EdgeInsets.symmetric(horizontal: 25),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Text(text,
+            style: GoogleFonts.montserrat(
+              color: Colors.grey.shade900,
+              fontWeight: FontWeight.bold,
+              fontSize: responsiveFontSize(32, width, height, textScale),
+            )),
+        Text(count,
+            style: GoogleFonts.montserrat(
+              color: Colors.grey.shade900,
+              fontWeight: FontWeight.bold,
+              fontSize: responsiveFontSize(32, width, height, textScale),
+            ))
+      ],
+    ),
+  );
+}
+
 Widget listApproval(double width, double height, double textScale,
     BuildContext context, List<dynamic> staffList) {
   return Column(
@@ -410,7 +434,8 @@ Widget listApproval(double width, double height, double textScale,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      DateTimeFormatter.formatDate(staffList[index]["currentDate"]),
+                      DateTimeFormatter.formatDate(
+                          staffList[index]["currentDate"]),
                       style: GoogleFonts.montserrat(
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
@@ -437,8 +462,7 @@ Widget listApproval(double width, double height, double textScale,
                             SizedBox(
                               width: 10,
                             ),
-                            Text(
-                                "${staffList[index]["totalCount"]}",
+                            Text("${staffList[index]["totalCount"]}",
                                 style: GoogleFonts.montserrat(
                                   color: Colors.grey.shade800,
                                   fontWeight: FontWeight.bold,
