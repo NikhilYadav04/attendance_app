@@ -98,7 +98,9 @@ class _LeaveReqScreenState extends State<LeaveReqScreen> {
                           color: Colours.BUTTON_COLOR_1,
                           size: 30,
                         )
-                      : addEmployeeButton(() {}, currentWidth, currentHeight,
+                      : addEmployeeButton(() {
+                        provider.reqLeave(context);
+                      }, currentWidth, currentHeight,
                           textScale, context, "Request Leave")
                 ],
               ),

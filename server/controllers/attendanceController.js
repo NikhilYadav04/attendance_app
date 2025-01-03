@@ -59,6 +59,23 @@ const mark_out = async (req, res) => {
       isPresent,
     };
 
+    //* to calculate between InTime and OutTime
+    // const [hours1, minutes1] = InTime.split(":").map(Number);
+    // const [hours2, minutes2] = OutTime.split(":").map(Number);
+
+    // const totalMinutes1 = hours1 * 60 + minutes1;
+    // const totalMinutes2 = hours2 * 60 + minutes2;
+
+    // const differenceInMinutes = Math.abs(totalMinutes1 - totalMinutes2);
+
+    // if (differenceInMinutes < 480) {
+    //   return res.status(400).json({
+    //     success: false,
+    //     message:
+    //       "Time interval between In-Time and Out-Time must be at least 8 hour",
+    //   });
+    // }
+
     const attendanceIndex = report.attendance.findIndex(
       (entry) => entry.Date === Date
     );

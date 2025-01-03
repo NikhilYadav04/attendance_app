@@ -27,7 +27,7 @@ AppBar appBLeave(double currentWidth, double currentHeight, double textScale,
     elevation: 5,
     shadowColor: Colors.grey,
   );
-    }
+}
 
 Widget leaveCard(BuildContext context, String name, String date, String title,
     Color border, Color bg) {
@@ -146,180 +146,9 @@ Widget cards(
   );
 }
 
-Widget leaveCardPending(BuildContext context, String name, String date, String title,
-    String reason) {
+Widget buttons(String title, IconData icon, Color color,void Function() onTap) {
   return GestureDetector(
-    onTap: () {
-      showModalBottomSheet(
-          context: context,
-          builder: (context) {
-            return Container(
-              padding: EdgeInsets.symmetric(horizontal: 28),
-              height: 480,
-              width: double.infinity,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    height: 40,
-                  ),
-                  Text(
-                    "Employee Name",
-                    style: style.copyWith(
-                        color: Colors.grey.shade700,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Text(
-                    "Kasuhik_7505",
-                    style: style.copyWith(
-                        color: Colors.black,
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  Text(
-                    "Title",
-                    style: style.copyWith(
-                        color: Colors.grey.shade700,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Text(
-                    "Annual Leave",
-                    style: style.copyWith(
-                        color: Colors.black,
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  Text(
-                    "Date",
-                    style: style.copyWith(
-                        color: Colors.grey.shade700,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Text(
-                    "April 15,2023 -  April 23,2023",
-                    style: style.copyWith(
-                        color: Colors.black,
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  Text(
-                    "Reason",
-                    style: style.copyWith(
-                        color: Colors.grey.shade700,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Text(
-                    "Family Wedding Plans",
-                    style: style.copyWith(
-                        color: Colors.black,
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  Text(
-                    "Leave Counts",
-                    style: style.copyWith(
-                        color: Colors.grey.shade700,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Text(
-                    "8",
-                    style: style.copyWith(
-                        color: Colors.black,
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
-            );
-          });
-    },
-    child: Container(
-      margin: EdgeInsets.symmetric(vertical: 10),
-      height: 180,
-      decoration: BoxDecoration(
-        color: Colours.BUTTON_COLOR_2,
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: Colours.BUTTON_COLOR_2, width: 3),
-        boxShadow: [
-          BoxShadow(
-              color: Colours.BUTTON_COLOR_1, spreadRadius: 2, blurRadius: 2)
-        ],
-      ),
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 14, vertical: 18),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              name,
-              style: style.copyWith(
-                  color: Colors.black,
-                  fontFamily: "Kumbh-Med",
-                  fontWeight: FontWeight.bold,
-                  fontSize: 24),
-            ),
-            SizedBox(
-              height: 5,
-            ),
-            Text(
-              date,
-              style: style.copyWith(
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20),
-            ),
-            SizedBox(
-              height: 15,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                _buttons("Reject", Icons.cancel_outlined, Colors.red),
-                _buttons("Approve", Icons.check_circle_outline, Colors.green),
-              ],
-            )
-          ],
-        ),
-      ),
-    ),
-  );
-}
-
-Widget _buttons(String title, IconData icon, Color color) {
-  return GestureDetector(
-    onTap: () {},
+    onTap:onTap,
     child: Container(
       height: 50,
       width: 180,
@@ -350,6 +179,137 @@ Widget _buttons(String title, IconData icon, Color color) {
         ),
       ),
     ),
+  );
+}
+
+Widget bottomCard(
+    String name, String date, String title, String reason, String count) {
+  return Container(
+    padding: EdgeInsets.symmetric(horizontal: 28),
+    height: 480,
+    width: double.infinity,
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SizedBox(
+          height: 40,
+        ),
+        Text(
+          "Employee Name",
+          style: style.copyWith(
+              color: Colors.grey.shade700,
+              fontSize: 20,
+              fontWeight: FontWeight.bold),
+        ),
+        SizedBox(
+          height: 5,
+        ),
+        Text(
+          name,
+          style: style.copyWith(
+              color: Colors.black, fontSize: 22, fontWeight: FontWeight.bold),
+        ),
+        SizedBox(
+          height: 15,
+        ),
+        Text(
+          "Title",
+          style: style.copyWith(
+              color: Colors.grey.shade700,
+              fontSize: 20,
+              fontWeight: FontWeight.bold),
+        ),
+        SizedBox(
+          height: 5,
+        ),
+        Text(
+          title,
+          style: style.copyWith(
+              color: Colors.black, fontSize: 22, fontWeight: FontWeight.bold),
+        ),
+        SizedBox(
+          height: 15,
+        ),
+        Text(
+          "Date",
+          style: style.copyWith(
+              color: Colors.grey.shade700,
+              fontSize: 20,
+              fontWeight: FontWeight.bold),
+        ),
+        SizedBox(
+          height: 5,
+        ),
+        Text(
+          date,
+          style: style.copyWith(
+              color: Colors.black, fontSize: 22, fontWeight: FontWeight.bold),
+        ),
+        SizedBox(
+          height: 15,
+        ),
+        Text(
+          "Reason",
+          style: style.copyWith(
+              color: Colors.grey.shade700,
+              fontSize: 20,
+              fontWeight: FontWeight.bold),
+        ),
+        SizedBox(
+          height: 5,
+        ),
+        Text(
+          reason,
+          style: style.copyWith(
+              color: Colors.black, fontSize: 22, fontWeight: FontWeight.bold),
+        ),
+        SizedBox(
+          height: 15,
+        ),
+        Text(
+          "Leave Counts",
+          style: style.copyWith(
+              color: Colors.grey.shade700,
+              fontSize: 20,
+              fontWeight: FontWeight.bold),
+        ),
+        SizedBox(
+          height: 5,
+        ),
+        Text(
+          count,
+          style: style.copyWith(
+              color: Colors.black, fontSize: 22, fontWeight: FontWeight.bold),
+        ),
+      ],
+    ),
+  );
+}
+
+Widget leaveCardPending(String name, String date) {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text(
+        name,
+        style: style.copyWith(
+            color: Colors.black,
+            fontFamily: "Kumbh-Med",
+            fontWeight: FontWeight.bold,
+            fontSize: 24),
+      ),
+      SizedBox(
+        height: 5,
+      ),
+      Text(
+        date,
+        style: style.copyWith(
+            color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20),
+      ),
+      SizedBox(
+        height: 15,
+      ),
+    ],
   );
 }
 

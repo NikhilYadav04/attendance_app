@@ -22,6 +22,7 @@ const request_leave = async (req, res) => {
 
     if (leave_counts > 0) {
       leave_counts_body.leaveCount = leave_counts_body.leaveCount - 1;
+      await leave_counts_body.save();
     } else {
       return res.status(400).json({
         success: false,
@@ -37,7 +38,7 @@ const request_leave = async (req, res) => {
       Leave_Reason,
       Leave_Status,
       Leave_ID,
-      Leave_Count : leave_counts
+      Leave_Count : leave_counts_body.leaveCount
     };
 
     const check_index = body.Pending_Leaves.findIndex(

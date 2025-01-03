@@ -59,7 +59,10 @@ class _HrLeaveListState extends State<HrLeaveList> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                cards("Leaves\nRejected", "20", Colors.red,
+                                cards(
+                                    "Leaves\nRejected",
+                                    provider.Rejected_List.length.toString(),
+                                    Colors.red,
                                     const Color.fromARGB(255, 247, 221, 223),
                                     () {
                                   Navigator.push(
@@ -70,13 +73,13 @@ class _HrLeaveListState extends State<HrLeaveList> {
                                               bgColor: const Color.fromARGB(
                                                   255, 247, 221, 223),
                                               borderColor: Colors.red,
-                                              list: []),
+                                              list: provider.Rejected_List),
                                           type:
                                               PageTransitionType.bottomToTop));
                                 }),
                                 cards(
                                     "Leaves\nApproved",
-                                    "10",
+                                    provider.Approved_List.length.toString(),
                                     Colors.lightGreen,
                                     const Color.fromARGB(255, 231, 243, 218),
                                     () {
@@ -84,11 +87,11 @@ class _HrLeaveListState extends State<HrLeaveList> {
                                       context,
                                       PageTransition(
                                           child: DetailListScreen(
-                                              title: "",
+                                              title: "Approved",
                                               bgColor: const Color.fromARGB(
                                                   255, 231, 243, 218),
                                               borderColor: Colors.lightGreen,
-                                              list: []),
+                                              list: provider.Approved_List),
                                           type:
                                               PageTransitionType.bottomToTop));
                                 }),
@@ -100,17 +103,20 @@ class _HrLeaveListState extends State<HrLeaveList> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                cards("Leaves\nPending", "05", Colors.blue,
+                                cards(
+                                    "Leaves\nPending",
+                                    provider.Pending_List.length.toString(),
+                                    Colors.blue,
                                     Color.fromARGB(255, 212, 229, 243), () {
                                   Navigator.push(
                                       context,
                                       PageTransition(
                                           child: DetailListScreen(
-                                              title: "",
+                                              title: "Pending",
                                               bgColor: Color.fromARGB(
                                                   255, 212, 229, 243),
                                               borderColor: Colors.blue,
-                                              list: []),
+                                              list: provider.Pending_List),
                                           type:
                                               PageTransitionType.bottomToTop));
                                 }),
@@ -136,10 +142,90 @@ class _HrLeaveListState extends State<HrLeaveList> {
                         child: ListView.builder(
                             physics: NeverScrollableScrollPhysics(),
                             shrinkWrap: true,
-                            itemCount: 3,
+                            itemCount: provider.Pending_List.length,
                             itemBuilder: (context, index) {
-                              return leaveCardPending(context, "Kaushik_7508",
-                                  "April 15, 2023 - April 18, 2024", "", "");
+                              return GestureDetector(
+                                onTap: () {
+                                  showModalBottomSheet(
+                                      context: context,
+                                      builder: (context) {
+                                        return bottomCard(
+                                            provider.Pending_List[index]
+                                                ["employeeID"],
+                                            "${provider.Pending_List[index]["Start_Date"]} - ${provider.Pending_List[index]["End_Date"]}",
+                                            provider.Pending_List[index]
+                                                ["Leave_Title"],
+                                            provider.Pending_List[index]
+                                                ["Leave_Reason"],
+                                            provider.Pending_List[index]
+                                                ["Leave_Count"].toString());
+                                      });
+                                },
+                                child: Container(
+                                  margin: EdgeInsets.symmetric(vertical: 10),
+                                  height: 180,
+                                  decoration: BoxDecoration(
+                                    color: Colours.BUTTON_COLOR_2,
+                                    borderRadius: BorderRadius.circular(10),
+                                    border: Border.all(
+                                        color: Colours.BUTTON_COLOR_2,
+                                        width: 3),
+                                    boxShadow: [
+                                      BoxShadow(
+                                          color: Colours.BUTTON_COLOR_1,
+                                          spreadRadius: 2,
+                                          blurRadius: 2)
+                                    ],
+                                  ),
+                                  child: Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 14, vertical: 18),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        leaveCardPending(
+                                            provider.Pending_List[index]
+                                                ["employeeID"],
+                                            "${provider.Pending_List[index]["Start_Date"]} - ${provider.Pending_List[index]["End_Date"]}"),
+                                        provider.isLoadingApp
+                                            ? SpinKitCircle(
+                                                color: Colors.red,
+                                                size: 24,
+                                              )
+                                            : Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  buttons(
+                                                      "Reject",
+                                                      Icons.cancel_outlined,
+                                                      Colors.red, () {
+                                                    provider.arLeave(
+                                                        context,
+                                                        "Rejected",
+                                                        provider.Pending_List[
+                                                            index]["Leave_ID"]);
+                                                  }),
+                                                  buttons(
+                                                      "Approve",
+                                                      Icons
+                                                          .check_circle_outline,
+                                                      Colors.green, () {
+                                                    provider.arLeave(
+                                                        context,
+                                                        "Approved",
+                                                        provider.Pending_List[
+                                                            index]["Leave_ID"]);
+                                                  }),
+                                                ],
+                                              )
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              );
                             }),
                       ),
                 SizedBox(
@@ -157,5 +243,3 @@ class _HrLeaveListState extends State<HrLeaveList> {
 TextStyle style = TextStyle(
   fontFamily: "Kumbh-Med",
 );
-
-

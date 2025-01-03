@@ -89,7 +89,7 @@ Widget leaveCardList(BuildContext context, Color border, Color bg, List<dynamic>
       onTap: () {},
       child: Container(
         margin: EdgeInsets.symmetric(vertical: 15),
-        height: 180,
+        height: 160,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           border: Border.all(color: border, width: 3),

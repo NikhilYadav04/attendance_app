@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:attend_ease/providers/leave/leave_provider.dart';
 import 'package:attend_ease/styling/colors.dart';
 import 'package:attend_ease/widgets/company/company_hr_widgets.dart';
@@ -25,8 +27,15 @@ class _EmployeeLeaveListState extends State<EmployeeLeaveList> {
      WidgetsBinding.instance.addPostFrameCallback((_) async {
       final provider = context.read<LeaveProvider>();
       await provider.fetchLeavesEmployee(context);
+     provider.dynamic_length = await setLength(provider.Approved_List_Employee, provider.Pending_List_Employee, provider.Rejected_List_Employee);
     });
   }
+
+   int setLength(List<dynamic> list1, List<dynamic> list2, List<dynamic> list3) {
+      int max_length  = max(list1.length, max(list2.length,list3.length));
+      return max_length;
+   }
+
   @override
   Widget build(BuildContext context) {
     final currentHeight = MediaQuery.of(context).size.height;
@@ -145,7 +154,7 @@ class _EmployeeLeaveListState extends State<EmployeeLeaveList> {
                     : Padding(
                         padding: EdgeInsets.symmetric(horizontal: 18),
                         child: SizedBox(
-                          height: 520,
+                          height: 160 * provider.dynamic_length + provider.dynamic_length*15,
                           child: PageView(
                             physics: NeverScrollableScrollPhysics(),
                             controller: _pageController,

@@ -1,4 +1,5 @@
 const Joi = require("joi");
+const { Start } = require("twilio/lib/twiml/VoiceResponse");
 
 const companyAddValidation = (req, res, next) => {
   const schema = Joi.object({
@@ -131,11 +132,15 @@ const otpValidation = (req, res, next) => {
 
 const leaveValidation = (req, res, next) => {
   const schema = Joi.object({
+    Leave_Title : Joi.string().min(1).max(100).required(),
+    Start_Date:Joi.string().min(1).max(100).required(),
+    End_Date:Joi.string().min(1).max(100).required(),
     Leave_Reason: Joi.string().min(1).max(180).required().messages({
       "string.empty": "Leave Reason cannot be empty.",
       "string.pattern.base": "Leave Reason must be less than 180 characters",
       "any.required": "Leave Reason is required.",
     }),
+    Leave_Status : Joi.string().min(1).max(100).required()
   });
 
   const { error } = schema.validate(req.body);

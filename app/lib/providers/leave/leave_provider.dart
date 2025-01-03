@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:attend_ease/services/leaveService.dart';
 import 'package:attend_ease/widgets/auth/otp_auth_widgets.dart';
 import 'package:flutter/foundation.dart';
@@ -27,6 +29,8 @@ class LeaveProvider extends ChangeNotifier {
   bool isLoadingReq = false;
   bool isLoadingApp = false;
   bool isLoadingList = false;
+
+  int dynamic_length = 0;
 
   String buttonState = "rejected";
 
