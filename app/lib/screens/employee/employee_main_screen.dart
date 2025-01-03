@@ -1,6 +1,7 @@
 import 'package:attend_ease/helper/helper_functions.dart';
 import 'package:attend_ease/providers/employee/employee_main_screen_provider.dart';
 import 'package:attend_ease/screens/auth/otp_auth_screen.dart';
+import 'package:attend_ease/screens/leave/employee_leave_list.dart';
 import 'package:attend_ease/styling/colors.dart';
 import 'package:attend_ease/styling/scale.dart';
 import 'package:attend_ease/screens/employee/employee_main_screen_1.dart';
@@ -34,7 +35,7 @@ class _EmployeeMainScreenState extends State<EmployeeMainScreen>
   @override
   void initState() {
     super.initState();
-    tabController = TabController(length: 3, vsync: this);
+    tabController = TabController(length: 4, vsync: this);
     _setName(); // This will asynchronously fetch the name
   }
 
@@ -52,7 +53,7 @@ class _EmployeeMainScreenState extends State<EmployeeMainScreen>
     final textScale = MediaQuery.of(context).textScaleFactor;
 
     return DefaultTabController(
-      length: 3,
+      length: 4,
       child: SafeArea(
         child: Scaffold(
           appBar: PreferredSize(
@@ -120,6 +121,14 @@ class _EmployeeMainScreenState extends State<EmployeeMainScreen>
                       color: Colours.DARK_BLUE,
                     ),
                   ),
+                  Tab(
+                    icon: Icon(
+                      Icons.event_available,
+                      size: responsiveContainerSize(
+                          34, currentWidth, currentHeight),
+                      color: Colours.DARK_BLUE,
+                    ),
+                  ),
                 ],
               ),
               Expanded(
@@ -141,6 +150,7 @@ class _EmployeeMainScreenState extends State<EmployeeMainScreen>
                       height: currentHeight,
                       textScaleFactor: textScale,
                     ),
+                    EmployeeLeaveList()
                   ],
                 ),
               ),

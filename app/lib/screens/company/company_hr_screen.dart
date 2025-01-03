@@ -1,5 +1,6 @@
 import 'package:attend_ease/helper/helper_functions.dart';
 import 'package:attend_ease/providers/company/company_main_screen_provider.dart';
+import 'package:attend_ease/screens/leave/hr_leave_list.dart';
 import 'package:attend_ease/styling/colors.dart';
 import 'package:attend_ease/styling/scale.dart';
 import 'package:attend_ease/screens/company/approval_req_screen.dart';
@@ -32,7 +33,7 @@ class _CompanyHrScreenState extends State<CompanyHrScreen>
   @override
   void initState() {
     super.initState();
-    tabController = TabController(length: 3, vsync: this);
+    tabController = TabController(length: 4, vsync: this);
     _getName();
   }
 
@@ -50,7 +51,7 @@ class _CompanyHrScreenState extends State<CompanyHrScreen>
     final textScale = MediaQuery.of(context).textScaleFactor;
 
     return DefaultTabController(
-      length: 3,
+      length: 4,
       child: SafeArea(
         child: Scaffold(
           appBar: PreferredSize(
@@ -121,6 +122,14 @@ class _CompanyHrScreenState extends State<CompanyHrScreen>
                           color: Colours.DARK_BLUE,
                         ),
                       ),
+                       Tab(
+                        icon: Icon(
+                          Icons.event_available,
+                          size: responsiveContainerSize(
+                              34, currentWidth, currentHeight),
+                          color: Colours.DARK_BLUE,
+                        ),
+                      ),
                     ],
                   ),
                   Expanded(
@@ -129,7 +138,8 @@ class _CompanyHrScreenState extends State<CompanyHrScreen>
                       children: const [
                         CompanyHrScreen1(),
                         ApprovalReqScreen(),
-                        StaffListScreen()
+                        StaffListScreen(),
+                        HrLeaveList()
                       ],
                     ),
                   )

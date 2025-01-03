@@ -1,4 +1,5 @@
-const { HR_leave_model, employee_leave_model } = require("../models/leave");
+const { HR_leave_model } = require("../models/leave");
+const employeeModel = require("../models/employee");
 const crypto = require("crypto");
 
 const request_leave = async (req, res) => {
@@ -10,6 +11,24 @@ const request_leave = async (req, res) => {
 
     const Leave_ID = crypto.randomBytes(3).toString("hex");
 
+    //* check if employee had already requested a leave
+    const body = await HR_leave_model.findOne({
+      companyName,
+    });
+
+    //* Check If Leave Counts Have Exceeded or Not
+    const leave_counts_body = await employeeModel.findOne({ employeeID });
+    const leave_counts = leave_counts_body.leaveCount;
+
+    if (leave_counts > 0) {
+      leave_counts_body.leaveCount = leave_counts_body.leaveCount - 1;
+    } else {
+      return res.status(400).json({
+        success: false,
+        message: "Your Leave Count Is Over, Cannot Request!!",
+      });
+    }
+
     const leave_body = {
       employeeID,
       Leave_Title,
@@ -18,18 +37,14 @@ const request_leave = async (req, res) => {
       Leave_Reason,
       Leave_Status,
       Leave_ID,
+      Leave_Count : leave_counts
     };
 
-    //* check if employee had already requested a leave
-    const body = await HR_leave_model.findOne({
-      companyName,
-    });
-
-    const check = body.Pending_Leaves.findIndex(
+    const check_index = body.Pending_Leaves.findIndex(
       (leave) => leave.employeeID === employeeID
     );
 
-    if (check >= 0) {
+    if (check_index >= 0) {
       return res.status(400).json({
         success: false,
         message: "You have already requested a leave",
@@ -148,31 +163,34 @@ const fetch_leaves_employee = async (req, res) => {
   try {
     const { companyName, employeeID } = req.user;
 
-    let leave_list = [];
+    const leave_list_pending = [];
+    const leave_list_approved = [];
+    const leave_list_rejected = [];
 
     body = await HR_leave_model.findOne({ companyName });
 
     for (const schema of body.Pending_Leaves) {
       if (schema.employeeID === employeeID) {
-        leave_list.push(schema);
+        leave_list_pending.push(schema);
       }
     }
 
     for (const schema of body.Approved_Leaves) {
       if (schema.employeeID === employeeID) {
-        leave_list.push(schema);
+        leave_list_approved.push(schema);
       }
     }
 
     for (const schema of body.Rejected_Leaves) {
       if (schema.employeeID === employeeID) {
-        leave_list.push(schema);
+        leave_list_rejected.push(schema);
       }
     }
 
     return res.status(200).json({
-      success: true,
-      message: leave_list,
+      pending: leave_list_pending,
+      approved: leave_list_approved,
+      rejected: leave_list_rejected,
     });
   } catch (e) {
     return res.status(500).json({

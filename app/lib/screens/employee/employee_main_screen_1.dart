@@ -1,4 +1,5 @@
 import 'package:attend_ease/providers/attendance/employee_attendance_provider.dart';
+import 'package:attend_ease/screens/leave/leave_req_screen.dart';
 import 'package:attend_ease/styling/colors.dart';
 import 'package:attend_ease/styling/scale.dart';
 import 'package:attend_ease/globalobjects/variables.dart';
@@ -9,6 +10,7 @@ import 'package:attend_ease/widgets/auth/otp_auth_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
 // ignore: must_be_immutable
@@ -90,7 +92,9 @@ class _EmployeeMainScreen1State extends State<EmployeeMainScreen1> {
                 SizedBox(height: 38,),
                 Center(
                     child: companyButtonEmployee(
-                        () {}, currentWidth, currentHeight, textScale, context))
+                        () {
+                          Navigator.push(context, PageTransition(child: LeaveReqScreen(), type: PageTransitionType.fade));
+                        }, currentWidth, currentHeight, textScale, context))
               ],
             ),
           );

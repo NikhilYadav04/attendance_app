@@ -106,5 +106,14 @@ flutter:
     - family: Kumbh-Med
       fonts:
         - asset: fonts/KumbhSans-Medium.ttf
+    - family: Mon-Regular
+      fonts:
+        - asset: fonts/Montserrat-Bold.ttf
+    - family: Mon-Bold
+      fonts:
+        - asset: fonts/Montserrat-Regular.ttf
+    - family: Mon-Medium
+      fonts:
+        - asset: fonts/Montserrat-Medium.ttf
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

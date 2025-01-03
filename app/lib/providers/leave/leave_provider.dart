@@ -7,6 +7,8 @@ import 'package:toastification/toastification.dart';
 class LeaveProvider extends ChangeNotifier {
   //* controllers for fields
   final TextEditingController LeaveTitleController = TextEditingController();
+  final TextEditingController StartDateController = TextEditingController();
+  final TextEditingController EndDateController = TextEditingController();
   final TextEditingController LeaveReasonController = TextEditingController();
 
   String Start_Date = "";
@@ -18,11 +20,23 @@ class LeaveProvider extends ChangeNotifier {
   List<dynamic> Approved_List = [];
   List<dynamic> Rejected_List = [];
 
+  List<dynamic> Pending_List_Employee = [];
+  List<dynamic> Approved_List_Employee = [];
+  List<dynamic> Rejected_List_Employee = [];
+
   bool isLoadingReq = false;
   bool isLoadingApp = false;
   bool isLoadingList = false;
 
+  String buttonState = "rejected";
+
   final LeaveService leaveService = LeaveService();
+
+  //* to change status of button
+  void changeSTate(String state) {
+    buttonState = state;
+    notifyListeners();
+  }
 
   //* To assign dates
   void setStart_Date(String date) {
@@ -43,7 +57,7 @@ class LeaveProvider extends ChangeNotifier {
       notifyListeners();
 
       await leaveService
-          .reqLeave(LeaveTitleController.text, Start_Date, End_Date, "Pending",
+          .reqLeave(LeaveTitleController.text, StartDateController.text, EndDateController.text, "Pending",
               LeaveReasonController.text)
           .then((value) {
         if (value == "Success") {
@@ -102,7 +116,11 @@ class LeaveProvider extends ChangeNotifier {
   }
 
 //* fetch leaves HR
-  void fetchLeavesHR(BuildContext context) async {
+  Future<String> fetchLeavesHR(BuildContext context) async {
+    Pending_List.clear();
+    Approved_List.clear();
+    Rejected_List.clear();
+
     isLoadingList = true;
     notifyListeners();
 
@@ -116,14 +134,38 @@ class LeaveProvider extends ChangeNotifier {
         isLoadingList = false;
         notifyListeners();
 
-        
+        Pending_List = value['pending'];
+        Approved_List = value['approved'];
+        Rejected_List = value['rejected'];
       }
     });
+
+    return "";
   }
 
 //*fetch leaves Employee
-  void fetchLeavesEmployee(BuildContext context) async {
+  Future<void> fetchLeavesEmployee(BuildContext context) async {
+    Pending_List_Employee.clear();
+    Approved_List_Employee.clear();
+    Rejected_List_Employee.clear();
+
     isLoadingList = true;
     notifyListeners();
+
+    await leaveService.get_list_employees().then((value) {
+      if (value.toString().startsWith("Error")) {
+        isLoadingList = false;
+        notifyListeners();
+
+        toastMessageError(context, "Error fetching leaves", value);
+      } else {
+        isLoadingList = false;
+        notifyListeners();
+
+        Pending_List_Employee = value['pending'];
+        Approved_List_Employee = value['approved'];
+        Rejected_List_Employee = value['rejected'];
+      }
+    });
   }
 }

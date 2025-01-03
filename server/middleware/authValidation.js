@@ -131,9 +131,9 @@ const otpValidation = (req, res, next) => {
 
 const leaveValidation = (req, res, next) => {
   const schema = Joi.object({
-    Leave_Reason: Joi.string().min(1).max(1000).required().messages({
+    Leave_Reason: Joi.string().min(1).max(180).required().messages({
       "string.empty": "Leave Reason cannot be empty.",
-      "string.pattern.base": "Leave Reason must be less than 1000 characters",
+      "string.pattern.base": "Leave Reason must be less than 180 characters",
       "any.required": "Leave Reason is required.",
     }),
   });

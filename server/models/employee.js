@@ -1,3 +1,4 @@
+const { required } = require("joi");
 const mongoose = require("mongoose");
 
 const employeeSchema = new mongoose.Schema({
@@ -20,6 +21,10 @@ const employeeSchema = new mongoose.Schema({
   companyName: {
     required: true,
     type: String,
+  },
+  leaveCount: {
+    required: true,
+    type: Number,
   },
 });
 

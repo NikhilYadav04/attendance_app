@@ -123,7 +123,7 @@ class LeaveService {
       var body = jsonDecode(res.body);
 
       if (res.statusCode == 200) {
-        return body['message'];
+        return body;
       }
     } on TimeoutException {
       return "Error : Server is taking too long to respond. Try again later.";

@@ -30,6 +30,10 @@ const leave_schema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  Leave_Count : {
+    type:Number,
+    required:true
+  }
 });
 
 const hr_leave_schema = new mongoose.Schema({

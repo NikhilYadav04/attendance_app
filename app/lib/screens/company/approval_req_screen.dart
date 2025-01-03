@@ -1,7 +1,6 @@
 import 'package:attend_ease/providers/attendance/company_attendance_provider.dart';
 import 'package:attend_ease/styling/colors.dart';
 import 'package:attend_ease/styling/scale.dart';
-import 'package:attend_ease/globalobjects/variables.dart';
 import 'package:attend_ease/widgets/company/company_hr_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';

@@ -18,7 +18,7 @@ const add_staff = async (req, res) => {
     const body = await employeeModel.findOneAndUpdate(
       { employeeName, employeeNumber, employeePosition, companyName },
       {
-        employeeID: employeeID,
+        employeeID: employeeID,leaveCount:8
       },
       { upsert: true, new: true, setDefaultsOnInsert: true }
     );

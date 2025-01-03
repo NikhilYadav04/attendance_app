@@ -24,116 +24,118 @@ class _CompanySetupScreenState extends State<CompanySetupScreen> {
     // ignore: deprecated_member_use
     final textScale = MediaQuery.of(context).textScaleFactor;
 
-    return Scaffold(
-        resizeToAvoidBottomInset: true,
-        appBar: appB(currentWidth, currentHeight, textScale, context),
-        body: Consumer<CompanySetupProvider>(
-          builder: (context, provider, _) {
-            return Container(
-              padding: EdgeInsets.symmetric(
-                  horizontal: 11 * horizontalPaddingFactor(currentWidth)),
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: responsiveContainerSize(
-                          20, currentWidth, currentHeight),
-                    ),
-                    tileWidget(currentWidth, currentHeight, textScale),
-                    SizedBox(
-                      height: responsiveContainerSize(
-                          30, currentWidth, currentHeight),
-                    ),
-                    textField(
-                      currentWidth,
-                      currentHeight,
-                      textScale,
-                      " ABC pvt. ltd.",
-                      "Company Name",
-                      provider.companyNameController,
-                    ),
-                    SizedBox(
-                      height: responsiveContainerSize(
-                          25, currentWidth, currentHeight),
-                    ),
-                    textField(
+    return SafeArea(
+      child: Scaffold(
+          resizeToAvoidBottomInset: true,
+          appBar: appB(currentWidth, currentHeight, textScale, context),
+          body: Consumer<CompanySetupProvider>(
+            builder: (context, provider, _) {
+              return Container(
+                padding: EdgeInsets.symmetric(
+                    horizontal: 11 * horizontalPaddingFactor(currentWidth)),
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: responsiveContainerSize(
+                            20, currentWidth, currentHeight),
+                      ),
+                      tileWidget(currentWidth, currentHeight, textScale),
+                      SizedBox(
+                        height: responsiveContainerSize(
+                            30, currentWidth, currentHeight),
+                      ),
+                      textField(
                         currentWidth,
                         currentHeight,
                         textScale,
-                        " Mr. Nikhil",
-                        "Company HR",
-                        provider.companyHRController),
-                    SizedBox(
-                      height: responsiveContainerSize(
-                          25, currentWidth, currentHeight),
-                    ),
-                    textField(currentWidth, currentHeight, textScale, " ABCX3",
-                        "Company ID", provider.companyIDController),
-                    SizedBox(
-                      height: responsiveContainerSize(
-                          25, currentWidth, currentHeight),
-                    ),
-                    textFieldNumber(currentWidth, currentHeight, textScale, " 91XXX2XXX3",
-                        "Phone Number", provider.companyHRNumberController),
-                    SizedBox(
-                      height: responsiveContainerSize(
-                          25, currentWidth, currentHeight),
-                    ),
-                    textField(
-                        currentWidth,
-                        currentHeight,
-                        textScale,
-                        " eg. Mumbai",
-                        "Company City",
-                        provider.companyCityController),
-                    SizedBox(
-                      height: responsiveContainerSize(
-                          40, currentWidth, currentHeight),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "Send free Whatsapp alerts",
-                          style: TextStyle(
-                              color: Colors.grey.shade600,
-                              fontSize: responsiveContainerSize(
-                                  17, currentWidth, currentHeight)),
-                        ),
-                        FlutterSwitch(
-                            activeColor: Colours.BUTTON_COLOR_1,
-                            inactiveColor: Colors.grey.shade700,
-                            height: responsiveContainerSize(
-                                38, currentWidth, currentWidth),
-                            width: responsiveContainerSize(
-                                65, currentWidth, currentWidth),
-                            value: provider.isAlert,
-                            onToggle: (val) {
-                              provider.setAlert(val);
-                            }),
-                      ],
-                    ),
-                    SizedBox(
-                      height: responsiveContainerSize(
-                          35, currentWidth, currentHeight),
-                    ),
-                    provider.isLoading
-                        ? SpinKitCircle(
-                            color: Colours.BUTTON_COLOR_1,
-                            size: 30,
-                          )
-                        : companyButton(() {
-                            provider.addCompany(formKey, context);
-                          }, currentWidth, currentHeight, textScale, context),
-                    SizedBox(
-                      height: responsiveContainerSize(
-                          25, currentWidth, currentHeight),
-                    ),
-                  ],
+                        " ABC pvt. ltd.",
+                        "Company Name",
+                        provider.companyNameController,
+                      ),
+                      SizedBox(
+                        height: responsiveContainerSize(
+                            25, currentWidth, currentHeight),
+                      ),
+                      textField(
+                          currentWidth,
+                          currentHeight,
+                          textScale,
+                          " Mr. Nikhil",
+                          "Company HR",
+                          provider.companyHRController),
+                      SizedBox(
+                        height: responsiveContainerSize(
+                            25, currentWidth, currentHeight),
+                      ),
+                      textField(currentWidth, currentHeight, textScale, " ABCX3",
+                          "Company ID", provider.companyIDController),
+                      SizedBox(
+                        height: responsiveContainerSize(
+                            25, currentWidth, currentHeight),
+                      ),
+                      textFieldNumber(currentWidth, currentHeight, textScale, " 91XXX2XXX3",
+                          "Phone Number", provider.companyHRNumberController),
+                      SizedBox(
+                        height: responsiveContainerSize(
+                            25, currentWidth, currentHeight),
+                      ),
+                      textField(
+                          currentWidth,
+                          currentHeight,
+                          textScale,
+                          " eg. Mumbai",
+                          "Company City",
+                          provider.companyCityController),
+                      SizedBox(
+                        height: responsiveContainerSize(
+                            40, currentWidth, currentHeight),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Send free Whatsapp alerts",
+                            style: TextStyle(
+                                color: Colors.grey.shade600,
+                                fontSize: responsiveContainerSize(
+                                    17, currentWidth, currentHeight)),
+                          ),
+                          FlutterSwitch(
+                              activeColor: Colours.BUTTON_COLOR_1,
+                              inactiveColor: Colors.grey.shade700,
+                              height: responsiveContainerSize(
+                                  38, currentWidth, currentWidth),
+                              width: responsiveContainerSize(
+                                  65, currentWidth, currentWidth),
+                              value: provider.isAlert,
+                              onToggle: (val) {
+                                provider.setAlert(val);
+                              }),
+                        ],
+                      ),
+                      SizedBox(
+                        height: responsiveContainerSize(
+                            35, currentWidth, currentHeight),
+                      ),
+                      provider.isLoading
+                          ? SpinKitCircle(
+                              color: Colours.BUTTON_COLOR_1,
+                              size: 30,
+                            )
+                          : companyButton(() {
+                              provider.addCompany(formKey, context);
+                            }, currentWidth, currentHeight, textScale, context),
+                      SizedBox(
+                        height: responsiveContainerSize(
+                            25, currentWidth, currentHeight),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            );
-          },
-        ));
+              );
+            },
+          )),
+    );
   }
 }
