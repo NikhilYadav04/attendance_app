@@ -1,17 +1,13 @@
+import 'dart:io';
+
 import 'package:attend_ease/helper/date_time_formatter.dart';
 import 'package:attend_ease/styling/colors.dart';
 import 'package:attend_ease/styling/scale.dart';
-import 'package:attend_ease/globalobjects/variables.dart';
-import 'package:attend_ease/helper/helper_functions.dart';
-import 'package:attend_ease/screens/company/add_staff_screen.dart';
-import 'package:attend_ease/screens/auth/otp_auth_screen.dart';
 import 'package:attend_ease/services/companyService.dart';
 import 'package:attend_ease/widgets/employee/employee_main_widgets.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:page_transition/page_transition.dart';
 
 final companyService CompanyService = companyService();
 
@@ -38,7 +34,11 @@ List subtitle = [
 
 DateTime now = DateTime.now();
 
-PreferredSizeWidget appBHR(double width, double height, double textScale) {
+PreferredSizeWidget appBHR(
+  double width,
+  double height,
+  double textScale,
+) {
   return AppBar(
     title: Row(
       children: [
@@ -123,14 +123,95 @@ List<Widget> actionsHR(
 }
 
 Widget appBtitleHR(
-    double width, double height, double textScale, String? companyName) {
+    double width,
+    double height,
+    double textScale,
+    String? companyName,
+    BuildContext context,
+    void Function() fun1,
+    void Function() fun2,
+    bool isProfile,
+    String? profile) {
   return AppBar(
     title: Row(
       children: [
-        Icon(
-          Icons.account_circle_sharp,
-          color: Colors.grey.shade800,
-          size: responsiveContainerSize(32, width, height),
+        GestureDetector(
+          onTap: () {
+            showDialog(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(actions: [
+                    Container(
+                        height: 280,
+                        width: 340,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(1)),
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Text(
+                              "Upload Your Profile Picture",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontFamily: "Kumbh-Med",
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            SizedBox(
+                              height: 25,
+                            ),
+                            Container(
+                              height: 180,
+                              width: 300,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5),
+                                  border: Border.all(
+                                      color: Colors.black,
+                                      width: 2,
+                                      style: BorderStyle.solid)),
+                              child: isProfile
+                                  ? SpinKitCircle(
+                                      color: Colours.DARK_BLUE,
+                                      size: 20,
+                                    )
+                                  : Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 15, vertical: 15),
+                                      child: Column(
+                                        children: [
+                                          buttonPic("Pick From Gallery  ",
+                                              Icons.photo, fun2),
+                                          SizedBox(
+                                            height: 20,
+                                          ),
+                                          buttonPic("Click From Camera",
+                                              Icons.camera_alt, fun1)
+                                        ],
+                                      ),
+                                    ),
+                            )
+                          ],
+                        )),
+                  ]);
+                });
+          },
+          child: isProfile
+              ? SpinKitCircle(
+                  color: Colours.DARK_BLUE,
+                  size: 20,
+                )
+              : profile == ""
+                  ? Icon(
+                      Icons.account_circle_sharp,
+                      color: Colors.grey.shade800,
+                      size: responsiveContainerSize(32, width, height),
+                    )
+                  : CircleAvatar(
+                      radius: 25,
+                      backgroundImage: FileImage(File(profile.toString())),
+                    ),
         ),
         SizedBox(
           width: responsiveContainerSize(12, width, height),
@@ -379,30 +460,6 @@ Widget approveTextEmployee(
           fontWeight: FontWeight.bold,
           fontSize: responsiveFontSize(35, width, height, textScale),
         )),
-  );
-}
-
-Widget approveTextEmployee1(
-    double width, double height, double textScale, String text, String count) {
-  return Padding(
-    padding: EdgeInsets.symmetric(horizontal: 25),
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        Text(text,
-            style: GoogleFonts.montserrat(
-              color: Colors.grey.shade900,
-              fontWeight: FontWeight.bold,
-              fontSize: responsiveFontSize(32, width, height, textScale),
-            )),
-        Text(count,
-            style: GoogleFonts.montserrat(
-              color: Colors.grey.shade900,
-              fontWeight: FontWeight.bold,
-              fontSize: responsiveFontSize(32, width, height, textScale),
-            ))
-      ],
-    ),
   );
 }
 

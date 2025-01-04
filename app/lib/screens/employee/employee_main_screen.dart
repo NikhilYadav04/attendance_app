@@ -1,9 +1,6 @@
-import 'dart:io';
 
 import 'package:attend_ease/helper/helper_functions.dart';
-import 'package:attend_ease/providers/attendance/employee_attendance_provider.dart';
 import 'package:attend_ease/providers/employee/employee_main_screen_provider.dart';
-import 'package:attend_ease/screens/auth/otp_auth_screen.dart';
 import 'package:attend_ease/screens/leave/employee_leave_list.dart';
 import 'package:attend_ease/styling/colors.dart';
 import 'package:attend_ease/styling/scale.dart';
@@ -40,9 +37,9 @@ class _EmployeeMainScreenState extends State<EmployeeMainScreen>
     super.initState();
     tabController = TabController(length: 4, vsync: this);
     _setName();
-     WidgetsBinding.instance.addPostFrameCallback((_) {
+     WidgetsBinding.instance.addPostFrameCallback((_) async{
       final provider = context.read<EmployeeMainScreenProvider>();
-      provider.getProfilePic(context);
+      provider.profile_url = await HelperFunctions.getProfilePhoto() ?? "";
     });
   }
 
@@ -74,9 +71,9 @@ class _EmployeeMainScreenState extends State<EmployeeMainScreen>
                       responsiveContainerSize(75, currentWidth, currentHeight),
                   title: appBartitle(currentWidth, currentHeight, textScale,
                       employeeName, context,(){
-                        provider.uploadImageCamera(context);
+                        provider.uploadImageGalleryLocalStorage(context);
                       },(){
-                        provider.uploadImageGallery(context);
+                        provider.uploadImageGalleryLocalStorage(context);
                       },provider.isProfile,provider.profile_url),
                   actions: [
                     provider.isLoading

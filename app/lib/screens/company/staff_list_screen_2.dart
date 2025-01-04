@@ -9,6 +9,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
+// ignore: must_be_immutable
 class StaffListScreen2 extends StatefulWidget {
   StaffListScreen2({super.key, required this.employeeID});
   String employeeID;

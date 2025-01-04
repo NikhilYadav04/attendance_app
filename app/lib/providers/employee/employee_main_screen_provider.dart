@@ -13,7 +13,7 @@ import 'package:toastification/toastification.dart';
 class EmployeeMainScreenProvider extends ChangeNotifier {
   bool isLoading = false;
   bool isProfile = false;
-  String profile_url = "";
+  String? profile_url = "";
   final Employeeservice employeeservice = Employeeservice();
 
   //* Logout Event
@@ -28,6 +28,7 @@ class EmployeeMainScreenProvider extends ChangeNotifier {
     await HelperFunctions.setEmployeeToken("");
     await HelperFunctions.setEmployeeName("");
     await HelperFunctions.setCompanyName("");
+    await HelperFunctions.setProfilePhoto("");
 
     isLoading = false;
     notifyListeners();
@@ -55,6 +56,7 @@ class EmployeeMainScreenProvider extends ChangeNotifier {
         profile_url = "";
         toastMessageError(context, "Cannot Get Profile Pic", value);
       } else {
+        print("prfi;e pic issss ${profile_url}");
         profile_url = value;
         isProfile = false;
         notifyListeners();
@@ -146,6 +148,18 @@ class EmployeeMainScreenProvider extends ChangeNotifier {
           }
         });
       }
+    }
+  }
+
+  void uploadImageGalleryLocalStorage(BuildContext content) async {
+    final XFile? _pickedFile =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (_pickedFile == null) {
+      return;
+    } else {
+      await HelperFunctions.setProfilePhoto(_pickedFile.path);
+      profile_url = _pickedFile.path;
+      notifyListeners();
     }
   }
 }

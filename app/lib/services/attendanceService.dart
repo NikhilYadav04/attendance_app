@@ -3,7 +3,6 @@ import 'dart:convert';
 
 import 'package:attend_ease/helper/helper_functions.dart';
 import 'package:attend_ease/styling/url_constants.dart';
-import 'package:attend_ease/globalobjects/variables.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 

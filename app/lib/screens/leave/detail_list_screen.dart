@@ -1,7 +1,6 @@
 import 'package:attend_ease/widgets/company/company_hr_widgets.dart';
 import 'package:attend_ease/widgets/leave/leave_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:pinput/pinput.dart';
 
 // ignore: must_be_immutable
 class DetailListScreen extends StatefulWidget {

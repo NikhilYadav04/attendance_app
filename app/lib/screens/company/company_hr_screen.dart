@@ -35,6 +35,10 @@ class _CompanyHrScreenState extends State<CompanyHrScreen>
     super.initState();
     tabController = TabController(length: 4, vsync: this);
     _getName();
+     WidgetsBinding.instance.addPostFrameCallback((_) async{
+      final provider = context.read<CompanyMainScreenProvider>();
+      provider.profile_url = await HelperFunctions.getProfilePhoto() ?? "";
+    });
   }
 
   @override
@@ -65,7 +69,11 @@ class _CompanyHrScreenState extends State<CompanyHrScreen>
                   toolbarHeight:
                       responsiveContainerSize(75, currentWidth, currentHeight),
                   title: appBtitleHR(
-                      currentWidth, currentHeight, textScale, companyName),
+                      currentWidth, currentHeight, textScale, companyName,context,(){
+                        provider.uploadImageGalleryLocalStorage(context);
+                      },(){
+                        provider.uploadImageGalleryLocalStorage(context);
+                      },provider.isProfile,provider.profile_url),
                   actions: [
                     provider.isLoading
                         ? SpinKitSquareCircle(

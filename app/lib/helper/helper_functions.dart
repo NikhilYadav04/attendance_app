@@ -44,6 +44,18 @@ class HelperFunctions {
     return sf.setString(Tokens.COMPANY_NAME_TOKEN, companyName);
   }
 
+  //* Store The Profile Photo
+  static Future<bool> setProfilePhoto(String path) async {
+    SharedPreferences sf = await SharedPreferences.getInstance();
+    return sf.setString(Tokens.PHOTO_TOKEN, path);
+  }
+
+  //* Get The Profile Photo
+  static Future<String?> getProfilePhoto() async {
+    SharedPreferences sf = await SharedPreferences.getInstance();
+    return sf.getString(Tokens.PHOTO_TOKEN);
+  }
+
   //* Get The Company Name
   static Future<String?> getCompanyName() async {
     SharedPreferences sf = await SharedPreferences.getInstance();
