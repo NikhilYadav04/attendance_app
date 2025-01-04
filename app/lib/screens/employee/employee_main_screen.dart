@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:attend_ease/helper/helper_functions.dart';
+import 'package:attend_ease/providers/attendance/employee_attendance_provider.dart';
 import 'package:attend_ease/providers/employee/employee_main_screen_provider.dart';
 import 'package:attend_ease/screens/auth/otp_auth_screen.dart';
 import 'package:attend_ease/screens/leave/employee_leave_list.dart';
@@ -10,7 +13,6 @@ import 'package:attend_ease/screens/employee/employee_main_screen_3.dart';
 import 'package:attend_ease/widgets/employee/employee_main_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
 class EmployeeMainScreen extends StatefulWidget {
@@ -25,6 +27,7 @@ class _EmployeeMainScreenState extends State<EmployeeMainScreen>
   late final TabController? tabController;
   late String employeeName = "";
 
+  //* for displaying employee name
   Future<void> _setName() async {
     var name = await HelperFunctions.getEmployeeName();
     setState(() {
@@ -36,7 +39,11 @@ class _EmployeeMainScreenState extends State<EmployeeMainScreen>
   void initState() {
     super.initState();
     tabController = TabController(length: 4, vsync: this);
-    _setName(); // This will asynchronously fetch the name
+    _setName();
+     WidgetsBinding.instance.addPostFrameCallback((_) {
+      final provider = context.read<EmployeeMainScreenProvider>();
+      provider.getProfilePic(context);
+    });
   }
 
   @override
@@ -65,8 +72,12 @@ class _EmployeeMainScreenState extends State<EmployeeMainScreen>
                   elevation: 0,
                   toolbarHeight:
                       responsiveContainerSize(75, currentWidth, currentHeight),
-                  title: appBartitle(
-                      currentWidth, currentHeight, textScale, employeeName),
+                  title: appBartitle(currentWidth, currentHeight, textScale,
+                      employeeName, context,(){
+                        provider.uploadImageCamera(context);
+                      },(){
+                        provider.uploadImageGallery(context);
+                      },provider.isProfile,provider.profile_url),
                   actions: [
                     provider.isLoading
                         ? SpinKitSquareCircle(

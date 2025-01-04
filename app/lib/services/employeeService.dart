@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:attend_ease/helper/helper_functions.dart';
 import 'package:attend_ease/styling/url_constants.dart';
@@ -149,6 +150,63 @@ class Employeeservice {
     } catch (e) {
       print("Error is ${e}");
       return "Error is ${e.toString()}";
+    }
+  }
+
+  //* tu upload profile pic
+  Future<dynamic> uploadProfilePic(File photo) async {
+    try {
+      Uri url = Uri.parse(upload_url);
+      var token = await HelperFunctions.getEmployeeToken();
+
+      var request = http.MultipartRequest('POST', url)
+        ..headers['Authorization'] = 'Bearer $token'
+        ..files.add(await http.MultipartFile.fromPath('photo', photo.path));
+
+      var response = await request.send().timeout(Duration(seconds: 3));
+      var res_body = await http.Response.fromStream(response);
+
+      if (response.statusCode == 200) {
+        return jsonDecode(res_body.body)['message'];
+      } else if (response.statusCode == 400) {
+        return jsonDecode(res_body.body)['message'];
+      }else if (response.statusCode == 500) {
+        return "Error : ${jsonDecode(res_body.body)['message']}";
+      }
+    } on TimeoutException {
+      return "Error: Server is taking too long to respond, Try Again Later";
+    } catch (e) {
+      return "Error : ${e.toString()}";
+    }
+  }
+
+//* to get profile pic
+  Future<dynamic> getProfilePic() async {
+    try {
+      Uri url = Uri.parse(get_image_url);
+
+      var token = await HelperFunctions.getEmployeeToken();
+
+      var response = await http.get(url, headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer ${token}"
+      }).timeout(Duration(seconds: 3));
+
+      var res_body = jsonDecode(response.body);
+      print(response.statusCode);
+
+      if (response.statusCode == 200) {
+        return res_body["message"];
+      } else if (response.statusCode == 404) {
+        return res_body["message"];
+      } else if (response.statusCode == 500) {
+        return "Error : ${res_body["message"]}";
+      }
+    } on TimeoutException {
+      return "Error: Server is taking too long to respond, Try Again Later";
+    } catch (e) {
+      print("Error ${e.toString()}");
+      return "Error : ${e.toString()}";
     }
   }
 }

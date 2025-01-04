@@ -4,7 +4,9 @@ import 'package:attend_ease/styling/scale.dart';
 import 'package:attend_ease/globalobjects/variables.dart';
 import 'package:attend_ease/helper/helper_functions.dart';
 import 'package:attend_ease/screens/auth/otp_auth_screen.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -27,13 +29,105 @@ List subtitleEmployee = [
 ];
 
 Widget appBartitle(
-    double width, double height, double textScale, String? employeeName) {
+    double width,
+    double height,
+    double textScale,
+    String? employeeName,
+    BuildContext context,
+    void Function() fun1,
+    void Function() fun2,
+    bool isProfile,
+    String profile) {
   return Row(
     children: [
-      Icon(
-        Icons.account_circle_sharp,
-        color: Colors.grey.shade800,
-        size: responsiveContainerSize(32, width, height),
+      GestureDetector(
+        onTap: () {
+          showDialog(
+              context: context,
+              builder: (context) {
+                return AlertDialog(actions: [
+                  Container(
+                      height: 280,
+                      width: 340,
+                      decoration:
+                          BoxDecoration(borderRadius: BorderRadius.circular(1)),
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Text(
+                            "Upload Your Profile Picture",
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontFamily: "Kumbh-Med",
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          SizedBox(
+                            height: 25,
+                          ),
+                          Container(
+                            height: 180,
+                            width: 300,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(5),
+                                border: Border.all(
+                                    color: Colors.black,
+                                    width: 2,
+                                    style: BorderStyle.solid)),
+                            child: isProfile
+                                ? SpinKitCircle(
+                                    color: Colours.DARK_BLUE,
+                                    size: 20,
+                                  )
+                                : Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 15, vertical: 15),
+                                    child: Column(
+                                      children: [
+                                        buttonPic("Pick From Gallery  ",
+                                            Icons.photo, fun2),
+                                        SizedBox(
+                                          height: 20,
+                                        ),
+                                        buttonPic("Click From Camera",
+                                            Icons.camera_alt, fun1)
+                                      ],
+                                    ),
+                                  ),
+                          )
+                        ],
+                      )),
+                ]);
+              });
+        },
+        child: isProfile
+            ? SpinKitCircle(
+                color: Colours.DARK_BLUE,
+                size: 20,
+              )
+            : profile == ""
+                ? Icon(
+                    Icons.account_circle_sharp,
+                    color: Colors.grey.shade800,
+                    size: responsiveContainerSize(32, width, height),
+                  )
+                : CachedNetworkImage(
+                    imageUrl: profile,
+                    imageBuilder: (context, imageProvider) => Container(
+                      width: 250,
+                      height: 250,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: imageProvider,
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                    ),
+                    placeholder: (context, url) => CircularProgressIndicator(),
+                    errorWidget: (context, url, error) => Icon(Icons.error),
+                  ),
       ),
       SizedBox(
         width: responsiveContainerSize(12, width, height),
@@ -363,7 +457,7 @@ Widget attendanceReport(double width, double height, double textScale,
           itemCount: report.length,
           itemBuilder: (context, index) {
             return Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10,vertical: 12),
+              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 12),
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 15, vertical: 13),
                 height: 140,
@@ -373,7 +467,9 @@ Widget attendanceReport(double width, double height, double textScale,
                     borderRadius: BorderRadius.circular(10),
                     boxShadow: [
                       BoxShadow(
-                          color: Colors.grey.shade700, spreadRadius: 1.5, blurRadius: 2)
+                          color: Colors.grey.shade700,
+                          spreadRadius: 1.5,
+                          blurRadius: 2)
                     ]),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -737,6 +833,42 @@ Widget cameraButton(void Function() onTap, double width, double height,
             onPressed: () {},
           )
         ],
+      ),
+    ),
+  );
+}
+
+Widget buttonPic(String title, IconData icon, void Function() onTap) {
+  return GestureDetector(
+    onTap: onTap,
+    child: Container(
+      height: 60,
+      width: 260,
+      decoration: BoxDecoration(
+          color: Colours.BUTTON_COLOR_1,
+          borderRadius: BorderRadius.circular(6)),
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 14),
+        child: Row(
+          children: [
+            Text(
+              title,
+              style: TextStyle(
+                  color: Colors.white,
+                  fontFamily: "Kumbh-Med",
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold),
+            ),
+            SizedBox(
+              width: 10,
+            ),
+            Icon(
+              icon,
+              color: Colors.white,
+              size: 30,
+            )
+          ],
+        ),
       ),
     ),
   );

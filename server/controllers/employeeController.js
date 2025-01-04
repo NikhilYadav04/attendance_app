@@ -4,21 +4,27 @@ const employeeModel = require("../models/employee");
 const companyModel = require("../models/company");
 const reportModel = require("../models/attendance");
 const staffCountModel = require("../models/staffCount");
+
 const jwt = require("jsonwebtoken");
-const crypto = require('crypto')
+const crypto = require("crypto");
+const { cloudinary } = require("../services/cloudinary.js");
+const PhotoModel = require("../models/photo");
 
 const add_staff = async (req, res) => {
   try {
     const { companyName, companyID } = req.user;
     const { employeeName, employeeNumber, employeePosition } = req.body;
 
-    const employeeID = `${employeeName}_${crypto.randomBytes(3).toString('hex')}`;
+    const employeeID = `${employeeName}_${crypto
+      .randomBytes(3)
+      .toString("hex")}`;
 
     // we take details of employee and his company name and update employee list
     const body = await employeeModel.findOneAndUpdate(
       { employeeName, employeeNumber, employeePosition, companyName },
       {
-        employeeID: employeeID,leaveCount:8
+        employeeID: employeeID,
+        leaveCount: 8,
       },
       { upsert: true, new: true, setDefaultsOnInsert: true }
     );
@@ -294,6 +300,67 @@ const get_count = async (req, res) => {
   }
 };
 
+const upload_photo = async (req, res) => {
+  try {
+    const { employeeID } = req.user;
+
+    if (!req.file) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Error : No file uploaded" });
+    }
+
+    const result = await cloudinary.uploader.upload(req.file.path, {
+      folder: "profile_pics",
+    });
+
+    const photo_body = await PhotoModel.findOneAndUpdate(
+      { employeeID },
+      { imageURL: result.secure_url },
+      { new: true, upsert: true, setDefaultsOnInsert: true }
+    );
+
+    return res.status(200).json({
+      success: true,
+      message: result.secure_url,
+    });
+  } catch (e) {
+    return res.status(500).json({
+      success: false,
+      message: e.message,
+    });
+  }
+};
+
+const get_profile = async (req, res) => {
+  try {
+    const { employeeID } = req.user;
+
+    const body = await PhotoModel.findOne({ employeeID });
+
+    if (!body) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Error : No Image Found" });
+    }
+
+    const url = body.imageURL;
+
+    if (!url) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Error : No Image Found" });
+    }
+
+    return res.status(200).json({ success: true, message: url });
+  } catch (e) {
+    return res.status(500).json({
+      success: false,
+      message: e.message,
+    });
+  }
+};
+
 module.exports = {
   add_staff,
   remove_staff,
@@ -301,4 +368,6 @@ module.exports = {
   get_history,
   change_count,
   get_count,
+  upload_photo,
+  get_profile,
 };

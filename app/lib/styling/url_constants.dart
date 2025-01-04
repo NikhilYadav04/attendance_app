@@ -53,4 +53,8 @@ const ar_leave_url = "http://$PC_IP/leave/ar_leave";
 const fetch_leave_HR = "http://$PC_IP/leave/fetch-leaves-HR";
 const fetch_leave_employee = "http://$PC_IP/leave//fetch-leaves-employee";
 
+// profile pic
+const upload_url = "http://$PC_IP/employee/upload";
+const get_image_url = "http://$PC_IP/employee/get-profile";
+
 

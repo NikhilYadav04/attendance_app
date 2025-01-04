@@ -2,11 +2,7 @@ import 'package:attend_ease/providers/attendance/employee_attendance_provider.da
 import 'package:attend_ease/screens/leave/leave_req_screen.dart';
 import 'package:attend_ease/styling/colors.dart';
 import 'package:attend_ease/styling/scale.dart';
-import 'package:attend_ease/globalobjects/variables.dart';
-import 'package:attend_ease/services/attendanceService.dart';
-import 'package:attend_ease/services/employeeService.dart';
 import 'package:attend_ease/widgets/employee/employee_main_widgets.dart';
-import 'package:attend_ease/widgets/auth/otp_auth_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart';

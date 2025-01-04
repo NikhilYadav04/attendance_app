@@ -8,9 +8,12 @@ const {
   change_count,
   get_count,
   remove_staff,
+  upload_photo,
+  get_profile,
 } = require("../controllers/employeeController.js");
 const { staffAddValidation, EmployeeJoinValidation } = require("../middleware/authValidation.js");
 const {  authenticateTokenEmployee, authenticateTokenCompany } = require("../middleware/tokenValidations.js");
+const upload = require("../services/multer.js");
 const employeeRouter = express.Router();
 
 employeeRouter.use(express.json());
@@ -32,5 +35,11 @@ employeeRouter.post("/change-count",authenticateTokenEmployee, change_count);
 
 //* get the in and out count
 employeeRouter.get("/get-count", authenticateTokenCompany, get_count);
+
+//*add profile picture
+employeeRouter.post('/upload',authenticateTokenEmployee,upload.single('photo'),upload_photo);
+
+//* get progiile picture
+employeeRouter.get('/get-profile',authenticateTokenEmployee,get_profile)
 
 module.exports = {employeeRouter};

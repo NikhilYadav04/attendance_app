@@ -1,3 +1,4 @@
+
 import 'package:attend_ease/helper/helper_functions.dart';
 import 'package:attend_ease/screens/home/home_screen.dart';
 import 'package:attend_ease/services/attendanceService.dart';
@@ -369,5 +370,3 @@ class EmployeeAttendanceProvider extends ChangeNotifier {
     }
   }
 }
-
-
