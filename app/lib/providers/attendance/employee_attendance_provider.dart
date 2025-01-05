@@ -85,7 +85,6 @@ class EmployeeAttendanceProvider extends ChangeNotifier {
         await HelperFunctions.setLoggedInEmployee(false);
         await HelperFunctions.setCompanyToken("");
         await HelperFunctions.setEmployeeToken("");
-        await HelperFunctions.setProfilePhoto("");
 
         isLoading = false;
         notifyListeners();

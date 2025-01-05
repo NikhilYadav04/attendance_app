@@ -17,14 +17,14 @@ List<String> imagesEmployee = [
 
 List<String> titleEmployee = [
   "Mark Attendance",
-  "Check Other Staff",
   "Check Attendance History",
+  "Manage Leaves",
 ];
 
 List subtitleEmployee = [
-  "Mark your Attendance for Today ( Face )",
-  "Check other employee's attendance list",
-  "Check your Attendance History Report",
+  "Stay within the office radius to mark today's attendance",
+  "Check your In-Time and Out-Time history for each day.",
+  "View your leave history and remaining leave count.",
 ];
 
 Widget appBartitle(
@@ -114,8 +114,7 @@ Widget appBartitle(
                     )
                   : CircleAvatar(
                       radius: 25,
-                      backgroundImage:
-                          FileImage(File(profile.toString())),
+                      backgroundImage: FileImage(File(profile.toString())),
                     )),
       SizedBox(
         width: responsiveContainerSize(12, width, height),

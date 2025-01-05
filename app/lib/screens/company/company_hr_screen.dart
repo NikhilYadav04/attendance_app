@@ -70,7 +70,7 @@ class _CompanyHrScreenState extends State<CompanyHrScreen>
                       responsiveContainerSize(75, currentWidth, currentHeight),
                   title: appBtitleHR(
                       currentWidth, currentHeight, textScale, companyName,context,(){
-                        provider.uploadImageGalleryLocalStorage(context);
+                        provider.uploadImageCameraLocalStorage(context);
                       },(){
                         provider.uploadImageGalleryLocalStorage(context);
                       },provider.isProfile,provider.profile_url),

@@ -71,7 +71,7 @@ class _EmployeeMainScreenState extends State<EmployeeMainScreen>
                       responsiveContainerSize(75, currentWidth, currentHeight),
                   title: appBartitle(currentWidth, currentHeight, textScale,
                       employeeName, context,(){
-                        provider.uploadImageGalleryLocalStorage(context);
+                        provider.uploadImageCameraLocalStorage(context);
                       },(){
                         provider.uploadImageGalleryLocalStorage(context);
                       },provider.isProfile,provider.profile_url),

@@ -46,4 +46,18 @@ class CompanyMainScreenProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
+
+   void uploadImageCameraLocalStorage(BuildContext content) async {
+    final XFile? _pickedFile =
+        await ImagePicker().pickImage(source: ImageSource.camera);
+    if (_pickedFile == null) {
+      return;
+    } else {
+      await HelperFunctions.setProfilePhoto(_pickedFile.path);
+      profile_url = _pickedFile.path;
+      notifyListeners();
+    }
+  }
 }
+
+

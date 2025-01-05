@@ -13,23 +13,23 @@ final companyService CompanyService = companyService();
 
 List<String> images = [
   "assets/location_screen/add.png",
+  "assets/location_screen/count.png",
   "assets/location_screen/list.png",
-  "assets/location_screen/video.png",
   "assets/location_screen/tasks.png"
 ];
 
 List<String> title = [
-  "Add Staff",
+  "Add And Remove Staff",
+  "Check Staff Count",
   "Check Staff Report",
-  "Video Meeting",
-  "Staff Count"
+  "Monitor Leaves"
 ];
 
 List subtitle = [
-  "Staff can mark attendance via phone",
-  "Check every employee's attendance list",
-  "Conduct video meet with your staff live",
-  "Check Report of Total Staff Count "
+  "Add or remove an employee's attendance account",
+  "View the daily staff attendance count summary.",
+  "View each employee's monthly attendance report.",
+  "Approve or decline employee leave requests."
 ];
 
 DateTime now = DateTime.now();
