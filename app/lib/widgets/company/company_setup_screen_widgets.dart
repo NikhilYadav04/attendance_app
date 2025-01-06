@@ -1,10 +1,11 @@
 import 'package:attend_ease/styling/colors.dart';
 import 'package:attend_ease/styling/scale.dart';
+import 'package:attend_ease/styling/sizeconfig.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 
-AppBar appB(double currentWidth, double currentHeight, double textScale,
+AppBar appB(
     BuildContext context) {
   return AppBar(
     actions: [
@@ -25,15 +26,15 @@ AppBar appB(double currentWidth, double currentHeight, double textScale,
           fontFamily: "Tansek",
           fontWeight: FontWeight.w500,
           fontSize:
-              responsiveFontSize(34, currentWidth, currentHeight, textScale)),
+             3.686*SizeConfig.heightMultiplier),
     ),
-    toolbarHeight: responsiveContainerSize(75, currentWidth, currentHeight),
+    toolbarHeight: 8.1109*SizeConfig.heightMultiplier,
     elevation: 5,
     shadowColor: Colors.grey,
   );
 }
 
-Widget tileWidget(double currentWidth, double currentHeight, double textScale) {
+Widget tileWidget() {
   return Container(
     decoration: BoxDecoration(
         color: Colors.blue.shade50, borderRadius: BorderRadius.circular(4)),
@@ -43,7 +44,7 @@ Widget tileWidget(double currentWidth, double currentHeight, double textScale) {
         style: TextStyle(
             fontFamily: "Tansek",
             fontSize:
-                responsiveFontSize(26, currentWidth, currentHeight, textScale),
+                2.949*SizeConfig.heightMultiplier,
             fontWeight: FontWeight.bold,
             color: Colors.blue.shade800),
       ),
@@ -52,17 +53,17 @@ Widget tileWidget(double currentWidth, double currentHeight, double textScale) {
         style: TextStyle(
             fontFamily: "Tansek",
             fontSize:
-                responsiveFontSize(22, currentWidth, currentHeight, textScale),
+                2.5280*SizeConfig.heightMultiplier,
             fontWeight: FontWeight.w500,
             color: Colors.blue.shade800),
       ),
       trailing: CircleAvatar(
         backgroundColor: Colors.white,
-        radius: responsiveBorderRadius(22, currentWidth, currentHeight),
+        radius: 2.5280*SizeConfig.heightMultiplier,
         child: Icon(
           Icons.security_update_good,
           color: Colors.blue.shade800,
-          size: responsiveContainerSize(26, currentWidth, currentHeight),
+          size: 2.949*SizeConfig.heightMultiplier,
         ),
       ),
     ),
@@ -70,9 +71,6 @@ Widget tileWidget(double currentWidth, double currentHeight, double textScale) {
 }
 
 Widget textField(
-  double currentWidth,
-  double currentHeight,
-  double textScale,
   String label,
   String title,
   TextEditingController textCOntroller,
@@ -86,11 +84,11 @@ Widget textField(
           style: TextStyle(
             color: Colors.grey.shade700,
             fontSize:
-                responsiveFontSize(16, currentWidth, currentHeight, textScale),
+               1.790*SizeConfig.heightMultiplier,
           ),
         ),
         SizedBox(
-          height: responsiveContainerSize(10, currentWidth, currentHeight),
+          height: 1.1587*SizeConfig.heightMultiplier,
         ),
         FormField(builder: (context) {
           return TextField(
@@ -100,23 +98,22 @@ Widget textField(
                 label,
                 style: TextStyle(
                     color: Colors.grey.shade500,
-                    fontSize: responsiveContainerSize(
-                        17, currentWidth, currentHeight)),
+                    fontSize: 1.896*SizeConfig.heightMultiplier),
               ),
               enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(4),
+                borderRadius: BorderRadius.circular(0.4213*SizeConfig.heightMultiplier),
                 borderSide: BorderSide(color: Colors.grey.shade500),
               ),
               focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(4),
+                borderRadius: BorderRadius.circular(0.4213*SizeConfig.heightMultiplier),
                 borderSide: const BorderSide(color: Colours.BUTTON_COLOR_1),
               ),
               errorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(4),
+                borderRadius: BorderRadius.circular(0.4213*SizeConfig.heightMultiplier),
                 borderSide: const BorderSide(color: Colors.red),
               ),
               focusedErrorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(4),
+                borderRadius: BorderRadius.circular(0.4213*SizeConfig.heightMultiplier),
                 borderSide: const BorderSide(color: Colors.red),
               ),
             ),
@@ -127,20 +124,19 @@ Widget textField(
   );
 }
 
-Widget companyButton(void Function() onTap, double width, double height,
-    double textScaleFactor, BuildContext context) {
+Widget companyButton(void Function() onTap,  BuildContext context) {
   return InkWell(
     onTap: onTap,
     child: Container(
       margin:
-          EdgeInsets.symmetric(horizontal: 0 * horizontalPaddingFactor(width)),
+          EdgeInsets.symmetric(horizontal: 0 ),
       padding: EdgeInsets.symmetric(
-          horizontal: 5 * horizontalPaddingFactor(width),
-          vertical: 5 * verticalPaddingFactor(height)),
-      height: responsiveContainerSize(55, width, height),
+          horizontal: 1.1160*SizeConfig.widthMultiplier,
+          vertical:0.5266*SizeConfig.heightMultiplier),
+      height: 6.3202*SizeConfig.heightMultiplier,
       decoration: BoxDecoration(
           borderRadius:
-              BorderRadius.circular(responsiveBorderRadius(6, width, height)),
+              BorderRadius.circular(0.632*SizeConfig.heightMultiplier),
           color: Colours.BUTTON_COLOR_1),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -150,14 +146,14 @@ Widget companyButton(void Function() onTap, double width, double height,
             style: TextStyle(
                 color: Colors.white,
                 fontSize:
-                    responsiveFontSize(22, width, height, textScaleFactor),
+                    2.528*SizeConfig.heightMultiplier,
                 fontWeight: FontWeight.bold),
           ),
           IconButton(
             icon: Icon(
               Icons.arrow_circle_right,
               color: Colors.white,
-              size: responsiveContainerSize(30, width, height),
+              size:3.3707*SizeConfig.heightMultiplier,
             ),
             onPressed: () {},
           )
@@ -167,20 +163,19 @@ Widget companyButton(void Function() onTap, double width, double height,
   );
 }
 
-Widget companyLoginButton(void Function() onTap, double width, double height,
-    double textScaleFactor, BuildContext context) {
+Widget companyLoginButton(void Function() onTap, BuildContext context) {
   return InkWell(
     onTap: onTap,
     child: Container(
       margin:
-          EdgeInsets.symmetric(horizontal: 0 * horizontalPaddingFactor(width)),
+          EdgeInsets.symmetric(horizontal: 0 ),
       padding: EdgeInsets.symmetric(
-          horizontal: 5 * horizontalPaddingFactor(width),
-          vertical: 5 * verticalPaddingFactor(height)),
-      height: responsiveContainerSize(55, width, height),
+          horizontal: 1.11607*SizeConfig.widthMultiplier ,
+          vertical: 0.5266*SizeConfig.heightMultiplier ),
+      height: 6.3202*SizeConfig.heightMultiplier,
       decoration: BoxDecoration(
           borderRadius:
-              BorderRadius.circular(responsiveBorderRadius(6, width, height)),
+              BorderRadius.circular(0.6320*SizeConfig.heightMultiplier),
           color: Colours.BUTTON_COLOR_1),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -190,14 +185,14 @@ Widget companyLoginButton(void Function() onTap, double width, double height,
             style: TextStyle(
                 color: Colors.white,
                 fontSize:
-                    responsiveFontSize(22, width, height, textScaleFactor),
+                    2.4754*SizeConfig.heightMultiplier,
                 fontWeight: FontWeight.bold),
           ),
           IconButton(
             icon: Icon(
               Icons.arrow_circle_right,
               color: Colors.white,
-              size: responsiveContainerSize(30, width, height),
+              size: 3.3707*SizeConfig.heightMultiplier,
             ),
             onPressed: () {},
           )
@@ -207,7 +202,7 @@ Widget companyLoginButton(void Function() onTap, double width, double height,
   );
 }
 
-Widget LoadingAnimationWidget(double width, double height, double textScale) {
+Widget LoadingAnimationWidget(double width,double height,double textScale) {
   return Container(
     padding:
         EdgeInsets.symmetric(horizontal: 18 * horizontalPaddingFactor(width)),
@@ -231,9 +226,6 @@ Widget LoadingAnimationWidget(double width, double height, double textScale) {
 }
 
 Widget textFieldNumber(
-  double currentWidth,
-  double currentHeight,
-  double textScale,
   String label,
   String title,
   TextEditingController textCOntroller,
@@ -247,11 +239,11 @@ Widget textFieldNumber(
           style: TextStyle(
             color: Colors.grey.shade700,
             fontSize:
-                responsiveFontSize(16, currentWidth, currentHeight, textScale),
+                17,
           ),
         ),
         SizedBox(
-          height: responsiveContainerSize(10, currentWidth, currentHeight),
+          height:12,
         ),
         FormField(builder: (context) {
           return TextField(
@@ -262,8 +254,7 @@ Widget textFieldNumber(
                 label,
                 style: TextStyle(
                     color: Colors.grey.shade500,
-                    fontSize: responsiveContainerSize(
-                        17, currentWidth, currentHeight)),
+                    fontSize: 17),
               ),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(4),

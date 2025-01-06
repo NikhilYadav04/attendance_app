@@ -1,9 +1,8 @@
 import 'package:attend_ease/styling/colors.dart';
-import 'package:attend_ease/styling/scale.dart';
+import 'package:attend_ease/styling/sizeconfig.dart';
 import 'package:flutter/material.dart';
 
-AppBar appBStaff(double currentWidth, double currentHeight, double textScale,
-    BuildContext context) {
+AppBar appBStaff( BuildContext context) {
   return AppBar(
     actions: [
       IconButton(
@@ -21,15 +20,15 @@ AppBar appBStaff(double currentWidth, double currentHeight, double textScale,
           fontFamily: "Tansek",
           fontWeight: FontWeight.w500,
           fontSize:
-              responsiveFontSize(34, currentWidth, currentHeight, textScale)),
+              3.897*SizeConfig.heightMultiplier),
     ),
-    toolbarHeight: responsiveContainerSize(75, currentWidth, currentHeight),
+    toolbarHeight: 8.6376*SizeConfig.heightMultiplier,
     elevation: 5,
     shadowColor: Colors.grey,
   );
 }
 
-AppBar appBRemStaff(double currentWidth, double currentHeight, double textScale,
+AppBar appBRemStaff(
     BuildContext context) {
   return AppBar(
     actions: [
@@ -48,18 +47,15 @@ AppBar appBRemStaff(double currentWidth, double currentHeight, double textScale,
           fontFamily: "Tansek",
           fontWeight: FontWeight.w500,
           fontSize:
-              responsiveFontSize(34, currentWidth, currentHeight, textScale)),
+              3.792*SizeConfig.heightMultiplier),
     ),
-    toolbarHeight: responsiveContainerSize(75, currentWidth, currentHeight),
+    toolbarHeight: 8.6376*SizeConfig.heightMultiplier,
     elevation: 5,
     shadowColor: Colors.grey,
   );
 }
 
 Widget textFieldStaff(
-    double currentWidth,
-    double currentHeight,
-    double textScale,
     String label,
     String title,
     TextEditingController textCOntroller,
@@ -72,11 +68,11 @@ Widget textFieldStaff(
         style: TextStyle(
           color: Colors.grey.shade700,
           fontSize:
-              responsiveFontSize(16, currentWidth, currentHeight, textScale),
+              1.9*SizeConfig.heightMultiplier,
         ),
       ),
       SizedBox(
-        height: responsiveContainerSize(10, currentWidth, currentHeight),
+        height: 1.2113*SizeConfig.heightMultiplier,
       ),
       FormField(builder: (context) {
         return TextField(
@@ -87,14 +83,14 @@ Widget textFieldStaff(
               style: TextStyle(
                   color: Colors.grey.shade500,
                   fontSize:
-                      responsiveContainerSize(17, currentWidth, currentHeight)),
+                     1.9487*SizeConfig.heightMultiplier),
             ),
             enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(4),
+              borderRadius: BorderRadius.circular(0.421*SizeConfig.heightMultiplier),
               borderSide: BorderSide(color: Colors.grey.shade500),
             ),
             focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(4),
+              borderRadius: BorderRadius.circular(0.421*SizeConfig.heightMultiplier),
               borderSide: const BorderSide(color:Colours.BUTTON_COLOR_1),
             ),
           ),
@@ -104,19 +100,18 @@ Widget textFieldStaff(
   );
 }
 
-Widget multipleWidget(
-    double currentWidth, double currentHeight, double textScale) {
+Widget multipleWidget() {
   return Container(
-    height: responsiveContainerSize(60, currentWidth, currentHeight),
+    height: 6.846*SizeConfig.heightMultiplier,
     decoration: BoxDecoration(
-        color:Colours.BUTTON_COLOR_2, borderRadius: BorderRadius.circular(6)),
+        color:Colours.BUTTON_COLOR_2, borderRadius: BorderRadius.circular(0.632*SizeConfig.heightMultiplier)),
     child: Center(
       child: Text(
         "Now Add Multiple Staff using Attend Ease App",
         style: TextStyle(
             color: Colours.BUTTON_COLOR_1,
             fontSize:
-                responsiveFontSize(17, currentWidth, currentHeight, textScale),
+                1.9382*SizeConfig.heightMultiplier,
             fontWeight: FontWeight.bold),
       ),
     ),
@@ -124,9 +119,7 @@ Widget multipleWidget(
 }
 
 Widget numberFieldStaff(
-    double currentWidth,
-    double currentHeight,
-    double textScale,
+    
     String label,
     String title,
     TextEditingController textCOntroller,
@@ -139,19 +132,19 @@ Widget numberFieldStaff(
         style: TextStyle(
           color: Colors.grey.shade700,
           fontSize:
-              responsiveFontSize(16, currentWidth, currentHeight, textScale),
+            1.843*SizeConfig.heightMultiplier
         ),
       ),
       SizedBox(
-        height: responsiveContainerSize(10, currentWidth, currentHeight),
+        height:1.2113*SizeConfig.heightMultiplier,
       ),
       Row(
         children: [
           Container(
-            height: responsiveContainerSize(57, currentWidth, currentHeight),
-            width: responsiveContainerSize(70, currentWidth, currentHeight),
+            height: 6.1622*SizeConfig.heightMultiplier,
+            width: 15.848*SizeConfig.widthMultiplier,
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(6),
+                borderRadius: BorderRadius.circular(0.6320*SizeConfig.heightMultiplier),
                 border: Border.all(color: Colors.grey.shade500)),
             child: Center(
               child: Text(
@@ -159,33 +152,32 @@ Widget numberFieldStaff(
                 style: TextStyle(
                   color: Colors.grey.shade600,
                   fontFamily: "Tansek",
-                  fontSize: responsiveFontSize(
-                      32, currentWidth, currentHeight, textScale),
+                  fontSize: 3.5288*SizeConfig.heightMultiplier,
                 ),
               ),
             ),
           ),
           SizedBox(
-            width: responsiveContainerSize(20, currentWidth, currentHeight),
+            width: 4.6875*SizeConfig.widthMultiplier,
           ),
           Expanded(
             child: FormField(builder: (context) {
               return TextField(
+                keyboardType: TextInputType.phone,
                 controller: textCOntroller,
                 decoration: InputDecoration(
                   label: Text(
                     label,
                     style: TextStyle(
                         color: Colors.grey.shade500,
-                        fontSize: responsiveContainerSize(
-                            17, currentWidth, currentHeight)),
+                        fontSize: 1.948*SizeConfig.heightMultiplier),
                   ),
                   enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(4),
+                    borderRadius: BorderRadius.circular(0.4213*SizeConfig.heightMultiplier),
                     borderSide: BorderSide(color: Colors.grey.shade500),
                   ),
                   focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(4),
+                    borderRadius: BorderRadius.circular(0.4213*SizeConfig.heightMultiplier),
                     borderSide: const BorderSide(color: Colours.BUTTON_COLOR_1),
                   ),
                 ),
@@ -198,7 +190,7 @@ Widget numberFieldStaff(
   );
 }
 
-Widget addText(double currentWidth, double currentHeight, double textScale) {
+Widget addText() {
   return Center(
     child: Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -206,7 +198,7 @@ Widget addText(double currentWidth, double currentHeight, double textScale) {
         Icon(
           Icons.contacts_rounded,
           color: Colours.BUTTON_COLOR_1,
-          size: responsiveContainerSize(28, currentWidth, currentHeight),
+          size: 3.1601*SizeConfig.heightMultiplier,
         ),
         Text(
           "  Add from Contacts",
@@ -214,7 +206,7 @@ Widget addText(double currentWidth, double currentHeight, double textScale) {
             color: Colours.BUTTON_COLOR_1,
             fontWeight: FontWeight.bold,
             fontSize:
-                responsiveFontSize(22, currentWidth, currentHeight, textScale),
+                2.528*SizeConfig.heightMultiplier,
           ),
         ),
       ],
@@ -222,20 +214,19 @@ Widget addText(double currentWidth, double currentHeight, double textScale) {
   );
 }
 
-Widget addEmployeeButton(void Function() onTap, double width, double height,
-    double textScaleFactor, BuildContext context,String text) {
+Widget addEmployeeButton(void Function() onTap, BuildContext context,String text) {
   return InkWell(
     onTap: onTap,
     child: Container(
       margin:
-          EdgeInsets.symmetric(horizontal: 0 * horizontalPaddingFactor(width)),
+          EdgeInsets.symmetric(horizontal: 0 ),
       padding: EdgeInsets.symmetric(
-          horizontal: 5 * horizontalPaddingFactor(width),
-          vertical: 5 * verticalPaddingFactor(height)),
-      height: responsiveContainerSize(55, width, height),
+          horizontal: 1.1160*SizeConfig.widthMultiplier,
+          vertical: 0.5266*SizeConfig.heightMultiplier),
+      height: 6.5311*SizeConfig.heightMultiplier,
       decoration: BoxDecoration(
           borderRadius:
-              BorderRadius.circular(responsiveBorderRadius(6, width, height)),
+              BorderRadius.circular(0.632*SizeConfig.heightMultiplier),
           color:Colours.BUTTON_COLOR_1),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -245,14 +236,14 @@ Widget addEmployeeButton(void Function() onTap, double width, double height,
             style: TextStyle(
                 color: Colors.white,
                 fontSize:
-                    responsiveFontSize(22, width, height, textScaleFactor),
+                   2.5280*SizeConfig.heightMultiplier,
                 fontWeight: FontWeight.bold),
           ),
           IconButton(
             icon: Icon(
               Icons.arrow_circle_right,
               color: Colors.white,
-              size: responsiveContainerSize(30, width, height),
+              size: 3.3181*SizeConfig.heightMultiplier,
             ),
             onPressed: () {},
           )

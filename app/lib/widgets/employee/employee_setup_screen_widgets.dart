@@ -1,8 +1,9 @@
 import 'package:attend_ease/styling/colors.dart';
 import 'package:attend_ease/styling/scale.dart';
+import 'package:attend_ease/styling/sizeconfig.dart';
 import 'package:flutter/material.dart';
 
-AppBar appBEmployee(double currentWidth, double currentHeight, double textScale,BuildContext context) {
+AppBar appBEmployee(BuildContext context) {
   return AppBar(
     actions: [
       IconButton(onPressed: (){
@@ -18,25 +19,25 @@ AppBar appBEmployee(double currentWidth, double currentHeight, double textScale,
           fontFamily: "Tansek",
           fontWeight: FontWeight.w500,
           fontSize:
-              responsiveFontSize(34, currentWidth, currentHeight, textScale)),
+              3.84481*SizeConfig.heightMultiplier),
     ),
-    toolbarHeight: responsiveContainerSize(75, currentWidth, currentHeight),
+    toolbarHeight: 8.4269*SizeConfig.heightMultiplier,
     elevation: 5,
     shadowColor: Colors.grey,
   );
 }
 
-Widget tileWidgetEmployee(double currentWidth, double currentHeight, double textScale) {
+Widget tileWidgetEmployee() {
   return Container(
     decoration: BoxDecoration(
-        color: Colors.blue.shade50, borderRadius: BorderRadius.circular(4)),
+        color: Colors.blue.shade50, borderRadius: BorderRadius.circular(0.4213*SizeConfig.heightMultiplier)),
     child: ListTile(
       title: Text(
         "Join Your Company's Group",
         style: TextStyle(
             fontFamily: "Tansek",
             fontSize:
-                responsiveFontSize(28, currentWidth, currentHeight, textScale),
+                3.1601*SizeConfig.heightMultiplier,
             fontWeight: FontWeight.bold,
             color: Colors.blue.shade800),
       ),
@@ -45,25 +46,24 @@ Widget tileWidgetEmployee(double currentWidth, double currentHeight, double text
         style: TextStyle(
             fontFamily: "Tansek",
             fontSize:
-                responsiveFontSize(24, currentWidth, currentHeight, textScale),
+                2.8*SizeConfig.heightMultiplier,
             fontWeight: FontWeight.w500,
             color: Colors.blue.shade800),
       ),
       trailing: CircleAvatar(
         backgroundColor: Colors.white,
-        radius: responsiveBorderRadius(22, currentWidth, currentHeight),
+        radius: 3.5814*SizeConfig.heightMultiplier,
         child: Icon(
           Icons.security_update_good,
           color: Colors.blue.shade800,
-          size: responsiveContainerSize(26, currentWidth, currentHeight),
+          size: 2.8967*SizeConfig.heightMultiplier,
         ),
       ),
     ),
   );
 }
 
-Widget textFieldEmployee(double currentWidth, double currentHeight, double textScale,
-    String label, String title,TextEditingController textCOntroller) {
+Widget textFieldEmployee(String label, String title,TextEditingController textCOntroller) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -72,11 +72,11 @@ Widget textFieldEmployee(double currentWidth, double currentHeight, double textS
         style: TextStyle(
           color: Colors.grey.shade700,
           fontSize:
-              responsiveFontSize(16, currentWidth, currentHeight, textScale),
+              1.896*SizeConfig.heightMultiplier,
         ),
       ),
       SizedBox(
-        height: responsiveContainerSize(10, currentWidth, currentHeight),
+        height: 1.053*SizeConfig.heightMultiplier,
       ),
       FormField(builder: (context) {
         return TextField(
@@ -87,14 +87,14 @@ Widget textFieldEmployee(double currentWidth, double currentHeight, double textS
               style: TextStyle(
                   color: Colors.grey.shade500,
                   fontSize:
-                      responsiveContainerSize(17, currentWidth, currentHeight)),
+                      1.9487*SizeConfig.heightMultiplier),
             ),
             enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(4),
+              borderRadius: BorderRadius.circular(0.4213*SizeConfig.heightMultiplier),
               borderSide: BorderSide(color: Colors.grey.shade500),
             ),
             focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(4),
+              borderRadius: BorderRadius.circular(0.4213*SizeConfig.heightMultiplier),
               borderSide: const BorderSide(color: Colours.BUTTON_COLOR_1),
             ),
           ),

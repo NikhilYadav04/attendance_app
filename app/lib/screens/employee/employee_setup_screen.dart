@@ -1,7 +1,7 @@
 import 'package:attend_ease/providers/employee/employee_login_provider.dart';
 import 'package:attend_ease/styling/colors.dart';
-import 'package:attend_ease/styling/scale.dart';
 import 'package:attend_ease/screens/auth/company_login_screen.dart';
+import 'package:attend_ease/styling/sizeconfig.dart';
 import 'package:attend_ease/widgets/company/company_setup_screen_widgets.dart';
 import 'package:attend_ease/widgets/employee/employee_setup_screen_widgets.dart';
 import 'package:flutter/material.dart';
@@ -27,65 +27,47 @@ class _EmployeeSetupScreenState extends State<EmployeeSetupScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final currentHeight = MediaQuery.of(context).size.height;
-    final currentWidth = MediaQuery.of(context).size.width;
-    // ignore: deprecated_member_use
-    final textScale = MediaQuery.of(context).textScaleFactor;
     return Scaffold(
-        appBar: appBEmployee(currentWidth, currentHeight, textScale, context),
+        appBar: appBEmployee(context),
         body: Consumer<EmployeeLoginProvider>(
           builder: (context, provider, _) {
             return Container(
               padding: EdgeInsets.symmetric(
-                horizontal: 11 * horizontalPaddingFactor(currentWidth),
+                horizontal: 2.6785 * SizeConfig.widthMultiplier,
               ),
               child: SingleChildScrollView(
                 child: Column(
                   children: [
                     SizedBox(
-                      height: responsiveContainerSize(
-                          20, currentWidth, currentHeight),
+                      height: 2.2647 * SizeConfig.heightMultiplier,
                     ),
-                    tileWidgetEmployee(currentWidth, currentHeight, textScale),
+                    tileWidgetEmployee(),
                     SizedBox(
-                      height: responsiveContainerSize(
-                          30, currentWidth, currentHeight),
+                      height: 3.3707 * SizeConfig.heightMultiplier,
                     ),
                     textFieldEmployee(
-                      currentWidth,
-                      currentHeight,
-                      textScale,
                       " ABC pvt. ltd.",
                       "Company Name",
                       provider.companyNameController,
                     ),
                     SizedBox(
-                      height: responsiveContainerSize(
-                          30, currentWidth, currentHeight),
+                      height: 3.3707 * SizeConfig.heightMultiplier,
                     ),
                     textFieldEmployee(
-                      currentWidth,
-                      currentHeight,
-                      textScale,
                       "Rakesh",
                       "Employee Name",
                       provider.employeeNameController,
                     ),
                     SizedBox(
-                      height: responsiveContainerSize(
-                          30, currentWidth, currentHeight),
+                      height: 3.3707 * SizeConfig.heightMultiplier,
                     ),
                     textFieldEmployee(
-                      currentWidth,
-                      currentHeight,
-                      textScale,
                       "XXX_123",
                       "Employee ID",
                       provider.employeeIDController,
                     ),
                     SizedBox(
-                      height: responsiveContainerSize(
-                          80, currentWidth, currentHeight),
+                      height: 9.796 * SizeConfig.heightMultiplier,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -94,16 +76,13 @@ class _EmployeeSetupScreenState extends State<EmployeeSetupScreen> {
                           "Receive free Whatsapp alerts",
                           style: TextStyle(
                               color: Colors.grey.shade600,
-                              fontSize: responsiveContainerSize(
-                                  17, currentWidth, currentHeight)),
+                              fontSize: 2.0014 * SizeConfig.heightMultiplier),
                         ),
                         FlutterSwitch(
                             activeColor: Colours.BUTTON_COLOR_1,
                             inactiveColor: Colors.grey.shade700,
-                            height: responsiveContainerSize(
-                                38, currentWidth, currentWidth),
-                            width: responsiveContainerSize(
-                                65, currentWidth, currentWidth),
+                            height: 3.4761 * SizeConfig.heightMultiplier,
+                            width: 13.392 * SizeConfig.widthMultiplier,
                             value: provider.isAlert,
                             onToggle: (val) {
                               provider.setAlert(val);
@@ -111,8 +90,7 @@ class _EmployeeSetupScreenState extends State<EmployeeSetupScreen> {
                       ],
                     ),
                     SizedBox(
-                      height: responsiveContainerSize(
-                          30, currentWidth, currentHeight),
+                      height: 3.3707 * SizeConfig.heightMultiplier,
                     ),
                     provider.isLoading
                         ? SpinKitCircle(
@@ -121,21 +99,18 @@ class _EmployeeSetupScreenState extends State<EmployeeSetupScreen> {
                           )
                         : companyButton(() {
                             provider.loginEmployee(context);
-                          }, currentWidth, currentHeight, textScale, context),
+                          }, context),
                     SizedBox(
-                      height: responsiveContainerSize(
-                          8, currentWidth, currentHeight),
+                      height: 0.9480 * SizeConfig.heightMultiplier,
                     ),
                     Divider(
                       color: Colors.grey.shade700,
                       thickness: 2,
                     ),
                     SizedBox(
-                      height: responsiveContainerSize(
-                          8, currentWidth, currentHeight),
+                      height: 0.9480 * SizeConfig.heightMultiplier,
                     ),
-                    companyLoginButton(HRButtonPressed, currentWidth,
-                        currentHeight, textScale, context),
+                    companyLoginButton(HRButtonPressed, context),
                   ],
                 ),
               ),

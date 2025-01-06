@@ -1,4 +1,4 @@
-import 'package:attend_ease/styling/scale.dart';
+import 'package:attend_ease/styling/sizeconfig.dart';
 import 'package:attend_ease/widgets/auth/otp_auth_widgets.dart';
 import 'package:flutter/material.dart';
 
@@ -20,11 +20,6 @@ class _OtpAuthScreenState extends State<OtpAuthScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final currentHeight = MediaQuery.of(context).size.height;
-    final currentWidth = MediaQuery.of(context).size.width;
-    // ignore: deprecated_member_use
-    final currentTextscalefactor = MediaQuery.of(context).textScaleFactor;
-
     return SafeArea(
       child: Scaffold(
         body: Container(
@@ -32,22 +27,17 @@ class _OtpAuthScreenState extends State<OtpAuthScreen> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                imageSlider(
-                    currentWidth, currentHeight, currentTextscalefactor),
+                imageSlider(),
                 SizedBox(
-                  height:
-                      responsiveContainerSize(35, currentWidth, currentHeight),
+                  height: 4.002 * SizeConfig.heightMultiplier,
                 ),
-                loginButton(currentWidth, currentHeight, currentTextscalefactor,
-                    context),
+                loginButton(context),
                 SizedBox(
-                  height:
-                      responsiveContainerSize(15, currentWidth, currentHeight),
+                  height: 1.580 * SizeConfig.heightMultiplier,
                 ),
-                bottomText(currentWidth, currentHeight, currentTextscalefactor),
+                bottomText(),
                 SizedBox(
-                  height:
-                      responsiveContainerSize(55, currentWidth, currentHeight),
+                  height: 5.793 * SizeConfig.heightMultiplier,
                 ),
               ],
             ),

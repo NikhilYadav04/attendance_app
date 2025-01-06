@@ -18,8 +18,7 @@ class OtpProvider extends ChangeNotifier {
   final otpService = OtpService();
 
   //* Function called when user submits number for OTP
-  void submitNumber(GlobalKey<FormState> formKey, BuildContext context,
-      double width, double height, double textScaleFactor) async {
+  void submitNumber(GlobalKey<FormState> formKey, BuildContext context,) async {
     if (formKey.currentState!.validate()) {
       isLoading = true;
       notifyListeners();
@@ -44,10 +43,7 @@ class OtpProvider extends ChangeNotifier {
             Navigator.push(
                 context,
                 PageTransition(
-                    child: SheetScreen2(
-                        width: width,
-                        height: height,
-                        textScaleFactor: textScaleFactor),
+                    child: SheetScreen2(),
                     type: PageTransitionType.rightToLeft));
           } else {
             isLoading = false;

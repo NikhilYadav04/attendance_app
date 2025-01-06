@@ -1,6 +1,6 @@
 import 'package:attend_ease/providers/company/company_location_provider.dart';
 import 'package:attend_ease/styling/colors.dart';
-import 'package:attend_ease/styling/scale.dart';
+import 'package:attend_ease/styling/sizeconfig.dart';
 import 'package:attend_ease/widgets/company/company_location_screen_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -17,12 +17,8 @@ class CompanyLocationScreen extends StatefulWidget {
 class _CompanyLocationScreenState extends State<CompanyLocationScreen> {
   @override
   Widget build(BuildContext context) {
-    final currentHeight = MediaQuery.of(context).size.height;
-    final currentWidth = MediaQuery.of(context).size.width;
-    final textScale = MediaQuery.of(context).textScaleFactor;
-
     return Scaffold(
-      appBar: appBLocation(currentWidth, currentHeight, textScale, context),
+      appBar: appBLocation(context),
       body: SingleChildScrollView(child: Consumer<CompanyLocationProvider>(
         builder: (context, provider, _) {
           return Column(
@@ -31,48 +27,40 @@ class _CompanyLocationScreenState extends State<CompanyLocationScreen> {
               mapWidget(),
               Container(
                 padding: EdgeInsets.symmetric(
-                    horizontal: 12 * horizontalPaddingFactor(currentWidth)),
+                    horizontal: 2.678 * SizeConfig.widthMultiplier),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
-                      height: responsiveContainerSize(
-                          20, currentWidth, currentHeight),
+                      height: 2.317 * SizeConfig.heightMultiplier,
                     ),
-                    pageText(currentWidth, currentHeight, textScale,
-                        "Tell us your company address!"),
-                    geoForceText(currentWidth, currentHeight, textScale),
+                    pageText("Tell us your company address!"),
+                    geoForceText(),
                     SizedBox(
-                      height: responsiveContainerSize(
-                          30, currentWidth, currentHeight),
+                      height: 3.370798352522305 * SizeConfig.heightMultiplier,
                     ),
-                    pageText(currentWidth, currentHeight, textScale,
-                        "Company location"),
+                    pageText("Company location"),
                     SizedBox(
-                      height: responsiveContainerSize(
-                          10, currentWidth, currentHeight),
+                      height: 1.264 * SizeConfig.heightMultiplier,
                     ),
-                    locationSetBox(currentWidth, currentHeight, textScale, () {
+                    locationSetBox(() {
                       provider.setLocation(context, widget.companyName);
-                    },provider.latitude,provider.longitude),
+                    }, provider.latitude, provider.longitude),
                     SizedBox(
-                      height: responsiveContainerSize(
-                          20, currentWidth, currentHeight),
+                      height: 2.3174 * SizeConfig.heightMultiplier,
                     ),
                     Container(
                         padding: EdgeInsets.symmetric(
-                            horizontal:
-                                5 * horizontalPaddingFactor(currentWidth)),
-                        height: responsiveContainerSize(
-                            170, currentWidth, currentHeight),
+                            horizontal: 1.116 * SizeConfig.widthMultiplier),
+                        height: 186,
                         decoration: BoxDecoration(
                           color: Colours.BUTTON_COLOR_2,
-                          borderRadius: BorderRadius.circular(6),
+                          borderRadius: BorderRadius.circular(
+                              0.632 * SizeConfig.heightMultiplier),
                         ),
                         child: Column(
                           children: [
-                            locationRadiusBox(
-                                currentWidth, currentHeight, textScale),
+                            locationRadiusBox(),
                             Expanded(
                               child: Slider(
                                   activeColor: Colours.BUTTON_COLOR_1,
@@ -84,20 +72,21 @@ class _CompanyLocationScreenState extends State<CompanyLocationScreen> {
                                     provider.changeRadius(val);
                                   }),
                             ),
-                            rangeWidget(currentWidth, currentHeight, textScale),
+                            rangeWidget(),
                             SizedBox(
-                              height: responsiveContainerSize(
-                                  15, currentWidth, currentHeight),
+                              height: 1.790 * SizeConfig.heightMultiplier,
                             ),
                           ],
                         )),
-                    SizedBox(
-                      height: responsiveContainerSize(
-                          30, currentWidth, currentHeight),
-                    ),
-                   provider.isLoading ? SpinKitCircle(color: Colours.BUTTON_COLOR_1,size: 30,)  : continueButton(() {
-                      provider.storeLocation(widget.companyName, context);
-                    }, currentWidth, currentHeight, textScale, context)
+                    SizedBox(height: 3.3707 * SizeConfig.heightMultiplier),
+                    provider.isLoading
+                        ? SpinKitCircle(
+                            color: Colours.BUTTON_COLOR_1,
+                            size: 3.3707 * SizeConfig.heightMultiplier,
+                          )
+                        : continueButton(() {
+                            provider.storeLocation(widget.companyName, context);
+                          }, context)
                   ],
                 ),
               ),

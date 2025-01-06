@@ -43,14 +43,8 @@ class _LeaveReqScreenState extends State<LeaveReqScreen> {
                     height: responsiveContainerSize(
                         20, currentWidth, currentHeight),
                   ),
-                  textFieldStaff(
-                      currentWidth,
-                      currentHeight,
-                      textScale,
-                      "Enter Title In Max. 1 Line",
-                      "Leave Title",
-                      provider.LeaveTitleController,
-                      addEmployeeName),
+                  textFieldStaff("Enter Title In Max. 1 Line", "Leave Title",
+                      provider.LeaveTitleController, addEmployeeName),
                   SizedBox(
                     height: responsiveContainerSize(
                         20, currentWidth, currentHeight),
@@ -81,14 +75,8 @@ class _LeaveReqScreenState extends State<LeaveReqScreen> {
                     height: responsiveContainerSize(
                         20, currentWidth, currentHeight),
                   ),
-                  textFieldStaff(
-                      currentWidth,
-                      currentHeight,
-                      textScale,
-                      "Enter Reason In 2-3 Lines",
-                      "Leave Reason",
-                      provider.LeaveReasonController,
-                      addEmployeeName),
+                  textFieldStaff("Enter Reason In 2-3 Lines", "Leave Reason",
+                      provider.LeaveReasonController, addEmployeeName),
                   SizedBox(
                     height: responsiveContainerSize(
                         170, currentWidth, currentHeight),
@@ -99,9 +87,8 @@ class _LeaveReqScreenState extends State<LeaveReqScreen> {
                           size: 30,
                         )
                       : addEmployeeButton(() {
-                        provider.reqLeave(context);
-                      }, currentWidth, currentHeight,
-                          textScale, context, "Request Leave")
+                          provider.reqLeave(context);
+                        }, context, "Request Leave")
                 ],
               ),
             ),

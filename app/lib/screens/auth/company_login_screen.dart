@@ -1,6 +1,6 @@
 import 'package:attend_ease/providers/company/company_login_provider.dart';
 import 'package:attend_ease/styling/colors.dart';
-import 'package:attend_ease/styling/scale.dart';
+import 'package:attend_ease/styling/sizeconfig.dart';
 import 'package:attend_ease/widgets/company/company_login_widgets.dart';
 import 'package:attend_ease/widgets/company/company_setup_screen_widgets.dart';
 import 'package:attend_ease/widgets/employee/employee_setup_screen_widgets.dart';
@@ -19,55 +19,37 @@ class CompanyLoginScreen extends StatefulWidget {
 class _CompanyLoginScreenState extends State<CompanyLoginScreen> {
   @override
   Widget build(BuildContext context) {
-    final currentHeight = MediaQuery.of(context).size.height;
-    final currentWidth = MediaQuery.of(context).size.width;
-    // ignore: deprecated_member_use
-    final textScale = MediaQuery.of(context).textScaleFactor;
     return Scaffold(
-        appBar:
-            appBLoginCompany(currentWidth, currentHeight, textScale, context),
+        appBar: appBLoginCompany(context),
         body: Consumer<CompanyLoginProvider>(
           builder: (context, provider, _) {
             return Container(
               padding: EdgeInsets.symmetric(
-                horizontal: 11 * horizontalPaddingFactor(currentWidth),
+                horizontal: 2.455 * SizeConfig.widthMultiplier,
               ),
               child: SingleChildScrollView(
                 child: Column(
                   children: [
+                    SizedBox(height: 2.3174 * SizeConfig.heightMultiplier),
+                    tileWidgetLoginCompany(),
                     SizedBox(
-                      height: responsiveContainerSize(
-                          20, currentWidth, currentHeight),
-                    ),
-                    tileWidgetLoginCompany(
-                        currentWidth, currentHeight, textScale),
-                    SizedBox(
-                      height: responsiveContainerSize(
-                          30, currentWidth, currentHeight),
+                      height: 3.3707 * SizeConfig.heightMultiplier,
                     ),
                     textFieldEmployee(
-                      currentWidth,
-                      currentHeight,
-                      textScale,
                       " ABC pvt. ltd.",
                       "Company Name",
                       provider.companyNameController,
                     ),
                     SizedBox(
-                      height: responsiveContainerSize(
-                          30, currentWidth, currentHeight),
+                      height: 3.3707 * SizeConfig.heightMultiplier,
                     ),
                     textFieldEmployee(
-                      currentWidth,
-                      currentHeight,
-                      textScale,
                       "XXX_123",
                       "Company ID",
                       provider.companyIDController,
                     ),
                     SizedBox(
-                      height: responsiveContainerSize(
-                          280, currentWidth, currentHeight),
+                      height: 32 * SizeConfig.heightMultiplier,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -76,16 +58,13 @@ class _CompanyLoginScreenState extends State<CompanyLoginScreen> {
                           "Receive free Whatsapp alerts",
                           style: TextStyle(
                               color: Colors.grey.shade600,
-                              fontSize: responsiveContainerSize(
-                                  17, currentWidth, currentHeight)),
+                              fontSize: 2.0014 * SizeConfig.heightMultiplier),
                         ),
                         FlutterSwitch(
                             activeColor: Colours.BUTTON_COLOR_1,
                             inactiveColor: Colors.grey.shade700,
-                            height: responsiveContainerSize(
-                                38, currentWidth, currentWidth),
-                            width: responsiveContainerSize(
-                                65, currentWidth, currentWidth),
+                            height: 3.5814 * SizeConfig.heightMultiplier,
+                            width: 12.9464 * SizeConfig.widthMultiplier,
                             value: provider.isAlert,
                             onToggle: (val) {
                               provider.setAlert(val);
@@ -93,17 +72,16 @@ class _CompanyLoginScreenState extends State<CompanyLoginScreen> {
                       ],
                     ),
                     SizedBox(
-                      height: responsiveContainerSize(
-                          30, currentWidth, currentHeight),
+                      height: 3.37079 * SizeConfig.heightMultiplier,
                     ),
                     provider.isLoading
                         ? SpinKitCircle(
                             color: Colours.BUTTON_COLOR_1,
-                            size: 30,
+                            size: 3.37079 * SizeConfig.heightMultiplier,
                           )
                         : companyButton(() {
                             provider.loginCompany(context);
-                          }, currentWidth, currentHeight, textScale, context),
+                          }, context),
                   ],
                 ),
               ),

@@ -1,6 +1,6 @@
 import 'package:attend_ease/providers/company/company_setup_provider.dart';
 import 'package:attend_ease/styling/colors.dart';
-import 'package:attend_ease/styling/scale.dart';
+import 'package:attend_ease/styling/sizeconfig.dart';
 import 'package:attend_ease/widgets/company/company_setup_screen_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -19,77 +19,50 @@ class _CompanySetupScreenState extends State<CompanySetupScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final currentHeight = MediaQuery.of(context).size.height;
-    final currentWidth = MediaQuery.of(context).size.width;
-    // ignore: deprecated_member_use
-    final textScale = MediaQuery.of(context).textScaleFactor;
-
     return SafeArea(
       child: Scaffold(
           resizeToAvoidBottomInset: true,
-          appBar: appB(currentWidth, currentHeight, textScale, context),
+          appBar: appB(context),
           body: Consumer<CompanySetupProvider>(
             builder: (context, provider, _) {
               return Container(
                 padding: EdgeInsets.symmetric(
-                    horizontal: 11 * horizontalPaddingFactor(currentWidth)),
+                    horizontal: 2.678 * SizeConfig.widthMultiplier),
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
                       SizedBox(
-                        height: responsiveContainerSize(
-                            20, currentWidth, currentHeight),
+                        height: 2.844 * SizeConfig.heightMultiplier,
                       ),
-                      tileWidget(currentWidth, currentHeight, textScale),
-                      SizedBox(
-                        height: responsiveContainerSize(
-                            30, currentWidth, currentHeight),
-                      ),
+                      tileWidget(),
+                      SizedBox(height: 3.4761 * SizeConfig.heightMultiplier),
                       textField(
-                        currentWidth,
-                        currentHeight,
-                        textScale,
                         " ABC pvt. ltd.",
                         "Company Name",
                         provider.companyNameController,
                       ),
                       SizedBox(
-                        height: responsiveContainerSize(
-                            25, currentWidth, currentHeight),
+                        height: 2.844 * SizeConfig.heightMultiplier,
                       ),
-                      textField(
-                          currentWidth,
-                          currentHeight,
-                          textScale,
-                          " Mr. Nikhil",
-                          "Company HR",
+                      textField(" Mr. Nikhil", "Company HR",
                           provider.companyHRController),
                       SizedBox(
-                        height: responsiveContainerSize(
-                            25, currentWidth, currentHeight),
-                      ),
-                      textField(currentWidth, currentHeight, textScale, " ABCX3",
-                          "Company ID", provider.companyIDController),
-                      SizedBox(
-                        height: responsiveContainerSize(
-                            25, currentWidth, currentHeight),
-                      ),
-                      textFieldNumber(currentWidth, currentHeight, textScale, " 91XXX2XXX3",
-                          "Phone Number", provider.companyHRNumberController),
-                      SizedBox(
-                        height: responsiveContainerSize(
-                            25, currentWidth, currentHeight),
+                        height: 2.844 * SizeConfig.heightMultiplier,
                       ),
                       textField(
-                          currentWidth,
-                          currentHeight,
-                          textScale,
-                          " eg. Mumbai",
-                          "Company City",
+                          " ABCX3", "Company ID", provider.companyIDController),
+                      SizedBox(
+                        height: 2.844 * SizeConfig.heightMultiplier,
+                      ),
+                      textFieldNumber(" 91XXX2XXX3", "Phone Number",
+                          provider.companyHRNumberController),
+                      SizedBox(
+                        height: 2.844 * SizeConfig.heightMultiplier,
+                      ),
+                      textField(" eg. Mumbai", "Company City",
                           provider.companyCityController),
                       SizedBox(
-                        height: responsiveContainerSize(
-                            40, currentWidth, currentHeight),
+                        height: 4.4241 * SizeConfig.heightMultiplier,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -98,37 +71,30 @@ class _CompanySetupScreenState extends State<CompanySetupScreen> {
                             "Send free Whatsapp alerts",
                             style: TextStyle(
                                 color: Colors.grey.shade600,
-                                fontSize: responsiveContainerSize(
-                                    17, currentWidth, currentHeight)),
+                                fontSize: 2.001 * SizeConfig.heightMultiplier),
                           ),
                           FlutterSwitch(
                               activeColor: Colours.BUTTON_COLOR_1,
                               inactiveColor: Colors.grey.shade700,
-                              height: responsiveContainerSize(
-                                  38, currentWidth, currentWidth),
-                              width: responsiveContainerSize(
-                                  65, currentWidth, currentWidth),
+                              height: 3.5814 * SizeConfig.heightMultiplier,
+                              width: 13.392 * SizeConfig.widthMultiplier,
                               value: provider.isAlert,
                               onToggle: (val) {
                                 provider.setAlert(val);
                               }),
                         ],
                       ),
-                      SizedBox(
-                        height: responsiveContainerSize(
-                            35, currentWidth, currentHeight),
-                      ),
+                      SizedBox(height: 3.897 * SizeConfig.heightMultiplier),
                       provider.isLoading
                           ? SpinKitCircle(
                               color: Colours.BUTTON_COLOR_1,
-                              size: 30,
+                              size: 3.1601 * SizeConfig.heightMultiplier,
                             )
                           : companyButton(() {
                               provider.addCompany(formKey, context);
-                            }, currentWidth, currentHeight, textScale, context),
+                            }, context),
                       SizedBox(
-                        height: responsiveContainerSize(
-                            25, currentWidth, currentHeight),
+                        height: 2.844 * SizeConfig.heightMultiplier,
                       ),
                     ],
                   ),

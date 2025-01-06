@@ -1,7 +1,7 @@
 import 'package:another_carousel_pro/another_carousel_pro.dart';
 import 'package:attend_ease/styling/colors.dart';
-import 'package:attend_ease/styling/scale.dart';
 import 'package:attend_ease/screens/auth/modal_sheet_1.dart';
+import 'package:attend_ease/styling/sizeconfig.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:pinput/pinput.dart';
@@ -9,10 +9,10 @@ import 'package:toastification/toastification.dart';
 
 final Toastification toastification = Toastification();
 
-Widget imageSlider(double width, double height, double textScaleFactor) {
+Widget imageSlider() {
   return Container(
-    padding: EdgeInsets.only(top: 15 * verticalPaddingFactor(height)),
-    height: responsiveContainerSize(670, width, height),
+    padding: EdgeInsets.only(top: 1.588 * SizeConfig.heightMultiplier),
+    height: 75.842 * SizeConfig.heightMultiplier,
     color: Colours.DARK_BLUE,
     child: AnotherCarousel(
       images: [
@@ -25,29 +25,24 @@ Widget imageSlider(double width, double height, double textScaleFactor) {
   );
 }
 
-Widget loginButton(
-    double width, double height, double textScaleFactor, BuildContext context) {
+Widget loginButton(BuildContext context) {
   return InkWell(
     onTap: () {
       Navigator.push(
           context,
           PageTransition(
-              child: SheetScreen1(
-                  width: width,
-                  height: height,
-                  textScaleFactor: textScaleFactor),
-              type: PageTransitionType.bottomToTop));
+              child: SheetScreen1(), type: PageTransitionType.bottomToTop));
     },
     child: Container(
       margin:
-          EdgeInsets.symmetric(horizontal: 10 * horizontalPaddingFactor(width)),
+          EdgeInsets.symmetric(horizontal: 2.232 * SizeConfig.widthMultiplier),
       padding: EdgeInsets.symmetric(
-          horizontal: 5 * horizontalPaddingFactor(width),
-          vertical: 5 * verticalPaddingFactor(height)),
-      height: responsiveContainerSize(65, width, height),
+          horizontal: 1.116 * SizeConfig.widthMultiplier,
+          vertical: 0.526 * SizeConfig.heightMultiplier),
+      height: 7.373 * SizeConfig.heightMultiplier,
       decoration: BoxDecoration(
           borderRadius:
-              BorderRadius.circular(responsiveBorderRadius(6, width, height)),
+              BorderRadius.circular(0.632 * SizeConfig.heightMultiplier),
           color: Colours.DARK_BLUE),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -58,14 +53,14 @@ Widget loginButton(
               fontWeight: FontWeight.w500,
               color: Colors.white,
               fontFamily: "Tansek",
-              fontSize: responsiveFontSize(38, width, height, textScaleFactor),
+              fontSize: 4.3188 * SizeConfig.heightMultiplier,
             ),
           ),
           IconButton(
             icon: Icon(
               Icons.arrow_circle_right_outlined,
               color: Colors.white,
-              size: responsiveContainerSize(30, width, height),
+              size: 3.5814 * SizeConfig.heightMultiplier,
             ),
             onPressed: () {},
           )
@@ -75,12 +70,12 @@ Widget loginButton(
   );
 }
 
-Widget bottomText(double width, double height, double textScaleFactor) {
+Widget bottomText() {
   return RichText(
     text: TextSpan(
       style: TextStyle(
         fontFamily: "Tansek",
-        fontSize: responsiveFontSize(25.2, width, height, textScaleFactor),
+        fontSize: 2.84411 * SizeConfig.heightMultiplier,
         color: Colors.grey.shade800,
       ),
       children: const [
@@ -104,7 +99,7 @@ ToastificationItem toastMessage(BuildContext context, String title,
     autoCloseDuration: const Duration(seconds: 5),
     title: Text(
       title,
-      style: const TextStyle(fontSize: 18),
+      style: TextStyle(fontSize: 1.896 * SizeConfig.heightMultiplier),
     ),
     description: Text(
       description,
@@ -112,20 +107,19 @@ ToastificationItem toastMessage(BuildContext context, String title,
   );
 }
 
-Widget continueButton2(void Function() onTap, double width, double height,
-    double textScaleFactor, BuildContext context) {
+Widget continueButton2(void Function() onTap, BuildContext context) {
   return InkWell(
     onTap: onTap,
     child: Container(
       margin:
-          EdgeInsets.symmetric(horizontal: 10 * horizontalPaddingFactor(width)),
+          EdgeInsets.symmetric(horizontal: 2.232*SizeConfig.widthMultiplier),
       padding: EdgeInsets.symmetric(
-          horizontal: 5 * horizontalPaddingFactor(width),
-          vertical: 5 * verticalPaddingFactor(height)),
-      height: responsiveContainerSize(55, width, height),
+          horizontal: 1.116*SizeConfig.widthMultiplier ,
+          vertical: 0.5266*SizeConfig.heightMultiplier ),
+      height: 6.8469*SizeConfig.heightMultiplier,
       decoration: BoxDecoration(
           borderRadius:
-              BorderRadius.circular(responsiveBorderRadius(6, width, height)),
+              BorderRadius.circular(0.632*SizeConfig.heightMultiplier),
           color: Colours.BUTTON_COLOR_1),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -135,14 +129,14 @@ Widget continueButton2(void Function() onTap, double width, double height,
             style: TextStyle(
                 color: Colors.white,
                 fontSize:
-                    responsiveFontSize(24, width, height, textScaleFactor),
+                   3*SizeConfig.heightMultiplier,
                 fontWeight: FontWeight.bold),
           ),
           IconButton(
             icon: Icon(
               Icons.arrow_circle_right_outlined,
               color: Colors.white,
-              size: responsiveContainerSize(30, width, height),
+              size: 3.8*SizeConfig.heightMultiplier,
             ),
             onPressed: () {},
           )
@@ -152,33 +146,31 @@ Widget continueButton2(void Function() onTap, double width, double height,
   );
 }
 
-Widget titleText(
-    String title, double width, double height, double textScaleFactor) {
+Widget titleText(String title) {
   return Text(
     title,
     style: TextStyle(
         color: Colors.black,
         fontFamily: "Tansek",
-        fontSize: responsiveFontSize(42, width, height, textScaleFactor)),
+        fontSize: 4.634 * SizeConfig.heightMultiplier),
   );
 }
 
-Widget descriptionText(
-    String description, double width, double height, double textScaleFactor) {
+Widget descriptionText(String description) {
   return Text(
     description,
     style: TextStyle(
         color: Colors.grey.shade800,
         fontFamily: "Tansek",
-        fontSize: responsiveFontSize(29, width, height, textScaleFactor)),
+        fontSize: 3.3181 * SizeConfig.heightMultiplier),
   );
 }
 
-Widget phoneNumberField(double width, double height, double textScaleFactor,
+Widget phoneNumberField(
     GlobalKey<FormState> formKey, TextEditingController numberController) {
   return Container(
     padding:
-        EdgeInsets.symmetric(horizontal: 6 * horizontalPaddingFactor(width)),
+        EdgeInsets.symmetric(horizontal: 1.339 * SizeConfig.widthMultiplier),
     child: Form(
       key: formKey,
       child: Row(
@@ -186,14 +178,13 @@ Widget phoneNumberField(double width, double height, double textScaleFactor,
         children: [
           Image.asset(
             "assets/login_screen/flag.png",
-            height: responsiveContainerSize(32, width, height),
-            width: responsiveContainerSize(32, width, height),
+            height: 3.3707 * SizeConfig.heightMultiplier,
+            width: 7.1428 * SizeConfig.widthMultiplier,
           ),
           Text(
             " +91  ",
             style: TextStyle(
-                fontSize:
-                    responsiveFontSize(24, width, height, textScaleFactor),
+                fontSize: 2.738 * SizeConfig.heightMultiplier,
                 fontWeight: FontWeight.w500),
           ),
           Expanded(
@@ -202,8 +193,7 @@ Widget phoneNumberField(double width, double height, double textScaleFactor,
                 controller: numberController,
                 keyboardType: TextInputType.number,
                 style: TextStyle(
-                    fontSize:
-                        responsiveFontSize(20, width, height, textScaleFactor),
+                    fontSize: 2.4 * SizeConfig.heightMultiplier,
                     color: Colors.black),
                 decoration: InputDecoration(
                   floatingLabelBehavior: FloatingLabelBehavior.never,
@@ -211,39 +201,33 @@ Widget phoneNumberField(double width, double height, double textScaleFactor,
                     child: Text(
                       "Enter your Phone Number",
                       style: TextStyle(
-                          fontSize: responsiveFontSize(
-                              20, width, height, textScaleFactor),
+                          fontSize: 2.3 * SizeConfig.heightMultiplier,
                           color: Colors.grey.shade800),
                     ),
                   ),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(
-                      responsiveBorderRadius(4, width, height),
-                    ),
+                        0.421 * SizeConfig.heightMultiplier),
                     borderSide: const BorderSide(color: Colors.grey),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(
-                      responsiveBorderRadius(4, width, height),
-                    ),
+                        0.421 * SizeConfig.heightMultiplier),
                     borderSide: const BorderSide(color: Colours.BUTTON_COLOR_1),
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(
-                      responsiveBorderRadius(4, width, height),
-                    ),
+                        0.421 * SizeConfig.heightMultiplier),
                     borderSide: const BorderSide(color: Colors.grey),
                   ),
                   errorBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(
-                      responsiveBorderRadius(4, width, height),
-                    ),
+                        0.421 * SizeConfig.heightMultiplier),
                     borderSide: const BorderSide(color: Colors.red),
                   ),
                   focusedErrorBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(
-                      responsiveBorderRadius(4, width, height),
-                    ),
+                        0.421 * SizeConfig.heightMultiplier),
                     borderSide: const BorderSide(color: Colors.red),
                   ),
                 ),
@@ -264,7 +248,7 @@ Widget phoneNumberField(double width, double height, double textScaleFactor,
   );
 }
 
-Widget otpField(double width, double height, double textScaleFactor,
+Widget otpField(
     TextEditingController otpController) {
   return Pinput(
     controller: otpController,
@@ -272,10 +256,10 @@ Widget otpField(double width, double height, double textScaleFactor,
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     crossAxisAlignment: CrossAxisAlignment.center,
     defaultPinTheme: PinTheme(
-        height: 50,
-        width: 50,
+        height: 6.1147*SizeConfig.heightMultiplier,
+        width: 12.1607*SizeConfig.widthMultiplier,
         textStyle: TextStyle(
-          fontSize: responsiveFontSize(20, width, height, textScaleFactor),
+          fontSize: 2.5*SizeConfig.heightMultiplier,
           color: Colors.black,
         ),
         decoration: BoxDecoration(

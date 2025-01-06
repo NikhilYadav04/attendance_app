@@ -1,8 +1,8 @@
 import 'package:attend_ease/styling/colors.dart';
-import 'package:attend_ease/styling/scale.dart';
+import 'package:attend_ease/styling/sizeconfig.dart';
 import 'package:flutter/material.dart';
 
-AppBar appBLocation(double currentWidth, double currentHeight, double textScale,
+AppBar appBLocation(
     BuildContext context) {
   return AppBar(
     actions: [
@@ -21,9 +21,9 @@ AppBar appBLocation(double currentWidth, double currentHeight, double textScale,
           fontFamily: "Tansek",
           fontWeight: FontWeight.w500,
           fontSize:
-              responsiveFontSize(34, currentWidth, currentHeight, textScale)),
+              3.844*SizeConfig.heightMultiplier),
     ),
-    toolbarHeight: responsiveContainerSize(75, currentWidth, currentHeight),
+    toolbarHeight: 8.4269*SizeConfig.heightMultiplier,
     elevation: 5,
     shadowColor: Colors.grey,
   );
@@ -34,36 +34,35 @@ Widget mapWidget() {
 }
 
 Widget pageText(
-    double currentWidth, double currentHeight, double textScale, String title) {
+   String title) {
   return Text(
     title,
     style: TextStyle(
         color: Colors.black,
         fontSize:
-            responsiveFontSize(18, currentWidth, currentHeight, textScale),
+           2.054*SizeConfig.heightMultiplier,
         fontWeight: FontWeight.w600),
   );
 }
 
 Widget geoForceText(
-    double currentWidth, double currentHeight, double textScale) {
+    ) {
   return Text(
     "& set geofence radius",
     style: TextStyle(
       color: Colors.grey.shade800,
-      fontSize: responsiveFontSize(16, currentWidth, currentHeight, textScale),
+      fontSize: 1.896*SizeConfig.heightMultiplier,
     ),
   );
 }
 
-Widget locationSetBox(
-    double currentWidth, double currentHeight, double textScale,void Function() onTap,String latitude,String longitude) {
+Widget locationSetBox(void Function() onTap,String latitude,String longitude) {
   return Container(
     padding: EdgeInsets.symmetric(
-        horizontal: 10 * horizontalPaddingFactor(currentWidth)),
-    height: responsiveContainerSize(52, currentWidth, currentHeight),
+        horizontal: 2.232*SizeConfig.widthMultiplier ),
+    height: 6.109*SizeConfig.heightMultiplier,
     decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(4),
+        borderRadius: BorderRadius.circular(0.421*SizeConfig.heightMultiplier),
         border: Border.all(color: Colors.grey.shade400)),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -74,7 +73,7 @@ Widget locationSetBox(
               color: Colors.grey.shade700,
               fontWeight: FontWeight.bold,
               fontSize:
-                  responsiveContainerSize(16, currentWidth, currentHeight)),
+                  1.896*SizeConfig.heightMultiplier),
         ),
         GestureDetector(
           onTap: onTap,
@@ -84,7 +83,7 @@ Widget locationSetBox(
                 color: Colors.blue.shade700,
                 fontWeight: FontWeight.bold,
                 fontSize:
-                    responsiveContainerSize(18, currentWidth, currentHeight)),
+                    2.1067*SizeConfig.heightMultiplier),
           ),
         ),
       ],
@@ -93,31 +92,30 @@ Widget locationSetBox(
 }
 
 Widget locationRadiusBox(
-    double currentWidth, double currentHeight, double textScale) {
+    ) {
   return ListTile(
     leading: Icon(
       Icons.location_on,
       color: Colors.grey.shade800,
-      size: responsiveContainerSize(24, currentWidth, currentHeight),
+      size: 2.738*SizeConfig.heightMultiplier,
     ),
     title: Text(
       "Maximum Attendance Radius",
       style: TextStyle(
           color: Colors.grey.shade900,
-          fontSize: responsiveFontSize(17, currentWidth, currentHeight, textScale),
+          fontSize: 1.896*SizeConfig.heightMultiplier,
           fontWeight: FontWeight.w500),
     ),
     subtitle: Text(
       "Staff can mark attendance within this radius only",
-      style: TextStyle(color: Colors.grey.shade900, fontSize: responsiveFontSize(13, currentWidth, currentHeight, textScale)),
+      style: TextStyle(color: Colors.grey.shade900, fontSize: 1.516*SizeConfig.heightMultiplier),
     ),
   );
 }
 
-Widget rangeWidget(
-    double currentWidth, double currentHeight, double textScale) {
+Widget rangeWidget( ) {
   return Container(
-    padding: EdgeInsets.symmetric(horizontal: 8*horizontalPaddingFactor(currentWidth)),
+    padding: EdgeInsets.symmetric(horizontal: 1.785*SizeConfig.widthMultiplier),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -125,14 +123,14 @@ Widget rangeWidget(
           "100 m",
           style: TextStyle(
               color: Colors.grey.shade700,
-              fontSize: 15,
+              fontSize: 1.685*SizeConfig.heightMultiplier,
               fontWeight: FontWeight.w500),
         ),
         Text(
           "500 m",
           style: TextStyle(
               color: Colors.grey.shade700,
-              fontSize: 15,
+              fontSize:1.685 * SizeConfig.heightMultiplier,
               fontWeight: FontWeight.w500),
         ),
       ],
@@ -140,20 +138,19 @@ Widget rangeWidget(
   );
 }
 
-Widget continueButton(void Function() onTap, double width, double height,
-    double textScaleFactor, BuildContext context) {
+Widget continueButton(void Function() onTap, BuildContext context) {
   return InkWell(
     onTap: onTap,
     child: Container(
       margin:
-          EdgeInsets.symmetric(horizontal: 0 * horizontalPaddingFactor(width)),
+          EdgeInsets.symmetric(horizontal: 0 ),
       padding: EdgeInsets.symmetric(
-          horizontal: 5 * horizontalPaddingFactor(width),
-          vertical: 5 * verticalPaddingFactor(height)),
-      height: responsiveContainerSize(55, width, height),
+          horizontal: 1.116*SizeConfig.widthMultiplier,
+          vertical: 0.526*SizeConfig.heightMultiplier ),
+      height: 6.846*SizeConfig.heightMultiplier,
       decoration: BoxDecoration(
           borderRadius:
-              BorderRadius.circular(responsiveBorderRadius(6, width, height)),
+              BorderRadius.circular(0.632*SizeConfig.heightMultiplier),
           color: Colours.BUTTON_COLOR_1),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -163,14 +160,14 @@ Widget continueButton(void Function() onTap, double width, double height,
             style: TextStyle(
                 color: Colors.white,
                 fontSize:
-                    responsiveFontSize(22, width, height, textScaleFactor),
+                    2.633*SizeConfig.heightMultiplier,
                 fontWeight: FontWeight.bold),
           ),
           IconButton(
             icon: Icon(
               Icons.arrow_circle_right,
               color: Colors.white,
-              size: responsiveContainerSize(30, width, height),
+              size: 3.476*SizeConfig.heightMultiplier,
             ),
             onPressed: () {},
           )

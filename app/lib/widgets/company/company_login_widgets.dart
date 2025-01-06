@@ -1,7 +1,7 @@
-import 'package:attend_ease/styling/scale.dart';
+import 'package:attend_ease/styling/sizeconfig.dart';
 import 'package:flutter/material.dart';
 
-AppBar appBLoginCompany(double currentWidth, double currentHeight, double textScale,BuildContext context) {
+AppBar appBLoginCompany(BuildContext context) {
   return AppBar(
     actions: [
       IconButton(onPressed: (){
@@ -17,25 +17,25 @@ AppBar appBLoginCompany(double currentWidth, double currentHeight, double textSc
           fontFamily: "Tansek",
           fontWeight: FontWeight.w500,
           fontSize:
-              responsiveFontSize(34, currentWidth, currentHeight, textScale)),
+              3.8448*SizeConfig.heightMultiplier),
     ),
-    toolbarHeight: responsiveContainerSize(75, currentWidth, currentHeight),
+    toolbarHeight: 8.6376*SizeConfig.heightMultiplier,
     elevation: 5,
     shadowColor: Colors.grey,
   );
 }
 
-Widget tileWidgetLoginCompany(double currentWidth, double currentHeight, double textScale) {
+Widget tileWidgetLoginCompany() {
   return Container(
     decoration: BoxDecoration(
-        color: Colors.blue.shade50, borderRadius: BorderRadius.circular(4)),
+        color: Colors.blue.shade50, borderRadius: BorderRadius.circular(0.42134*SizeConfig.heightMultiplier)),
     child: ListTile(
       title: Text(
         "Lead Your Company's Group",
         style: TextStyle(
             fontFamily: "Tansek",
             fontSize:
-                responsiveFontSize(28, currentWidth, currentHeight, textScale),
+                3.1601*SizeConfig.heightMultiplier,
             fontWeight: FontWeight.bold,
             color: Colors.blue.shade800),
       ),
@@ -44,17 +44,17 @@ Widget tileWidgetLoginCompany(double currentWidth, double currentHeight, double 
         style: TextStyle(
             fontFamily: "Tansek",
             fontSize:
-                responsiveFontSize(24, currentWidth, currentHeight, textScale),
+                2.7387*SizeConfig.heightMultiplier,
             fontWeight: FontWeight.w500,
             color: Colors.blue.shade800),
       ),
       trailing: CircleAvatar(
         backgroundColor: Colors.white,
-        radius: responsiveBorderRadius(22, currentWidth, currentHeight),
+        radius: 2.4227*SizeConfig.heightMultiplier,
         child: Icon(
           Icons.security_update_good,
           color: Colors.blue.shade800,
-          size: responsiveContainerSize(26, currentWidth, currentHeight),
+          size: 2.7387*SizeConfig.heightMultiplier,
         ),
       ),
     ),

@@ -1,88 +1,90 @@
 import 'package:attend_ease/styling/colors.dart';
-import 'package:attend_ease/styling/scale.dart';
+import 'package:attend_ease/styling/sizeconfig.dart';
 import 'package:flutter/material.dart';
 
-Widget backgroundContainer(double currentWidth, double currentHeight) {
+Widget backgroundContainer() {
   return Container(
     color: Colours.DARK_BLUE,
-    height: responsiveContainerSize(650, currentWidth, currentHeight),
+    height: 68.469 * SizeConfig.heightMultiplier,
   );
 }
 
-Widget titleWidget(
-  double currentWidth,
-  double currentHeight,
-  double textScale,
-) {
+Widget titleWidget() {
   return Center(
     child: Text(
       "Welcome to Attend Ease",
       style: TextStyle(
           color: Color(0xFFC3FFFC),
           fontWeight: FontWeight.bold,
-          fontSize:
-              responsiveFontSize(33, currentWidth, currentHeight, textScale),
+          fontSize: 3.8 * SizeConfig.heightMultiplier,
           fontFamily: "Kumbh-Med"),
     ),
   );
 }
 
-Widget dashboardContainer(String image,String title) {
+Widget dashboardContainer(String image, String title) {
   return Container(
-    height: 200,
-    width: 202,
+    height: 21.067 * SizeConfig.heightMultiplier,
+    width: 45.089 * SizeConfig.widthMultiplier,
     decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(20),
-      color: Color(0xFFC3FFFC)
-    ),
+        borderRadius:
+            BorderRadius.circular(2.1067 * SizeConfig.heightMultiplier),
+        color: Color(0xFFC3FFFC)),
     child: Padding(
-      padding: EdgeInsets.symmetric(horizontal: 10,vertical: 22),
+      padding: EdgeInsets.symmetric(
+          horizontal: 2 * SizeConfig.heightMultiplier,
+          vertical: 2.3174 * SizeConfig.heightMultiplier),
       child: Column(
         children: [
-          Center(child: Image.asset(image,height: 100,width: 100,)),
-          SizedBox(height: 18,),
-          Text(title,style: TextStyle(
-            fontFamily: "Kumbh-Med",fontWeight: FontWeight.bold,
-            fontSize: 22.5,color: Colors.black
-          ),)
+          Center(
+              child: Image.asset(
+            image,
+            height: 10.5337 * SizeConfig.heightMultiplier,
+            width: 22.321 * SizeConfig.widthMultiplier,
+          )),
+          SizedBox(
+            height: 1.896 * SizeConfig.heightMultiplier,
+          ),
+          Text(
+            title,
+            style: TextStyle(
+                fontFamily: "Kumbh-Med",
+                fontWeight: FontWeight.bold,
+                fontSize: 2.16 * SizeConfig.heightMultiplier,
+                color: Colors.black),
+          )
         ],
       ),
     ),
   );
 }
 
-Widget welcomeText(
-  double currentWidth,
-  double currentHeight,
-  double textScale,
-) {
+Widget welcomeText() {
   return Center(
     child: Text(
       "Manage your attendance in a single click.",
       style: TextStyle(
           color: Color(0xFFEEB5EB),
           fontWeight: FontWeight.bold,
-          fontSize:
-              responsiveFontSize(19.8, currentWidth, currentHeight, textScale),
+          fontSize: 2.2120 * SizeConfig.heightMultiplier,
           fontFamily: "Kumbh-Med"),
     ),
   );
 }
 
-Widget companyButton(void Function() onTap, double width, double height,
-    double textScaleFactor, BuildContext context) {
+Widget companyButton(void Function() onTap, BuildContext context) {
   return InkWell(
     onTap: onTap,
     child: Container(
       margin:
-          EdgeInsets.symmetric(horizontal: 10 * horizontalPaddingFactor(width)),
+          EdgeInsets.symmetric(horizontal: 2.232 * SizeConfig.widthMultiplier),
       padding: EdgeInsets.symmetric(
-          horizontal: 5 * horizontalPaddingFactor(width),
-          vertical: 5 * verticalPaddingFactor(height)),
-      height: responsiveContainerSize(55, width, height),
+          horizontal: 1.116 * SizeConfig.widthMultiplier,
+          vertical: 0.5266 * SizeConfig.heightMultiplier),
+      height: 7 * SizeConfig.heightMultiplier,
       decoration: BoxDecoration(
           borderRadius:
-              BorderRadius.circular(responsiveBorderRadius(6, width, height)),
+              BorderRadius.circular(0.632 * SizeConfig.heightMultiplier),
           color: Colours.DARK_BLUE),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -91,15 +93,14 @@ Widget companyButton(void Function() onTap, double width, double height,
             "Create Company Account",
             style: TextStyle(
                 color: Colors.white,
-                fontSize:
-                    responsiveFontSize(24, width, height, textScaleFactor),
+                fontSize: 2.7387 * SizeConfig.heightMultiplier,
                 fontWeight: FontWeight.bold),
           ),
           IconButton(
             icon: Icon(
               Icons.arrow_circle_right_outlined,
               color: Colors.white,
-              size: responsiveContainerSize(30, width, height),
+              size: 3.4761 * SizeConfig.heightMultiplier,
             ),
             onPressed: () {},
           )
@@ -109,23 +110,23 @@ Widget companyButton(void Function() onTap, double width, double height,
   );
 }
 
-Widget existText(double width, double height, double textScaleFactor) {
+Widget existText() {
   return Center(
     child: Text(
       "Join Existing Company",
       style: TextStyle(
           color: Colours.DARK_BLUE,
-          fontSize: responsiveContainerSize(24, width, height),
+          fontSize: 2.9 * SizeConfig.heightMultiplier,
           fontWeight: FontWeight.bold,
           fontFamily: "Transek"),
     ),
   );
 }
 
-Widget widgetDivider(double currentWidth, double currentHeight) {
+Widget widgetDivider() {
   return Container(
-    padding: EdgeInsets.symmetric(
-        horizontal: 10 * horizontalPaddingFactor(currentWidth)),
+    padding:
+        EdgeInsets.symmetric(horizontal: 2.232 * SizeConfig.widthMultiplier),
     child: const Divider(
       color: Color.fromARGB(255, 143, 141, 141),
       thickness: 2.0,
