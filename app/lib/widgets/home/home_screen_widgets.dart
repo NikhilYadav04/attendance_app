@@ -9,52 +9,62 @@ Widget backgroundContainer(double currentWidth, double currentHeight) {
   );
 }
 
-Widget titleWidget(double currentWidth, double currentHeight, double textScale,
-    Animation<double> textAnimation) {
+Widget titleWidget(
+  double currentWidth,
+  double currentHeight,
+  double textScale,
+) {
   return Center(
-    child: ScaleTransition(
-      scale: textAnimation,
-      child: Text(
-        "Welcome to Attend Ease",
-        style: TextStyle(
-            color: Colors.yellow.shade800,
-            fontWeight: FontWeight.bold,
-            fontSize:
-                responsiveFontSize(52, currentWidth, currentHeight, textScale),
-            fontFamily: "Tansek"),
+    child: Text(
+      "Welcome to Attend Ease",
+      style: TextStyle(
+          color: Color(0xFFC3FFFC),
+          fontWeight: FontWeight.bold,
+          fontSize:
+              responsiveFontSize(33, currentWidth, currentHeight, textScale),
+          fontFamily: "Kumbh-Med"),
+    ),
+  );
+}
+
+Widget dashboardContainer(String image,String title) {
+  return Container(
+    height: 200,
+    width: 202,
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(20),
+      color: Color(0xFFC3FFFC)
+    ),
+    child: Padding(
+      padding: EdgeInsets.symmetric(horizontal: 10,vertical: 22),
+      child: Column(
+        children: [
+          Center(child: Image.asset(image,height: 100,width: 100,)),
+          SizedBox(height: 18,),
+          Text(title,style: TextStyle(
+            fontFamily: "Kumbh-Med",fontWeight: FontWeight.bold,
+            fontSize: 22.5,color: Colors.black
+          ),)
+        ],
       ),
     ),
   );
 }
 
-Widget Logo(double width, double height) {
-  return Padding(
-    padding: EdgeInsets.only(left: 0 * horizontalPaddingFactor(width)),
-    child: Image.asset(
-      "assets/home_screen/table.png",
-      height: responsiveContainerSize(380, width, height),
-      width: responsiveContainerSize(380, width, height),
-    ),
-  );
-}
-
-Widget welcomeText(double currentWidth, double currentHeight, double textScale,
-    Animation<double> textAnimation) {
-  return Padding(
-    padding: EdgeInsets.only(right: 18 * horizontalPaddingFactor(currentWidth)),
-    child: Center(
-      child: ScaleTransition(
-        scale: textAnimation,
-        child: Text(
-          "Manage your attendance in a single click.",
-          style: TextStyle(
-              color: Colors.yellow.shade800,
-              fontWeight: FontWeight.bold,
-              fontSize: responsiveFontSize(
-                  29, currentWidth, currentHeight, textScale),
-              fontFamily: "Tansek"),
-        ),
-      ),
+Widget welcomeText(
+  double currentWidth,
+  double currentHeight,
+  double textScale,
+) {
+  return Center(
+    child: Text(
+      "Manage your attendance in a single click.",
+      style: TextStyle(
+          color: Color(0xFFEEB5EB),
+          fontWeight: FontWeight.bold,
+          fontSize:
+              responsiveFontSize(19.8, currentWidth, currentHeight, textScale),
+          fontFamily: "Kumbh-Med"),
     ),
   );
 }

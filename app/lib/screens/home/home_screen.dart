@@ -40,23 +40,52 @@ class _HomeScreenState extends State<HomeScreen>
           body: Stack(
         children: [
           backgroundContainer(currentWidth, currentHeight),
-          Container(
-            padding: EdgeInsets.symmetric(
-                horizontal: 15 * horizontalPaddingFactor(currentWidth),
-                vertical: 10 * verticalPaddingFactor(currentHeight)),
-            child: Column(
-              children: [
-                titleWidget(
-                    currentWidth, currentHeight, textScale, textAnimation),
-                welcomeText(
-                    currentWidth, currentHeight, textScale, textAnimation),
-                SizedBox(
-                  height:
-                      responsiveContainerSize(60, currentWidth, currentHeight),
+          Column(
+            children: [
+              Container(
+                padding: EdgeInsets.symmetric(
+                    horizontal: 12 * horizontalPaddingFactor(currentWidth),
+                    vertical: 10 * verticalPaddingFactor(currentHeight)),
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 20,
+                    ),
+                    titleWidget(currentWidth, currentHeight, textScale),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    welcomeText(currentWidth, currentHeight, textScale),
+                    SizedBox(
+                      height: responsiveContainerSize(
+                          60, currentWidth, currentHeight),
+                    ),
+                  ],
                 ),
-                Logo(currentWidth, currentHeight),
-              ],
-            ),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 13),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        dashboardContainer("assets/login_screen/data.png", "Real Time Data"),
+                        dashboardContainer("assets/login_screen/location.png", "GPS Attendance")
+                      ],
+                    ),
+                    SizedBox(height: 20,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        dashboardContainer("assets/login_screen/leave.png", "Manage Leaves"),
+                        dashboardContainer("assets/login_screen/detail.png", "Detailed Report")
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
           SingleChildScrollView(
             child: Padding(
@@ -64,6 +93,7 @@ class _HomeScreenState extends State<HomeScreen>
                   top: 680 * verticalPaddingFactor(currentHeight)),
               child: Column(
                 children: [
+                SizedBox(height: 05,),
                   companyButton(() {
                     Navigator.push(
                         context,

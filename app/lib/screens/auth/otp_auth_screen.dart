@@ -16,44 +16,7 @@ class _OtpAuthScreenState extends State<OtpAuthScreen> {
   @override
   void initState() {
     super.initState();
-    // WidgetsBinding.instance.addPostFrameCallback((_) {
-    //   _checkLoginStatus();
-    // });
   }
-
-  // Future<void> _checkLoginStatus() async {
-  //   setState(() {
-  //     isAuthenticate = false;
-  //   });
-  //   bool? res = await HelperFunctions.getStatus();
-  //   cName = await HelperFunctions.getCompanyName();
-  //   cID = await HelperFunctions.getCompanyID();
-  //   eName = await HelperFunctions.getEmployeeName();
-  //   eID = await HelperFunctions.getEMployeeID();
-  //   print("cid : ${cID}");
-  //   print("cName : ${cName}");
-  //   print("eName : ${eName}");
-  //   print("eid ${eID}");
-  //   if (res == true) {
-  //     setState(() {
-  //       isLoggedIn = true;
-  //     });
-  //     setState(() {
-  //       cName = cName;
-  //       cID = cID;
-  //       eName = eName;
-  //       eID = eID;
-  //     });
-  //     print(res);
-  //     setState(() {
-  //       isLoading = false;
-  //     });
-  //   } else {
-  //     setState(() {
-  //       isLoading = false;
-  //     });
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {
