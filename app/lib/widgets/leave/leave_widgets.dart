@@ -1,4 +1,5 @@
 import 'package:attend_ease/styling/scale.dart';
+import 'package:attend_ease/styling/sizeconfig.dart';
 import 'package:flutter/material.dart';
 
 AppBar appBLeave(double currentWidth, double currentHeight, double textScale,
@@ -108,14 +109,14 @@ Widget cards(
   return GestureDetector(
     onTap: onTap,
     child: Container(
-      height: 170,
-      width: 200,
+      height: 17.9073*SizeConfig.heightMultiplier,
+      width: 44.6428*SizeConfig.widthMultiplier,
       decoration: BoxDecoration(
           color: bg,
-          borderRadius: BorderRadius.circular(25),
+          borderRadius: BorderRadius.circular(2.6334*SizeConfig.heightMultiplier),
           border: Border.all(width: 3, color: border)),
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 17, vertical: 20),
+        padding: EdgeInsets.symmetric(horizontal: 3.7946*SizeConfig.widthMultiplier, vertical: 2.1067*SizeConfig.heightMultiplier),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -123,18 +124,18 @@ Widget cards(
               title,
               style: TextStyle(
                   color: Colors.black,
-                  fontSize: 24,
+                  fontSize: 2.52809*SizeConfig.heightMultiplier,
                   fontFamily: "Kumbh-Med",
                   fontWeight: FontWeight.bold),
             ),
             SizedBox(
-              height: 13,
+              height: 1.3693*SizeConfig.heightMultiplier,
             ),
             Text(
               count,
               style: TextStyle(
                   color: border,
-                  fontSize: 29,
+                  fontSize:3.05478*SizeConfig.heightMultiplier,
                   fontFamily: "Kumbh-Med",
                   fontWeight: FontWeight.bold),
             ),
@@ -149,10 +150,10 @@ Widget buttons(String title, IconData icon, Color color,void Function() onTap) {
   return GestureDetector(
     onTap:onTap,
     child: Container(
-      height: 50,
-      width: 180,
+      height: 5.26687*SizeConfig.heightMultiplier,
+      width: 40.1785*SizeConfig.widthMultiplier,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(0.8426*SizeConfig.heightMultiplier),
         color: color,
       ),
       child: Center(
@@ -162,15 +163,15 @@ Widget buttons(String title, IconData icon, Color color,void Function() onTap) {
             Icon(
               icon,
               color: Colors.white,
-              size: 24,
+              size: 2.52809*SizeConfig.heightMultiplier,
             ),
             SizedBox(
-              width: 7,
+              width:1.5625*SizeConfig.widthMultiplier,
             ),
             Text(
               title,
               style: style.copyWith(
-                  fontSize: 18.5,
+                  fontSize: 1.94874*SizeConfig.heightMultiplier,
                   color: Colors.white,
                   fontWeight: FontWeight.bold),
             )
@@ -295,18 +296,18 @@ Widget leaveCardPending(String name, String date) {
             color: Colors.black,
             fontFamily: "Kumbh-Med",
             fontWeight: FontWeight.bold,
-            fontSize: 24),
+            fontSize: 2.52809*SizeConfig.heightMultiplier),
       ),
       SizedBox(
-        height: 5,
+        height: 0.5266*SizeConfig.heightMultiplier,
       ),
       Text(
         date,
         style: style.copyWith(
-            color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20),
+            color: Colors.black, fontWeight: FontWeight.bold, fontSize: 2.1067*SizeConfig.heightMultiplier),
       ),
       SizedBox(
-        height: 15,
+        height: 1.5800*SizeConfig.heightMultiplier,
       ),
     ],
   );

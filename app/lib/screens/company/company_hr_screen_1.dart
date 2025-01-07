@@ -4,8 +4,8 @@ import 'package:attend_ease/providers/attendance/company_attendance_provider.dar
 import 'package:attend_ease/screens/company/add_staff_screen.dart';
 import 'package:attend_ease/screens/company/remove_staff_screen.dart';
 import 'package:attend_ease/styling/colors.dart';
-import 'package:attend_ease/styling/scale.dart';
 import 'package:attend_ease/services/companyService.dart';
+import 'package:attend_ease/styling/sizeconfig.dart';
 import 'package:attend_ease/widgets/company/company_hr_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -53,36 +53,29 @@ class _CompanyHrScreen1State extends State<CompanyHrScreen1> {
   int index = 0;
   @override
   Widget build(BuildContext context) {
-    final currentHeight = MediaQuery.of(context).size.height;
-    final currentWidth = MediaQuery.of(context).size.width;
-    final textScale = MediaQuery.of(context).textScaleFactor;
-
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: SingleChildScrollView(child: Consumer<CompanyAttendanceProvider>(
         builder: (context, provider, _) {
           return Container(
             padding: EdgeInsets.symmetric(
-                horizontal: 5 * horizontalPaddingFactor(currentWidth)),
+                horizontal: 1.1160 * SizeConfig.widthMultiplier),
             child: Column(
               children: [
                 SizedBox(
-                  height:
-                      responsiveContainerSize(15, currentWidth, currentHeight),
+                  height: 1.7907 * SizeConfig.heightMultiplier,
                 ),
                 provider.isLoading
                     ? SpinKitFadingCircle(
                         color: Colours.DARK_BLUE,
-                        size: 75,
+                        size: 7.9003 * SizeConfig.heightMultiplier,
                       )
-                    : attendCountWidget(currentWidth, currentHeight, textScale,
-                        () {
+                    : attendCountWidget(() {
                         provider.submit(context);
                       }, provider.In, provider.Out, provider.Total,
                         provider.Date, provider.isSubmit),
                 SizedBox(
-                  height:
-                      responsiveContainerSize(25, currentWidth, currentHeight),
+                  height: 2.8441 * SizeConfig.heightMultiplier,
                 ),
                 Divider(
                   color: Colors.grey.shade300,
@@ -92,29 +85,30 @@ class _CompanyHrScreen1State extends State<CompanyHrScreen1> {
                   endIndent: 10,
                 ),
                 SizedBox(
-                  height:
-                      responsiveContainerSize(10, currentWidth, currentHeight),
+                  height: 1.0533 * SizeConfig.heightMultiplier,
                 ),
-                listWidget(currentWidth, currentHeight, textScale, context)
+                listWidget(context)
               ],
             ),
           );
         },
       )),
       floatingActionButton: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 12),
+        padding: EdgeInsets.symmetric(
+            horizontal: 2.6785 * SizeConfig.widthMultiplier),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Tooltip(
-              margin: EdgeInsets.only(bottom: 5),
+              margin:
+                  EdgeInsets.only(bottom: 2.678 * SizeConfig.widthMultiplier),
               textStyle: TextStyle(
-                  color: Colors.black, fontSize: 32, fontFamily: "Tansek"),
+                  color: Colors.black,
+                  fontSize: 3.3707 * SizeConfig.heightMultiplier,
+                  fontFamily: "Tansek"),
               decoration: BoxDecoration(color: Colors.transparent),
               message: "Add Staff",
-              child: floatButton(
-                  currentWidth, currentHeight, textScale, context, Icons.add,
-                  () {
+              child: floatButton(context, Icons.add, () {
                 Navigator.push(
                     context,
                     PageTransition(
@@ -123,14 +117,16 @@ class _CompanyHrScreen1State extends State<CompanyHrScreen1> {
               }),
             ),
             Tooltip(
-              margin: EdgeInsets.only(bottom: 5, left: 10),
+              margin: EdgeInsets.only(
+                  bottom: 1.11608 * SizeConfig.widthMultiplier,
+                  left: 1.053 * SizeConfig.heightMultiplier),
               textStyle: TextStyle(
-                  color: Colors.black, fontSize: 32, fontFamily: "Tansek"),
+                  color: Colors.black,
+                  fontSize: 3.37079 * SizeConfig.heightMultiplier,
+                  fontFamily: "Tansek"),
               decoration: BoxDecoration(color: Colors.transparent),
               message: "Remove Staff",
-              child: floatButton(
-                  currentWidth, currentHeight, textScale, context, Icons.delete,
-                  () {
+              child: floatButton(context, Icons.delete, () {
                 Navigator.push(
                     context,
                     PageTransition(

@@ -2,10 +2,10 @@ import 'package:attend_ease/helper/helper_functions.dart';
 import 'package:attend_ease/providers/company/company_main_screen_provider.dart';
 import 'package:attend_ease/screens/leave/hr_leave_list.dart';
 import 'package:attend_ease/styling/colors.dart';
-import 'package:attend_ease/styling/scale.dart';
 import 'package:attend_ease/screens/company/approval_req_screen.dart';
 import 'package:attend_ease/screens/company/company_hr_screen_1.dart';
 import 'package:attend_ease/screens/company/staff_list_screen.dart';
+import 'package:attend_ease/styling/sizeconfig.dart';
 import 'package:attend_ease/widgets/company/company_hr_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -35,7 +35,7 @@ class _CompanyHrScreenState extends State<CompanyHrScreen>
     super.initState();
     tabController = TabController(length: 4, vsync: this);
     _getName();
-     WidgetsBinding.instance.addPostFrameCallback((_) async{
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
       final provider = context.read<CompanyMainScreenProvider>();
       provider.profile_url = await HelperFunctions.getProfilePhoto() ?? "";
     });
@@ -50,35 +50,28 @@ class _CompanyHrScreenState extends State<CompanyHrScreen>
 
   @override
   Widget build(BuildContext context) {
-    final currentHeight = MediaQuery.of(context).size.height;
-    final currentWidth = MediaQuery.of(context).size.width;
-    final textScale = MediaQuery.of(context).textScaleFactor;
-
     return DefaultTabController(
       length: 4,
       child: SafeArea(
         child: Scaffold(
           appBar: PreferredSize(
-            preferredSize: Size.fromHeight(
-                responsiveContainerSize(75, currentWidth, currentHeight)),
+            preferredSize: Size.fromHeight(78),
             child: Consumer<CompanyMainScreenProvider>(
               builder: (context, provider, _) {
                 return AppBar(
                   automaticallyImplyLeading: false,
                   elevation: 0,
-                  toolbarHeight:
-                      responsiveContainerSize(75, currentWidth, currentHeight),
-                  title: appBtitleHR(
-                      currentWidth, currentHeight, textScale, companyName,context,(){
-                        provider.uploadImageCameraLocalStorage(context);
-                      },(){
-                        provider.uploadImageGalleryLocalStorage(context);
-                      },provider.isProfile,provider.profile_url),
+                  toolbarHeight: 8.2163 * SizeConfig.heightMultiplier,
+                  title: appBtitleHR(companyName, context, () {
+                    provider.uploadImageCameraLocalStorage(context);
+                  }, () {
+                    provider.uploadImageGalleryLocalStorage(context);
+                  }, provider.isProfile, provider.profile_url),
                   actions: [
                     provider.isLoading
                         ? SpinKitSquareCircle(
                             color: Colors.black,
-                            size: 30,
+                            size: 3.1601 * SizeConfig.heightMultiplier,
                           )
                         : IconButton(
                             onPressed: () {
@@ -86,8 +79,7 @@ class _CompanyHrScreenState extends State<CompanyHrScreen>
                             },
                             icon: Icon(
                               Icons.exit_to_app_rounded,
-                              size: responsiveContainerSize(
-                                  32, currentWidth, currentHeight),
+                              size: 3.5814 * SizeConfig.heightMultiplier,
                             ),
                           )
                   ],
@@ -100,8 +92,7 @@ class _CompanyHrScreenState extends State<CompanyHrScreen>
               return Column(
                 children: [
                   TabBar(
-                    padding: EdgeInsets.only(
-                        top: 4 * verticalPaddingFactor(currentHeight)),
+                    padding: EdgeInsets.only(top: 6),
                     indicatorColor: Colours.DARK_BLUE,
                     indicatorWeight: 1,
                     controller: tabController,
@@ -109,32 +100,28 @@ class _CompanyHrScreenState extends State<CompanyHrScreen>
                       Tab(
                         icon: Icon(
                           Icons.home,
-                          size: responsiveContainerSize(
-                              34, currentWidth, currentHeight),
+                          size: 3.8974 * SizeConfig.heightMultiplier,
                           color: Colours.DARK_BLUE,
                         ),
                       ),
                       Tab(
                         icon: Icon(
                           Icons.list,
-                          size: responsiveContainerSize(
-                              34, currentWidth, currentHeight),
+                          size: 3.8974 * SizeConfig.heightMultiplier,
                           color: Colours.DARK_BLUE,
                         ),
                       ),
                       Tab(
                         icon: Icon(
                           Icons.list_alt_sharp,
-                          size: responsiveContainerSize(
-                              34, currentWidth, currentHeight),
+                          size: 3.8974 * SizeConfig.heightMultiplier,
                           color: Colours.DARK_BLUE,
                         ),
                       ),
-                       Tab(
+                      Tab(
                         icon: Icon(
                           Icons.event_available,
-                          size: responsiveContainerSize(
-                              34, currentWidth, currentHeight),
+                          size: 3.8974 * SizeConfig.heightMultiplier,
                           color: Colours.DARK_BLUE,
                         ),
                       ),

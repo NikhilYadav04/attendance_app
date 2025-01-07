@@ -106,7 +106,7 @@ class _HomeScreenState extends State<HomeScreen>
                 child: Column(
                   children: [
                     SizedBox(
-                      height: 0.526 * SizeConfig.heightMultiplier,
+                      height: 0.1 * SizeConfig.heightMultiplier,
                     ),
                     companyButton(() {
                       Navigator.push(

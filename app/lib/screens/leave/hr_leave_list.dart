@@ -1,6 +1,7 @@
 import 'package:attend_ease/providers/leave/leave_provider.dart';
 import 'package:attend_ease/screens/leave/detail_list_screen.dart';
 import 'package:attend_ease/styling/colors.dart';
+import 'package:attend_ease/styling/sizeconfig.dart';
 import 'package:attend_ease/widgets/company/company_hr_widgets.dart';
 import 'package:attend_ease/widgets/leave/leave_widgets.dart';
 import 'package:flutter/material.dart';
@@ -28,10 +29,6 @@ class _HrLeaveListState extends State<HrLeaveList> {
 
   @override
   Widget build(BuildContext context) {
-    final currentHeight = MediaQuery.of(context).size.height;
-    final currentWidth = MediaQuery.of(context).size.width;
-    // ignore: deprecated_member_use
-    final textScale = MediaQuery.of(context).textScaleFactor;
     return Scaffold(
       backgroundColor: Colors.grey.shade100,
       body: SingleChildScrollView(
@@ -40,20 +37,19 @@ class _HrLeaveListState extends State<HrLeaveList> {
             return Column(
               children: [
                 SizedBox(
-                  height: 15,
+                  height: 1.58006*SizeConfig.heightMultiplier,
                 ),
-                approveTextEmployee(
-                    currentWidth, currentHeight, textScale, "All Leaves"),
+                approveTextEmployee("All Leaves"),
                 SizedBox(
-                  height: 30,
+                  height: 3.160113*SizeConfig.heightMultiplier,
                 ),
                 provider.isLoadingList
                     ? SpinKitCircle(
                         color: Colours.DARK_BLUE,
-                        size: 60,
+                        size:6.32022*SizeConfig.heightMultiplier,
                       )
                     : Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 18),
+                        padding: EdgeInsets.symmetric(horizontal: 4.01788*SizeConfig.widthMultiplier),
                         child: Column(
                           children: [
                             Row(
@@ -98,7 +94,7 @@ class _HrLeaveListState extends State<HrLeaveList> {
                               ],
                             ),
                             SizedBox(
-                              height: 15,
+                              height: 1.5800*SizeConfig.heightMultiplier,
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -125,20 +121,20 @@ class _HrLeaveListState extends State<HrLeaveList> {
                           ],
                         )),
                 SizedBox(
-                  height: 20,
+                  height: 2.106748*SizeConfig.heightMultiplier,
                 ),
                 approveTextEmployee(
-                    currentWidth, currentHeight, textScale, "Pending Leaves"),
+                     "Pending Leaves"),
                 SizedBox(
-                  height: 10,
+                  height: 1.053*SizeConfig.heightMultiplier,
                 ),
                 provider.isLoadingList
                     ? SpinKitCircle(
                         color: Colours.DARK_BLUE,
-                        size: 60,
+                        size: 6.3202468*SizeConfig.heightMultiplier,
                       )
                     : Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 18),
+                        padding: EdgeInsets.symmetric(horizontal: 4.0178*SizeConfig.widthMultiplier),
                         child: ListView.builder(
                             physics: NeverScrollableScrollPhysics(),
                             shrinkWrap: true,
@@ -158,15 +154,16 @@ class _HrLeaveListState extends State<HrLeaveList> {
                                             provider.Pending_List[index]
                                                 ["Leave_Reason"],
                                             provider.Pending_List[index]
-                                                ["Leave_Count"].toString());
+                                                    ["Leave_Count"]
+                                                .toString());
                                       });
                                 },
                                 child: Container(
-                                  margin: EdgeInsets.symmetric(vertical: 10),
-                                  height: 180,
+                                  margin: EdgeInsets.symmetric(vertical: 1.0533*SizeConfig.heightMultiplier),
+                                  height: 18.96074*SizeConfig.heightMultiplier,
                                   decoration: BoxDecoration(
                                     color: Colours.BUTTON_COLOR_2,
-                                    borderRadius: BorderRadius.circular(10),
+                                    borderRadius: BorderRadius.circular(1.053*SizeConfig.heightMultiplier),
                                     border: Border.all(
                                         color: Colours.BUTTON_COLOR_2,
                                         width: 3),
@@ -179,7 +176,7 @@ class _HrLeaveListState extends State<HrLeaveList> {
                                   ),
                                   child: Padding(
                                     padding: EdgeInsets.symmetric(
-                                        horizontal: 14, vertical: 18),
+                                        horizontal: 3.125*SizeConfig.widthMultiplier, vertical: 1.89607*SizeConfig.heightMultiplier),
                                     child: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
@@ -191,7 +188,7 @@ class _HrLeaveListState extends State<HrLeaveList> {
                                         provider.isLoadingApp
                                             ? SpinKitCircle(
                                                 color: Colors.red,
-                                                size: 24,
+                                                size: 2.52809*SizeConfig.heightMultiplier,
                                               )
                                             : Row(
                                                 mainAxisAlignment:
@@ -229,7 +226,7 @@ class _HrLeaveListState extends State<HrLeaveList> {
                             }),
                       ),
                 SizedBox(
-                  height: 25,
+                  height: 2.6334*SizeConfig.heightMultiplier,
                 )
               ],
             );

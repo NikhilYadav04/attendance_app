@@ -4,6 +4,7 @@ import 'package:attend_ease/helper/date_time_formatter.dart';
 import 'package:attend_ease/styling/colors.dart';
 import 'package:attend_ease/styling/scale.dart';
 import 'package:attend_ease/services/companyService.dart';
+import 'package:attend_ease/styling/sizeconfig.dart';
 import 'package:attend_ease/widgets/employee/employee_main_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -123,9 +124,6 @@ List<Widget> actionsHR(
 }
 
 Widget appBtitleHR(
-    double width,
-    double height,
-    double textScale,
     String? companyName,
     BuildContext context,
     void Function() fun1,
@@ -142,31 +140,31 @@ Widget appBtitleHR(
                 builder: (context) {
                   return AlertDialog(actions: [
                     Container(
-                        height: 280,
-                        width: 340,
+                        height: 29.494*SizeConfig.heightMultiplier,
+                        width: 75.892*SizeConfig.widthMultiplier,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(1)),
                         child: Column(
                           children: [
                             SizedBox(
-                              height: 20,
+                              height: 2.1067*SizeConfig.heightMultiplier,
                             ),
                             Text(
                               "Upload Your Profile Picture",
                               style: TextStyle(
                                   color: Colors.black,
                                   fontFamily: "Kumbh-Med",
-                                  fontSize: 24,
+                                  fontSize: 2.5280*SizeConfig.heightMultiplier,
                                   fontWeight: FontWeight.bold),
                             ),
                             SizedBox(
-                              height: 25,
+                              height: 2.6334*SizeConfig.heightMultiplier,
                             ),
                             Container(
-                              height: 180,
-                              width: 300,
+                              height: 18.9607*SizeConfig.heightMultiplier,
+                              width: 66.96428*SizeConfig.widthMultiplier,
                               decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(5),
+                                  borderRadius: BorderRadius.circular(0.5266*SizeConfig.heightMultiplier),
                                   border: Border.all(
                                       color: Colors.black,
                                       width: 2,
@@ -174,17 +172,17 @@ Widget appBtitleHR(
                               child: isProfile
                                   ? SpinKitCircle(
                                       color: Colours.DARK_BLUE,
-                                      size: 20,
+                                      size: 2.10674*SizeConfig.heightMultiplier,
                                     )
                                   : Padding(
                                       padding: EdgeInsets.symmetric(
-                                          horizontal: 15, vertical: 15),
+                                          horizontal: 3.3482*SizeConfig.widthMultiplier, vertical: 1.58006*SizeConfig.heightMultiplier),
                                       child: Column(
                                         children: [
                                           buttonPic("Pick From Gallery  ",
                                               Icons.photo, fun2),
                                           SizedBox(
-                                            height: 20,
+                                            height: 2.1067*SizeConfig.heightMultiplier,
                                           ),
                                           buttonPic("Click From Camera",
                                               Icons.camera_alt, fun1)
@@ -200,28 +198,28 @@ Widget appBtitleHR(
           child: isProfile
               ? SpinKitCircle(
                   color: Colours.DARK_BLUE,
-                  size: 20,
+                  size:  2.1067*SizeConfig.heightMultiplier,
                 )
               : profile == ""
                   ? Icon(
                       Icons.account_circle_sharp,
                       color: Colors.grey.shade800,
-                      size: responsiveContainerSize(32, width, height),
+                      size: 3.5814*SizeConfig.heightMultiplier,
                     )
                   : CircleAvatar(
-                      radius: 25,
+                      radius: 2.6334*SizeConfig.heightMultiplier,
                       backgroundImage: FileImage(File(profile.toString())),
                     ),
         ),
         SizedBox(
-          width: responsiveContainerSize(12, width, height),
+          width: 2.9017*SizeConfig.widthMultiplier,
         ),
         Text(
           "${companyName}",
           style: TextStyle(
               color: Colors.black,
               fontWeight: FontWeight.w500,
-              fontSize: responsiveFontSize(23, width, height, textScale)),
+              fontSize: 2.6334*SizeConfig.heightMultiplier),
         ),
       ],
     ),
@@ -229,9 +227,6 @@ Widget appBtitleHR(
 }
 
 Widget attendCountWidget(
-    double width,
-    double height,
-    double textScale,
     void Function() ontap,
     String inCount,
     String outCount,
@@ -239,9 +234,9 @@ Widget attendCountWidget(
     String Date,
     bool isSubmit) {
   return Container(
-    height: responsiveContainerSize(200, width, height),
+    height: 23.6475*SizeConfig.heightMultiplier,
     decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(6),
+      borderRadius: BorderRadius.circular(0.63202*SizeConfig.heightMultiplier),
       gradient: const LinearGradient(
         colors: [
           Colours.GRADIENT_1,
@@ -257,39 +252,36 @@ Widget attendCountWidget(
         children: [
           Container(
             padding: EdgeInsets.symmetric(
-                horizontal: 45 *
-                    horizontalPaddingFactor(
-                      width,
-                    ),
-                vertical: 10 * verticalPaddingFactor(height)),
+                horizontal: 10.49108*SizeConfig.widthMultiplier,
+                vertical: 1.15871*SizeConfig.heightMultiplier),
             child: Column(
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    rowCOntent(width, height, textScale, "In", inCount),
-                    rowCOntent(width, height, textScale, "Out", outCount),
-                    rowCOntentDate(width, height, textScale, "Date", Date)
+                    rowCOntent( "In", inCount),
+                    rowCOntent( "Out", outCount),
+                    rowCOntentDate( "Date", Date)
                   ],
                 ),
               ],
             ),
           ),
           SizedBox(
-            height: responsiveContainerSize(10, width, height),
+            height: 1.2640*SizeConfig.heightMultiplier
           ),
           Container(
             padding: EdgeInsets.symmetric(
-                horizontal: 15 * horizontalPaddingFactor(width)),
+                horizontal: 3.7946*SizeConfig.widthMultiplier),
             child: Divider(
               color: Colors.grey.shade300,
               height: 1,
             ),
           ),
           SizedBox(
-            height: responsiveContainerSize(10, width, height),
+            height: 1.053*SizeConfig.heightMultiplier,
           ),
-          rowContent2(width, height, textScale, ontap, Total, isSubmit),
+          rowContent2( ontap, Total, isSubmit),
         ],
       ),
     ),
@@ -297,7 +289,7 @@ Widget attendCountWidget(
 }
 
 Widget rowCOntent(
-    double width, double height, double textScale, String title, String Count) {
+   String title, String Count) {
   return Column(
     children: [
       Text(
@@ -305,23 +297,22 @@ Widget rowCOntent(
         style: TextStyle(
             color: Colors.white,
             fontFamily: "Tansek",
-            fontSize: responsiveFontSize(36, width, height, textScale)),
+            fontSize:4.10816*SizeConfig.heightMultiplier),
       ),
       SizedBox(
-        height: responsiveContainerSize(12, width, height),
+        height:1.2633*SizeConfig.heightMultiplier,
       ),
       Text(
         "$Count",
         style: GoogleFonts.aDLaMDisplay(
             color: Colors.white,
-            fontSize: responsiveFontSize(28, width, height, textScale)),
+            fontSize:3.3707*SizeConfig.heightMultiplier),
       )
     ],
   );
 }
 
-Widget rowCOntentDate(
-    double width, double height, double textScale, String title, String date) {
+Widget rowCOntentDate( String title, String date) {
   return Column(
     children: [
       Text(
@@ -329,26 +320,25 @@ Widget rowCOntentDate(
         style: TextStyle(
             color: Colors.white,
             fontFamily: "Tansek",
-            fontSize: responsiveFontSize(36, width, height, textScale)),
+            fontSize: 4.1081*SizeConfig.heightMultiplier),
       ),
       SizedBox(
-        height: responsiveContainerSize(12, width, height),
+        height: 1.3693*SizeConfig.heightMultiplier,
       ),
       Text(
         date,
         style: GoogleFonts.aDLaMDisplay(
             color: Colors.white,
-            fontSize: responsiveFontSize(28, width, height, textScale)),
+            fontSize: 3.26548*SizeConfig.heightMultiplier),
       )
     ],
   );
 }
 
-Widget rowContent2(double width, double height, double textScale,
-    void Function() ontap, String Total, bool isSubmit) {
+Widget rowContent2(void Function() ontap, String Total, bool isSubmit) {
   return Container(
     padding:
-        EdgeInsets.symmetric(horizontal: 18 * horizontalPaddingFactor(width)),
+        EdgeInsets.symmetric(horizontal: 4.24107*SizeConfig.widthMultiplier),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -357,7 +347,7 @@ Widget rowContent2(double width, double height, double textScale,
           style: TextStyle(
               color: Colors.white,
               fontFamily: "Tansek",
-              fontSize: responsiveContainerSize(30, width, height)),
+              fontSize: 3.47613*SizeConfig.heightMultiplier),
         ),
         GestureDetector(
           onTap: isSubmit ? () {} : ontap,
@@ -366,7 +356,7 @@ Widget rowContent2(double width, double height, double textScale,
             style: TextStyle(
                 color: Colors.white,
                 fontFamily: "Tansek",
-                fontSize: responsiveContainerSize(30, width, height)),
+                fontSize: 3.47613*SizeConfig.heightMultiplier),
           ),
         )
       ],
@@ -374,11 +364,10 @@ Widget rowContent2(double width, double height, double textScale,
   );
 }
 
-Widget floatButton(double width, double height, double textScale,
-    BuildContext context, IconData icon, void Function() onTap) {
+Widget floatButton( BuildContext context, IconData icon, void Function() onTap) {
   return Container(
-    height: responsiveContainerSize(60, width, height),
-    width: responsiveContainerSize(70, width, height),
+    height: 7.16294*SizeConfig.heightMultiplier,
+    width: 17.4107*SizeConfig.widthMultiplier,
     child: FloatingActionButton(
         shape: CircleBorder(),
         elevation: 2,
@@ -388,53 +377,52 @@ Widget floatButton(double width, double height, double textScale,
           child: Icon(
             icon,
             color: Colors.white,
-            size: 35,
+            size: 3.7*SizeConfig.heightMultiplier,
           ),
         )),
   );
 }
 
-Widget listWidget(
-    double width, double height, double textScale, BuildContext context) {
+Widget listWidget( BuildContext context) {
   return Column(
     children: [
       Container(
-        height: responsiveContainerSize(400, width, height),
+        height: 44.2417*SizeConfig.heightMultiplier,
         child: ListView.builder(
             itemCount: 4,
             itemBuilder: (context, index) {
               return Column(
                 children: [
                   SizedBox(
-                    height: responsiveContainerSize(10, width, height),
+                    height: 1.053*SizeConfig.heightMultiplier,
                   ),
                   ListTile(
                     leading: Image.asset(
                       images[index],
-                      height: responsiveContainerSize(32, width, height),
-                      width: responsiveContainerSize(32, width, height),
+                      height: 4.0028*SizeConfig.heightMultiplier,
+                      width: 8.4821*SizeConfig.widthMultiplier,
                     ),
                     trailing: Icon(
                       Icons.arrow_forward_ios,
-                      size: responsiveContainerSize(18, width, height),
+                      size: 2.1067*SizeConfig.heightMultiplier,
                     ),
                     title: Text(
                       title[index],
                       style: GoogleFonts.notoSansOldHungarian(
                           color: Colors.black,
                           fontSize:
-                              responsiveFontSize(18, width, height, textScale),
+                             2*SizeConfig.heightMultiplier,
                           fontWeight: FontWeight.bold),
                     ),
                     subtitle: Text(subtitle[index],
                         style: GoogleFonts.roboto(
                           color: Colors.black,
                           fontSize:
-                              responsiveFontSize(15, width, height, textScale),
+                              1.65*SizeConfig.heightMultiplier,
                         )),
                   ),
                   SizedBox(
-                    height: responsiveContainerSize(10, width, height),
+                    height: 1.26404*SizeConfig.heightMultiplier,
                   ),
                   Divider(
                     indent: 10,
@@ -451,20 +439,18 @@ Widget listWidget(
   );
 }
 
-Widget approveTextEmployee(
-    double width, double height, double textScale, String text) {
+Widget approveTextEmployee( String text) {
   return Center(
     child: Text(text,
         style: GoogleFonts.montserrat(
           color: Colors.grey.shade900,
           fontWeight: FontWeight.bold,
-          fontSize: responsiveFontSize(35, width, height, textScale),
+          fontSize: 4.00282*SizeConfig.heightMultiplier,
         )),
   );
 }
 
-Widget listApproval(double width, double height, double textScale,
-    BuildContext context, List<dynamic> staffList) {
+Widget listApproval(BuildContext context, List<dynamic> staffList) {
   return Column(
     children: [
       ListView.builder(
@@ -473,14 +459,14 @@ Widget listApproval(double width, double height, double textScale,
           itemCount: staffList.length,
           itemBuilder: (context, index) {
             return Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 12),
+              padding: EdgeInsets.symmetric(horizontal: 2.2321*SizeConfig.widthMultiplier, vertical: 1.2640*SizeConfig.heightMultiplier),
               child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 15, vertical: 13),
-                height: 140,
+                padding: EdgeInsets.symmetric(horizontal: 3.3482*SizeConfig.widthMultiplier, vertical: 1.3693*SizeConfig.heightMultiplier),
+                height:14.7472*SizeConfig.heightMultiplier,
                 width: double.infinity,
                 decoration: BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(1.053*SizeConfig.heightMultiplier),
                     boxShadow: [
                       BoxShadow(
                           color: Colors.grey.shade700,
@@ -496,11 +482,11 @@ Widget listApproval(double width, double height, double textScale,
                       style: GoogleFonts.montserrat(
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
-                        fontSize: 24,
+                        fontSize: 2.5280*SizeConfig.heightMultiplier,
                       ),
                     ),
                     SizedBox(
-                      height: 18,
+                      height: 1.8960*SizeConfig.heightMultiplier,
                     ),
                     Row(
                       children: [
@@ -508,22 +494,22 @@ Widget listApproval(double width, double height, double textScale,
                           children: [
                             boxIcon(Icons.group),
                             SizedBox(
-                              width: 10,
+                              width: 2.2321*SizeConfig.widthMultiplier,
                             ),
                             Text("Total Staff Present : ",
                                 style: GoogleFonts.montserrat(
                                   color: Colors.grey.shade800,
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 23,
+                                  fontSize: 2.42283*SizeConfig.heightMultiplier,
                                 )),
                             SizedBox(
-                              width: 10,
+                              width: 2.2321*SizeConfig.widthMultiplier,
                             ),
                             Text("${staffList[index]["totalCount"]}",
                                 style: GoogleFonts.montserrat(
                                   color: Colors.grey.shade800,
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 24,
+                                  fontSize:2.5280*SizeConfig.heightMultiplier,
                                 )),
                           ],
                         ),
@@ -538,13 +524,13 @@ Widget listApproval(double width, double height, double textScale,
   );
 }
 
-Widget staffText(double width, double height, double textScale, String text) {
+Widget staffText(String text) {
   return Center(
     child: Text(text,
         style: GoogleFonts.montserrat(
           color: Colors.grey.shade900,
           fontWeight: FontWeight.bold,
-          fontSize: responsiveFontSize(34, width, height, textScale),
+          fontSize: 3.89748*SizeConfig.heightMultiplier,
         )),
   );
 }

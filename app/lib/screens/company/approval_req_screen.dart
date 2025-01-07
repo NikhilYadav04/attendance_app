@@ -1,6 +1,6 @@
 import 'package:attend_ease/providers/attendance/company_attendance_provider.dart';
 import 'package:attend_ease/styling/colors.dart';
-import 'package:attend_ease/styling/scale.dart';
+import 'package:attend_ease/styling/sizeconfig.dart';
 import 'package:attend_ease/widgets/company/company_hr_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -26,10 +26,6 @@ class _ApprovalReqScreenState extends State<ApprovalReqScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final currentHeight = MediaQuery.of(context).size.height;
-    final currentWidth = MediaQuery.of(context).size.width;
-    // ignore: deprecated_member_use
-    final textScale = MediaQuery.of(context).textScaleFactor;
     return Scaffold(
       backgroundColor: Colours.BUTTON_COLOR_2,
       body: SingleChildScrollView(child: Consumer<CompanyAttendanceProvider>(
@@ -37,19 +33,16 @@ class _ApprovalReqScreenState extends State<ApprovalReqScreen> {
           return Column(
             children: [
               SizedBox(
-                height:
-                    responsiveContainerSize(15, currentWidth, currentHeight),
+                height: 1.7907 * SizeConfig.heightMultiplier,
               ),
-              approveTextEmployee(
-                  currentWidth, currentHeight, textScale, "Staff Count List"),
+              approveTextEmployee("Staff Count List"),
               SizedBox(
-                height:
-                    responsiveContainerSize(15, currentWidth, currentHeight),
+                height: 1.7907 * SizeConfig.heightMultiplier,
               ),
               provider.isLoadingCountList
                   ? SpinKitFadingCircle(
                       color: Colours.DARK_BLUE,
-                      size: 85,
+                      size: 8.95368 * SizeConfig.heightMultiplier,
                     )
                   : provider.attendaneCountList.isEmpty
                       ? Center(
@@ -58,11 +51,10 @@ class _ApprovalReqScreenState extends State<ApprovalReqScreen> {
                             style: TextStyle(
                                 color: Colours.DARK_BLUE,
                                 fontFamily: "Tansek",
-                                fontSize: 52),
+                                fontSize: 5.4775 * SizeConfig.heightMultiplier),
                           ),
                         )
-                      : listApproval(currentWidth, currentHeight, textScale,
-                          context, provider.attendaneCountList)
+                      : listApproval(context, provider.attendaneCountList)
             ],
           );
         },

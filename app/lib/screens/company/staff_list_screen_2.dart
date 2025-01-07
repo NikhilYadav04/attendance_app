@@ -1,7 +1,7 @@
 import 'package:attend_ease/helper/percentage_formatter.dart';
 import 'package:attend_ease/providers/attendance/company_attendance_provider.dart';
 import 'package:attend_ease/styling/colors.dart';
-import 'package:attend_ease/styling/scale.dart';
+import 'package:attend_ease/styling/sizeconfig.dart';
 import 'package:attend_ease/widgets/company/company_hr_widgets.dart';
 import 'package:attend_ease/widgets/employee/employee_main_widgets.dart';
 import 'package:flutter/material.dart';
@@ -31,10 +31,6 @@ class _StaffListScreen2State extends State<StaffListScreen2> {
 
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
-    final width = MediaQuery.of(context).size.width;
-    // ignore: deprecated_member_use
-    final textScale = MediaQuery.of(context).textScaleFactor;
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colours.BUTTON_COLOR_2,
@@ -43,39 +39,40 @@ class _StaffListScreen2State extends State<StaffListScreen2> {
             builder: (context, provider, _) {
               return Container(
                 padding: EdgeInsets.symmetric(
-                    horizontal: 3 * horizontalPaddingFactor(height)),
+                    horizontal: 0.6696 * SizeConfig.widthMultiplier),
                 child: Column(
                   children: [
                     SizedBox(
-                      height: responsiveContainerSize(20, width, height),
+                      height: 2.31742 * SizeConfig.heightMultiplier,
                     ),
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 12),
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 2.6785 * SizeConfig.widthMultiplier),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          staffText(width, height, textScale, "Employee Report"),
+                          staffText("Employee Report"),
                           GestureDetector(
                             onTap: () {
                               Navigator.of(context).pop();
                             },
                             child: Icon(
                               Icons.logout,
-                              size: 36,
+                              size: 3.7921 * SizeConfig.heightMultiplier,
                             ),
                           )
                         ],
                       ),
                     ),
                     SizedBox(
-                      height: responsiveContainerSize(20, width, height),
+                      height: 2.317428 * SizeConfig.heightMultiplier,
                     ),
                     // staffReport(
                     //     currentWidth, currentHeight, textScale, context,reportStaff)
                     provider.isLoadingID
                         ? SpinKitFadingCircle(
                             color: Colours.DARK_BLUE,
-                            size: 85,
+                            size: 8.9536 * SizeConfig.heightMultiplier,
                           )
                         : Column(
                             children: [
@@ -87,16 +84,25 @@ class _StaffListScreen2State extends State<StaffListScreen2> {
                                   itemBuilder: (context, index) {
                                     return Padding(
                                       padding: EdgeInsets.symmetric(
-                                          horizontal: 10, vertical: 12),
+                                          horizontal: 2.2321 *
+                                              SizeConfig.widthMultiplier,
+                                          vertical: 1.26408 *
+                                              SizeConfig.heightMultiplier),
                                       child: Container(
                                         padding: EdgeInsets.symmetric(
-                                            horizontal: 15, vertical: 13),
-                                        height: 140,
+                                            horizontal: 3.3482 *
+                                                SizeConfig.widthMultiplier,
+                                            vertical: 1.36938 *
+                                                SizeConfig.heightMultiplier),
+                                        height: 14.7472 *
+                                            SizeConfig.heightMultiplier,
                                         width: double.infinity,
                                         decoration: BoxDecoration(
                                             color: Colors.white,
-                                            borderRadius:
-                                                BorderRadius.circular(10),
+                                            borderRadius: BorderRadius.circular(
+                                                1.053 *
+                                                    SizeConfig
+                                                        .heightMultiplier),
                                             boxShadow: [
                                               BoxShadow(
                                                   color: Colors.grey.shade700,
@@ -112,11 +118,13 @@ class _StaffListScreen2State extends State<StaffListScreen2> {
                                               style: GoogleFonts.montserrat(
                                                 color: Colors.black,
                                                 fontWeight: FontWeight.bold,
-                                                fontSize: 24,
+                                                fontSize: 2.5280 *
+                                                    SizeConfig.heightMultiplier,
                                               ),
                                             ),
                                             SizedBox(
-                                              height: 18,
+                                              height: 1.8960 *
+                                                  SizeConfig.heightMultiplier,
                                             ),
                                             Row(
                                               children: [
@@ -124,7 +132,9 @@ class _StaffListScreen2State extends State<StaffListScreen2> {
                                                   children: [
                                                     boxIcon(Icons.percent),
                                                     SizedBox(
-                                                      width: 10,
+                                                      width: 2.2321 *
+                                                          SizeConfig
+                                                              .widthMultiplier,
                                                     ),
                                                     Text("Percentage : ",
                                                         style: GoogleFonts
@@ -133,19 +143,35 @@ class _StaffListScreen2State extends State<StaffListScreen2> {
                                                               .grey.shade800,
                                                           fontWeight:
                                                               FontWeight.bold,
-                                                          fontSize: 23,
+                                                          fontSize: 2.42276 *
+                                                              SizeConfig
+                                                                  .heightMultiplier,
                                                         )),
                                                     SizedBox(
-                                                      width: 10,
+                                                      width: 2.2321 *
+                                                          SizeConfig
+                                                              .widthMultiplier,
                                                     ),
                                                     Text(
                                                         "${PercentageFormatter.calculateDayPercentage(provider.attendanceEmployeeList[index]["Month"], provider.attendanceEmployeeList[index]["daysPresent"]).floorToDouble()} %",
                                                         style: GoogleFonts
                                                             .montserrat(
-                                                          color: PercentageFormatter.calculateDayPercentage(provider.attendanceEmployeeList[index]["Month"], provider.attendanceEmployeeList[index]["daysPresent"]).floorToDouble() > 75.0 ?  Colors.green : Colors.red,
+                                                          color: PercentageFormatter.calculateDayPercentage(
+                                                                          provider.attendanceEmployeeList[index]
+                                                                              [
+                                                                              "Month"],
+                                                                          provider.attendanceEmployeeList[index]
+                                                                              [
+                                                                              "daysPresent"])
+                                                                      .floorToDouble() >
+                                                                  75.0
+                                                              ? Colors.green
+                                                              : Colors.red,
                                                           fontWeight:
                                                               FontWeight.bold,
-                                                          fontSize: 23,
+                                                          fontSize: 2.422768 *
+                                                              SizeConfig
+                                                                  .heightMultiplier,
                                                         )),
                                                   ],
                                                 ),

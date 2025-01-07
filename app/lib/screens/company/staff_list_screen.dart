@@ -1,7 +1,7 @@
 import 'package:attend_ease/providers/attendance/company_attendance_provider.dart';
 import 'package:attend_ease/screens/company/staff_list_screen_2.dart';
 import 'package:attend_ease/styling/colors.dart';
-import 'package:attend_ease/styling/scale.dart';
+import 'package:attend_ease/styling/sizeconfig.dart';
 import 'package:attend_ease/widgets/company/company_hr_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -29,10 +29,7 @@ class _StaffListScreenState extends State<StaffListScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
-    final width = MediaQuery.of(context).size.width;
-    // ignore: deprecated_member_use
-    final textScale = MediaQuery.of(context).textScaleFactor;
+    ;
     return Scaffold(
       backgroundColor: Colours.BUTTON_COLOR_2,
       body: SingleChildScrollView(child: Consumer<CompanyAttendanceProvider>(
@@ -40,22 +37,22 @@ class _StaffListScreenState extends State<StaffListScreen> {
           return Container(
             color: Colours.BUTTON_COLOR_2,
             padding: EdgeInsets.symmetric(
-                horizontal: 3 * horizontalPaddingFactor(height)),
+                horizontal: 0.6696 * SizeConfig.widthMultiplier),
             child: Column(
               children: [
                 SizedBox(
-                  height: responsiveContainerSize(15, width, height),
+                  height: 1.7907 * SizeConfig.heightMultiplier,
                 ),
-                staffText(width, height, textScale, "Staff Report"),
+                staffText("Staff Report"),
                 SizedBox(
-                  height: responsiveContainerSize(25, width, height),
+                  height: 2.8441 * SizeConfig.heightMultiplier,
                 ),
                 // staffReport(
                 //     currentWidth, currentHeight, textScale, context,reportStaff)
                 provider.isLoadingID
                     ? SpinKitFadingCircle(
                         color: Colours.DARK_BLUE,
-                        size: 85,
+                        size: 8.9536 * SizeConfig.heightMultiplier,
                       )
                     : ListView.builder(
                         shrinkWrap: true,
@@ -63,11 +60,14 @@ class _StaffListScreenState extends State<StaffListScreen> {
                         itemCount: provider.attendanceIDList.length,
                         itemBuilder: (context, index) {
                           return Container(
-                            margin: EdgeInsets.symmetric(horizontal: 8),
-                            height: 100,
+                            margin: EdgeInsets.symmetric(
+                                horizontal:
+                                    0.8928 * SizeConfig.widthMultiplier),
+                            height: 10.5337 * SizeConfig.heightMultiplier,
                             decoration: BoxDecoration(
                                 color: Colors.white,
-                                borderRadius: BorderRadius.circular(10),
+                                borderRadius: BorderRadius.circular(
+                                    1.053 * SizeConfig.heightMultiplier),
                                 boxShadow: [
                                   BoxShadow(
                                       color: Colors.grey.shade700,
@@ -78,10 +78,12 @@ class _StaffListScreenState extends State<StaffListScreen> {
                               child: ListTile(
                                 leading: CircleAvatar(
                                     backgroundColor: Colours.BUTTON_COLOR_1,
-                                    radius: 30,
+                                    radius:
+                                        3.16012 * SizeConfig.heightMultiplier,
                                     child: Icon(
                                       Icons.person,
-                                      size: 32,
+                                      size:
+                                          3.3707 * SizeConfig.heightMultiplier,
                                       color: Colors.white,
                                     )),
                                 title: Text(
@@ -90,7 +92,8 @@ class _StaffListScreenState extends State<StaffListScreen> {
                                   style: GoogleFonts.montserrat(
                                     color: Colors.black,
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 23.5,
+                                    fontSize:
+                                        2.47543 * SizeConfig.heightMultiplier,
                                   ),
                                 ),
                                 subtitle: Text(
@@ -99,7 +102,8 @@ class _StaffListScreenState extends State<StaffListScreen> {
                                   style: GoogleFonts.montserrat(
                                     color: Colors.grey.shade700,
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 21,
+                                    fontSize:
+                                        2.21208 * SizeConfig.heightMultiplier,
                                   ),
                                 ),
                                 trailing: GestureDetector(
@@ -116,7 +120,7 @@ class _StaffListScreenState extends State<StaffListScreen> {
                                   },
                                   child: Icon(
                                     Icons.login,
-                                    size: 42,
+                                    size: 4.42417 * SizeConfig.heightMultiplier,
                                     color: Colors.black,
                                   ),
                                 ),

@@ -22,10 +22,6 @@ class DetailListScreen extends StatefulWidget {
 class _DetailListScreenState extends State<DetailListScreen> {
   @override
   Widget build(BuildContext context) {
-    final currentHeight = MediaQuery.of(context).size.height;
-    final currentWidth = MediaQuery.of(context).size.width;
-    // ignore: deprecated_member_use
-    final textScale = MediaQuery.of(context).textScaleFactor;
     return SafeArea(
         child: Scaffold(
       backgroundColor: Colors.grey.shade100,
@@ -51,8 +47,7 @@ class _DetailListScreenState extends State<DetailListScreen> {
                     child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          approveTextEmployee(currentWidth, currentHeight,
-                              textScale, "${widget.title} Leaves"),
+                          approveTextEmployee( "${widget.title} Leaves"),
                           IconButton(
                               onPressed: () {
                                 Navigator.of(context).pop();

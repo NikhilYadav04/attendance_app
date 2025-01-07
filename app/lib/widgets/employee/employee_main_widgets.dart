@@ -4,6 +4,7 @@ import 'package:attend_ease/helper/date_time_formatter.dart';
 import 'package:attend_ease/styling/colors.dart';
 import 'package:attend_ease/styling/scale.dart';
 import 'package:attend_ease/screens/auth/otp_auth_screen.dart';
+import 'package:attend_ease/styling/sizeconfig.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -28,9 +29,6 @@ List subtitleEmployee = [
 ];
 
 Widget appBartitle(
-    double width,
-    double height,
-    double textScale,
     String? employeeName,
     BuildContext context,
     void Function() fun1,
@@ -46,31 +44,31 @@ Widget appBartitle(
                 builder: (context) {
                   return AlertDialog(actions: [
                     Container(
-                        height: 280,
-                        width: 340,
+                        height: 29.4944*SizeConfig.heightMultiplier,
+                        width: 75.8928*SizeConfig.widthMultiplier,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(1)),
                         child: Column(
                           children: [
                             SizedBox(
-                              height: 20,
+                              height: 2.10678*SizeConfig.heightMultiplier,
                             ),
                             Text(
                               "Upload Your Profile Picture",
                               style: TextStyle(
                                   color: Colors.black,
                                   fontFamily: "Kumbh-Med",
-                                  fontSize: 24,
+                                  fontSize: 2.528098*SizeConfig.heightMultiplier,
                                   fontWeight: FontWeight.bold),
                             ),
                             SizedBox(
-                              height: 25,
+                              height: 2.63343*SizeConfig.heightMultiplier,
                             ),
                             Container(
-                              height: 180,
-                              width: 300,
+                              height:18.96078*SizeConfig.heightMultiplier,
+                              width: 66.9642*SizeConfig.widthMultiplier,
                               decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(5),
+                                  borderRadius: BorderRadius.circular(0.52668*SizeConfig.heightMultiplier),
                                   border: Border.all(
                                       color: Colors.black,
                                       width: 2,
@@ -78,17 +76,17 @@ Widget appBartitle(
                               child: isProfile
                                   ? SpinKitCircle(
                                       color: Colours.DARK_BLUE,
-                                      size: 20,
+                                      size: 2.10674*SizeConfig.heightMultiplier,
                                     )
                                   : Padding(
                                       padding: EdgeInsets.symmetric(
-                                          horizontal: 15, vertical: 15),
+                                          horizontal: 3.34821*SizeConfig.widthMultiplier, vertical: 1.58006*SizeConfig.heightMultiplier),
                                       child: Column(
                                         children: [
                                           buttonPic("Pick From Gallery  ",
                                               Icons.photo, fun2),
                                           SizedBox(
-                                            height: 20,
+                                            height: 2.10674*SizeConfig.heightMultiplier,
                                           ),
                                           buttonPic("Click From Camera",
                                               Icons.camera_alt, fun1)
@@ -104,27 +102,27 @@ Widget appBartitle(
           child: isProfile
               ? SpinKitCircle(
                   color: Colours.DARK_BLUE,
-                  size: 20,
+                  size: 2.10674*SizeConfig.heightMultiplier,
                 )
               : profile == ""
                   ? Icon(
                       Icons.account_circle_sharp,
                       color: Colors.grey.shade800,
-                      size: responsiveContainerSize(32, width, height),
+                      size: 3.581473*SizeConfig.heightMultiplier,
                     )
                   : CircleAvatar(
-                      radius: 25,
+                      radius: 2.63343*SizeConfig.heightMultiplier,
                       backgroundImage: FileImage(File(profile.toString())),
                     )),
       SizedBox(
-        width: responsiveContainerSize(12, width, height),
+        width: 2.67857*SizeConfig.widthMultiplier,
       ),
       Text(
         "${employeeName}",
         style: TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.w500,
-            fontSize: responsiveFontSize(23, width, height, textScale)),
+            fontSize: 2.6334*SizeConfig.heightMultiplier),
       ),
     ],
   );
@@ -829,13 +827,13 @@ Widget buttonPic(String title, IconData icon, void Function() onTap) {
   return GestureDetector(
     onTap: onTap,
     child: Container(
-      height: 60,
-      width: 260,
+      height: 13.3928*SizeConfig.heightMultiplier,
+      width: 58.035*SizeConfig.widthMultiplier,
       decoration: BoxDecoration(
           color: Colours.BUTTON_COLOR_1,
-          borderRadius: BorderRadius.circular(6)),
+          borderRadius: BorderRadius.circular(0.6320*SizeConfig.heightMultiplier)),
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 14),
+        padding: EdgeInsets.symmetric(horizontal: 3.125*SizeConfig.widthMultiplier),
         child: Row(
           children: [
             Text(
@@ -843,16 +841,16 @@ Widget buttonPic(String title, IconData icon, void Function() onTap) {
               style: TextStyle(
                   color: Colors.white,
                   fontFamily: "Kumbh-Med",
-                  fontSize: 20,
+                  fontSize: 2.1067*SizeConfig.heightMultiplier,
                   fontWeight: FontWeight.bold),
             ),
             SizedBox(
-              width: 10,
+              width: 2.2321*SizeConfig.widthMultiplier,
             ),
             Icon(
               icon,
               color: Colors.white,
-              size: 30,
+              size: 3.1601*SizeConfig.heightMultiplier,
             )
           ],
         ),

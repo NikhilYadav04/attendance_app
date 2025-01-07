@@ -38,10 +38,7 @@ class _EmployeeLeaveListState extends State<EmployeeLeaveList> {
 
   @override
   Widget build(BuildContext context) {
-    final currentHeight = MediaQuery.of(context).size.height;
-    final currentWidth = MediaQuery.of(context).size.width;
-    // ignore: deprecated_member_use
-    final textScale = MediaQuery.of(context).textScaleFactor;
+
     return Scaffold(
       backgroundColor: Colors.grey.shade100,
       body: SingleChildScrollView(
@@ -52,7 +49,7 @@ class _EmployeeLeaveListState extends State<EmployeeLeaveList> {
                 SizedBox(
                   height: 15,
                 ),
-                approveTextEmployee(currentWidth, currentHeight, textScale, "Your Leaves"),
+                approveTextEmployee("Your Leaves"),
                 SizedBox(
                   height: 30,
                 ),

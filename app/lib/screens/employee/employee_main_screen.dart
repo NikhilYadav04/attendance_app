@@ -1,12 +1,11 @@
-
 import 'package:attend_ease/helper/helper_functions.dart';
 import 'package:attend_ease/providers/employee/employee_main_screen_provider.dart';
 import 'package:attend_ease/screens/leave/employee_leave_list.dart';
 import 'package:attend_ease/styling/colors.dart';
-import 'package:attend_ease/styling/scale.dart';
 import 'package:attend_ease/screens/employee/employee_main_screen_1.dart';
 import 'package:attend_ease/screens/employee/employee_main_screen_2.dart';
 import 'package:attend_ease/screens/employee/employee_main_screen_3.dart';
+import 'package:attend_ease/styling/sizeconfig.dart';
 import 'package:attend_ease/widgets/employee/employee_main_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -37,7 +36,7 @@ class _EmployeeMainScreenState extends State<EmployeeMainScreen>
     super.initState();
     tabController = TabController(length: 4, vsync: this);
     _setName();
-     WidgetsBinding.instance.addPostFrameCallback((_) async{
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
       final provider = context.read<EmployeeMainScreenProvider>();
       provider.profile_url = await HelperFunctions.getProfilePhoto() ?? "";
     });
@@ -61,25 +60,23 @@ class _EmployeeMainScreenState extends State<EmployeeMainScreen>
       child: SafeArea(
         child: Scaffold(
           appBar: PreferredSize(
-            preferredSize: Size.fromHeight(
-                responsiveContainerSize(75, currentWidth, currentHeight)),
+            preferredSize:
+                Size.fromHeight(8.42699 * SizeConfig.heightMultiplier),
             child: Consumer<EmployeeMainScreenProvider>(
               builder: (context, provider, _) {
                 return AppBar(
                   elevation: 0,
-                  toolbarHeight:
-                      responsiveContainerSize(75, currentWidth, currentHeight),
-                  title: appBartitle(currentWidth, currentHeight, textScale,
-                      employeeName, context,(){
-                        provider.uploadImageCameraLocalStorage(context);
-                      },(){
-                        provider.uploadImageGalleryLocalStorage(context);
-                      },provider.isProfile,provider.profile_url),
+                  toolbarHeight: 8.42699 * SizeConfig.heightMultiplier,
+                  title: appBartitle(employeeName, context, () {
+                    provider.uploadImageCameraLocalStorage(context);
+                  }, () {
+                    provider.uploadImageGalleryLocalStorage(context);
+                  }, provider.isProfile, provider.profile_url),
                   actions: [
                     provider.isLoading
                         ? SpinKitSquareCircle(
                             color: Colors.black,
-                            size: 30,
+                            size: 3.1601 * SizeConfig.heightMultiplier,
                           )
                         : IconButton(
                             onPressed: () {
@@ -87,8 +84,7 @@ class _EmployeeMainScreenState extends State<EmployeeMainScreen>
                             },
                             icon: Icon(
                               Icons.exit_to_app,
-                              size: responsiveContainerSize(
-                                  32, currentWidth, currentHeight),
+                              size: 3.6* SizeConfig.heightMultiplier,
                             ),
                           ),
                   ],
@@ -99,8 +95,8 @@ class _EmployeeMainScreenState extends State<EmployeeMainScreen>
           body: Column(
             children: [
               TabBar(
-                padding: EdgeInsets.only(
-                    top: 4 * verticalPaddingFactor(currentHeight)),
+                padding:
+                    EdgeInsets.only(top: 0.42134 * SizeConfig.heightMultiplier),
                 indicatorColor: Colours.DARK_BLUE,
                 indicatorWeight: 1,
                 controller: tabController,
@@ -108,32 +104,28 @@ class _EmployeeMainScreenState extends State<EmployeeMainScreen>
                   Tab(
                     icon: Icon(
                       Icons.home,
-                      size: responsiveContainerSize(
-                          34, currentWidth, currentHeight),
+                      size: 3.8974 * SizeConfig.heightMultiplier,
                       color: Colours.DARK_BLUE,
                     ),
                   ),
                   Tab(
                     icon: Icon(
                       Icons.person,
-                      size: responsiveContainerSize(
-                          34, currentWidth, currentHeight),
+                      size: 3.8974 * SizeConfig.heightMultiplier,
                       color: Colours.DARK_BLUE,
                     ),
                   ),
                   Tab(
                     icon: Icon(
                       Icons.list_alt,
-                      size: responsiveContainerSize(
-                          34, currentWidth, currentHeight),
+                      size: 3.8974 * SizeConfig.heightMultiplier,
                       color: Colours.DARK_BLUE,
                     ),
                   ),
                   Tab(
                     icon: Icon(
                       Icons.event_available,
-                      size: responsiveContainerSize(
-                          34, currentWidth, currentHeight),
+                      size: 3.8974 * SizeConfig.heightMultiplier,
                       color: Colours.DARK_BLUE,
                     ),
                   ),

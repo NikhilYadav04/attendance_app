@@ -49,12 +49,12 @@ class _EmployeeMainScreen1State extends State<EmployeeMainScreen1> {
         builder: (context, provider, _) {
           return Container(
             padding: EdgeInsets.symmetric(
-                horizontal: 5 * horizontalPaddingFactor(currentWidth)),
+                horizontal: 5 ),
             child: Column(
               children: [
                 SizedBox(
                   height:
-                      responsiveContainerSize(15, currentWidth, currentHeight),
+                      17,
                 ),
                 provider.isLoading
                     ? SpinKitRotatingCircle(
