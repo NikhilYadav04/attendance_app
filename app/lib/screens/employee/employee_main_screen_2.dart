@@ -1,7 +1,7 @@
 import 'package:attend_ease/providers/attendance/employee_attendance_provider.dart';
 import 'package:attend_ease/styling/colors.dart';
-import 'package:attend_ease/styling/scale.dart';
 import 'package:attend_ease/screens/auth/biom_auth.dart';
+import 'package:attend_ease/styling/sizeconfig.dart';
 import 'package:attend_ease/widgets/company/company_setup_screen_widgets.dart';
 import 'package:attend_ease/widgets/employee/employee_main_widgets.dart';
 import 'package:flutter/material.dart';
@@ -12,15 +12,8 @@ import 'package:provider/provider.dart';
 
 // ignore: must_be_immutable
 class EmployeeMainScreen2 extends StatefulWidget {
-  double width;
-  double height;
-  double textScaleFactor;
-
   EmployeeMainScreen2({
     Key? key,
-    required this.width,
-    required this.height,
-    required this.textScaleFactor,
   }) : super(key: key);
 
   @override
@@ -54,16 +47,11 @@ class _EmployeeMainScreen2State extends State<EmployeeMainScreen2> {
           return Column(
             children: [
               SizedBox(
-                height: responsiveContainerSize(0, widget.width, widget.height),
+                height: 0,
               ),
 
               //* To Display Date And Status
-              upperBar(
-                  widget.width,
-                  widget.height,
-                  widget.textScaleFactor,
-                  context,
-                  currentDate,
+              upperBar(context, currentDate,
                   provider.isPresent ? "Present" : "Absent"),
 
               //* Biometric Authenticate
@@ -74,9 +62,6 @@ class _EmployeeMainScreen2State extends State<EmployeeMainScreen2> {
                       PageTransition(
                           child: BiomAuth(), type: PageTransitionType.fade));
                 },
-                widget.width,
-                widget.height,
-                widget.textScaleFactor,
                 context,
                 provider.isBiometric,
                 Text(
@@ -84,7 +69,7 @@ class _EmployeeMainScreen2State extends State<EmployeeMainScreen2> {
                       ? "Your Biometric ID Is Verified"
                       : "Click Here For Biometric Authentication",
                   style: TextStyle(
-                      fontSize: 21.5,
+                      fontSize: 2.2647 * SizeConfig.heightMultiplier,
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
                       fontFamily: "Kumbh-Med"),
@@ -93,45 +78,36 @@ class _EmployeeMainScreen2State extends State<EmployeeMainScreen2> {
 
               //* Attendance Buttons And Location Verification Widget
               provider.isPresent
-                  ? attendCompleteText(
-                      widget.width, widget.height, widget.textScaleFactor)
+                  ? attendCompleteText()
                   : provider.inRadius
                       ? provider.isLoading
                           ? SpinKitCircle(
                               color: Colours.BUTTON_COLOR_2,
-                              size: 35,
+                              size: 3.686 * SizeConfig.heightMultiplier,
                             )
                           : Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                attendButtonIn(() {
-                                  provider.submitAttendanceIn(
-                                      context, currentDate, month, Year);
-                                }, widget.width, widget.height,
-                                    widget.textScaleFactor),
-                                attendButtonOut(() {
-                                  provider.submitAttendanceOut(
-                                      context, currentDate, month, Year);
-                                }, widget.width, widget.height,
-                                    widget.textScaleFactor),
+                                attendButtonIn(
+                                  () {
+                                    provider.submitAttendanceIn(
+                                        context, currentDate, month, Year);
+                                  },
+                                ),
+                                attendButtonOut(
+                                  () {
+                                    provider.submitAttendanceOut(
+                                        context, currentDate, month, Year);
+                                  },
+                                ),
                               ],
                             )
-                      : LoadingAnimationWidget(
-                          widget.width, widget.height, widget.textScaleFactor),
+                      : LoadingAnimationWidget(),
               provider.isPresent
-                  ? locationWidget(widget.width, widget.height,
-                      widget.textScaleFactor, "See You The Next Day....")
+                  ? locationWidget("See You The Next Day....")
                   : provider.inRadius
-                      ? locationWidget(
-                          widget.width,
-                          widget.height,
-                          widget.textScaleFactor,
-                          "Your Location is Verified...")
-                      : locationWidget(
-                          widget.width,
-                          widget.height,
-                          widget.textScaleFactor,
-                          "Verifying Your Location Radius..."),
+                      ? locationWidget("Your Location is Verified...")
+                      : locationWidget("Verifying Your Location Radius..."),
             ],
           );
         },

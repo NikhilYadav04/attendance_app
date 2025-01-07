@@ -1,5 +1,4 @@
 import 'package:attend_ease/styling/colors.dart';
-import 'package:attend_ease/styling/scale.dart';
 import 'package:attend_ease/styling/sizeconfig.dart';
 import 'package:flutter/material.dart';
 
@@ -95,49 +94,6 @@ Widget textFieldEmployee(String label, String title,TextEditingController textCO
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(0.4213*SizeConfig.heightMultiplier),
-              borderSide: const BorderSide(color: Colours.BUTTON_COLOR_1),
-            ),
-          ),
-        );
-      })
-    ],
-  );
-}
-
-Widget textPhoneFieldEmployee(double currentWidth, double currentHeight, double textScale,
-    String label, String title,TextEditingController textCOntroller) {
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Text(
-        title,
-        style: TextStyle(
-          color: Colors.grey.shade700,
-          fontSize:
-              responsiveFontSize(16, currentWidth, currentHeight, textScale),
-        ),
-      ),
-      SizedBox(
-        height: responsiveContainerSize(10, currentWidth, currentHeight),
-      ),
-      FormField(builder: (context) {
-        return TextField(
-          keyboardType: TextInputType.phone,
-          controller: textCOntroller,
-          decoration: InputDecoration(
-            label: Text(
-              label,
-              style: TextStyle(
-                  color: Colors.grey.shade500,
-                  fontSize:
-                      responsiveContainerSize(17, currentWidth, currentHeight)),
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(4),
-              borderSide: BorderSide(color: Colors.grey.shade500),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(4),
               borderSide: const BorderSide(color: Colours.BUTTON_COLOR_1),
             ),
           ),

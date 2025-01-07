@@ -2,10 +2,9 @@
 import 'package:attend_ease/providers/attendance/employee_attendance_provider.dart';
 import 'package:attend_ease/styling/colors.dart';
 import 'package:attend_ease/services/employeeService.dart';
+import 'package:attend_ease/styling/sizeconfig.dart';
 import 'package:attend_ease/widgets/employee/employee_main_widgets.dart';
 import 'package:flutter/material.dart';
-
-import 'package:attend_ease/styling/scale.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -82,7 +81,7 @@ class _EmployeeMainScreen3State extends State<EmployeeMainScreen3> {
                   ? Center(
                       child: SpinKitFadingCircle(
                         color: Colours.DARK_BLUE,
-                        size: 80,
+                        size: 8.42699 * SizeConfig.heightMultiplier,
                       ),
                     )
                   : provider.attendanceRecords.isEmpty
@@ -92,13 +91,11 @@ class _EmployeeMainScreen3State extends State<EmployeeMainScreen3> {
                       : Container(
                           color: Colours.BUTTON_COLOR_2,
                           padding: EdgeInsets.symmetric(
-                              horizontal:
-                                  3 * horizontalPaddingFactor(widget.height)),
+                              horizontal: 1.11607 * SizeConfig.widthMultiplier),
                           child: Column(
                             children: [
                               SizedBox(
-                                height: responsiveContainerSize(
-                                    18, widget.width, widget.height),
+                                height: 2.1067 * SizeConfig.heightMultiplier,
                               ),
                               // Heading widget
                               ExpansionTile(
@@ -113,19 +110,12 @@ class _EmployeeMainScreen3State extends State<EmployeeMainScreen3> {
                                           shadows: [
                                             Shadow(
                                                 color: Colors.yellow,
-                                                blurRadius:
-                                                    responsiveBorderRadius(
-                                                        2,
-                                                        widget.width,
-                                                        widget.height)),
+                                                blurRadius: 2),
                                           ],
                                           color: Colors.black,
                                           fontWeight: FontWeight.bold,
-                                          fontSize: responsiveFontSize(
-                                              30,
-                                              widget.width,
-                                              widget.height,
-                                              widget.textScaleFactor),
+                                          fontSize: 3.3707 *
+                                              SizeConfig.heightMultiplier,
                                         ),
                                       ),
                                     ],
@@ -135,8 +125,10 @@ class _EmployeeMainScreen3State extends State<EmployeeMainScreen3> {
                                   Container(
                                     color: Colors.white,
                                     child: TableCalendar(
-                                      rowHeight: 50,
-                                      daysOfWeekHeight: 40,
+                                      rowHeight:
+                                          5.2668 * SizeConfig.heightMultiplier,
+                                      daysOfWeekHeight:
+                                          4.21349 * SizeConfig.heightMultiplier,
                                       firstDay: DateTime.utc(2024, 1, 1),
                                       lastDay: DateTime.utc(2025, 12, 1),
                                       focusedDay: _focusedDay,
@@ -202,13 +194,9 @@ class _EmployeeMainScreen3State extends State<EmployeeMainScreen3> {
                                 ],
                               ),
                               SizedBox(
-                                height: responsiveContainerSize(
-                                    12, widget.width, widget.height),
+                                height: 1.4747 * SizeConfig.heightMultiplier,
                               ),
                               attendanceReport(
-                                widget.width,
-                                widget.height,
-                                widget.textScaleFactor,
                                 context,
                                 provider.attendanceRecords,
                               ),

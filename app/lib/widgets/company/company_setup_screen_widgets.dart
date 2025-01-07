@@ -1,5 +1,4 @@
 import 'package:attend_ease/styling/colors.dart';
-import 'package:attend_ease/styling/scale.dart';
 import 'package:attend_ease/styling/sizeconfig.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -202,23 +201,23 @@ Widget companyLoginButton(void Function() onTap, BuildContext context) {
   );
 }
 
-Widget LoadingAnimationWidget(double width,double height,double textScale) {
+Widget LoadingAnimationWidget() {
   return Container(
     padding:
-        EdgeInsets.symmetric(horizontal: 18 * horizontalPaddingFactor(width)),
-    height: responsiveContainerSize(90, width, height),
+        EdgeInsets.symmetric(horizontal: 18 ),
+    height: 10.0070*SizeConfig.heightMultiplier,
     color: Colors.white,
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         LottieBuilder.asset(
           "assets/animations/food.json",
-          height: responsiveContainerSize(88, width, height),
+          height: 9.4803*SizeConfig.heightMultiplier,
         ),
         Text("Getting Your Location..",
             style: GoogleFonts.notoSansOldHungarian(
                 fontWeight: FontWeight.bold,
-                fontSize: responsiveFontSize(26, width, height, textScale),
+                fontSize: 2.94944 * SizeConfig.heightMultiplier,
                 color: Colors.black))
       ],
     ),

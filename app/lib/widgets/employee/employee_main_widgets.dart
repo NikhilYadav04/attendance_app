@@ -2,13 +2,10 @@ import 'dart:io';
 
 import 'package:attend_ease/helper/date_time_formatter.dart';
 import 'package:attend_ease/styling/colors.dart';
-import 'package:attend_ease/styling/scale.dart';
-import 'package:attend_ease/screens/auth/otp_auth_screen.dart';
 import 'package:attend_ease/styling/sizeconfig.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:page_transition/page_transition.dart';
 
 List<String> imagesEmployee = [
   "assets/location_screen/face.png",
@@ -128,51 +125,23 @@ Widget appBartitle(
   );
 }
 
-List<Widget> actions(
-    double width, double height, double textScale, BuildContext context) {
-  return [
-    IconButton(
-        onPressed: () {
-          Navigator.of(context).pop();
-        },
-        icon: Icon(
-          Icons.notifications_none,
-          size: responsiveContainerSize(32, width, height),
-        )),
-    IconButton(
-      onPressed: () async {
-        // await HelperFunctions.setStatus(false);
-        // await HelperFunctions.setEMployeeName("");
-        // await HelperFunctions.setEMployeeID("");
-        Navigator.push(
-            context,
-            PageTransition(
-                child: OtpAuthScreen(), type: PageTransitionType.fade));
-      },
-      icon: Icon(
-        Icons.exit_to_app,
-        size: responsiveContainerSize(32, width, height),
-      ),
-    ),
-  ];
-}
 
-Widget upperBar(double width, double height, double textScale,
-    BuildContext context, String Date, String status) {
+
+Widget upperBar(BuildContext context, String Date, String status) {
   return Container(
-    decoration: const BoxDecoration(
+    decoration: BoxDecoration(
       color: Colors.white,
       border: Border(
         bottom: BorderSide(
           color: Colors.red, // Choose your color here
-          width: 5.0, // Choose the width of the border
+          width: 1.1160*SizeConfig.widthMultiplier, // Choose the width of the border
         ),
       ),
     ),
     padding: EdgeInsets.symmetric(
-        horizontal: 10 * horizontalPaddingFactor(width),
-        vertical: 5 * verticalPaddingFactor(height)),
-    height: responsiveContainerSize(110, width, height),
+        horizontal: 2.23214*SizeConfig.widthMultiplier ,
+        vertical: 0.5266*SizeConfig.heightMultiplier),
+    height: 12.6404*SizeConfig.heightMultiplier,
     child: Column(
       children: [
         Row(
@@ -182,7 +151,7 @@ Widget upperBar(double width, double height, double textScale,
                 style: GoogleFonts.notoSansOldHungarian(
                   color: Colors.grey.shade900,
                   fontWeight: FontWeight.bold,
-                  fontSize: responsiveFontSize(22, width, height, textScale),
+                  fontSize: 2.52809*SizeConfig.heightMultiplier,
                 )),
             IconButton(
                 onPressed: () {
@@ -192,26 +161,24 @@ Widget upperBar(double width, double height, double textScale,
                         return AlertDialog(
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(
-                                  responsiveBorderRadius(6, width, height))),
+                                  0.6320*SizeConfig.heightMultiplier)),
                           backgroundColor: Colours.BUTTON_COLOR_2,
                           title: Center(
                             child: Text(
                               "Stay Within Radius",
                               style: GoogleFonts.notoSansOldHungarian(
-                                  fontSize: responsiveContainerSize(
-                                      26, width, height),
+                                  fontSize: 2.89677*SizeConfig.heightMultiplier,
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold),
                             ),
                           ),
                           content: Container(
-                            height: responsiveContainerSize(130, width, height),
+                            height: 14.7472*SizeConfig.heightMultiplier,
                             child: Center(
                               child: Text(
                                 "Please stay within 100 to 500 m from office location otherwise you will be not able to mark attendance . ",
                                 style: GoogleFonts.notoSansOldHungarian(
-                                    fontSize: responsiveContainerSize(
-                                        18, width, height),
+                                    fontSize: 2.0540*SizeConfig.heightMultiplier,
                                     color: Colors.grey.shade800,
                                     fontWeight: FontWeight.bold),
                               ),
@@ -222,21 +189,20 @@ Widget upperBar(double width, double height, double textScale,
                 },
                 icon: Icon(
                   Icons.help,
-                  size: responsiveContainerSize(32, width, height),
+                  size: 3.6341*SizeConfig.heightMultiplier,
                 )),
           ],
         ),
         SizedBox(
-          height: responsiveContainerSize(15, width, height),
+          height: 1.8434*SizeConfig.heightMultiplier,
         ),
-        dateWidget(width, height, textScale, Date, status)
+        dateWidget(Date, status)
       ],
     ),
   );
 }
 
-Widget dateWidget(
-    double width, double height, double textScale, String Date, String status) {
+Widget dateWidget( String Date, String status) {
   return Center(
     child: RichText(
       text: TextSpan(
@@ -244,7 +210,7 @@ Widget dateWidget(
         style: GoogleFonts.notoSansOldHungarian(
           color: Colors.grey.shade900,
           fontWeight: FontWeight.w600,
-          fontSize: responsiveFontSize(20, width, height, textScale),
+          fontSize: 2.4227* SizeConfig.heightMultiplier,
         ),
         children: <TextSpan>[
           TextSpan(
@@ -252,7 +218,7 @@ Widget dateWidget(
             style: GoogleFonts.notoSansOldHungarian(
               color: Colors.red,
               fontWeight: FontWeight.bold,
-              fontSize: responsiveFontSize(20, width, height, textScale),
+              fontSize: 2.4227*SizeConfig.heightMultiplier,
             ),
           )
         ],
@@ -261,36 +227,35 @@ Widget dateWidget(
   );
 }
 
-Widget cameraAuthenticate(void Function() onTap, double width, double height,
-    double textScale, BuildContext context, bool isAuthenticate, Text text) {
+Widget cameraAuthenticate(void Function() onTap, BuildContext context, bool isAuthenticate, Text text) {
   return Container(
     decoration: const BoxDecoration(
         border: Border(bottom: BorderSide(color: Colors.red, width: 5))),
     padding: EdgeInsets.symmetric(
-        horizontal: 5 * horizontalPaddingFactor(width),
-        vertical: 15 * verticalPaddingFactor(height)),
+        horizontal: 1.11607*SizeConfig.widthMultiplier,
+        vertical:1.58008 * SizeConfig.heightMultiplier),
     child: Column(
       children: [
         SizedBox(
-          height: responsiveContainerSize(64, width, height),
+          height: 7.37362 * SizeConfig.heightMultiplier,
         ),
         Center(
           child: Image.asset(
             "assets/home_screen/biom.png",
-            height: responsiveContainerSize(140, width, height),
-            width: responsiveContainerSize(140, width, height),
+            height: 15.8006*SizeConfig.heightMultiplier,
+            width: 33.4821* SizeConfig.widthMultiplier,
           ),
         ),
         SizedBox(
-          height: responsiveContainerSize(20, width, height),
+          height: 2.3174* SizeConfig.heightMultiplier,
         ),
-        cameraButton(onTap, width, height, textScale, context),
+        cameraButton(onTap, context),
         SizedBox(
-          height: responsiveContainerSize(20, width, height),
+          height:2.3174* SizeConfig.heightMultiplier,
         ),
         text,
         SizedBox(
-          height: responsiveContainerSize(100, width, height),
+          height: 11.3*SizeConfig.heightMultiplier,
         ),
       ],
     ),
@@ -298,49 +263,46 @@ Widget cameraAuthenticate(void Function() onTap, double width, double height,
 }
 
 Widget attendButtonIn(
-    void Function() onTap, double width, double height, double textScale) {
+    void Function() onTap,) {
   return InkWell(
     onTap: onTap,
     child: Container(
-      height: responsiveContainerSize(90, width, height),
+      height: 10.2177 * SizeConfig.heightMultiplier,
       color: Colors.grey.shade900,
-      child: buttonWIdget(onTap, width, height, textScale, "Punch In"),
+      child: buttonWIdget(onTap, "Punch In"),
     ),
   );
 }
 
 Widget attendButtonOut(
-    void Function() onTap, double width, double height, double textScale) {
+    void Function() onTap,) {
   return InkWell(
     onTap: onTap,
     child: Container(
-      height: responsiveContainerSize(90, width, height),
+      height: 10.2177 * SizeConfig.heightMultiplier,
       color: Colors.grey.shade900,
-      child: buttonWIdget(onTap, width, height, textScale, "Punch Out"),
+      child: buttonWIdget(onTap, "Punch Out"),
     ),
   );
 }
 
 Widget buttonWIdget(
   void Function() onTap,
-  double width,
-  double height,
-  double textScaleFactor,
   String title,
 ) {
   return InkWell(
     onTap: onTap,
     child: Container(
       margin: EdgeInsets.symmetric(
-          horizontal: 20 * horizontalPaddingFactor(width),
-          vertical: 20 * verticalPaddingFactor(height)),
+          horizontal: 4.4642* SizeConfig.widthMultiplier ,
+          vertical: 2.10674 * SizeConfig.heightMultiplier ),
       padding: EdgeInsets.symmetric(
-          horizontal: 12 * horizontalPaddingFactor(width),
-          vertical: 5 * verticalPaddingFactor(height)),
-      height: responsiveContainerSize(30, width, height),
+          horizontal: 3.5714 * SizeConfig.widthMultiplier,
+          vertical: 0.5266 * SizeConfig.heightMultiplier ),
+      height: 3.3707*SizeConfig.heightMultiplier,
       decoration: BoxDecoration(
           borderRadius:
-              BorderRadius.circular(responsiveBorderRadius(2, width, height)),
+              BorderRadius.circular(2),
           color: Colours.BUTTON_COLOR_1),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -350,14 +312,14 @@ Widget buttonWIdget(
             style: TextStyle(
                 color: Colors.white,
                 fontSize:
-                    responsiveFontSize(21, width, height, textScaleFactor),
+                    2.42276* SizeConfig.heightMultiplier,
                 fontWeight: FontWeight.bold),
           ),
           IconButton(
             icon: Icon(
               Icons.back_hand,
               color: Colors.white,
-              size: responsiveContainerSize(23, width, height),
+              size: 2.42276 * SizeConfig.heightMultiplier,
             ),
             onPressed: () {},
           )
@@ -367,72 +329,27 @@ Widget buttonWIdget(
   );
 }
 
-Widget locationWidget(
-    double width, double height, double textScale, String text) {
+Widget locationWidget(String text) {
   return Container(
-    height: responsiveContainerSize(60, width, height),
+    height: 6.9522*SizeConfig.heightMultiplier,
     color: Colors.blue.shade300,
     child: Center(
       child: Text(
         text,
         style: TextStyle(
             color: Colors.black,
-            fontSize: responsiveFontSize(22, width, height, textScale),
+            fontSize: 2.4754*SizeConfig.heightMultiplier,
             fontWeight: FontWeight.bold),
       ),
     ),
   );
 }
 
-Widget tableText(double width, double height, double textScale, String text) {
-  return Center(
-    child: Text(
-      text,
-      style: TextStyle(
-          fontFamily: "Kumbh-Med",
-          fontWeight: FontWeight.bold,
-          fontSize: responsiveFontSize(17, width, height, textScale)),
-      // style: GoogleFonts.notoSansOldHungarian(
-      //   color: Colors.grey.shade900,
-      //   fontWeight: FontWeight.bold,
-      //   fontSize: responsiveFontSize(16, width, height, textScale),
-      // )
-    ),
-  );
-}
 
-Widget attendanceText(
-    double width, double height, double textScale, String text) {
-  return Container(
-    child: Center(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            text,
-            style: GoogleFonts.montserrat(
-                shadows: [
-                  Shadow(
-                      color: Colors.yellow,
-                      blurRadius: responsiveBorderRadius(2, width, height))
-                ],
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-                fontSize: responsiveFontSize(30, width, height, textScale)),
-          ),
-          IconButton(
-            onPressed: () {},
-            icon: Icon(Icons.calendar_month),
-            iconSize: responsiveContainerSize(35, width, height),
-          )
-        ],
-      ),
-    ),
-  );
-}
 
-Widget attendanceReport(double width, double height, double textScale,
-    BuildContext context, List<dynamic> report) {
+
+
+Widget attendanceReport(BuildContext context, List<dynamic> report) {
   print("List is ${report}");
   return Column(
     children: [
@@ -442,14 +359,14 @@ Widget attendanceReport(double width, double height, double textScale,
           itemCount: report.length,
           itemBuilder: (context, index) {
             return Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 12),
+              padding: EdgeInsets.symmetric(horizontal: 2.2321* SizeConfig.widthMultiplier, vertical: 1.2640*SizeConfig.heightMultiplier),
               child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 15, vertical: 13),
-                height: 140,
+                padding: EdgeInsets.symmetric(horizontal: 3.3482*SizeConfig.widthMultiplier, vertical: 1.369*SizeConfig.heightMultiplier),
+                height: 14.747*SizeConfig.heightMultiplier,
                 width: double.infinity,
                 decoration: BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(1.0533*SizeConfig.heightMultiplier),
                     boxShadow: [
                       BoxShadow(
                           color: Colors.grey.shade700,
@@ -464,11 +381,11 @@ Widget attendanceReport(double width, double height, double textScale,
                       style: GoogleFonts.montserrat(
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
-                        fontSize: 24,
+                        fontSize: 2.5280*SizeConfig.heightMultiplier,
                       ),
                     ),
                     SizedBox(
-                      height: 18,
+                      height: 1.8960*SizeConfig.heightMultiplier,
                     ),
                     Row(
                       children: [
@@ -476,7 +393,7 @@ Widget attendanceReport(double width, double height, double textScale,
                           children: [
                             boxIcon(Icons.logout),
                             SizedBox(
-                              width: 10,
+                              width: 2.2321*SizeConfig.widthMultiplier,
                             ),
                             Text(
                                 DateTimeFormatter.formatTime(
@@ -484,18 +401,18 @@ Widget attendanceReport(double width, double height, double textScale,
                                 style: GoogleFonts.montserrat(
                                   color: Colors.grey.shade800,
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 23,
+                                  fontSize: 2.42276*SizeConfig.heightMultiplier,
                                 )),
                           ],
                         ),
                         SizedBox(
-                          width: 25,
+                          width: 5.58035*SizeConfig.widthMultiplier,
                         ),
                         Row(
                           children: [
                             boxIcon(Icons.logout),
                             SizedBox(
-                              width: 10,
+                              width: 2.2321*SizeConfig.widthMultiplier,
                             ),
                             Text(
                                 DateTimeFormatter.formatTime(
@@ -503,7 +420,7 @@ Widget attendanceReport(double width, double height, double textScale,
                                 style: GoogleFonts.montserrat(
                                   color: Colors.grey.shade800,
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 23,
+                                  fontSize:2.4228*SizeConfig.heightMultiplier,
                                 )),
                           ],
                         ),
@@ -536,12 +453,11 @@ Widget boxIcon(IconData icon) {
   );
 }
 
-Widget attendCountWidgetEmployee(double width, double height, double textScale,
-    String? InTime, String? OutTime, String? Status, String Date) {
+Widget attendCountWidgetEmployee(String? InTime, String? OutTime, String? Status, String Date) {
   return Container(
-    height: responsiveContainerSize(200, width, height),
+    height: 22.6475*SizeConfig.heightMultiplier,
     decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(6),
+      borderRadius: BorderRadius.circular(0.6320*SizeConfig.heightMultiplier),
       gradient: const LinearGradient(
         colors: [
           Colours.GRADIENT_1,
@@ -557,48 +473,45 @@ Widget attendCountWidgetEmployee(double width, double height, double textScale,
         children: [
           Container(
             padding: EdgeInsets.symmetric(
-                horizontal: 45 *
-                    horizontalPaddingFactor(
-                      width,
-                    ),
-                vertical: 10 * verticalPaddingFactor(height)),
+                horizontal: 10.044*SizeConfig.widthMultiplier ,
+                vertical: 1.053*SizeConfig.heightMultiplier),
             child: Column(
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    rowCOntentEmployee1(width, height, textScale, "In", InTime),
+                    rowCOntentEmployee1( "In", InTime),
                     rowCOntentEmployee(
-                        width, height, textScale, "Out", OutTime),
+                         "Out", OutTime),
                     rowCOntentEmployee(
-                        width, height, textScale, "Status", Status)
+                        "Status", Status)
                   ],
                 ),
               ],
             ),
           ),
           SizedBox(
-            height: responsiveContainerSize(10, width, height),
+            height: 1.2114*SizeConfig.heightMultiplier,
           ),
           Container(
             padding: EdgeInsets.symmetric(
-                horizontal: 15 * horizontalPaddingFactor(width)),
+                horizontal: 3.34821*SizeConfig.widthMultiplier),
             child: Divider(
               color: Colors.grey.shade300,
               height: 1,
             ),
           ),
           SizedBox(
-            height: responsiveContainerSize(10, width, height),
+            height: 1.15871*SizeConfig.heightMultiplier,
           ),
-          rowContentEMployee2(width, height, textScale, Date),
+          rowContentEMployee2( Date),
         ],
       ),
     ),
   );
 }
 
-Widget rowCOntentEmployee(double width, double height, double textScale,
+Widget rowCOntentEmployee(
     String title, String? status) {
   return Column(
     children: [
@@ -607,22 +520,22 @@ Widget rowCOntentEmployee(double width, double height, double textScale,
         style: TextStyle(
             color: Colors.white,
             fontFamily: "Tansek",
-            fontSize: responsiveFontSize(36, width, height, textScale)),
+            fontSize: 4.0028*SizeConfig.heightMultiplier),
       ),
       SizedBox(
-        height: responsiveContainerSize(12, width, height),
+        height:1.369*SizeConfig.heightMultiplier,
       ),
       Text(
         "${status}",
         style: GoogleFonts.aDLaMDisplay(
             color: Colors.white,
-            fontSize: responsiveFontSize(28, width, height, textScale)),
+            fontSize:3.0547*SizeConfig.heightMultiplier),
       )
     ],
   );
 }
 
-Widget rowCOntentEmployee1(double width, double height, double textScale,
+Widget rowCOntentEmployee1(
     String title, String? status) {
   return Column(
     children: [
@@ -631,26 +544,26 @@ Widget rowCOntentEmployee1(double width, double height, double textScale,
         style: TextStyle(
             color: Colors.white,
             fontFamily: "Tansek",
-            fontSize: responsiveFontSize(36, width, height, textScale)),
+            fontSize: 4.0028*SizeConfig.heightMultiplier),
       ),
       SizedBox(
-        height: responsiveContainerSize(12, width, height),
+        height: 1.3698*SizeConfig.heightMultiplier,
       ),
       Text(
         "${status}",
         style: GoogleFonts.aDLaMDisplay(
             color: Colors.white,
-            fontSize: responsiveFontSize(28, width, height, textScale)),
+            fontSize: 3.0547*SizeConfig.heightMultiplier),
       )
     ],
   );
 }
 
 Widget rowContentEMployee2(
-    double width, double height, double textScale, String? Date) {
+     String? Date) {
   return Container(
     padding:
-        EdgeInsets.symmetric(horizontal: 18 * horizontalPaddingFactor(width)),
+        EdgeInsets.symmetric(horizontal: 4.01785*SizeConfig.widthMultiplier ),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -660,7 +573,7 @@ Widget rowContentEMployee2(
             style: TextStyle(
                 color: Colors.white,
                 fontFamily: "Tansek",
-                fontSize: responsiveContainerSize(28, width, height)),
+                fontSize: 3.47613*SizeConfig.heightMultiplier),
           ),
         )
       ],
@@ -668,47 +581,46 @@ Widget rowContentEMployee2(
   );
 }
 
-Widget listWidgetEMployee(
-    double width, double height, double textScale, BuildContext context) {
+Widget listWidgetEMployee( BuildContext context) {
   return Column(
     children: [
       Container(
-        height: responsiveContainerSize(350, width, height),
+        height: 39.5015*SizeConfig.heightMultiplier,
         child: ListView.builder(
             itemCount: 3,
             itemBuilder: (context, index) {
               return Column(
                 children: [
                   SizedBox(
-                    height: responsiveContainerSize(10, width, height),
+                    height: 1.053*SizeConfig.heightMultiplier,
                   ),
                   ListTile(
                     leading: Image.asset(
                       imagesEmployee[index],
-                      height: responsiveContainerSize(34, width, height),
-                      width: responsiveContainerSize(34, width, height),
+                      height: 4.21349*SizeConfig.heightMultiplier,
+                      width:8.92857* SizeConfig.widthMultiplier,
                     ),
                     trailing: Icon(
                       Icons.arrow_forward_ios,
-                      size: responsiveContainerSize(18, width, height),
+                      size: 2.10674*SizeConfig.heightMultiplier,
                     ),
                     title: Text(
                       titleEmployee[index],
                       style: GoogleFonts.notoSansOldHungarian(
                           color: Colors.black,
                           fontSize:
-                              responsiveFontSize(18, width, height, textScale),
+                             2.1*SizeConfig.heightMultiplier,
                           fontWeight: FontWeight.bold),
                     ),
                     subtitle: Text(subtitleEmployee[index],
                         style: GoogleFonts.roboto(
                           color: Colors.black,
                           fontSize:
-                              responsiveFontSize(15, width, height, textScale),
+                             1.6853*SizeConfig.heightMultiplier,
                         )),
                   ),
                   SizedBox(
-                    height: responsiveContainerSize(10, width, height),
+                    height: 1.264048*SizeConfig.heightMultiplier,
                   ),
                   Divider(
                     indent: 10,
@@ -725,21 +637,20 @@ Widget listWidgetEMployee(
   );
 }
 
-Widget companyButtonEmployee(void Function() onTap, double width, double height,
-    double textScaleFactor, BuildContext context) {
+Widget companyButtonEmployee(void Function() onTap, BuildContext context) {
   return InkWell(
     onTap: onTap,
     child: Container(
       margin: EdgeInsets.symmetric(
-        horizontal: 10 * horizontalPaddingFactor(width),
+        horizontal: 2.23214*SizeConfig.widthMultiplier ,
       ),
       padding: EdgeInsets.symmetric(
-          horizontal: 5 * horizontalPaddingFactor(width),
-          vertical: 5 * verticalPaddingFactor(height)),
-      height: responsiveContainerSize(55, width, height),
+          horizontal:1.11607*SizeConfig.widthMultiplier ,
+          vertical:0.526688 * SizeConfig.heightMultiplier),
+      height: 6.3202468 * SizeConfig.heightMultiplier,
       decoration: BoxDecoration(
           borderRadius:
-              BorderRadius.circular(responsiveBorderRadius(6, width, height)),
+              BorderRadius.circular(0.6320248 * SizeConfig.heightMultiplier),
           color: Colours.BUTTON_COLOR_1),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -749,14 +660,14 @@ Widget companyButtonEmployee(void Function() onTap, double width, double height,
             style: TextStyle(
                 color: Colors.white,
                 fontSize:
-                    responsiveFontSize(22, width, height, textScaleFactor),
+                   2.52809 * SizeConfig.heightMultiplier,
                 fontWeight: FontWeight.bold),
           ),
           IconButton(
             icon: Icon(
               Icons.calendar_month_rounded,
               color: Colors.white,
-              size: responsiveContainerSize(30, width, height),
+              size: 3.370798 * SizeConfig.heightMultiplier,
             ),
             onPressed: () {},
           )
@@ -766,37 +677,36 @@ Widget companyButtonEmployee(void Function() onTap, double width, double height,
   );
 }
 
-Widget attendCompleteText(double width, double height, double textScale) {
+Widget attendCompleteText() {
   return Container(
-    height: responsiveContainerSize(90, width, height),
+    height: 10.1123*SizeConfig.heightMultiplier,
     color: Colors.grey.shade900,
     child: Center(
       child: Text(
         "Your Attendance for Today Is Complete",
         style: TextStyle(
             color: Colors.white,
-            fontSize: responsiveFontSize(21.5, width, height, textScale),
+            fontSize: 2.47543*SizeConfig.heightMultiplier,
             fontWeight: FontWeight.bold),
       ),
     ),
   );
 }
 
-Widget cameraButton(void Function() onTap, double width, double height,
-    double textScaleFactor, BuildContext context) {
+Widget cameraButton(void Function() onTap, BuildContext context) {
   return InkWell(
     onTap: onTap,
     child: Container(
       margin: EdgeInsets.symmetric(
-        horizontal: 90 * horizontalPaddingFactor(width),
+        horizontal: 20.5357*SizeConfig.widthMultiplier,
       ),
       padding: EdgeInsets.symmetric(
-          horizontal: 5 * horizontalPaddingFactor(width),
-          vertical: 5 * verticalPaddingFactor(height)),
-      height: responsiveContainerSize(50, width, height),
+          horizontal: 1.1160* SizeConfig.widthMultiplier ,
+          vertical: 0.526688  * SizeConfig.heightMultiplier ),
+      height: 5.6882*SizeConfig.heightMultiplier,
       decoration: BoxDecoration(
           borderRadius:
-              BorderRadius.circular(responsiveBorderRadius(10, width, height)),
+              BorderRadius.circular(1.053 * SizeConfig.heightMultiplier),
           color: Colours.BUTTON_COLOR_1),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -806,14 +716,14 @@ Widget cameraButton(void Function() onTap, double width, double height,
             style: TextStyle(
                 color: Colors.white,
                 fontSize:
-                    responsiveFontSize(23, width, height, textScaleFactor),
+                    2.6334 * SizeConfig.heightMultiplier,
                 fontWeight: FontWeight.bold),
           ),
           IconButton(
             icon: Icon(
               Icons.camera,
               color: Colors.white,
-              size: responsiveContainerSize(25, width, height),
+              size: 2.7387 * SizeConfig.heightMultiplier,
             ),
             onPressed: () {},
           )

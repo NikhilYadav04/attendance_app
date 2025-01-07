@@ -1,7 +1,7 @@
 import 'package:attend_ease/providers/attendance/employee_attendance_provider.dart';
 import 'package:attend_ease/screens/leave/leave_req_screen.dart';
 import 'package:attend_ease/styling/colors.dart';
-import 'package:attend_ease/styling/scale.dart';
+import 'package:attend_ease/styling/sizeconfig.dart';
 import 'package:attend_ease/widgets/employee/employee_main_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -11,15 +11,8 @@ import 'package:provider/provider.dart';
 
 // ignore: must_be_immutable
 class EmployeeMainScreen1 extends StatefulWidget {
-  double width;
-  double height;
-  double textScaleFactor;
-
   EmployeeMainScreen1({
     Key? key,
-    required this.width,
-    required this.height,
-    required this.textScaleFactor,
   }) : super(key: key);
 
   @override
@@ -40,37 +33,29 @@ class _EmployeeMainScreen1State extends State<EmployeeMainScreen1> {
 
   @override
   Widget build(BuildContext context) {
-    final currentHeight = MediaQuery.of(context).size.height;
-    final currentWidth = MediaQuery.of(context).size.width;
-    // ignore: deprecated_member_use
-    final textScale = MediaQuery.of(context).textScaleFactor;
     return Scaffold(
       body: SingleChildScrollView(child: Consumer<EmployeeAttendanceProvider>(
         builder: (context, provider, _) {
           return Container(
             padding: EdgeInsets.symmetric(
-                horizontal: 5 ),
+                horizontal: 1.11607 * SizeConfig.widthMultiplier),
             child: Column(
               children: [
                 SizedBox(
-                  height:
-                      17,
+                  height: 1.79073 * SizeConfig.heightMultiplier,
                 ),
                 provider.isLoading
                     ? SpinKitRotatingCircle(
                         color: Colours.DARK_BLUE,
-                        size: 60,
+                        size: 6.3202 * SizeConfig.heightMultiplier,
                       )
                     : attendCountWidgetEmployee(
-                        currentWidth,
-                        currentHeight,
-                        textScale,
                         provider.InTime,
                         provider.OutTime,
-                        provider.isPresent ? "Present" : "Absent",Date),
+                        provider.isPresent ? "Present" : "Absent",
+                        Date),
                 SizedBox(
-                  height:
-                      responsiveContainerSize(25, currentWidth, currentHeight),
+                  height: 2.844 * SizeConfig.heightMultiplier,
                 ),
                 Divider(
                   color: Colors.grey.shade300,
@@ -80,17 +65,20 @@ class _EmployeeMainScreen1State extends State<EmployeeMainScreen1> {
                   endIndent: 10,
                 ),
                 SizedBox(
-                  height:
-                      responsiveContainerSize(10, currentWidth, currentHeight),
+                  height: 1.2640 * SizeConfig.heightMultiplier,
                 ),
-                listWidgetEMployee(
-                    currentWidth, currentHeight, textScale, context),
-                SizedBox(height: 38,),
+                listWidgetEMployee(context),
+                SizedBox(
+                  height: 4.00282 * SizeConfig.heightMultiplier,
+                ),
                 Center(
-                    child: companyButtonEmployee(
-                        () {
-                          Navigator.push(context, PageTransition(child: LeaveReqScreen(), type: PageTransitionType.fade));
-                        }, currentWidth, currentHeight, textScale, context))
+                    child: companyButtonEmployee(() {
+                  Navigator.push(
+                      context,
+                      PageTransition(
+                          child: LeaveReqScreen(),
+                          type: PageTransitionType.fade));
+                }, context))
               ],
             ),
           );

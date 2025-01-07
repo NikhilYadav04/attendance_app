@@ -84,7 +84,7 @@ class _EmployeeMainScreenState extends State<EmployeeMainScreen>
                             },
                             icon: Icon(
                               Icons.exit_to_app,
-                              size: 3.6* SizeConfig.heightMultiplier,
+                              size: 3.6 * SizeConfig.heightMultiplier,
                             ),
                           ),
                   ],
@@ -135,16 +135,8 @@ class _EmployeeMainScreenState extends State<EmployeeMainScreen>
                 child: TabBarView(
                   controller: tabController,
                   children: [
-                    EmployeeMainScreen1(
-                      width: currentWidth,
-                      height: currentHeight,
-                      textScaleFactor: textScale,
-                    ),
-                    EmployeeMainScreen2(
-                      width: currentWidth,
-                      height: currentHeight,
-                      textScaleFactor: textScale,
-                    ),
+                    EmployeeMainScreen1(),
+                    EmployeeMainScreen2(),
                     EmployeeMainScreen3(
                       width: currentWidth,
                       height: currentHeight,

@@ -1,6 +1,6 @@
 import 'package:attend_ease/providers/attendance/employee_attendance_provider.dart';
 import 'package:attend_ease/styling/colors.dart';
-import 'package:attend_ease/styling/scale.dart';
+import 'package:attend_ease/styling/sizeconfig.dart';
 import 'package:attend_ease/widgets/auth/otp_auth_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -70,10 +70,6 @@ class _BiomAuthState extends State<BiomAuth> {
 
   @override
   Widget build(BuildContext context) {
-    final currentHeight = MediaQuery.of(context).size.height;
-    final currentWidth = MediaQuery.of(context).size.width;
-    final textScale = MediaQuery.of(context).textScaleFactor;
-
     return SafeArea(
       child: Scaffold(
         body: Center(
@@ -84,39 +80,32 @@ class _BiomAuthState extends State<BiomAuth> {
                 children: [
                   LottieBuilder.asset(
                     "assets/animations/finger.json",
-                    height: responsiveContainerSize(
-                        350, currentWidth, currentHeight),
-                    width: responsiveContainerSize(
-                        350, currentWidth, currentHeight),
+                    height: 38.9748 * SizeConfig.heightMultiplier,
+                    width: 82.589 * SizeConfig.widthMultiplier,
                   ),
                   Text(
                     "Click To Verify Biometric ID",
                     style: GoogleFonts.notoSansOldHungarian(
-                      fontSize: responsiveFontSize(
-                          28, currentWidth, currentHeight, textScale),
+                      fontSize: 2.8967 * SizeConfig.heightMultiplier,
                       fontWeight: FontWeight.bold,
                       color: Colors.black,
                     ),
                   ),
-                  SizedBox(
-                      height: responsiveContainerSize(
-                          28, currentWidth, currentHeight)),
+                  SizedBox(height: 3.1601 * SizeConfig.heightMultiplier),
                   InkWell(
                     onTap: () => _handleBiometricAuthentication(provider),
                     child: Container(
                       margin: EdgeInsets.symmetric(
-                        horizontal: 70 * horizontalPaddingFactor(currentWidth),
+                        horizontal: 15.625 * SizeConfig.widthMultiplier,
                       ),
                       padding: EdgeInsets.symmetric(
-                        horizontal: 5 * horizontalPaddingFactor(currentWidth),
-                        vertical: 5 * verticalPaddingFactor(currentHeight),
+                        horizontal: 1.11607 * SizeConfig.widthMultiplier,
+                        vertical: 0.52668 * SizeConfig.heightMultiplier,
                       ),
-                      height: responsiveContainerSize(
-                          60, currentWidth, currentHeight),
+                      height: 6.53092 * SizeConfig.heightMultiplier,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(
-                          responsiveBorderRadius(
-                              10, currentWidth, currentHeight),
+                          1.053 * SizeConfig.heightMultiplier,
                         ),
                         color: Colours.BUTTON_COLOR_1,
                       ),
@@ -127,16 +116,14 @@ class _BiomAuthState extends State<BiomAuth> {
                             "Authenticate",
                             style: TextStyle(
                               color: Colors.white,
-                              fontSize: responsiveFontSize(
-                                  24, currentWidth, currentHeight, textScale),
+                              fontSize: 2.7387 * SizeConfig.heightMultiplier,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
                           Icon(
                             Icons.fingerprint,
                             color: Colors.white,
-                            size: responsiveContainerSize(
-                                26, currentWidth, currentHeight),
+                            size: 2.8967 * SizeConfig.heightMultiplier,
                           ),
                         ],
                       ),

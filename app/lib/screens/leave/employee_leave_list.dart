@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:attend_ease/providers/leave/leave_provider.dart';
 import 'package:attend_ease/styling/colors.dart';
+import 'package:attend_ease/styling/sizeconfig.dart';
 import 'package:attend_ease/widgets/company/company_hr_widgets.dart';
 import 'package:attend_ease/widgets/leave/leave_widgets.dart';
 import 'package:attend_ease/widgets/leave/leave_widgets_2.dart';
@@ -47,11 +48,11 @@ class _EmployeeLeaveListState extends State<EmployeeLeaveList> {
             return Column(
               children: [
                 SizedBox(
-                  height: 15,
+                  height: 1.5800*SizeConfig.heightMultiplier,
                 ),
                 approveTextEmployee("Your Leaves"),
                 SizedBox(
-                  height: 30,
+                  height: 3.16012*SizeConfig.heightMultiplier,
                 ),
                 provider.isLoadingList
                     ? SpinKitCircle(
@@ -59,7 +60,7 @@ class _EmployeeLeaveListState extends State<EmployeeLeaveList> {
                         size: 60,
                       )
                     : Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 18),
+                        padding: EdgeInsets.symmetric(horizontal: 4.01785*SizeConfig.widthMultiplier),
                         child: Column(
                           children: [
                             Row(
@@ -82,7 +83,7 @@ class _EmployeeLeaveListState extends State<EmployeeLeaveList> {
                               ],
                             ),
                             SizedBox(
-                              height: 15,
+                              height: 1.5800*SizeConfig.heightMultiplier,
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -106,10 +107,10 @@ class _EmployeeLeaveListState extends State<EmployeeLeaveList> {
                           ],
                         )),
                 SizedBox(
-                  height: 40,
+                  height: 4.21349*SizeConfig.heightMultiplier,
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 18),
+                  padding: EdgeInsets.symmetric(horizontal: 4.0178*SizeConfig.widthMultiplier),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -147,17 +148,17 @@ class _EmployeeLeaveListState extends State<EmployeeLeaveList> {
                   ),
                 ),
                 SizedBox(
-                  height: 20,
+                  height: 2.10674 * SizeConfig.heightMultiplier,
                 ),
                 provider.isLoadingList
                     ? SpinKitCircle(
                         color: Colours.DARK_BLUE,
-                        size: 60,
+                        size: 6.3202 * SizeConfig.heightMultiplier,
                       )
                     : Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 18),
+                        padding: EdgeInsets.symmetric(horizontal: 4.01785 * SizeConfig.widthMultiplier),
                         child: SizedBox(
-                          height: 160 * provider.dynamic_length + provider.dynamic_length*15,
+                          height: 16.854 * SizeConfig.heightMultiplier * provider.dynamic_length + provider.dynamic_length*1.5800*SizeConfig.heightMultiplier,
                           child: PageView(
                             physics: NeverScrollableScrollPhysics(),
                             controller: _pageController,

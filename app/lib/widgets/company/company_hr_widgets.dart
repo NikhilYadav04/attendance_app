@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:attend_ease/helper/date_time_formatter.dart';
 import 'package:attend_ease/styling/colors.dart';
-import 'package:attend_ease/styling/scale.dart';
 import 'package:attend_ease/services/companyService.dart';
 import 'package:attend_ease/styling/sizeconfig.dart';
 import 'package:attend_ease/widgets/employee/employee_main_widgets.dart';
@@ -35,94 +34,6 @@ List subtitle = [
 
 DateTime now = DateTime.now();
 
-PreferredSizeWidget appBHR(
-  double width,
-  double height,
-  double textScale,
-) {
-  return AppBar(
-    title: Row(
-      children: [
-        Icon(
-          Icons.account_circle_sharp,
-          color: Colors.grey.shade800,
-          size: responsiveContainerSize(32, width, height),
-        ),
-        SizedBox(
-          width: responsiveContainerSize(12, width, height),
-        ),
-        Text(
-          "HR Screen",
-          style: TextStyle(
-              color: Colors.black,
-              fontWeight: FontWeight.w500,
-              fontSize: responsiveFontSize(23, width, height, textScale)),
-        ),
-      ],
-    ),
-    actions: [
-      IconButton(
-          onPressed: () {},
-          icon: Icon(
-            Icons.notifications_none,
-            size: responsiveContainerSize(32, width, height),
-          )),
-      IconButton(
-        onPressed: () {},
-        icon: Icon(
-          Icons.help,
-          size: responsiveContainerSize(32, width, height),
-        ),
-      )
-    ],
-  );
-}
-
-List<Widget> actionsHR(
-    double width, double height, double textScale, BuildContext context) {
-  return [
-    IconButton(
-        onPressed: () {
-          showDialog(
-              context: context,
-              builder: (context) {
-                return AlertDialog(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(
-                          responsiveBorderRadius(6, width, height))),
-                  backgroundColor: Colours.BUTTON_COLOR_2,
-                  title: Center(
-                    child: Text(
-                      "Submit Info!!",
-                      style: GoogleFonts.notoSansOldHungarian(
-                          fontSize: responsiveContainerSize(26, width, height),
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  content: Container(
-                    height: responsiveContainerSize(130, width, height),
-                    child: Center(
-                      child: Text(
-                        "Remember to submit your staff data every day before day ends, Once you submit the counts will reset to zero and it will be displayed in the list.",
-                        style: GoogleFonts.notoSansOldHungarian(
-                            fontSize:
-                                responsiveContainerSize(18, width, height),
-                            color: Colors.grey.shade800,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ),
-                );
-              });
-        },
-        icon: Icon(
-          Icons.notifications_none,
-          size: responsiveContainerSize(32, width, height),
-        )),
-  ];
-}
-
 Widget appBtitleHR(
     String? companyName,
     BuildContext context,
@@ -140,31 +51,33 @@ Widget appBtitleHR(
                 builder: (context) {
                   return AlertDialog(actions: [
                     Container(
-                        height: 29.494*SizeConfig.heightMultiplier,
-                        width: 75.892*SizeConfig.widthMultiplier,
+                        height: 29.494 * SizeConfig.heightMultiplier,
+                        width: 75.892 * SizeConfig.widthMultiplier,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(1)),
                         child: Column(
                           children: [
                             SizedBox(
-                              height: 2.1067*SizeConfig.heightMultiplier,
+                              height: 2.1067 * SizeConfig.heightMultiplier,
                             ),
                             Text(
                               "Upload Your Profile Picture",
                               style: TextStyle(
                                   color: Colors.black,
                                   fontFamily: "Kumbh-Med",
-                                  fontSize: 2.5280*SizeConfig.heightMultiplier,
+                                  fontSize:
+                                      2.5280 * SizeConfig.heightMultiplier,
                                   fontWeight: FontWeight.bold),
                             ),
                             SizedBox(
-                              height: 2.6334*SizeConfig.heightMultiplier,
+                              height: 2.6334 * SizeConfig.heightMultiplier,
                             ),
                             Container(
-                              height: 18.9607*SizeConfig.heightMultiplier,
-                              width: 66.96428*SizeConfig.widthMultiplier,
+                              height: 18.9607 * SizeConfig.heightMultiplier,
+                              width: 66.96428 * SizeConfig.widthMultiplier,
                               decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(0.5266*SizeConfig.heightMultiplier),
+                                  borderRadius: BorderRadius.circular(
+                                      0.5266 * SizeConfig.heightMultiplier),
                                   border: Border.all(
                                       color: Colors.black,
                                       width: 2,
@@ -172,17 +85,22 @@ Widget appBtitleHR(
                               child: isProfile
                                   ? SpinKitCircle(
                                       color: Colours.DARK_BLUE,
-                                      size: 2.10674*SizeConfig.heightMultiplier,
+                                      size:
+                                          2.10674 * SizeConfig.heightMultiplier,
                                     )
                                   : Padding(
                                       padding: EdgeInsets.symmetric(
-                                          horizontal: 3.3482*SizeConfig.widthMultiplier, vertical: 1.58006*SizeConfig.heightMultiplier),
+                                          horizontal: 3.3482 *
+                                              SizeConfig.widthMultiplier,
+                                          vertical: 1.58006 *
+                                              SizeConfig.heightMultiplier),
                                       child: Column(
                                         children: [
                                           buttonPic("Pick From Gallery  ",
                                               Icons.photo, fun2),
                                           SizedBox(
-                                            height: 2.1067*SizeConfig.heightMultiplier,
+                                            height: 2.1067 *
+                                                SizeConfig.heightMultiplier,
                                           ),
                                           buttonPic("Click From Camera",
                                               Icons.camera_alt, fun1)
@@ -198,45 +116,41 @@ Widget appBtitleHR(
           child: isProfile
               ? SpinKitCircle(
                   color: Colours.DARK_BLUE,
-                  size:  2.1067*SizeConfig.heightMultiplier,
+                  size: 2.1067 * SizeConfig.heightMultiplier,
                 )
               : profile == ""
                   ? Icon(
                       Icons.account_circle_sharp,
                       color: Colors.grey.shade800,
-                      size: 3.5814*SizeConfig.heightMultiplier,
+                      size: 3.5814 * SizeConfig.heightMultiplier,
                     )
                   : CircleAvatar(
-                      radius: 2.6334*SizeConfig.heightMultiplier,
+                      radius: 2.6334 * SizeConfig.heightMultiplier,
                       backgroundImage: FileImage(File(profile.toString())),
                     ),
         ),
         SizedBox(
-          width: 2.9017*SizeConfig.widthMultiplier,
+          width: 2.9017 * SizeConfig.widthMultiplier,
         ),
         Text(
           "${companyName}",
           style: TextStyle(
               color: Colors.black,
               fontWeight: FontWeight.w500,
-              fontSize: 2.6334*SizeConfig.heightMultiplier),
+              fontSize: 2.6334 * SizeConfig.heightMultiplier),
         ),
       ],
     ),
   );
 }
 
-Widget attendCountWidget(
-    void Function() ontap,
-    String inCount,
-    String outCount,
-    String Total,
-    String Date,
-    bool isSubmit) {
+Widget attendCountWidget(void Function() ontap, String inCount, String outCount,
+    String Total, String Date, bool isSubmit) {
   return Container(
-    height: 23.6475*SizeConfig.heightMultiplier,
+    height: 23.6475 * SizeConfig.heightMultiplier,
     decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(0.63202*SizeConfig.heightMultiplier),
+      borderRadius:
+          BorderRadius.circular(0.63202 * SizeConfig.heightMultiplier),
       gradient: const LinearGradient(
         colors: [
           Colours.GRADIENT_1,
@@ -252,44 +166,41 @@ Widget attendCountWidget(
         children: [
           Container(
             padding: EdgeInsets.symmetric(
-                horizontal: 10.49108*SizeConfig.widthMultiplier,
-                vertical: 1.15871*SizeConfig.heightMultiplier),
+                horizontal: 10.49108 * SizeConfig.widthMultiplier,
+                vertical: 1.15871 * SizeConfig.heightMultiplier),
             child: Column(
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    rowCOntent( "In", inCount),
-                    rowCOntent( "Out", outCount),
-                    rowCOntentDate( "Date", Date)
+                    rowCOntent("In", inCount),
+                    rowCOntent("Out", outCount),
+                    rowCOntentDate("Date", Date)
                   ],
                 ),
               ],
             ),
           ),
-          SizedBox(
-            height: 1.2640*SizeConfig.heightMultiplier
-          ),
+          SizedBox(height: 1.2640 * SizeConfig.heightMultiplier),
           Container(
             padding: EdgeInsets.symmetric(
-                horizontal: 3.7946*SizeConfig.widthMultiplier),
+                horizontal: 3.7946 * SizeConfig.widthMultiplier),
             child: Divider(
               color: Colors.grey.shade300,
               height: 1,
             ),
           ),
           SizedBox(
-            height: 1.053*SizeConfig.heightMultiplier,
+            height: 1.053 * SizeConfig.heightMultiplier,
           ),
-          rowContent2( ontap, Total, isSubmit),
+          rowContent2(ontap, Total, isSubmit),
         ],
       ),
     ),
   );
 }
 
-Widget rowCOntent(
-   String title, String Count) {
+Widget rowCOntent(String title, String Count) {
   return Column(
     children: [
       Text(
@@ -297,22 +208,22 @@ Widget rowCOntent(
         style: TextStyle(
             color: Colors.white,
             fontFamily: "Tansek",
-            fontSize:4.10816*SizeConfig.heightMultiplier),
+            fontSize: 4.10816 * SizeConfig.heightMultiplier),
       ),
       SizedBox(
-        height:1.2633*SizeConfig.heightMultiplier,
+        height: 1.2633 * SizeConfig.heightMultiplier,
       ),
       Text(
         "$Count",
         style: GoogleFonts.aDLaMDisplay(
             color: Colors.white,
-            fontSize:3.3707*SizeConfig.heightMultiplier),
+            fontSize: 3.3707 * SizeConfig.heightMultiplier),
       )
     ],
   );
 }
 
-Widget rowCOntentDate( String title, String date) {
+Widget rowCOntentDate(String title, String date) {
   return Column(
     children: [
       Text(
@@ -320,16 +231,16 @@ Widget rowCOntentDate( String title, String date) {
         style: TextStyle(
             color: Colors.white,
             fontFamily: "Tansek",
-            fontSize: 4.1081*SizeConfig.heightMultiplier),
+            fontSize: 4.1081 * SizeConfig.heightMultiplier),
       ),
       SizedBox(
-        height: 1.3693*SizeConfig.heightMultiplier,
+        height: 1.3693 * SizeConfig.heightMultiplier,
       ),
       Text(
         date,
         style: GoogleFonts.aDLaMDisplay(
             color: Colors.white,
-            fontSize: 3.26548*SizeConfig.heightMultiplier),
+            fontSize: 3.26548 * SizeConfig.heightMultiplier),
       )
     ],
   );
@@ -338,7 +249,7 @@ Widget rowCOntentDate( String title, String date) {
 Widget rowContent2(void Function() ontap, String Total, bool isSubmit) {
   return Container(
     padding:
-        EdgeInsets.symmetric(horizontal: 4.24107*SizeConfig.widthMultiplier),
+        EdgeInsets.symmetric(horizontal: 4.24107 * SizeConfig.widthMultiplier),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -347,7 +258,7 @@ Widget rowContent2(void Function() ontap, String Total, bool isSubmit) {
           style: TextStyle(
               color: Colors.white,
               fontFamily: "Tansek",
-              fontSize: 3.47613*SizeConfig.heightMultiplier),
+              fontSize: 3.47613 * SizeConfig.heightMultiplier),
         ),
         GestureDetector(
           onTap: isSubmit ? () {} : ontap,
@@ -356,7 +267,7 @@ Widget rowContent2(void Function() ontap, String Total, bool isSubmit) {
             style: TextStyle(
                 color: Colors.white,
                 fontFamily: "Tansek",
-                fontSize: 3.47613*SizeConfig.heightMultiplier),
+                fontSize: 3.47613 * SizeConfig.heightMultiplier),
           ),
         )
       ],
@@ -364,10 +275,10 @@ Widget rowContent2(void Function() ontap, String Total, bool isSubmit) {
   );
 }
 
-Widget floatButton( BuildContext context, IconData icon, void Function() onTap) {
+Widget floatButton(BuildContext context, IconData icon, void Function() onTap) {
   return Container(
-    height: 7.16294*SizeConfig.heightMultiplier,
-    width: 17.4107*SizeConfig.widthMultiplier,
+    height: 7.16294 * SizeConfig.heightMultiplier,
+    width: 17.4107 * SizeConfig.widthMultiplier,
     child: FloatingActionButton(
         shape: CircleBorder(),
         elevation: 2,
@@ -377,52 +288,50 @@ Widget floatButton( BuildContext context, IconData icon, void Function() onTap) 
           child: Icon(
             icon,
             color: Colors.white,
-            size: 3.7*SizeConfig.heightMultiplier,
+            size: 3.7 * SizeConfig.heightMultiplier,
           ),
         )),
   );
 }
 
-Widget listWidget( BuildContext context) {
+Widget listWidget(BuildContext context) {
   return Column(
     children: [
       Container(
-        height: 44.2417*SizeConfig.heightMultiplier,
+        height: 44.2417 * SizeConfig.heightMultiplier,
         child: ListView.builder(
             itemCount: 4,
             itemBuilder: (context, index) {
               return Column(
                 children: [
                   SizedBox(
-                    height: 1.053*SizeConfig.heightMultiplier,
+                    height: 1.053 * SizeConfig.heightMultiplier,
                   ),
                   ListTile(
                     leading: Image.asset(
                       images[index],
-                      height: 4.0028*SizeConfig.heightMultiplier,
-                      width: 8.4821*SizeConfig.widthMultiplier,
+                      height: 4.0028 * SizeConfig.heightMultiplier,
+                      width: 8.4821 * SizeConfig.widthMultiplier,
                     ),
                     trailing: Icon(
                       Icons.arrow_forward_ios,
-                      size: 2.1067*SizeConfig.heightMultiplier,
+                      size: 2.1067 * SizeConfig.heightMultiplier,
                     ),
                     title: Text(
                       title[index],
                       style: GoogleFonts.notoSansOldHungarian(
                           color: Colors.black,
-                          fontSize:
-                             2*SizeConfig.heightMultiplier,
+                          fontSize: 2 * SizeConfig.heightMultiplier,
                           fontWeight: FontWeight.bold),
                     ),
                     subtitle: Text(subtitle[index],
                         style: GoogleFonts.roboto(
                           color: Colors.black,
-                          fontSize:
-                              1.65*SizeConfig.heightMultiplier,
+                          fontSize: 1.65 * SizeConfig.heightMultiplier,
                         )),
                   ),
                   SizedBox(
-                    height: 1.26404*SizeConfig.heightMultiplier,
+                    height: 1.26404 * SizeConfig.heightMultiplier,
                   ),
                   Divider(
                     indent: 10,
@@ -439,13 +348,13 @@ Widget listWidget( BuildContext context) {
   );
 }
 
-Widget approveTextEmployee( String text) {
+Widget approveTextEmployee(String text) {
   return Center(
     child: Text(text,
         style: GoogleFonts.montserrat(
           color: Colors.grey.shade900,
           fontWeight: FontWeight.bold,
-          fontSize: 4.00282*SizeConfig.heightMultiplier,
+          fontSize: 4.00282 * SizeConfig.heightMultiplier,
         )),
   );
 }
@@ -459,14 +368,19 @@ Widget listApproval(BuildContext context, List<dynamic> staffList) {
           itemCount: staffList.length,
           itemBuilder: (context, index) {
             return Padding(
-              padding: EdgeInsets.symmetric(horizontal: 2.2321*SizeConfig.widthMultiplier, vertical: 1.2640*SizeConfig.heightMultiplier),
+              padding: EdgeInsets.symmetric(
+                  horizontal: 2.2321 * SizeConfig.widthMultiplier,
+                  vertical: 1.2640 * SizeConfig.heightMultiplier),
               child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 3.3482*SizeConfig.widthMultiplier, vertical: 1.3693*SizeConfig.heightMultiplier),
-                height:14.7472*SizeConfig.heightMultiplier,
+                padding: EdgeInsets.symmetric(
+                    horizontal: 3.3482 * SizeConfig.widthMultiplier,
+                    vertical: 1.3693 * SizeConfig.heightMultiplier),
+                height: 14.7472 * SizeConfig.heightMultiplier,
                 width: double.infinity,
                 decoration: BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.circular(1.053*SizeConfig.heightMultiplier),
+                    borderRadius: BorderRadius.circular(
+                        1.053 * SizeConfig.heightMultiplier),
                     boxShadow: [
                       BoxShadow(
                           color: Colors.grey.shade700,
@@ -482,11 +396,11 @@ Widget listApproval(BuildContext context, List<dynamic> staffList) {
                       style: GoogleFonts.montserrat(
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
-                        fontSize: 2.5280*SizeConfig.heightMultiplier,
+                        fontSize: 2.5280 * SizeConfig.heightMultiplier,
                       ),
                     ),
                     SizedBox(
-                      height: 1.8960*SizeConfig.heightMultiplier,
+                      height: 1.8960 * SizeConfig.heightMultiplier,
                     ),
                     Row(
                       children: [
@@ -494,22 +408,24 @@ Widget listApproval(BuildContext context, List<dynamic> staffList) {
                           children: [
                             boxIcon(Icons.group),
                             SizedBox(
-                              width: 2.2321*SizeConfig.widthMultiplier,
+                              width: 2.2321 * SizeConfig.widthMultiplier,
                             ),
                             Text("Total Staff Present : ",
                                 style: GoogleFonts.montserrat(
                                   color: Colors.grey.shade800,
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 2.42283*SizeConfig.heightMultiplier,
+                                  fontSize:
+                                      2.42283 * SizeConfig.heightMultiplier,
                                 )),
                             SizedBox(
-                              width: 2.2321*SizeConfig.widthMultiplier,
+                              width: 2.2321 * SizeConfig.widthMultiplier,
                             ),
                             Text("${staffList[index]["totalCount"]}",
                                 style: GoogleFonts.montserrat(
                                   color: Colors.grey.shade800,
                                   fontWeight: FontWeight.bold,
-                                  fontSize:2.5280*SizeConfig.heightMultiplier,
+                                  fontSize:
+                                      2.5280 * SizeConfig.heightMultiplier,
                                 )),
                           ],
                         ),
@@ -530,196 +446,45 @@ Widget staffText(String text) {
         style: GoogleFonts.montserrat(
           color: Colors.grey.shade900,
           fontWeight: FontWeight.bold,
-          fontSize: 3.89748*SizeConfig.heightMultiplier,
+          fontSize: 3.89748 * SizeConfig.heightMultiplier,
         )),
   );
 }
 
-Widget staffReport(
-  double width,
-  double height,
-  double textScale,
-  BuildContext context,
-  List<dynamic> staffReport,
-) {
-  return Column(
-    children: [
-      Container(
-        color: Colours.BUTTON_COLOR_1,
-        child: Table(
-          border: TableBorder.all(
-            color: Colors.black,
-            style: BorderStyle.solid,
-            width: 1,
-          ),
-          children: [
-            TableRow(children: [
-              TableCell(
-                  child: Container(
-                height: 50,
-                child: staffTextText(width, height, textScale, "Employee"),
-              )),
-              TableCell(
-                  child: Container(
-                height: 50,
-                child: staffTextText(width, height, textScale, "Percentage"),
-              )),
-              TableCell(
-                child: Container(
-                    height: 50,
-                    child: staffTextText(
-                        width, height, textScale, "Notification")),
-              ),
-              TableCell(
-                child: Container(
-                    height: 50,
-                    child: staffTextText(width, height, textScale, "Meeting")),
-              ),
-            ])
-          ],
-        ),
-      ),
-      ListView.builder(
-          shrinkWrap: true,
-          physics: NeverScrollableScrollPhysics(),
-          itemCount: staffReport.length,
-          itemBuilder: (context, index) {
-            int attendPer = staffReport[index]['daysPresent'];
-            attendPer = attendPer % 30;
-            double attendPercent = (attendPer / 30) * 100;
-            String attendP = attendPercent.toStringAsFixed(2);
-            return Container(
-              child: Table(
-                border: TableBorder.all(
-                  color: Colors.black,
-                  style: BorderStyle.solid,
-                  width: 1,
-                ),
-                children: [
-                  TableRow(children: [
-                    TableCell(
-                        child: Container(
-                      height: 50,
-                      child: staffTextText(width, height, textScale,
-                          staffReport[index]['employeeName']),
-                    )),
-                    TableCell(
-                        child: Container(
-                      height: 50,
-                      child:
-                          staffTextText(width, height, textScale, "$attendP%"),
-                    )),
-                    TableCell(
-                        child: Center(
-                      child: InkWell(
-                        onTap: attendPercent > 73.0 ? () {} : () {},
-                        child: Container(
-                          margin: EdgeInsets.symmetric(
-                              vertical: 10 * horizontalPaddingFactor(width)),
-                          height: responsiveContainerSize(40, width, height),
-                          width: responsiveContainerSize(95, width, height),
-                          decoration: BoxDecoration(
-                            color: attendPercent > 73.0
-                                ? Colors.green
-                                : Colors.red,
-                            borderRadius: BorderRadius.circular(
-                                responsiveBorderRadius(10, width, height)),
-                          ),
-                          child: Center(
-                            child: Text(
-                              "Send Alert",
-                              style: GoogleFonts.notoSansOldHungarian(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: responsiveFontSize(
-                                      15, width, height, textScale)),
-                            ),
-                          ),
-                        ),
-                      ),
-                    )),
-                    TableCell(
-                        child: Center(
-                      child: InkWell(
-                        onTap: () {},
-                        child: Container(
-                          margin: EdgeInsets.symmetric(
-                              vertical: 10 * horizontalPaddingFactor(width)),
-                          height: responsiveContainerSize(40, width, height),
-                          width: responsiveContainerSize(95, width, height),
-                          decoration: BoxDecoration(
-                            color: Colors.blue.shade400,
-                            borderRadius: BorderRadius.circular(
-                                responsiveBorderRadius(10, width, height)),
-                          ),
-                          child: Center(
-                            child: Text(
-                              "Video Meet",
-                              style: GoogleFonts.notoSansOldHungarian(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: responsiveFontSize(
-                                      15, width, height, textScale)),
-                            ),
-                          ),
-                        ),
-                      ),
-                    )),
-                  ])
-                ],
-              ),
-            );
-          })
-    ],
-  );
-}
+// Widget VideoCallField(double width, double height, double textScale,
+//     String title, TextEditingController controller) {
+//   return TextField(
+//     controller: controller,
+//     decoration: InputDecoration(
+//       labelText: title,
+//       labelStyle: TextStyle(
+//           color: Colors.grey.shade800,
+//           fontWeight: FontWeight.bold,
+//           fontSize: responsiveFontSize(20, width, height, textScale)),
+//       enabledBorder: OutlineInputBorder(
+//           borderSide: BorderSide(color: Colors.grey.shade800),
+//           borderRadius:
+//               BorderRadius.circular(responsiveBorderRadius(4, width, height))),
+//       border: OutlineInputBorder(
+//           borderSide: const BorderSide(color: Colours.BUTTON_COLOR_1),
+//           borderRadius:
+//               BorderRadius.circular(responsiveBorderRadius(4, width, height))),
+//     ),
+//   );
+// }
 
-Widget staffTextText(
-    double width, double height, double textScale, String text) {
-  return Center(
-    child: Text(text,
-        style: GoogleFonts.notoSansOldHungarian(
-          color: Colors.grey.shade900,
-          fontWeight: FontWeight.bold,
-          fontSize: responsiveFontSize(17, width, height, textScale),
-        )),
-  );
-}
-
-Widget VideoCallField(double width, double height, double textScale,
-    String title, TextEditingController controller) {
-  return TextField(
-    controller: controller,
-    decoration: InputDecoration(
-      labelText: title,
-      labelStyle: TextStyle(
-          color: Colors.grey.shade800,
-          fontWeight: FontWeight.bold,
-          fontSize: responsiveFontSize(20, width, height, textScale)),
-      enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.grey.shade800),
-          borderRadius:
-              BorderRadius.circular(responsiveBorderRadius(4, width, height))),
-      border: OutlineInputBorder(
-          borderSide: const BorderSide(color: Colours.BUTTON_COLOR_1),
-          borderRadius:
-              BorderRadius.circular(responsiveBorderRadius(4, width, height))),
-    ),
-  );
-}
-
-Widget VideoCallJoinButton(
-    double width, double height, double textScale, void Function() onTap) {
-  return ElevatedButton(
-      style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all<Color>(Colors.blue)),
-      onPressed: onTap,
-      child: Center(
-          child: Text(
-        "Join",
-        style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-            fontSize: responsiveFontSize(20, width, height, textScale)),
-      )));
-}
+// Widget VideoCallJoinButton(
+//     double width, double height, double textScale, void Function() onTap) {
+//   return ElevatedButton(
+//       style: ButtonStyle(
+//           backgroundColor: MaterialStateProperty.all<Color>(Colors.blue)),
+//       onPressed: onTap,
+//       child: Center(
+//           child: Text(
+//         "Join",
+//         style: TextStyle(
+//             color: Colors.white,
+//             fontWeight: FontWeight.bold,
+//             fontSize: responsiveFontSize(20, width, height, textScale)),
+//       )));
+// }

@@ -1,13 +1,10 @@
 import 'package:attend_ease/helper/date_time_formatter.dart';
 import 'package:attend_ease/styling/colors.dart';
-import 'package:attend_ease/styling/scale.dart';
+import 'package:attend_ease/styling/sizeconfig.dart';
 import 'package:attend_ease/widgets/leave/leave_widgets.dart';
 import 'package:flutter/material.dart';
 
 Widget dateField(
-    double currentWidth,
-    double currentHeight,
-    double textScale,
     String label,
     String title,
     TextEditingController textCOntroller,
@@ -21,11 +18,11 @@ Widget dateField(
         style: TextStyle(
           color: Colors.grey.shade700,
           fontSize:
-              responsiveFontSize(16, currentWidth, currentHeight, textScale),
+              1.8434*SizeConfig.heightMultiplier,
         ),
       ),
       SizedBox(
-        height: responsiveContainerSize(10, currentWidth, currentHeight),
+        height:1.2640*SizeConfig.heightMultiplier,
       ),
       FormField(builder: (context) {
         return TextField(
@@ -39,7 +36,7 @@ Widget dateField(
                 },
                 icon: Icon(
                   Icons.calendar_month,
-                  size: 24,
+                  size: 2.5280*SizeConfig.heightMultiplier,
                   color: Colors.grey.shade700,
                 )),
             label: Text(
@@ -47,14 +44,14 @@ Widget dateField(
               style: TextStyle(
                   color: Colors.grey.shade500,
                   fontSize:
-                      responsiveContainerSize(17, currentWidth, currentHeight)),
+                      1.9487*SizeConfig.heightMultiplier),
             ),
             enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(4),
+              borderRadius: BorderRadius.circular(0.4213*SizeConfig.heightMultiplier),
               borderSide: BorderSide(color: Colors.grey.shade500),
             ),
             focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(4),
+              borderRadius: BorderRadius.circular(0.4213*SizeConfig.heightMultiplier),
               borderSide: const BorderSide(color: Colours.BUTTON_COLOR_1),
             ),
           ),
@@ -88,15 +85,15 @@ Widget leaveCardList(BuildContext context, Color border, Color bg, List<dynamic>
     return GestureDetector(
       onTap: () {},
       child: Container(
-        margin: EdgeInsets.symmetric(vertical: 15),
-        height: 160,
+        margin: EdgeInsets.symmetric(vertical: 1.58006*SizeConfig.heightMultiplier),
+        height: 16.8539*SizeConfig.heightMultiplier,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(1.053 * SizeConfig.heightMultiplier),
           border: Border.all(color: border, width: 3),
           boxShadow: [BoxShadow(color: bg, spreadRadius: 2, blurRadius: 2)],
         ),
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 14, vertical: 18),
+          padding: EdgeInsets.symmetric(horizontal: 3.125*SizeConfig.widthMultiplier, vertical:1.8960*SizeConfig.heightMultiplier),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -106,20 +103,20 @@ Widget leaveCardList(BuildContext context, Color border, Color bg, List<dynamic>
                     color: Colors.black,
                     fontFamily: "Kumbh-Med",
                     fontWeight: FontWeight.bold,
-                    fontSize: 24),
+                    fontSize: 2.5280*SizeConfig.heightMultiplier),
               ),
               SizedBox(
-                height: 10,
+                height: 1.053 * SizeConfig.heightMultiplier,
               ),
               Text(
                 "${list[index]["Start_Date"]} - ${list[index]["End_Date"]}",
                 style: style.copyWith(
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
-                    fontSize: 20),
+                    fontSize: 2.10674*SizeConfig.heightMultiplier),
               ),
               SizedBox(
-                height: 10,
+                height: 1.053 * SizeConfig.heightMultiplier,
               ),
               Text(
                 maxLines: 2,
@@ -128,7 +125,7 @@ Widget leaveCardList(BuildContext context, Color border, Color bg, List<dynamic>
                 style: style.copyWith(
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
-                    fontSize: 22),
+                    fontSize: 2.31742*SizeConfig.heightMultiplier),
               ),
             ],
           ),

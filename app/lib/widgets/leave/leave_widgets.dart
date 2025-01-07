@@ -1,9 +1,7 @@
-import 'package:attend_ease/styling/scale.dart';
 import 'package:attend_ease/styling/sizeconfig.dart';
 import 'package:flutter/material.dart';
 
-AppBar appBLeave(double currentWidth, double currentHeight, double textScale,
-    BuildContext context) {
+AppBar appBLeave(BuildContext context) {
   return AppBar(
     actions: [
       IconButton(
@@ -21,9 +19,9 @@ AppBar appBLeave(double currentWidth, double currentHeight, double textScale,
           fontFamily: "Tansek",
           fontWeight: FontWeight.w500,
           fontSize:
-              responsiveFontSize(34, currentWidth, currentHeight, textScale)),
+              3.8974*SizeConfig.heightMultiplier),
     ),
-    toolbarHeight: responsiveContainerSize(75, currentWidth, currentHeight),
+    toolbarHeight: 8.6376*SizeConfig.heightMultiplier,
     elevation: 5,
     shadowColor: Colors.grey,
   );
@@ -87,17 +85,17 @@ Widget button(String title, Color color, void Function() ontap) {
   return GestureDetector(
     onTap: ontap,
     child: Container(
-      height: 60,
-      width: 130,
+      height: 6.3202*SizeConfig.heightMultiplier,
+      width: 29.0178 * SizeConfig.widthMultiplier,
       decoration: BoxDecoration(
           color: color,
           border: Border.all(color: Colors.white),
-          borderRadius: BorderRadius.circular(8)),
+          borderRadius: BorderRadius.circular(0.8426*SizeConfig.heightMultiplier)),
       child: Center(
         child: Text(
           title,
           style: TextStyle(
-              color: Colors.black, fontFamily: "Kumbh-Med", fontSize: 20),
+              color: Colors.black, fontFamily: "Kumbh-Med", fontSize: 2.10674*SizeConfig.heightMultiplier),
         ),
       ),
     ),
