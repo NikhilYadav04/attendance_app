@@ -1,10 +1,11 @@
 import 'package:attend_ease/styling/sizeconfig.dart';
 import 'package:flutter/material.dart';
 
-AppBar appBLoginCompany(BuildContext context) {
+AppBar appBLoginCompany(BuildContext context,void Function() onTap) {
   return AppBar(
     actions: [
       IconButton(onPressed: (){
+        onTap;
         Navigator.pop(context);
       }, icon: Icon(Icons.exit_to_app))
     ],

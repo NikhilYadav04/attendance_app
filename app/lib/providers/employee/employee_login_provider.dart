@@ -51,6 +51,8 @@ class EmployeeLoginProvider extends ChangeNotifier {
             await HelperFunctions.setEmployeeName(
                 employeeNameController.text.toString());
 
+            clear();
+
             toastMessage(
                 context, "Success!", "Logged In ", ToastificationType.success);
             isLoading = false;
@@ -84,6 +86,12 @@ class EmployeeLoginProvider extends ChangeNotifier {
     companyNameController.dispose();
     employeeNameController.dispose();
     employeeIDController.dispose();
+  }
+
+  void clear(){
+    companyNameController.clear();
+    employeeNameController.clear();
+    employeeIDController.clear();
   }
 }
 

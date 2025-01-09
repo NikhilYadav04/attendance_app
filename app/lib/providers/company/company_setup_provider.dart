@@ -64,6 +64,8 @@ class CompanySetupProvider extends ChangeNotifier {
                 "Congrats!",
                 "Company Account Created Successfully",
                 ToastificationType.success);
+
+            clear();
             Future.delayed(Duration(milliseconds: 1000));
             Navigator.push(
                 context,
@@ -83,6 +85,12 @@ class CompanySetupProvider extends ChangeNotifier {
           ToastificationType.error);
     }
   }
+
+  void clear() {
+    companyNameController.clear();
+    companyHRController.clear();
+    companyIDController.clear();
+    companyCityController.clear();
+    companyHRNumberController.clear();
+  }
 }
-
-

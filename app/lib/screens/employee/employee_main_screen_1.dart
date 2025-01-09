@@ -1,6 +1,7 @@
 import 'package:attend_ease/providers/attendance/employee_attendance_provider.dart';
 import 'package:attend_ease/screens/leave/leave_req_screen.dart';
 import 'package:attend_ease/styling/sizeconfig.dart';
+import 'package:attend_ease/widgets/company/company_hr_widgets.dart';
 import 'package:attend_ease/widgets/employee/employee_main_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -33,6 +34,7 @@ class _EmployeeMainScreen1State extends State<EmployeeMainScreen1> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       body: SingleChildScrollView(child: Consumer<EmployeeAttendanceProvider>(
         builder: (context, provider, _) {
           return Container(
@@ -71,21 +73,31 @@ class _EmployeeMainScreen1State extends State<EmployeeMainScreen1> {
                 ),
                 listWidgetEMployee(context),
                 SizedBox(
-                  height: 4.00282 * SizeConfig.heightMultiplier,
+                  height: 2 * SizeConfig.heightMultiplier,
                 ),
-                Center(
-                    child: companyButtonEmployee(() {
-                  Navigator.push(
-                      context,
-                      PageTransition(
-                          child: LeaveReqScreen(),
-                          type: PageTransitionType.fade));
-                }, context))
               ],
             ),
           );
         },
       )),
+      floatingActionButton: Tooltip(
+              margin: EdgeInsets.only(
+                  bottom: 1.11608 * SizeConfig.widthMultiplier,
+                  left: 1.053 * SizeConfig.heightMultiplier),
+              textStyle: TextStyle(
+                  color: Colors.black,
+                  fontSize: 3.37079 * SizeConfig.heightMultiplier,
+                  fontFamily: "Tansek"),
+              decoration: BoxDecoration(color: Colors.transparent),
+              message: "Request Office Leave",
+              child: floatButton(context, Icons.calendar_month_rounded, () {
+                Navigator.push(
+                    context,
+                    PageTransition(
+                        child: LeaveReqScreen(),
+                        type: PageTransitionType.fade));
+              }),
+            ),
     );
   }
 }

@@ -39,7 +39,7 @@ class _HomeScreenState extends State<HomeScreen>
           //* Content Of Blue Card
           FractionallySizedBox(
             alignment: Alignment.topCenter,
-            heightFactor: .7,
+            heightFactor: .9,
             child: Column(
               children: [
                 Container(
@@ -98,43 +98,37 @@ class _HomeScreenState extends State<HomeScreen>
           //* Buttons
           FractionallySizedBox(
             alignment: Alignment.bottomCenter,
-            heightFactor: 0.998,
-            child: SingleChildScrollView(
-              child: Padding(
-                padding:
-                    EdgeInsets.only(top: 76.685 * SizeConfig.heightMultiplier),
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: 0.1 * SizeConfig.heightMultiplier,
-                    ),
-                    companyButton(() {
-                      Navigator.push(
-                          context,
-                          PageTransition(
-                              child: CompanySetupScreen(),
-                              type: PageTransitionType.bottomToTop));
-                    }, context),
-                    SizedBox(
-                      height: 1.3 * SizeConfig.heightMultiplier,
-                    ),
-                    widgetDivider(),
-                    SizedBox(
-                      height: 0.842 * SizeConfig.heightMultiplier,
-                    ),
-                    InkWell(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              PageTransition(
-                                  child: EmployeeSetupScreen(),
-                                  type: PageTransitionType.bottomToTop));
-                        },
-                        child: existText())
-                  ],
-                ),
+            heightFactor: 0.195,
+            child:  Column(
+                children: [
+                  SizedBox(
+                    height: 0.1 * SizeConfig.heightMultiplier,
+                  ),
+                  companyButton(() {
+                    Navigator.push(
+                        context,
+                        PageTransition(
+                            child: CompanySetupScreen(),
+                            type: PageTransitionType.bottomToTop));
+                  }, context),
+                  SizedBox(
+                    height: 1.3 * SizeConfig.heightMultiplier,
+                  ),
+                  widgetDivider(),
+                  SizedBox(
+                    height: 0.842 * SizeConfig.heightMultiplier,
+                  ),
+                  InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            PageTransition(
+                                child: EmployeeSetupScreen(),
+                                type: PageTransitionType.bottomToTop));
+                      },
+                      child: existText())
+                ],
               ),
-            ),
           )
         ],
       )),

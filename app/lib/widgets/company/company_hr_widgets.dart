@@ -41,106 +41,102 @@ Widget appBtitleHR(
     void Function() fun2,
     bool isProfile,
     String? profile) {
-  return AppBar(
-    title: Row(
-      children: [
-        GestureDetector(
-          onTap: () {
-            showDialog(
-                context: context,
-                builder: (context) {
-                  return AlertDialog(actions: [
-                    Container(
-                        height: 29.494 * SizeConfig.heightMultiplier,
-                        width: 75.892 * SizeConfig.widthMultiplier,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(1)),
-                        child: Column(
-                          children: [
-                            SizedBox(
-                              height: 2.1067 * SizeConfig.heightMultiplier,
-                            ),
-                            Text(
-                              "Upload Your Profile Picture",
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontFamily: "Kumbh-Med",
-                                  fontSize:
-                                      2.5280 * SizeConfig.heightMultiplier,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            SizedBox(
-                              height: 2.6334 * SizeConfig.heightMultiplier,
-                            ),
-                            Container(
-                              height: 18.9607 * SizeConfig.heightMultiplier,
-                              width: 66.96428 * SizeConfig.widthMultiplier,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(
-                                      0.5266 * SizeConfig.heightMultiplier),
-                                  border: Border.all(
-                                      color: Colors.black,
-                                      width: 2,
-                                      style: BorderStyle.solid)),
-                              child: isProfile
-                                  ? SpinKitCircle(
-                                      color: Colours.DARK_BLUE,
-                                      size:
-                                          2.10674 * SizeConfig.heightMultiplier,
-                                    )
-                                  : Padding(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: 3.3482 *
-                                              SizeConfig.widthMultiplier,
-                                          vertical: 1.58006 *
-                                              SizeConfig.heightMultiplier),
-                                      child: Column(
-                                        children: [
-                                          buttonPic("Pick From Gallery  ",
-                                              Icons.photo, fun2),
-                                          SizedBox(
-                                            height: 2.1067 *
-                                                SizeConfig.heightMultiplier,
-                                          ),
-                                          buttonPic("Click From Camera",
-                                              Icons.camera_alt, fun1)
-                                        ],
-                                      ),
+  return Row(
+    children: [
+      GestureDetector(
+        onTap: () {
+          showDialog(
+              context: context,
+              builder: (context) {
+                return AlertDialog(actions: [
+                  Container(
+                      height: 29.494 * SizeConfig.heightMultiplier,
+                      width: 75.892 * SizeConfig.widthMultiplier,
+                      decoration:
+                          BoxDecoration(borderRadius: BorderRadius.circular(1)),
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: 2.1067 * SizeConfig.heightMultiplier,
+                          ),
+                          Text(
+                            "Upload Your Profile Picture",
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontFamily: "Kumbh-Med",
+                                fontSize: 2.5280 * SizeConfig.heightMultiplier,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          SizedBox(
+                            height: 2.6334 * SizeConfig.heightMultiplier,
+                          ),
+                          Container(
+                            height: 18.9607 * SizeConfig.heightMultiplier,
+                            width: 66.96428 * SizeConfig.widthMultiplier,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(
+                                    0.5266 * SizeConfig.heightMultiplier),
+                                border: Border.all(
+                                    color: Colors.black,
+                                    width: 2,
+                                    style: BorderStyle.solid)),
+                            child: isProfile
+                                ? SpinKitCircle(
+                                    color: Colours.DARK_BLUE,
+                                    size: 2.10674 * SizeConfig.heightMultiplier,
+                                  )
+                                : Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal:
+                                            3.3482 * SizeConfig.widthMultiplier,
+                                        vertical: 1.58006 *
+                                            SizeConfig.heightMultiplier),
+                                    child: Column(
+                                      children: [
+                                        buttonPic("Pick From Gallery  ",
+                                            Icons.photo, fun2),
+                                        SizedBox(
+                                          height: 2.1067 *
+                                              SizeConfig.heightMultiplier,
+                                        ),
+                                        buttonPic("Click From Camera",
+                                            Icons.camera_alt, fun1)
+                                      ],
                                     ),
-                            )
-                          ],
-                        )),
-                  ]);
-                });
-          },
-          child: isProfile
-              ? SpinKitCircle(
-                  color: Colours.DARK_BLUE,
-                  size: 2.1067 * SizeConfig.heightMultiplier,
-                )
-              : profile == ""
-                  ? Icon(
-                      Icons.account_circle_sharp,
-                      color: Colors.grey.shade800,
-                      size: 3.5814 * SizeConfig.heightMultiplier,
-                    )
-                  : CircleAvatar(
-                      radius: 2.6334 * SizeConfig.heightMultiplier,
-                      backgroundImage: FileImage(File(profile.toString())),
-                    ),
-        ),
-        SizedBox(
-          width: 2.9017 * SizeConfig.widthMultiplier,
-        ),
-        Text(
-          "${companyName}",
-          style: TextStyle(
-              color: Colors.black,
-              fontWeight: FontWeight.w500,
-              fontSize: 2.6334 * SizeConfig.heightMultiplier),
-        ),
-      ],
-    ),
+                                  ),
+                          )
+                        ],
+                      )),
+                ]);
+              });
+        },
+        child: isProfile
+            ? SpinKitCircle(
+                color: Colours.DARK_BLUE,
+                size: 3 * SizeConfig.heightMultiplier,
+              )
+            : profile == ""
+                ? Icon(
+                    Icons.account_circle_sharp,
+                    color: Colors.grey.shade800,
+                    size: 4 * SizeConfig.heightMultiplier,
+                  )
+                : CircleAvatar(
+                    radius: 3.2 * SizeConfig.heightMultiplier,
+                    backgroundImage: FileImage(File(profile.toString())),
+                  ),
+      ),
+      SizedBox(
+        width: 2.9017 * SizeConfig.widthMultiplier,
+      ),
+      Text(
+        "${companyName}",
+        style: TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.w500,
+            fontSize: 2.9 * SizeConfig.heightMultiplier),
+      ),
+    ],
   );
 }
 

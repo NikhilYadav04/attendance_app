@@ -11,13 +11,15 @@ Widget backgroundContainer() {
 
 Widget titleWidget() {
   return Center(
-    child: Text(
-      "Welcome to Attend Ease",
-      style: TextStyle(
-          color: Color(0xFFC3FFFC),
-          fontWeight: FontWeight.bold,
-          fontSize: 3.8 * SizeConfig.heightMultiplier,
-          fontFamily: "Kumbh-Med"),
+    child: FittedBox(
+      child: Text(
+        "Welcome to Attend Ease",
+        style: TextStyle(
+            color: Color(0xFFC3FFFC),
+            fontWeight: FontWeight.bold,
+            fontSize: 3.8 * SizeConfig.heightMultiplier,
+            fontFamily: "Kumbh-Med"),
+      ),
     ),
   );
 }
@@ -45,13 +47,15 @@ Widget dashboardContainer(String image, String title) {
           SizedBox(
             height: 1.896 * SizeConfig.heightMultiplier,
           ),
-          Text(
-            title,
-            style: TextStyle(
-                fontFamily: "Kumbh-Med",
-                fontWeight: FontWeight.bold,
-                fontSize: 2.16 * SizeConfig.heightMultiplier,
-                color: Colors.black),
+          FittedBox(
+            child: Text(
+              title,
+              style: TextStyle(
+                  fontFamily: "Kumbh-Med",
+                  fontWeight: FontWeight.bold,
+                  fontSize: 2.16 * SizeConfig.heightMultiplier,
+                  color: Colors.black),
+            ),
           )
         ],
       ),
@@ -61,13 +65,15 @@ Widget dashboardContainer(String image, String title) {
 
 Widget welcomeText() {
   return Center(
-    child: Text(
-      "Manage your attendance in a single click.",
-      style: TextStyle(
-          color: Color(0xFFEEB5EB),
-          fontWeight: FontWeight.bold,
-          fontSize: 2.2120 * SizeConfig.heightMultiplier,
-          fontFamily: "Kumbh-Med"),
+    child: FittedBox(
+      child: Text(
+        "Manage your attendance in a single click.",
+        style: TextStyle(
+            color: Color(0xFFEEB5EB),
+            fontWeight: FontWeight.bold,
+            fontSize: 2.2120 * SizeConfig.heightMultiplier,
+            fontFamily: "Kumbh-Med"),
+      ),
     ),
   );
 }

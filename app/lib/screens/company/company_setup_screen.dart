@@ -17,12 +17,16 @@ class CompanySetupScreen extends StatefulWidget {
 class _CompanySetupScreenState extends State<CompanySetupScreen> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
+  void clear(){
+    context.read<CompanySetupProvider>().clear();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
           resizeToAvoidBottomInset: true,
-          appBar: appB(context),
+          appBar: appB(context,clear),
           body: Consumer<CompanySetupProvider>(
             builder: (context, provider, _) {
               return Container(
@@ -104,4 +108,5 @@ class _CompanySetupScreenState extends State<CompanySetupScreen> {
           )),
     );
   }
+
 }

@@ -46,10 +46,6 @@ class _EmployeeMainScreen2State extends State<EmployeeMainScreen2> {
         builder: (context, provider, _) {
           return Column(
             children: [
-              SizedBox(
-                height: 0,
-              ),
-
               //* To Display Date And Status
               upperBar(context, currentDate,
                   provider.isPresent ? "Present" : "Absent"),
@@ -64,15 +60,17 @@ class _EmployeeMainScreen2State extends State<EmployeeMainScreen2> {
                 },
                 context,
                 provider.isBiometric,
-                Text(
-                  provider.isBiometric
-                      ? "Your Biometric ID Is Verified"
-                      : "Click Here For Biometric Authentication",
-                  style: TextStyle(
-                      fontSize: 2.2647 * SizeConfig.heightMultiplier,
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: "Kumbh-Med"),
+                FittedBox(
+                  child: Text(
+                    provider.isBiometric
+                        ? "Your Biometric ID Is Verified"
+                        : "Click Here For Biometric Authentication",
+                    style: TextStyle(
+                        fontSize: 2.2647 * SizeConfig.heightMultiplier,
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: "Kumbh-Med"),
+                  ),
                 ),
               ),
 
@@ -85,22 +83,35 @@ class _EmployeeMainScreen2State extends State<EmployeeMainScreen2> {
                               color: Colours.BUTTON_COLOR_2,
                               size: 3.686 * SizeConfig.heightMultiplier,
                             )
-                          : Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                attendButtonIn(
-                                  () {
-                                    provider.submitAttendanceIn(
-                                        context, currentDate, month, Year);
-                                  },
-                                ),
-                                attendButtonOut(
-                                  () {
-                                    provider.submitAttendanceOut(
-                                        context, currentDate, month, Year);
-                                  },
-                                ),
-                              ],
+                          : Container(
+                              color: Colors.black,
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    flex: 1,
+                                    child: attendButtonIn(
+                                      () {
+                                        provider.submitAttendanceIn(
+                                            context, currentDate, month, Year);
+                                      },
+                                    ),
+                                  ),
+                                  Container(
+                                    height: 90,
+                                    width: 6,
+                                    color: Colors.white,
+                                  ),
+                                  Expanded(
+                                    flex: 1,
+                                    child: attendButtonOut(
+                                      () {
+                                        provider.submitAttendanceOut(
+                                            context, currentDate, month, Year);
+                                      },
+                                    ),
+                                  ),
+                                ],
+                              ),
                             )
                       : LoadingAnimationWidget(),
               provider.isPresent

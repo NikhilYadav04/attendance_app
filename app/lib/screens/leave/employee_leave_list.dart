@@ -9,6 +9,7 @@ import 'package:attend_ease/widgets/leave/leave_widgets_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 class EmployeeLeaveList extends StatefulWidget {
   const EmployeeLeaveList({super.key});
@@ -18,28 +19,27 @@ class EmployeeLeaveList extends StatefulWidget {
 }
 
 class _EmployeeLeaveListState extends State<EmployeeLeaveList> {
-
   final PageController _pageController = PageController();
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-     WidgetsBinding.instance.addPostFrameCallback((_) async {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
       final provider = context.read<LeaveProvider>();
       await provider.fetchLeavesEmployee(context);
-     provider.dynamic_length = await setLength(provider.Approved_List_Employee, provider.Pending_List_Employee, provider.Rejected_List_Employee);
+      provider.dynamic_length = await setLength(provider.Approved_List_Employee,
+          provider.Pending_List_Employee, provider.Rejected_List_Employee);
     });
   }
 
-   int setLength(List<dynamic> list1, List<dynamic> list2, List<dynamic> list3) {
-      int max_length  = max(list1.length, max(list2.length,list3.length));
-      return max_length;
-   }
+  int setLength(List<dynamic> list1, List<dynamic> list2, List<dynamic> list3) {
+    int max_length = max(list1.length, max(list2.length, list3.length));
+    return max_length;
+  }
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       backgroundColor: Colors.grey.shade100,
       body: SingleChildScrollView(
@@ -48,69 +48,77 @@ class _EmployeeLeaveListState extends State<EmployeeLeaveList> {
             return Column(
               children: [
                 SizedBox(
-                  height: 1.5800*SizeConfig.heightMultiplier,
+                  height: 1.5800 * SizeConfig.heightMultiplier,
                 ),
                 approveTextEmployee("Your Leaves"),
                 SizedBox(
-                  height: 3.16012*SizeConfig.heightMultiplier,
-                ),
-                provider.isLoadingList
-                    ? SpinKitRing(
-                        color: Colours.DARK_BLUE,
-                        size: 60,
-                      )
-                    : Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 4.01785*SizeConfig.widthMultiplier),
-                        child: Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                cards(
-                                    "Leaves\nRejected",
-                                    provider.Rejected_List_Employee.length
-                                        .toString(),
-                                    Colors.red,
-                                    const Color.fromARGB(255, 247, 221, 223),
-                                    () {}),
-                                cards(
-                                    "Leaves\nApproved",
-                                    provider.Approved_List_Employee.length
-                                        .toString(),
-                                    Colors.lightGreen,
-                                    const Color.fromARGB(255, 231, 243, 218),
-                                    () {}),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 1.5800*SizeConfig.heightMultiplier,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                cards(
-                                    "Leaves\nPending",
-                                    provider.Pending_List_Employee.length
-                                        .toString(),
-                                    Colors.blue,
-                                    Color.fromARGB(255, 212, 229, 243),
-                                    () {}),
-                                 cards(
-                                    "Leaves\nRemaining",
-                                    provider.count.toString()
-                                        .toString(),
-                                    Colours.BUTTON_COLOR_1,
-                                    Colours.BUTTON_COLOR_2,
-                                    () {}),
-                              ],
-                            ),
-                          ],
-                        )),
-                SizedBox(
-                  height: 4.21349*SizeConfig.heightMultiplier,
+                  height: 3.16012 * SizeConfig.heightMultiplier,
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 4.0178*SizeConfig.widthMultiplier),
+                    padding: EdgeInsets.symmetric(
+                        horizontal: 4.01785 * SizeConfig.widthMultiplier),
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Skeletonizer(
+                              enabled: provider.isLoadingList,
+                              child: cards(
+                                  "Leaves\nRejected",
+                                  provider.Rejected_List_Employee.length
+                                      .toString(),
+                                  Colors.red,
+                                  const Color.fromARGB(255, 247, 221, 223),
+                                  () {}),
+                            ),
+                            Skeletonizer(
+                              enabled: provider.isLoadingList,
+                              child: cards(
+                                  "Leaves\nApproved",
+                                  provider.Approved_List_Employee.length
+                                      .toString(),
+                                  Colors.lightGreen,
+                                  const Color.fromARGB(255, 231, 243, 218),
+                                  () {}),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 1.5800 * SizeConfig.heightMultiplier,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Skeletonizer(
+                              enabled: provider.isLoadingList,
+                              child: cards(
+                                  "Leaves\nPending",
+                                  provider.Pending_List_Employee.length
+                                      .toString(),
+                                  Colors.blue,
+                                  Color.fromARGB(255, 212, 229, 243),
+                                  () {}),
+                            ),
+                            Skeletonizer(
+                              enabled: provider.isLoadingList,
+                              child: cards(
+                                  "Leaves\nRemaining",
+                                  provider.count.toString().toString(),
+                                  Colours.BUTTON_COLOR_1,
+                                  Colours.BUTTON_COLOR_2,
+                                  () {}),
+                            ),
+                          ],
+                        ),
+                      ],
+                    )),
+                SizedBox(
+                  height: 4.21349 * SizeConfig.heightMultiplier,
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: 4.0178 * SizeConfig.widthMultiplier),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -156,9 +164,15 @@ class _EmployeeLeaveListState extends State<EmployeeLeaveList> {
                         size: 6.3202 * SizeConfig.heightMultiplier,
                       )
                     : Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 4.01785 * SizeConfig.widthMultiplier),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 4.01785 * SizeConfig.widthMultiplier),
                         child: SizedBox(
-                          height: 16.854 * SizeConfig.heightMultiplier * provider.dynamic_length + provider.dynamic_length*1.5800*SizeConfig.heightMultiplier,
+                          height: 16.854 *
+                                  SizeConfig.heightMultiplier *
+                                  provider.dynamic_length +
+                              provider.dynamic_length *
+                                  1.5800 *
+                                  SizeConfig.heightMultiplier,
                           child: PageView(
                             physics: NeverScrollableScrollPhysics(),
                             controller: _pageController,

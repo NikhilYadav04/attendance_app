@@ -50,6 +50,8 @@ class CompanyLoginProvider extends ChangeNotifier {
             isLoading = false;
             notifyListeners();
 
+            clear();
+
             Navigator.pushAndRemoveUntil(
               context,
               PageTransition(
@@ -69,6 +71,11 @@ class CompanyLoginProvider extends ChangeNotifier {
       toastMessage(context, "Empty Details!", "Please fill all the fields",
           ToastificationType.warning);
     }
+  }
+
+  void clear() {
+    companyIDController.clear();
+    companyNameController.clear();
   }
 
   @override

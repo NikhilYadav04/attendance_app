@@ -61,7 +61,7 @@ class _CompanyHrScreenState extends State<CompanyHrScreen>
                 return AppBar(
                   automaticallyImplyLeading: false,
                   elevation: 0,
-                  toolbarHeight: 8.2163 * SizeConfig.heightMultiplier,
+                  toolbarHeight: 10 * SizeConfig.heightMultiplier,
                   title: appBtitleHR(companyName, context, () {
                     provider.uploadImageCameraLocalStorage(context);
                   }, () {
@@ -92,7 +92,6 @@ class _CompanyHrScreenState extends State<CompanyHrScreen>
               return Column(
                 children: [
                   TabBar(
-                    padding: EdgeInsets.only(top: 6),
                     indicatorColor: Colours.DARK_BLUE,
                     indicatorWeight: 1,
                     controller: tabController,

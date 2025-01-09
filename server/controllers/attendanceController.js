@@ -20,6 +20,17 @@ const mark_in = async (req, res) => {
       isPresent,
     };
 
+    const index = await report.attendance.findIndex(
+      (attendance) => attendance.Date === Date
+    );
+
+    if(index>=0){
+      return res.status(400).json({
+        success: false,
+        message: "InTime Marked Already",
+      });
+    }
+
     console.log(attendanceBody);
 
     await report.attendance.push(attendanceBody);

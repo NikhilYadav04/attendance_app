@@ -1,4 +1,3 @@
-
 import 'package:attend_ease/services/leaveService.dart';
 import 'package:attend_ease/widgets/auth/otp_auth_widgets.dart';
 import 'package:flutter/foundation.dart';
@@ -67,6 +66,8 @@ class LeaveProvider extends ChangeNotifier {
         if (value == "Success") {
           isLoadingReq = false;
           notifyListeners();
+
+          clear();
 
           toastMessage(
               context,
@@ -178,5 +179,12 @@ class LeaveProvider extends ChangeNotifier {
         count = value["count"];
       }
     });
+  }
+
+  void clear() {
+    LeaveTitleController.clear();
+    LeaveReasonController.clear();
+    StartDateController.clear();
+    EndDateController.clear();
   }
 }

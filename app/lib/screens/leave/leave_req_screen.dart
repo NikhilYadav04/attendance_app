@@ -19,9 +19,13 @@ class LeaveReqScreen extends StatefulWidget {
 class _LeaveReqScreenState extends State<LeaveReqScreen> {
   @override
   Widget build(BuildContext context) {
+    void clear() {
+      context.read<LeaveProvider>().clear();
+    }
+
     return SafeArea(
         child: Scaffold(
-      appBar: appBLeave(context),
+      appBar: appBLeave(context, clear),
       body: Consumer<LeaveProvider>(
         builder: (context, provider, _) {
           return Container(
@@ -59,7 +63,7 @@ class _LeaveReqScreenState extends State<LeaveReqScreen> {
                   textFieldStaff("Enter Reason In 2-3 Lines", "Leave Reason",
                       provider.LeaveReasonController, addEmployeeName),
                   SizedBox(
-                    height: 188,
+                    height: 19.80 * SizeConfig.heightMultiplier,
                   ),
                   provider.isLoadingReq
                       ? SpinKitCircle(
@@ -68,7 +72,10 @@ class _LeaveReqScreenState extends State<LeaveReqScreen> {
                         )
                       : addEmployeeButton(() {
                           provider.reqLeave(context);
-                        }, context, "Request Leave")
+                        }, context, "Request Leave"),
+                  SizedBox(
+                    height: 2.3174 * SizeConfig.heightMultiplier,
+                  )
                 ],
               ),
             ),

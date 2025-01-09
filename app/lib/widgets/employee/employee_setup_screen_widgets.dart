@@ -2,10 +2,11 @@ import 'package:attend_ease/styling/colors.dart';
 import 'package:attend_ease/styling/sizeconfig.dart';
 import 'package:flutter/material.dart';
 
-AppBar appBEmployee(BuildContext context) {
+AppBar appBEmployee(BuildContext context,void Function() onTap) {
   return AppBar(
     actions: [
       IconButton(onPressed: (){
+        onTap();
         Navigator.pop(context);
       }, icon: Icon(Icons.exit_to_app))
     ],

@@ -1,11 +1,12 @@
 import 'package:attend_ease/styling/sizeconfig.dart';
 import 'package:flutter/material.dart';
 
-AppBar appBLeave(BuildContext context) {
+AppBar appBLeave(BuildContext context,void Function() ontap) {
   return AppBar(
     actions: [
       IconButton(
           onPressed: () {
+            ontap;
             Navigator.pop(context);
           },
           icon: Icon(Icons.exit_to_app))
@@ -107,7 +108,7 @@ Widget cards(
   return GestureDetector(
     onTap: onTap,
     child: Container(
-      height: 17.9073*SizeConfig.heightMultiplier,
+      height: 18.1*SizeConfig.heightMultiplier,
       width: 44.6428*SizeConfig.widthMultiplier,
       decoration: BoxDecoration(
           color: bg,

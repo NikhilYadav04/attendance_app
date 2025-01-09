@@ -41,31 +41,33 @@ Widget appBartitle(
                 builder: (context) {
                   return AlertDialog(actions: [
                     Container(
-                        height: 29.4944*SizeConfig.heightMultiplier,
-                        width: 75.8928*SizeConfig.widthMultiplier,
+                        height: 29.4944 * SizeConfig.heightMultiplier,
+                        width: 75.8928 * SizeConfig.widthMultiplier,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(1)),
                         child: Column(
                           children: [
                             SizedBox(
-                              height: 2.10678*SizeConfig.heightMultiplier,
+                              height: 2.10678 * SizeConfig.heightMultiplier,
                             ),
                             Text(
                               "Upload Your Profile Picture",
                               style: TextStyle(
                                   color: Colors.black,
                                   fontFamily: "Kumbh-Med",
-                                  fontSize: 2.528098*SizeConfig.heightMultiplier,
+                                  fontSize:
+                                      2.528098 * SizeConfig.heightMultiplier,
                                   fontWeight: FontWeight.bold),
                             ),
                             SizedBox(
-                              height: 2.63343*SizeConfig.heightMultiplier,
+                              height: 2.63343 * SizeConfig.heightMultiplier,
                             ),
                             Container(
-                              height:18.96078*SizeConfig.heightMultiplier,
-                              width: 66.9642*SizeConfig.widthMultiplier,
+                              height: 18.96078 * SizeConfig.heightMultiplier,
+                              width: 66.9642 * SizeConfig.widthMultiplier,
                               decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(0.52668*SizeConfig.heightMultiplier),
+                                  borderRadius: BorderRadius.circular(
+                                      0.52668 * SizeConfig.heightMultiplier),
                                   border: Border.all(
                                       color: Colors.black,
                                       width: 2,
@@ -73,17 +75,22 @@ Widget appBartitle(
                               child: isProfile
                                   ? SpinKitCircle(
                                       color: Colours.DARK_BLUE,
-                                      size: 2.10674*SizeConfig.heightMultiplier,
+                                      size:
+                                          2.10674 * SizeConfig.heightMultiplier,
                                     )
                                   : Padding(
                                       padding: EdgeInsets.symmetric(
-                                          horizontal: 3.34821*SizeConfig.widthMultiplier, vertical: 1.58006*SizeConfig.heightMultiplier),
+                                          horizontal: 3.34821 *
+                                              SizeConfig.widthMultiplier,
+                                          vertical: 1.58006 *
+                                              SizeConfig.heightMultiplier),
                                       child: Column(
                                         children: [
                                           buttonPic("Pick From Gallery  ",
                                               Icons.photo, fun2),
                                           SizedBox(
-                                            height: 2.10674*SizeConfig.heightMultiplier,
+                                            height: 2.10674 *
+                                                SizeConfig.heightMultiplier,
                                           ),
                                           buttonPic("Click From Camera",
                                               Icons.camera_alt, fun1)
@@ -99,33 +106,31 @@ Widget appBartitle(
           child: isProfile
               ? SpinKitCircle(
                   color: Colours.DARK_BLUE,
-                  size: 2.10674*SizeConfig.heightMultiplier,
+                  size: 2.10674 * SizeConfig.heightMultiplier,
                 )
               : profile == ""
                   ? Icon(
                       Icons.account_circle_sharp,
                       color: Colors.grey.shade800,
-                      size: 3.581473*SizeConfig.heightMultiplier,
+                      size: 4 * SizeConfig.heightMultiplier,
                     )
                   : CircleAvatar(
-                      radius: 2.63343*SizeConfig.heightMultiplier,
+                      radius: 2.63343 * SizeConfig.heightMultiplier,
                       backgroundImage: FileImage(File(profile.toString())),
                     )),
       SizedBox(
-        width: 2.67857*SizeConfig.widthMultiplier,
+        width: 2.67857 * SizeConfig.widthMultiplier,
       ),
       Text(
         "${employeeName}",
         style: TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.w500,
-            fontSize: 2.6334*SizeConfig.heightMultiplier),
+            fontSize: 3 * SizeConfig.heightMultiplier),
       ),
     ],
   );
 }
-
-
 
 Widget upperBar(BuildContext context, String Date, String status) {
   return Container(
@@ -134,16 +139,18 @@ Widget upperBar(BuildContext context, String Date, String status) {
       border: Border(
         bottom: BorderSide(
           color: Colors.red, // Choose your color here
-          width: 1.1160*SizeConfig.widthMultiplier, // Choose the width of the border
+          width: 1.1160 *
+              SizeConfig.widthMultiplier, // Choose the width of the border
         ),
       ),
     ),
     padding: EdgeInsets.symmetric(
-        horizontal: 2.23214*SizeConfig.widthMultiplier ,
-        vertical: 0.5266*SizeConfig.heightMultiplier),
-    height: 12.6404*SizeConfig.heightMultiplier,
+        horizontal: 2.23214 * SizeConfig.widthMultiplier,
+    ),
+    height: 14.3 * SizeConfig.heightMultiplier,
     child: Column(
       children: [
+        SizedBox(height: 1.2640*SizeConfig.heightMultiplier,),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -151,7 +158,7 @@ Widget upperBar(BuildContext context, String Date, String status) {
                 style: GoogleFonts.notoSansOldHungarian(
                   color: Colors.grey.shade900,
                   fontWeight: FontWeight.bold,
-                  fontSize: 2.52809*SizeConfig.heightMultiplier,
+                  fontSize: 2.52809 * SizeConfig.heightMultiplier,
                 )),
             IconButton(
                 onPressed: () {
@@ -161,24 +168,26 @@ Widget upperBar(BuildContext context, String Date, String status) {
                         return AlertDialog(
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(
-                                  0.6320*SizeConfig.heightMultiplier)),
+                                  0.6320 * SizeConfig.heightMultiplier)),
                           backgroundColor: Colours.BUTTON_COLOR_2,
                           title: Center(
                             child: Text(
                               "Stay Within Radius",
                               style: GoogleFonts.notoSansOldHungarian(
-                                  fontSize: 2.89677*SizeConfig.heightMultiplier,
+                                  fontSize:
+                                      2.89677 * SizeConfig.heightMultiplier,
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold),
                             ),
                           ),
                           content: Container(
-                            height: 14.7472*SizeConfig.heightMultiplier,
+                            height: 14.7472 * SizeConfig.heightMultiplier,
                             child: Center(
                               child: Text(
                                 "Please stay within 100 to 500 m from office location otherwise you will be not able to mark attendance . ",
                                 style: GoogleFonts.notoSansOldHungarian(
-                                    fontSize: 2.0540*SizeConfig.heightMultiplier,
+                                    fontSize:
+                                        2.0540 * SizeConfig.heightMultiplier,
                                     color: Colors.grey.shade800,
                                     fontWeight: FontWeight.bold),
                               ),
@@ -189,12 +198,12 @@ Widget upperBar(BuildContext context, String Date, String status) {
                 },
                 icon: Icon(
                   Icons.help,
-                  size: 3.6341*SizeConfig.heightMultiplier,
+                  size: 3.6341 * SizeConfig.heightMultiplier,
                 )),
           ],
         ),
         SizedBox(
-          height: 1.8434*SizeConfig.heightMultiplier,
+          height: 1.8434 * SizeConfig.heightMultiplier,
         ),
         dateWidget(Date, status)
       ],
@@ -202,7 +211,7 @@ Widget upperBar(BuildContext context, String Date, String status) {
   );
 }
 
-Widget dateWidget( String Date, String status) {
+Widget dateWidget(String Date, String status) {
   return Center(
     child: RichText(
       text: TextSpan(
@@ -210,7 +219,7 @@ Widget dateWidget( String Date, String status) {
         style: GoogleFonts.notoSansOldHungarian(
           color: Colors.grey.shade900,
           fontWeight: FontWeight.w600,
-          fontSize: 2.4227* SizeConfig.heightMultiplier,
+          fontSize: 2.4227 * SizeConfig.heightMultiplier,
         ),
         children: <TextSpan>[
           TextSpan(
@@ -218,7 +227,7 @@ Widget dateWidget( String Date, String status) {
             style: GoogleFonts.notoSansOldHungarian(
               color: Colors.red,
               fontWeight: FontWeight.bold,
-              fontSize: 2.4227*SizeConfig.heightMultiplier,
+              fontSize: 2.4227 * SizeConfig.heightMultiplier,
             ),
           )
         ],
@@ -227,13 +236,18 @@ Widget dateWidget( String Date, String status) {
   );
 }
 
-Widget cameraAuthenticate(void Function() onTap, BuildContext context, bool isAuthenticate, Text text) {
+Widget cameraAuthenticate(void Function() onTap, BuildContext context,
+    bool isAuthenticate, Widget text) {
   return Container(
-    decoration: const BoxDecoration(
-        border: Border(bottom: BorderSide(color: Colors.red, width: 5))),
+    height: 51 * SizeConfig.heightMultiplier,
+    decoration: BoxDecoration(
+        border: Border(
+            bottom: BorderSide(
+                color: Colours.BUTTON_COLOR_1,
+                width: 1.1160 * SizeConfig.heightMultiplier))),
     padding: EdgeInsets.symmetric(
-        horizontal: 1.11607*SizeConfig.widthMultiplier,
-        vertical:1.58008 * SizeConfig.heightMultiplier),
+        horizontal: 1.11607 * SizeConfig.widthMultiplier,
+        vertical: 1.58008 * SizeConfig.heightMultiplier),
     child: Column(
       children: [
         SizedBox(
@@ -242,20 +256,20 @@ Widget cameraAuthenticate(void Function() onTap, BuildContext context, bool isAu
         Center(
           child: Image.asset(
             "assets/home_screen/biom.png",
-            height: 15.8006*SizeConfig.heightMultiplier,
-            width: 33.4821* SizeConfig.widthMultiplier,
+            height: 15.8006 * SizeConfig.heightMultiplier,
+            width: 33.4821 * SizeConfig.widthMultiplier,
           ),
         ),
         SizedBox(
-          height: 2.3174* SizeConfig.heightMultiplier,
+          height: 2.3174 * SizeConfig.heightMultiplier,
         ),
         cameraButton(onTap, context),
         SizedBox(
-          height:2.3174* SizeConfig.heightMultiplier,
+          height: 2.3174 * SizeConfig.heightMultiplier,
         ),
         text,
         SizedBox(
-          height: 11.3*SizeConfig.heightMultiplier,
+          height: 9.8 * SizeConfig.heightMultiplier,
         ),
       ],
     ),
@@ -263,7 +277,8 @@ Widget cameraAuthenticate(void Function() onTap, BuildContext context, bool isAu
 }
 
 Widget attendButtonIn(
-    void Function() onTap,) {
+  void Function() onTap,
+) {
   return InkWell(
     onTap: onTap,
     child: Container(
@@ -275,7 +290,8 @@ Widget attendButtonIn(
 }
 
 Widget attendButtonOut(
-    void Function() onTap,) {
+  void Function() onTap,
+) {
   return InkWell(
     onTap: onTap,
     child: Container(
@@ -294,15 +310,14 @@ Widget buttonWIdget(
     onTap: onTap,
     child: Container(
       margin: EdgeInsets.symmetric(
-          horizontal: 4.4642* SizeConfig.widthMultiplier ,
-          vertical: 2.10674 * SizeConfig.heightMultiplier ),
+          horizontal: 4.1 * SizeConfig.widthMultiplier,
+          vertical: 1.72 * SizeConfig.heightMultiplier),
       padding: EdgeInsets.symmetric(
-          horizontal: 3.5714 * SizeConfig.widthMultiplier,
-          vertical: 0.5266 * SizeConfig.heightMultiplier ),
-      height: 3.3707*SizeConfig.heightMultiplier,
+          horizontal: 3.6 * SizeConfig.widthMultiplier,
+          vertical: 0.5266 * SizeConfig.heightMultiplier),
       decoration: BoxDecoration(
           borderRadius:
-              BorderRadius.circular(2),
+              BorderRadius.circular(0.5267 * SizeConfig.heightMultiplier),
           color: Colours.BUTTON_COLOR_1),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -311,18 +326,17 @@ Widget buttonWIdget(
             title,
             style: TextStyle(
                 color: Colors.white,
-                fontSize:
-                    2.42276* SizeConfig.heightMultiplier,
+                fontSize: 2.4 * SizeConfig.heightMultiplier,
                 fontWeight: FontWeight.bold),
           ),
-          IconButton(
-            icon: Icon(
-              Icons.back_hand,
-              color: Colors.white,
-              size: 2.42276 * SizeConfig.heightMultiplier,
-            ),
-            onPressed: () {},
-          )
+          SizedBox(
+            width: 1.5 * SizeConfig.widthMultiplier,
+          ),
+          Icon(
+            Icons.back_hand,
+            color: Colors.white,
+            size: 2.25 * SizeConfig.heightMultiplier,
+          ),
         ],
       ),
     ),
@@ -331,23 +345,19 @@ Widget buttonWIdget(
 
 Widget locationWidget(String text) {
   return Container(
-    height: 6.9522*SizeConfig.heightMultiplier,
+    height: 8.5 * SizeConfig.heightMultiplier,
     color: Colors.blue.shade300,
     child: Center(
       child: Text(
         text,
         style: TextStyle(
             color: Colors.black,
-            fontSize: 2.4754*SizeConfig.heightMultiplier,
+            fontSize: 2.7* SizeConfig.heightMultiplier,
             fontWeight: FontWeight.bold),
       ),
     ),
   );
 }
-
-
-
-
 
 Widget attendanceReport(BuildContext context, List<dynamic> report) {
   print("List is ${report}");
@@ -359,14 +369,19 @@ Widget attendanceReport(BuildContext context, List<dynamic> report) {
           itemCount: report.length,
           itemBuilder: (context, index) {
             return Padding(
-              padding: EdgeInsets.symmetric(horizontal: 2.2321* SizeConfig.widthMultiplier, vertical: 1.2640*SizeConfig.heightMultiplier),
+              padding: EdgeInsets.symmetric(
+                  horizontal: 2.2321 * SizeConfig.widthMultiplier,
+                  vertical: 1.2640 * SizeConfig.heightMultiplier),
               child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 3.3482*SizeConfig.widthMultiplier, vertical: 1.369*SizeConfig.heightMultiplier),
-                height: 14.747*SizeConfig.heightMultiplier,
+                padding: EdgeInsets.symmetric(
+                    horizontal: 3.3482 * SizeConfig.widthMultiplier,
+                    vertical: 1.369 * SizeConfig.heightMultiplier),
+                height: 14.747 * SizeConfig.heightMultiplier,
                 width: double.infinity,
                 decoration: BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.circular(1.0533*SizeConfig.heightMultiplier),
+                    borderRadius: BorderRadius.circular(
+                        1.0533 * SizeConfig.heightMultiplier),
                     boxShadow: [
                       BoxShadow(
                           color: Colors.grey.shade700,
@@ -381,11 +396,11 @@ Widget attendanceReport(BuildContext context, List<dynamic> report) {
                       style: GoogleFonts.montserrat(
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
-                        fontSize: 2.5280*SizeConfig.heightMultiplier,
+                        fontSize: 2.5280 * SizeConfig.heightMultiplier,
                       ),
                     ),
                     SizedBox(
-                      height: 1.8960*SizeConfig.heightMultiplier,
+                      height: 1.8960 * SizeConfig.heightMultiplier,
                     ),
                     Row(
                       children: [
@@ -393,7 +408,7 @@ Widget attendanceReport(BuildContext context, List<dynamic> report) {
                           children: [
                             boxIcon(Icons.logout),
                             SizedBox(
-                              width: 2.2321*SizeConfig.widthMultiplier,
+                              width: 2.2321 * SizeConfig.widthMultiplier,
                             ),
                             Text(
                                 DateTimeFormatter.formatTime(
@@ -401,18 +416,19 @@ Widget attendanceReport(BuildContext context, List<dynamic> report) {
                                 style: GoogleFonts.montserrat(
                                   color: Colors.grey.shade800,
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 2.42276*SizeConfig.heightMultiplier,
+                                  fontSize:
+                                      2.42276 * SizeConfig.heightMultiplier,
                                 )),
                           ],
                         ),
                         SizedBox(
-                          width: 5.58035*SizeConfig.widthMultiplier,
+                          width: 5 * SizeConfig.widthMultiplier,
                         ),
                         Row(
                           children: [
                             boxIcon(Icons.logout),
                             SizedBox(
-                              width: 2.2321*SizeConfig.widthMultiplier,
+                              width: 2.2 * SizeConfig.widthMultiplier,
                             ),
                             Text(
                                 DateTimeFormatter.formatTime(
@@ -420,7 +436,8 @@ Widget attendanceReport(BuildContext context, List<dynamic> report) {
                                 style: GoogleFonts.montserrat(
                                   color: Colors.grey.shade800,
                                   fontWeight: FontWeight.bold,
-                                  fontSize:2.4228*SizeConfig.heightMultiplier,
+                                  fontSize:
+                                      2.4228 * SizeConfig.heightMultiplier,
                                 )),
                           ],
                         ),
@@ -437,27 +454,29 @@ Widget attendanceReport(BuildContext context, List<dynamic> report) {
 
 Widget boxIcon(IconData icon) {
   return Container(
-    height: 55,
-    width: 55,
+    height: 5.7935 * SizeConfig.heightMultiplier,
+    width: 12.276 * SizeConfig.widthMultiplier,
     decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(12),
+      borderRadius:
+          BorderRadius.circular(1.26404 * SizeConfig.heightMultiplier),
       color: Colours.BUTTON_COLOR_2,
     ),
     child: Center(
       child: Icon(
         icon,
-        size: 30,
+        size: 3.16012 * SizeConfig.heightMultiplier,
         color: Colours.BUTTON_COLOR_1,
       ),
     ),
   );
 }
 
-Widget attendCountWidgetEmployee(String? InTime, String? OutTime, String? Status, String Date) {
+Widget attendCountWidgetEmployee(
+    String? InTime, String? OutTime, String? Status, String Date) {
   return Container(
-    height: 22.6475*SizeConfig.heightMultiplier,
+    height: 22.6475 * SizeConfig.heightMultiplier,
     decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(0.6320*SizeConfig.heightMultiplier),
+      borderRadius: BorderRadius.circular(0.6320 * SizeConfig.heightMultiplier),
       gradient: const LinearGradient(
         colors: [
           Colours.GRADIENT_1,
@@ -473,46 +492,43 @@ Widget attendCountWidgetEmployee(String? InTime, String? OutTime, String? Status
         children: [
           Container(
             padding: EdgeInsets.symmetric(
-                horizontal: 10.044*SizeConfig.widthMultiplier ,
-                vertical: 1.053*SizeConfig.heightMultiplier),
+                horizontal: 10.044 * SizeConfig.widthMultiplier,
+                vertical: 1.053 * SizeConfig.heightMultiplier),
             child: Column(
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    rowCOntentEmployee1( "In", InTime),
-                    rowCOntentEmployee(
-                         "Out", OutTime),
-                    rowCOntentEmployee(
-                        "Status", Status)
+                    rowCOntentEmployee1("In", InTime),
+                    rowCOntentEmployee("Out", OutTime),
+                    rowCOntentEmployee("Status", Status)
                   ],
                 ),
               ],
             ),
           ),
           SizedBox(
-            height: 1.2114*SizeConfig.heightMultiplier,
+            height: 1.2114 * SizeConfig.heightMultiplier,
           ),
           Container(
             padding: EdgeInsets.symmetric(
-                horizontal: 3.34821*SizeConfig.widthMultiplier),
+                horizontal: 3.34821 * SizeConfig.widthMultiplier),
             child: Divider(
               color: Colors.grey.shade300,
               height: 1,
             ),
           ),
           SizedBox(
-            height: 1.15871*SizeConfig.heightMultiplier,
+            height: 1.15871 * SizeConfig.heightMultiplier,
           ),
-          rowContentEMployee2( Date),
+          rowContentEMployee2(Date),
         ],
       ),
     ),
   );
 }
 
-Widget rowCOntentEmployee(
-    String title, String? status) {
+Widget rowCOntentEmployee(String title, String? status) {
   return Column(
     children: [
       Text(
@@ -520,24 +536,23 @@ Widget rowCOntentEmployee(
         style: TextStyle(
             color: Colors.white,
             fontFamily: "Tansek",
-            fontSize: 4.1*SizeConfig.heightMultiplier),
+            fontSize: 4.1 * SizeConfig.heightMultiplier),
       ),
       SizedBox(
-        height:1.369*SizeConfig.heightMultiplier,
+        height: 1.369 * SizeConfig.heightMultiplier,
       ),
       Text(
         "${status}",
         style: GoogleFonts.aDLaMDisplay(
-          fontWeight: FontWeight.bold,
+            fontWeight: FontWeight.bold,
             color: Colors.white,
-            fontSize:3.1*SizeConfig.heightMultiplier),
+            fontSize: 3.1 * SizeConfig.heightMultiplier),
       )
     ],
   );
 }
 
-Widget rowCOntentEmployee1(
-    String title, String? status) {
+Widget rowCOntentEmployee1(String title, String? status) {
   return Column(
     children: [
       Text(
@@ -545,27 +560,26 @@ Widget rowCOntentEmployee1(
         style: TextStyle(
             color: Colors.white,
             fontFamily: "Tansek",
-            fontSize: 4.1*SizeConfig.heightMultiplier),
+            fontSize: 4.1 * SizeConfig.heightMultiplier),
       ),
       SizedBox(
-        height: 1.3698*SizeConfig.heightMultiplier,
+        height: 1.3698 * SizeConfig.heightMultiplier,
       ),
       Text(
         "${status}",
         style: GoogleFonts.aDLaMDisplay(
             color: Colors.white,
             fontWeight: FontWeight.bold,
-            fontSize: 3.1*SizeConfig.heightMultiplier),
+            fontSize: 3.1 * SizeConfig.heightMultiplier),
       )
     ],
   );
 }
 
-Widget rowContentEMployee2(
-     String? Date) {
+Widget rowContentEMployee2(String? Date) {
   return Container(
     padding:
-        EdgeInsets.symmetric(horizontal: 4.01785*SizeConfig.widthMultiplier ),
+        EdgeInsets.symmetric(horizontal: 4.01785 * SizeConfig.widthMultiplier),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -575,7 +589,7 @@ Widget rowContentEMployee2(
             style: TextStyle(
                 color: Colors.white,
                 fontFamily: "Tansek",
-                fontSize: 3.47613*SizeConfig.heightMultiplier),
+                fontSize: 3.47613 * SizeConfig.heightMultiplier),
           ),
         )
       ],
@@ -583,46 +597,44 @@ Widget rowContentEMployee2(
   );
 }
 
-Widget listWidgetEMployee( BuildContext context) {
+Widget listWidgetEMployee(BuildContext context) {
   return Column(
     children: [
       Container(
-        height: 39.5015*SizeConfig.heightMultiplier,
+        height: 39.5015 * SizeConfig.heightMultiplier,
         child: ListView.builder(
             itemCount: 3,
             itemBuilder: (context, index) {
               return Column(
                 children: [
                   SizedBox(
-                    height: 1.053*SizeConfig.heightMultiplier,
+                    height: 1.053 * SizeConfig.heightMultiplier,
                   ),
                   ListTile(
                     leading: Image.asset(
                       imagesEmployee[index],
-                      height: 4.21349*SizeConfig.heightMultiplier,
-                      width:8.92857* SizeConfig.widthMultiplier,
+                      height: 4.21349 * SizeConfig.heightMultiplier,
+                      width: 8.92857 * SizeConfig.widthMultiplier,
                     ),
                     trailing: Icon(
                       Icons.arrow_forward_ios,
-                      size: 2.10674*SizeConfig.heightMultiplier,
+                      size: 2.10674 * SizeConfig.heightMultiplier,
                     ),
                     title: Text(
                       titleEmployee[index],
                       style: GoogleFonts.notoSansOldHungarian(
                           color: Colors.black,
-                          fontSize:
-                             2.1*SizeConfig.heightMultiplier,
+                          fontSize: 2.1 * SizeConfig.heightMultiplier,
                           fontWeight: FontWeight.bold),
                     ),
                     subtitle: Text(subtitleEmployee[index],
                         style: GoogleFonts.roboto(
                           color: Colors.black,
-                          fontSize:
-                             1.6853*SizeConfig.heightMultiplier,
+                          fontSize: 1.6853 * SizeConfig.heightMultiplier,
                         )),
                   ),
                   SizedBox(
-                    height: 1.264048*SizeConfig.heightMultiplier,
+                    height: 1.264048 * SizeConfig.heightMultiplier,
                   ),
                   Divider(
                     indent: 10,
@@ -644,11 +656,11 @@ Widget companyButtonEmployee(void Function() onTap, BuildContext context) {
     onTap: onTap,
     child: Container(
       margin: EdgeInsets.symmetric(
-        horizontal: 2.23214*SizeConfig.widthMultiplier ,
+        horizontal: 2.23214 * SizeConfig.widthMultiplier,
       ),
       padding: EdgeInsets.symmetric(
-          horizontal:1.11607*SizeConfig.widthMultiplier ,
-          vertical:0.526688 * SizeConfig.heightMultiplier),
+          horizontal: 1.11607 * SizeConfig.widthMultiplier,
+          vertical: 0.526688 * SizeConfig.heightMultiplier),
       height: 6.3202468 * SizeConfig.heightMultiplier,
       decoration: BoxDecoration(
           borderRadius:
@@ -661,8 +673,7 @@ Widget companyButtonEmployee(void Function() onTap, BuildContext context) {
             "Request Office Leave",
             style: TextStyle(
                 color: Colors.white,
-                fontSize:
-                   2.52809 * SizeConfig.heightMultiplier,
+                fontSize: 2.52809 * SizeConfig.heightMultiplier,
                 fontWeight: FontWeight.bold),
           ),
           IconButton(
@@ -681,14 +692,14 @@ Widget companyButtonEmployee(void Function() onTap, BuildContext context) {
 
 Widget attendCompleteText() {
   return Container(
-    height: 10.1123*SizeConfig.heightMultiplier,
+    height: 10.1123 * SizeConfig.heightMultiplier,
     color: Colors.grey.shade900,
     child: Center(
       child: Text(
         "Your Attendance for Today Is Complete",
         style: TextStyle(
             color: Colors.white,
-            fontSize: 2.47543*SizeConfig.heightMultiplier,
+            fontSize: 2.47543 * SizeConfig.heightMultiplier,
             fontWeight: FontWeight.bold),
       ),
     ),
@@ -700,12 +711,12 @@ Widget cameraButton(void Function() onTap, BuildContext context) {
     onTap: onTap,
     child: Container(
       margin: EdgeInsets.symmetric(
-        horizontal: 20.5357*SizeConfig.widthMultiplier,
+        horizontal: 20.5357 * SizeConfig.widthMultiplier,
       ),
       padding: EdgeInsets.symmetric(
-          horizontal: 1.1160* SizeConfig.widthMultiplier ,
-          vertical: 0.526688  * SizeConfig.heightMultiplier ),
-      height: 5.6882*SizeConfig.heightMultiplier,
+          horizontal: 1.1160 * SizeConfig.widthMultiplier,
+          vertical: 0.526688 * SizeConfig.heightMultiplier),
+      height: 5.6882 * SizeConfig.heightMultiplier,
       decoration: BoxDecoration(
           borderRadius:
               BorderRadius.circular(1.053 * SizeConfig.heightMultiplier),
@@ -717,8 +728,7 @@ Widget cameraButton(void Function() onTap, BuildContext context) {
             "Authenticate",
             style: TextStyle(
                 color: Colors.white,
-                fontSize:
-                    2.6334 * SizeConfig.heightMultiplier,
+                fontSize: 2.6334 * SizeConfig.heightMultiplier,
                 fontWeight: FontWeight.bold),
           ),
           IconButton(
@@ -739,13 +749,15 @@ Widget buttonPic(String title, IconData icon, void Function() onTap) {
   return GestureDetector(
     onTap: onTap,
     child: Container(
-      height: 6.3928*SizeConfig.heightMultiplier,
-      width: 58.035*SizeConfig.widthMultiplier,
+      height: 6.3928 * SizeConfig.heightMultiplier,
+      width: 58.035 * SizeConfig.widthMultiplier,
       decoration: BoxDecoration(
           color: Colours.BUTTON_COLOR_1,
-          borderRadius: BorderRadius.circular(0.6320*SizeConfig.heightMultiplier)),
+          borderRadius:
+              BorderRadius.circular(0.6320 * SizeConfig.heightMultiplier)),
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 3.125*SizeConfig.widthMultiplier),
+        padding: EdgeInsets.symmetric(
+            horizontal: 3.125 * SizeConfig.widthMultiplier),
         child: Row(
           children: [
             Text(
@@ -753,16 +765,16 @@ Widget buttonPic(String title, IconData icon, void Function() onTap) {
               style: TextStyle(
                   color: Colors.white,
                   fontFamily: "Kumbh-Med",
-                  fontSize: 2.1067*SizeConfig.heightMultiplier,
+                  fontSize: 2.1067 * SizeConfig.heightMultiplier,
                   fontWeight: FontWeight.bold),
             ),
             SizedBox(
-              width: 2.2321*SizeConfig.widthMultiplier,
+              width: 2.2321 * SizeConfig.widthMultiplier,
             ),
             Icon(
               icon,
               color: Colors.white,
-              size: 3.1601*SizeConfig.heightMultiplier,
+              size: 3.1601 * SizeConfig.heightMultiplier,
             )
           ],
         ),

@@ -23,9 +23,9 @@ import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // runApp(DevicePreview(enabled: !kReleaseMode, builder: (context) => MyApp()));
+  //runApp(DevicePreview(enabled: !kReleaseMode, builder: (context) => MyApp()));
 
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {

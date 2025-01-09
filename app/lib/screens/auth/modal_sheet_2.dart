@@ -57,7 +57,7 @@ class _SheetScreen2State extends State<SheetScreen2> {
                     ],
                   ),
                   SizedBox(
-                    height: 1.053*SizeConfig.heightMultiplier,
+                    height: 0.5*SizeConfig.heightMultiplier,
                   ),
                   titleText(
                     "Enter your Verification Code",

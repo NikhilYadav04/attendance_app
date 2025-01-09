@@ -94,28 +94,47 @@ class _EmployeeMainScreen3State extends State<EmployeeMainScreen3> {
                               ),
                               // Heading widget
                               ExpansionTile(
-                                title: Center(
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        "Attendance Report",
-                                        style: GoogleFonts.montserrat(
-                                          shadows: [
-                                            Shadow(
-                                                color: Colors.yellow,
-                                                blurRadius: 2),
-                                          ],
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 3.3707 *
-                                              SizeConfig.heightMultiplier,
+                                leading: FittedBox(
+                                        child: Text(
+                                          "Attendance Report",
+                                          style: GoogleFonts.montserrat(
+                                            shadows: [
+                                              Shadow(
+                                                  color: Colors.yellow,
+                                                  blurRadius: 2),
+                                            ],
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 3.3707 *
+                                                SizeConfig.heightMultiplier,
+                                          ),
                                         ),
                                       ),
-                                    ],
-                                  ),
-                                ),
+                                    title: SizedBox(),
+                                // title: Center(
+                                //   child: Row(
+                                //     mainAxisAlignment:
+                                //         MainAxisAlignment.start,
+                                //     children: [
+                                //       FittedBox(
+                                //         child: Text(
+                                //           "Attendance Report",
+                                //           style: GoogleFonts.montserrat(
+                                //             shadows: [
+                                //               Shadow(
+                                //                   color: Colors.yellow,
+                                //                   blurRadius: 2),
+                                //             ],
+                                //             color: Colors.black,
+                                //             fontWeight: FontWeight.bold,
+                                //             fontSize: 3.3707 *
+                                //                 SizeConfig.heightMultiplier,
+                                //           ),
+                                //         ),
+                                //       ),
+                                //     ],
+                                //   ),
+                                // ),
                                 children: [
                                   Container(
                                     color: Colors.white,

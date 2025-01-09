@@ -17,10 +17,14 @@ class CompanyLoginScreen extends StatefulWidget {
 }
 
 class _CompanyLoginScreenState extends State<CompanyLoginScreen> {
+  void clear() {
+    context.read<CompanyLoginProvider>().clear();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: appBLoginCompany(context),
+        appBar: appBLoginCompany(context, clear),
         body: Consumer<CompanyLoginProvider>(
           builder: (context, provider, _) {
             return Container(
@@ -82,6 +86,9 @@ class _CompanyLoginScreenState extends State<CompanyLoginScreen> {
                         : companyButton(() {
                             provider.loginCompany(context);
                           }, context),
+                    SizedBox(
+                      height: 1.9480 * SizeConfig.heightMultiplier,
+                    ),
                   ],
                 ),
               ),

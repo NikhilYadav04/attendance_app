@@ -24,11 +24,14 @@ class _EmployeeSetupScreenState extends State<EmployeeSetupScreen> {
         PageTransition(
             child: CompanyLoginScreen(), type: PageTransitionType.rightToLeft));
   }
+   void clear(){
+    context.read<EmployeeLoginProvider>().clear();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: appBEmployee(context),
+        appBar: appBEmployee(context,clear),
         body: Consumer<EmployeeLoginProvider>(
           builder: (context, provider, _) {
             return Container(
@@ -111,6 +114,9 @@ class _EmployeeSetupScreenState extends State<EmployeeSetupScreen> {
                       height: 0.9480 * SizeConfig.heightMultiplier,
                     ),
                     companyLoginButton(HRButtonPressed, context),
+                       SizedBox(
+                      height: 1.9480 * SizeConfig.heightMultiplier,
+                    ),
                   ],
                 ),
               ),

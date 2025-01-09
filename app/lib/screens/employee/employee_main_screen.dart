@@ -62,7 +62,7 @@ class _EmployeeMainScreenState extends State<EmployeeMainScreen>
               builder: (context, provider, _) {
                 return AppBar(
                   elevation: 0,
-                  toolbarHeight: 8.42699 * SizeConfig.heightMultiplier,
+                  toolbarHeight: 9 * SizeConfig.heightMultiplier,
                   title: appBartitle(employeeName, context, () {
                     provider.uploadImageCameraLocalStorage(context);
                   }, () {
