@@ -81,7 +81,7 @@ Widget textField(
         Text(
           title,
           style: TextStyle(
-            color: Colors.grey.shade700,
+            color: Colors.grey.shade800,
             fontSize:
                1.790*SizeConfig.heightMultiplier,
           ),
@@ -236,7 +236,7 @@ Widget textFieldNumber(
         Text(
           title,
           style: TextStyle(
-            color: Colors.grey.shade700,
+            color: Colors.grey.shade800,
             fontSize:
                 17,
           ),

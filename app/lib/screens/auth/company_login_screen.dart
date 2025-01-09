@@ -57,7 +57,7 @@ class _CompanyLoginScreenState extends State<CompanyLoginScreen> {
                         Text(
                           "Receive free Whatsapp alerts",
                           style: TextStyle(
-                              color: Colors.grey.shade600,
+                              color: Colors.grey.shade900,
                               fontSize: 2.0014 * SizeConfig.heightMultiplier),
                         ),
                         FlutterSwitch(

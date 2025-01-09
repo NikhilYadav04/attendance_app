@@ -69,7 +69,7 @@ Widget textFieldEmployee(String label, String title,TextEditingController textCO
       Text(
         title,
         style: TextStyle(
-          color: Colors.grey.shade700,
+          color: Colors.grey.shade800,
           fontSize:
               1.896*SizeConfig.heightMultiplier,
         ),

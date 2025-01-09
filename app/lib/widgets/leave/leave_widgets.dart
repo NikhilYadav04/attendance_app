@@ -32,15 +32,15 @@ Widget leaveCard(BuildContext context, String name, String date, String title,
   return GestureDetector(
     onTap: () {},
     child: Container(
-      margin: EdgeInsets.symmetric(vertical: 15),
-      height: 180,
+      margin: EdgeInsets.symmetric(vertical: 1.58006*SizeConfig.heightMultiplier),
+      height: 17.9073*SizeConfig.heightMultiplier,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(1.053 * SizeConfig.heightMultiplier),
         border: Border.all(color: border, width: 3),
         boxShadow: [BoxShadow(color: bg, spreadRadius: 2, blurRadius: 2)],
       ),
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 14, vertical: 18),
+        padding: EdgeInsets.symmetric(horizontal: 3.125*SizeConfig.widthMultiplier, vertical: 1.89607*SizeConfig.heightMultiplier),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -50,20 +50,20 @@ Widget leaveCard(BuildContext context, String name, String date, String title,
                   color: Colors.black,
                   fontFamily: "Kumbh-Med",
                   fontWeight: FontWeight.bold,
-                  fontSize: 24),
+                  fontSize: 2.5280*SizeConfig.heightMultiplier),
             ),
             SizedBox(
-              height: 10,
+              height: 1.053* SizeConfig.heightMultiplier,
             ),
             Text(
               date,
               style: style.copyWith(
                   color: Colors.black,
                   fontWeight: FontWeight.bold,
-                  fontSize: 20),
+                  fontSize: 2.10674*SizeConfig.heightMultiplier),
             ),
             SizedBox(
-              height: 10,
+              height: 1.053* SizeConfig.heightMultiplier,
             ),
             Text(
               maxLines: 2,
@@ -72,7 +72,7 @@ Widget leaveCard(BuildContext context, String name, String date, String title,
               style: style.copyWith(
                   color: Colors.black,
                   fontWeight: FontWeight.bold,
-                  fontSize: 22),
+                  fontSize: 2.31742*SizeConfig.heightMultiplier),
             ),
           ],
         ),

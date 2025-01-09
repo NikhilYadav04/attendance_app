@@ -520,7 +520,7 @@ Widget rowCOntentEmployee(
         style: TextStyle(
             color: Colors.white,
             fontFamily: "Tansek",
-            fontSize: 4.0028*SizeConfig.heightMultiplier),
+            fontSize: 4.1*SizeConfig.heightMultiplier),
       ),
       SizedBox(
         height:1.369*SizeConfig.heightMultiplier,
@@ -528,8 +528,9 @@ Widget rowCOntentEmployee(
       Text(
         "${status}",
         style: GoogleFonts.aDLaMDisplay(
+          fontWeight: FontWeight.bold,
             color: Colors.white,
-            fontSize:3.0547*SizeConfig.heightMultiplier),
+            fontSize:3.1*SizeConfig.heightMultiplier),
       )
     ],
   );
@@ -544,7 +545,7 @@ Widget rowCOntentEmployee1(
         style: TextStyle(
             color: Colors.white,
             fontFamily: "Tansek",
-            fontSize: 4.0028*SizeConfig.heightMultiplier),
+            fontSize: 4.1*SizeConfig.heightMultiplier),
       ),
       SizedBox(
         height: 1.3698*SizeConfig.heightMultiplier,
@@ -553,7 +554,8 @@ Widget rowCOntentEmployee1(
         "${status}",
         style: GoogleFonts.aDLaMDisplay(
             color: Colors.white,
-            fontSize: 3.0547*SizeConfig.heightMultiplier),
+            fontWeight: FontWeight.bold,
+            fontSize: 3.1*SizeConfig.heightMultiplier),
       )
     ],
   );
@@ -737,7 +739,7 @@ Widget buttonPic(String title, IconData icon, void Function() onTap) {
   return GestureDetector(
     onTap: onTap,
     child: Container(
-      height: 13.3928*SizeConfig.heightMultiplier,
+      height: 6.3928*SizeConfig.heightMultiplier,
       width: 58.035*SizeConfig.widthMultiplier,
       decoration: BoxDecoration(
           color: Colours.BUTTON_COLOR_1,

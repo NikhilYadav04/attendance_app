@@ -19,7 +19,7 @@ List<String> images = [
 ];
 
 List<String> title = [
-  "Add And Remove Staff",
+  "Add Or Remove Staff",
   "Check Staff Count",
   "Check Staff Report",
   "Monitor Leaves"
@@ -217,6 +217,7 @@ Widget rowCOntent(String title, String Count) {
         "$Count",
         style: GoogleFonts.aDLaMDisplay(
             color: Colors.white,
+            fontWeight: FontWeight.bold,
             fontSize: 3.3707 * SizeConfig.heightMultiplier),
       )
     ],
@@ -240,6 +241,7 @@ Widget rowCOntentDate(String title, String date) {
         date,
         style: GoogleFonts.aDLaMDisplay(
             color: Colors.white,
+            fontWeight: FontWeight.bold,
             fontSize: 3.26548 * SizeConfig.heightMultiplier),
       )
     ],

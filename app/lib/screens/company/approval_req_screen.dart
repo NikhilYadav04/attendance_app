@@ -40,7 +40,7 @@ class _ApprovalReqScreenState extends State<ApprovalReqScreen> {
                 height: 1.7907 * SizeConfig.heightMultiplier,
               ),
               provider.isLoadingCountList
-                  ? SpinKitFadingCircle(
+                  ? SpinKitRing(
                       color: Colours.DARK_BLUE,
                       size: 8.95368 * SizeConfig.heightMultiplier,
                     )

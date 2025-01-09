@@ -41,16 +41,16 @@ class _StaffListScreenState extends State<StaffListScreen> {
             child: Column(
               children: [
                 SizedBox(
-                  height: 1.7907 * SizeConfig.heightMultiplier,
+                  height:2.4* SizeConfig.heightMultiplier,
                 ),
                 staffText("Staff Report"),
                 SizedBox(
-                  height: 2.8441 * SizeConfig.heightMultiplier,
+                  height: 2.2 * SizeConfig.heightMultiplier,
                 ),
                 // staffReport(
                 //     currentWidth, currentHeight, textScale, context,reportStaff)
                 provider.isLoadingID
-                    ? SpinKitFadingCircle(
+                    ? SpinKitRing(
                         color: Colours.DARK_BLUE,
                         size: 8.9536 * SizeConfig.heightMultiplier,
                       )
@@ -62,7 +62,7 @@ class _StaffListScreenState extends State<StaffListScreen> {
                           return Container(
                             margin: EdgeInsets.symmetric(
                                 horizontal:
-                                    0.8928 * SizeConfig.widthMultiplier),
+                                    2.5 * SizeConfig.widthMultiplier,vertical: 1*SizeConfig.heightMultiplier),
                             height: 10.5337 * SizeConfig.heightMultiplier,
                             decoration: BoxDecoration(
                                 color: Colors.white,

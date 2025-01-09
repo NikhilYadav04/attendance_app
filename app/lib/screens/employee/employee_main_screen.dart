@@ -51,10 +51,6 @@ class _EmployeeMainScreenState extends State<EmployeeMainScreen>
 
   @override
   Widget build(BuildContext context) {
-    final currentHeight = MediaQuery.of(context).size.height;
-    final currentWidth = MediaQuery.of(context).size.width;
-    final textScale = MediaQuery.of(context).textScaleFactor;
-
     return DefaultTabController(
       length: 4,
       child: SafeArea(
@@ -137,11 +133,7 @@ class _EmployeeMainScreenState extends State<EmployeeMainScreen>
                   children: [
                     EmployeeMainScreen1(),
                     EmployeeMainScreen2(),
-                    EmployeeMainScreen3(
-                      width: currentWidth,
-                      height: currentHeight,
-                      textScaleFactor: textScale,
-                    ),
+                    EmployeeMainScreen3(),
                     EmployeeLeaveList()
                   ],
                 ),

@@ -3,15 +3,14 @@ import 'dart:async';
 import 'package:attend_ease/providers/attendance/company_attendance_provider.dart';
 import 'package:attend_ease/screens/company/add_staff_screen.dart';
 import 'package:attend_ease/screens/company/remove_staff_screen.dart';
-import 'package:attend_ease/styling/colors.dart';
 import 'package:attend_ease/services/companyService.dart';
 import 'package:attend_ease/styling/sizeconfig.dart';
 import 'package:attend_ease/widgets/company/company_hr_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 class CompanyHrScreen1 extends StatefulWidget {
   const CompanyHrScreen1({super.key});
@@ -65,15 +64,18 @@ class _CompanyHrScreen1State extends State<CompanyHrScreen1> {
                 SizedBox(
                   height: 1.7907 * SizeConfig.heightMultiplier,
                 ),
-                provider.isLoading
-                    ? SpinKitFadingCircle(
-                        color: Colours.DARK_BLUE,
-                        size: 7.9003 * SizeConfig.heightMultiplier,
-                      )
-                    : attendCountWidget(() {
-                        provider.submit(context);
-                      }, provider.In, provider.Out, provider.Total,
-                        provider.Date, provider.isSubmit),
+                // provider.isLoading
+                //     ? SpinKitFadingCircle(
+                //         color: Colours.DARK_BLUE,
+                //         size: 7.9003 * SizeConfig.heightMultiplier,
+                //       )
+                Skeletonizer(
+                  enabled: provider.isLoading,
+                  child: attendCountWidget(() {
+                    provider.submit(context);
+                  }, provider.In, provider.Out, provider.Total, provider.Date,
+                      provider.isSubmit),
+                ),
                 SizedBox(
                   height: 2.8441 * SizeConfig.heightMultiplier,
                 ),

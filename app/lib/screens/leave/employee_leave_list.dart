@@ -55,7 +55,7 @@ class _EmployeeLeaveListState extends State<EmployeeLeaveList> {
                   height: 3.16012*SizeConfig.heightMultiplier,
                 ),
                 provider.isLoadingList
-                    ? SpinKitCircle(
+                    ? SpinKitRing(
                         color: Colours.DARK_BLUE,
                         size: 60,
                       )

@@ -1,3 +1,4 @@
+import 'package:attend_ease/styling/sizeconfig.dart';
 import 'package:attend_ease/widgets/company/company_hr_widgets.dart';
 import 'package:attend_ease/widgets/leave/leave_widgets.dart';
 import 'package:flutter/material.dart';
@@ -34,16 +35,16 @@ class _DetailListScreenState extends State<DetailListScreen> {
                       color: Colors.black,
                       fontFamily: "Kumbh-Med",
                       fontWeight: FontWeight.bold,
-                      fontSize: 20),
+                      fontSize: 2.1067*SizeConfig.heightMultiplier),
                 ),
               )
             : Column(
                 children: [
                   SizedBox(
-                    height: 30,
+                    height: 3.1601*SizeConfig.heightMultiplier,
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 12),
+                    padding: EdgeInsets.symmetric(horizontal: 2.6785*SizeConfig.widthMultiplier),
                     child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -54,16 +55,16 @@ class _DetailListScreenState extends State<DetailListScreen> {
                               },
                               icon: Icon(
                                 Icons.logout,
-                                size: 38,
+                                size: 4.0028*SizeConfig.heightMultiplier,
                                 color: Colors.black,
                               ))
                         ]),
                   ),
                   SizedBox(
-                    height: 15,
+                    height: 1.5800*SizeConfig.heightMultiplier,
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 12),
+                    padding: EdgeInsets.symmetric(horizontal: 2.6785*SizeConfig.widthMultiplier),
                     child: ListView.builder(
                         physics: NeverScrollableScrollPhysics(),
                         shrinkWrap: true,

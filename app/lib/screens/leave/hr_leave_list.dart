@@ -44,7 +44,7 @@ class _HrLeaveListState extends State<HrLeaveList> {
                   height: 3.160113*SizeConfig.heightMultiplier,
                 ),
                 provider.isLoadingList
-                    ? SpinKitCircle(
+                    ? SpinKitRing(
                         color: Colours.DARK_BLUE,
                         size:6.32022*SizeConfig.heightMultiplier,
                       )

@@ -1,13 +1,12 @@
 import 'package:attend_ease/providers/attendance/employee_attendance_provider.dart';
 import 'package:attend_ease/screens/leave/leave_req_screen.dart';
-import 'package:attend_ease/styling/colors.dart';
 import 'package:attend_ease/styling/sizeconfig.dart';
 import 'package:attend_ease/widgets/employee/employee_main_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 // ignore: must_be_immutable
 class EmployeeMainScreen1 extends StatefulWidget {
@@ -44,16 +43,19 @@ class _EmployeeMainScreen1State extends State<EmployeeMainScreen1> {
                 SizedBox(
                   height: 1.79073 * SizeConfig.heightMultiplier,
                 ),
-                provider.isLoading
-                    ? SpinKitRotatingCircle(
-                        color: Colours.DARK_BLUE,
-                        size: 6.3202 * SizeConfig.heightMultiplier,
-                      )
-                    : attendCountWidgetEmployee(
-                        provider.InTime,
-                        provider.OutTime,
-                        provider.isPresent ? "Present" : "Absent",
-                        Date),
+                // provider.isLoading
+                //     ? SpinKitRotatingCircle(
+                //         color: Colours.DARK_BLUE,
+                //         size: 6.3202 * SizeConfig.heightMultiplier,
+                //       )
+                Skeletonizer(
+                  enabled: provider.isLoading,
+                  child: attendCountWidgetEmployee(
+                      provider.InTime,
+                      provider.OutTime,
+                      provider.isPresent ? "Present" : "Absent",
+                      Date),
+                ),
                 SizedBox(
                   height: 2.844 * SizeConfig.heightMultiplier,
                 ),

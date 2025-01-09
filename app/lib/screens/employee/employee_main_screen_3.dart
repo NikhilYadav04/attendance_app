@@ -12,15 +12,10 @@ import 'package:table_calendar/table_calendar.dart';
 
 // ignore: must_be_immutable
 class EmployeeMainScreen3 extends StatefulWidget {
-  double width;
-  double height;
-  double textScaleFactor;
+
 
   EmployeeMainScreen3({
     Key? key,
-    required this.width,
-    required this.height,
-    required this.textScaleFactor,
   }) : super(key: key);
 
   @override
@@ -79,9 +74,9 @@ class _EmployeeMainScreen3State extends State<EmployeeMainScreen3> {
             builder: (context, provider, _) {
               return provider.isLoadingList
                   ? Center(
-                      child: SpinKitFadingCircle(
+                      child: SpinKitRing(
                         color: Colours.DARK_BLUE,
-                        size: 8.42699 * SizeConfig.heightMultiplier,
+                        size: 5 * SizeConfig.heightMultiplier,
                       ),
                     )
                   : provider.attendanceRecords.isEmpty
@@ -149,11 +144,11 @@ class _EmployeeMainScreen3State extends State<EmployeeMainScreen3> {
                                       calendarStyle: const CalendarStyle(
                                         todayDecoration: BoxDecoration(
                                           color: Colors.blue,
-                                          shape: BoxShape.rectangle,
+                                          shape: BoxShape.circle,
                                         ),
                                         selectedDecoration: BoxDecoration(
-                                          color: Colors.yellow,
-                                          shape: BoxShape.rectangle,
+                                          color: Color.fromARGB(255, 237, 215, 18),
+                                          shape: BoxShape.circle,
                                         ),
                                         defaultDecoration: BoxDecoration(
                                           shape: BoxShape.rectangle,
