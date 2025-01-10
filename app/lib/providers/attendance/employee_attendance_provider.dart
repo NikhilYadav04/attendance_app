@@ -1,4 +1,5 @@
 
+import 'package:attend_ease/helper/date_time_formatter.dart';
 import 'package:attend_ease/helper/helper_functions.dart';
 import 'package:attend_ease/screens/home/home_screen.dart';
 import 'package:attend_ease/services/attendanceService.dart';
@@ -24,12 +25,15 @@ class EmployeeAttendanceProvider extends ChangeNotifier {
   String OutTime = "00:00";
   String Status = "No";
   List<dynamic> attendanceRecords = [];
+  List<dynamic> filteredRecords = [];
 
   bool isLoading = false;
   bool isBiometric = false;
   bool isPresent = false;
   bool inRadius = false;
   bool isLoadingList = false;
+
+  final TextEditingController searchController = TextEditingController();
 
   //* Get The Records of Attendance For A date
   void fetchRecord(String Date, BuildContext context) async {
@@ -362,11 +366,28 @@ class EmployeeAttendanceProvider extends ChangeNotifier {
           toastMessageError(context, "Error!", value.toString());
         } else {
           attendanceRecords = value;
+          filteredRecords = attendanceRecords;
 
           isLoadingList = false;
           notifyListeners();
         }
       });
     }
+  }
+
+ //* search records function
+ void searchRecord(String keyword) {
+    if (keyword.isEmpty) {
+      filteredRecords = attendanceRecords;
+      notifyListeners();
+    } else {
+      filteredRecords = attendanceRecords
+          .where((user) => DateTimeFormatter.formatDate(user["Date"])
+              .toLowerCase()
+              .contains(keyword.toLowerCase()))
+          .toList();
+      notifyListeners();
+    }
+    notifyListeners();
   }
 }

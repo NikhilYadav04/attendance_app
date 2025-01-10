@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:attend_ease/providers/attendance/employee_attendance_provider.dart';
+import 'package:attend_ease/screens/company/approval_req_screen.dart';
 import 'package:attend_ease/styling/colors.dart';
 import 'package:attend_ease/services/employeeService.dart';
 import 'package:attend_ease/styling/sizeconfig.dart';
@@ -12,8 +13,6 @@ import 'package:table_calendar/table_calendar.dart';
 
 // ignore: must_be_immutable
 class EmployeeMainScreen3 extends StatefulWidget {
-
-
   EmployeeMainScreen3({
     Key? key,
   }) : super(key: key);
@@ -95,46 +94,22 @@ class _EmployeeMainScreen3State extends State<EmployeeMainScreen3> {
                               // Heading widget
                               ExpansionTile(
                                 leading: FittedBox(
-                                        child: Text(
-                                          "Attendance Report",
-                                          style: GoogleFonts.montserrat(
-                                            shadows: [
-                                              Shadow(
-                                                  color: Colors.yellow,
-                                                  blurRadius: 2),
-                                            ],
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 3.3707 *
-                                                SizeConfig.heightMultiplier,
-                                          ),
-                                        ),
-                                      ),
-                                    title: SizedBox(),
-                                // title: Center(
-                                //   child: Row(
-                                //     mainAxisAlignment:
-                                //         MainAxisAlignment.start,
-                                //     children: [
-                                //       FittedBox(
-                                //         child: Text(
-                                //           "Attendance Report",
-                                //           style: GoogleFonts.montserrat(
-                                //             shadows: [
-                                //               Shadow(
-                                //                   color: Colors.yellow,
-                                //                   blurRadius: 2),
-                                //             ],
-                                //             color: Colors.black,
-                                //             fontWeight: FontWeight.bold,
-                                //             fontSize: 3.3707 *
-                                //                 SizeConfig.heightMultiplier,
-                                //           ),
-                                //         ),
-                                //       ),
-                                //     ],
-                                //   ),
-                                // ),
+                                  child: Text(
+                                    "Attendance Report",
+                                    style: GoogleFonts.montserrat(
+                                      shadows: [
+                                        Shadow(
+                                            color: Colors.yellow,
+                                            blurRadius: 2),
+                                      ],
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize:
+                                          3.3707 * SizeConfig.heightMultiplier,
+                                    ),
+                                  ),
+                                ),
+                                title: SizedBox(),
                                 children: [
                                   Container(
                                     color: Colors.white,
@@ -166,7 +141,8 @@ class _EmployeeMainScreen3State extends State<EmployeeMainScreen3> {
                                           shape: BoxShape.circle,
                                         ),
                                         selectedDecoration: BoxDecoration(
-                                          color: Color.fromARGB(255, 237, 215, 18),
+                                          color:
+                                              Color.fromARGB(255, 237, 215, 18),
                                           shape: BoxShape.circle,
                                         ),
                                         defaultDecoration: BoxDecoration(
@@ -210,9 +186,41 @@ class _EmployeeMainScreen3State extends State<EmployeeMainScreen3> {
                               SizedBox(
                                 height: 1.4747 * SizeConfig.heightMultiplier,
                               ),
+                              SizedBox(
+                                height: 2.2 * SizeConfig.heightMultiplier,
+                              ),
+
+                              //* Field For Searching Records
+                              Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 2 * SizeConfig.widthMultiplier),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    FormField(builder: (context) {
+                                      return Container(
+                                        color: Colors.white,
+                                        child: TextField(
+                                          style: style,
+                                          onChanged: (value) {
+                                            provider.searchRecord(value);
+                                          },
+                                          controller: provider.searchController,
+                                          decoration: decoration(
+                                              "Search Date to Find Record"),
+                                        ),
+                                      );
+                                    })
+                                  ],
+                                ),
+                              ),
+
+                              SizedBox(
+                                height: 2.2 * SizeConfig.heightMultiplier,
+                              ),
                               attendanceReport(
                                 context,
-                                provider.attendanceRecords,
+                                provider.filteredRecords,
                               ),
                             ],
                           ),

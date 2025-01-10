@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:attend_ease/helper/date_time_formatter.dart';
 import 'package:attend_ease/helper/helper_functions.dart';
 import 'package:attend_ease/screens/home/home_screen.dart';
 import 'package:attend_ease/services/companyService.dart';
@@ -21,11 +22,16 @@ class CompanyAttendanceProvider extends ChangeNotifier {
   List<dynamic> attendaneCountList = [];
   List<dynamic> attendanceIDList = [];
   List<dynamic> attendanceEmployeeList = [];
+  List<dynamic> filteredCountList = [];
+  List<dynamic> filteredIDList = [];
 
   bool isLoading = false;
   bool isLoadingCountList = false;
   bool isLoadingID = false;
   bool isSubmit = false;
+
+  final TextEditingController searchController = TextEditingController();
+  final TextEditingController searchController1 = TextEditingController();
 
   //* Fetch The Records
   void fetchRecords(BuildContext context) async {
@@ -155,6 +161,7 @@ class CompanyAttendanceProvider extends ChangeNotifier {
           toastMessage(context, "Error!", value, ToastificationType.error);
         } else {
           attendaneCountList = value;
+          filteredCountList = value;
           isLoadingCountList = false;
           notifyListeners();
         }
@@ -195,11 +202,13 @@ class CompanyAttendanceProvider extends ChangeNotifier {
         if (response.statusCode == 200) {
           var data = jsonDecode(response.body);
           attendanceIDList = data['message'];
+          filteredIDList = attendanceIDList;
 
           isLoadingID = false;
           notifyListeners();
         } else if (response.statusCode == 404) {
           attendanceIDList = [];
+          filteredIDList = attendanceIDList;
 
           isLoadingID = false;
           notifyListeners();
@@ -246,6 +255,34 @@ class CompanyAttendanceProvider extends ChangeNotifier {
       }
     });
   }
+
+  //* search any record
+  void searchRecordCount(String keyword) {
+    if (keyword.isEmpty) {
+      filteredCountList = attendaneCountList;
+      notifyListeners();
+    } else {
+      filteredCountList = attendaneCountList
+          .where((user) => DateTimeFormatter.formatDate(user["currentDate"])
+              .toLowerCase()
+              .contains(keyword.toLowerCase()))
+          .toList();
+      notifyListeners();
+    }
+    notifyListeners();
+  }
+
+  void searchRecordID(String keyword) {
+    if (keyword.isEmpty) {
+      filteredIDList = attendanceIDList;
+      notifyListeners();
+    } else {
+      filteredIDList = attendanceIDList
+          .where((user) =>
+              user["employeeID"].toLowerCase().contains(keyword.toLowerCase()))
+          .toList();
+      notifyListeners();
+    }
+    notifyListeners();
+  }
 }
-
-

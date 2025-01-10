@@ -37,14 +37,41 @@ class _ApprovalReqScreenState extends State<ApprovalReqScreen> {
               ),
               approveTextEmployee("Staff Count List"),
               SizedBox(
-                height: 1.7907 * SizeConfig.heightMultiplier,
+                height: 2.2 * SizeConfig.heightMultiplier,
+              ),
+
+              //* Field For Searching Records
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: 2 * SizeConfig.widthMultiplier),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    FormField(builder: (context) {
+                      return Container(
+                        color: Colors.white,
+                        child: TextField(
+                          style: style,
+                          onChanged: (value) {
+                            provider.searchRecordCount(value);
+                          },
+                          controller: provider.searchController,
+                          decoration: decoration("Search Date to Find Record"),
+                        ),
+                      );
+                    })
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 2.2 * SizeConfig.heightMultiplier,
               ),
               provider.isLoadingCountList
                   ? SpinKitRing(
                       color: Colours.DARK_BLUE,
                       size: 8.95368 * SizeConfig.heightMultiplier,
                     )
-                  : provider.attendaneCountList.isEmpty
+                  : provider.filteredCountList.isEmpty
                       ? Center(
                           child: Text(
                             "No Record Available",
@@ -54,7 +81,7 @@ class _ApprovalReqScreenState extends State<ApprovalReqScreen> {
                                 fontSize: 5.4775 * SizeConfig.heightMultiplier),
                           ),
                         )
-                      : listApproval(context, provider.attendaneCountList)
+                      : listApproval(context, provider.filteredCountList)
             ],
           );
         },
@@ -62,3 +89,29 @@ class _ApprovalReqScreenState extends State<ApprovalReqScreen> {
     );
   }
 }
+
+InputDecoration decoration(String text) {
+  return InputDecoration(
+    border: OutlineInputBorder(
+        borderSide: BorderSide(color: Colors.black),
+        borderRadius:
+            BorderRadius.circular(3.0152 * SizeConfig.heightMultiplier)),
+    floatingLabelBehavior: FloatingLabelBehavior.never,
+    label: Text(text, style: style),
+    enabledBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(0.4213 * SizeConfig.heightMultiplier),
+      borderSide: BorderSide(color: Colors.black),
+    ),
+    focusedBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(0.4213 * SizeConfig.heightMultiplier),
+      borderSide: const BorderSide(color: Colors.black),
+    ),
+  );
+}
+
+TextStyle style = TextStyle(
+  fontFamily: "Kumbh-Med",
+  color: Colors.grey.shade900,
+  fontWeight: FontWeight.bold,
+  fontSize: 2.3 * SizeConfig.heightMultiplier,
+);

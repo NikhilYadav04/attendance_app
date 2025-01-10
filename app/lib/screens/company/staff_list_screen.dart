@@ -1,4 +1,5 @@
 import 'package:attend_ease/providers/attendance/company_attendance_provider.dart';
+import 'package:attend_ease/screens/company/approval_req_screen.dart';
 import 'package:attend_ease/screens/company/staff_list_screen_2.dart';
 import 'package:attend_ease/styling/colors.dart';
 import 'package:attend_ease/styling/sizeconfig.dart';
@@ -41,93 +42,45 @@ class _StaffListScreenState extends State<StaffListScreen> {
             child: Column(
               children: [
                 SizedBox(
-                  height:2.4* SizeConfig.heightMultiplier,
+                  height: 2.4 * SizeConfig.heightMultiplier,
                 ),
                 staffText("Staff Report"),
                 SizedBox(
                   height: 2.2 * SizeConfig.heightMultiplier,
                 ),
-                // staffReport(
-                //     currentWidth, currentHeight, textScale, context,reportStaff)
+
+                //* Field For Searching Records
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: 2 * SizeConfig.widthMultiplier),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      FormField(builder: (context) {
+                        return Container(
+                          color: Colors.white,
+                          child: TextField(
+                            style: style,
+                            onChanged: (value) {
+                              provider.searchRecordID(value);
+                            },
+                            controller: provider.searchController1,
+                            decoration: decoration("Search Employee Name"),
+                          ),
+                        );
+                      })
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 2.2 * SizeConfig.heightMultiplier,
+                ),
                 provider.isLoadingID
                     ? SpinKitRing(
                         color: Colours.DARK_BLUE,
                         size: 8.9536 * SizeConfig.heightMultiplier,
                       )
-                    : ListView.builder(
-                        shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
-                        itemCount: provider.attendanceIDList.length,
-                        itemBuilder: (context, index) {
-                          return Container(
-                            margin: EdgeInsets.symmetric(
-                                horizontal:
-                                    2.5 * SizeConfig.widthMultiplier,vertical: 1*SizeConfig.heightMultiplier),
-                            height: 10.5337 * SizeConfig.heightMultiplier,
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(
-                                    1.053 * SizeConfig.heightMultiplier),
-                                boxShadow: [
-                                  BoxShadow(
-                                      color: Colors.grey.shade700,
-                                      spreadRadius: 1.5,
-                                      blurRadius: 2)
-                                ]),
-                            child: Center(
-                              child: ListTile(
-                                leading: CircleAvatar(
-                                    backgroundColor: Colours.BUTTON_COLOR_1,
-                                    radius:
-                                        3.16012 * SizeConfig.heightMultiplier,
-                                    child: Icon(
-                                      Icons.person,
-                                      size:
-                                          3.3707 * SizeConfig.heightMultiplier,
-                                      color: Colors.white,
-                                    )),
-                                title: Text(
-                                  provider.attendanceIDList[index]
-                                      ["employeeID"],
-                                  style: GoogleFonts.montserrat(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize:
-                                        2.47543 * SizeConfig.heightMultiplier,
-                                  ),
-                                ),
-                                subtitle: Text(
-                                  provider.attendanceIDList[index]
-                                      ["employeePosition"],
-                                  style: GoogleFonts.montserrat(
-                                    color: Colors.grey.shade700,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize:
-                                        2.21208 * SizeConfig.heightMultiplier,
-                                  ),
-                                ),
-                                trailing: GestureDetector(
-                                  onTap: () {
-                                    Navigator.push(
-                                        context,
-                                        PageTransition(
-                                            child: StaffListScreen2(
-                                              employeeID: provider
-                                                      .attendanceIDList[index]
-                                                  ["employeeID"],
-                                            ),
-                                            type: PageTransitionType.fade));
-                                  },
-                                  child: Icon(
-                                    Icons.login,
-                                    size: 4.42417 * SizeConfig.heightMultiplier,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          );
-                        })
+                    : list(provider.filteredIDList)
               ],
             ),
           );
@@ -135,4 +88,73 @@ class _StaffListScreenState extends State<StaffListScreen> {
       )),
     );
   }
+}
+
+Widget list(List<dynamic> list) {
+  return ListView.builder(
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
+      itemCount: list.length,
+      itemBuilder: (context, index) {
+        return Container(
+          margin: EdgeInsets.symmetric(
+              horizontal: 2.5 * SizeConfig.widthMultiplier,
+              vertical: 1 * SizeConfig.heightMultiplier),
+          height: 10.5337 * SizeConfig.heightMultiplier,
+          decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius:
+                  BorderRadius.circular(1.053 * SizeConfig.heightMultiplier),
+              boxShadow: [
+                BoxShadow(
+                    color: Colors.grey.shade700,
+                    spreadRadius: 1.5,
+                    blurRadius: 2)
+              ]),
+          child: Center(
+            child: ListTile(
+              leading: CircleAvatar(
+                  backgroundColor: Colours.BUTTON_COLOR_1,
+                  radius: 3.16012 * SizeConfig.heightMultiplier,
+                  child: Icon(
+                    Icons.person,
+                    size: 3.3707 * SizeConfig.heightMultiplier,
+                    color: Colors.white,
+                  )),
+              title: Text(
+                list[index]["employeeID"],
+                style: GoogleFonts.montserrat(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 2.47543 * SizeConfig.heightMultiplier,
+                ),
+              ),
+              subtitle: Text(
+                list[index]["employeePosition"],
+                style: GoogleFonts.montserrat(
+                  color: Colors.grey.shade700,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 2.21208 * SizeConfig.heightMultiplier,
+                ),
+              ),
+              trailing: GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      PageTransition(
+                          child: StaffListScreen2(
+                            employeeID: list[index]["employeeID"],
+                          ),
+                          type: PageTransitionType.fade));
+                },
+                child: Icon(
+                  Icons.login,
+                  size: 4.42417 * SizeConfig.heightMultiplier,
+                  color: Colors.black,
+                ),
+              ),
+            ),
+          ),
+        );
+      });
 }
