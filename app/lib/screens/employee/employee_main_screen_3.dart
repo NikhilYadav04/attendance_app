@@ -5,6 +5,7 @@ import 'package:attend_ease/styling/colors.dart';
 import 'package:attend_ease/services/employeeService.dart';
 import 'package:attend_ease/styling/sizeconfig.dart';
 import 'package:attend_ease/widgets/employee/employee_main_widgets.dart';
+import 'package:attend_ease/widgets/leave/leave_widgets_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -79,9 +80,7 @@ class _EmployeeMainScreen3State extends State<EmployeeMainScreen3> {
                       ),
                     )
                   : provider.attendanceRecords.isEmpty
-                      ? Center(
-                          child: Text("No Records Available"),
-                        )
+                      ? Center(child: notFound("No Attendance Records"))
                       : Container(
                           color: Colours.BUTTON_COLOR_2,
                           padding: EdgeInsets.symmetric(

@@ -4,6 +4,7 @@ import 'package:attend_ease/styling/colors.dart';
 import 'package:attend_ease/styling/sizeconfig.dart';
 import 'package:attend_ease/widgets/company/company_hr_widgets.dart';
 import 'package:attend_ease/widgets/leave/leave_widgets.dart';
+import 'package:attend_ease/widgets/leave/leave_widgets_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:page_transition/page_transition.dart';
@@ -133,107 +134,116 @@ class _HrLeaveListState extends State<HrLeaveList> {
                         color: Colours.DARK_BLUE,
                         size: 6.3202468 * SizeConfig.heightMultiplier,
                       )
-                    : Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 4.0178 * SizeConfig.widthMultiplier),
-                        child: ListView.builder(
-                            physics: NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            itemCount: provider.Pending_List.length,
-                            itemBuilder: (context, index) {
-                              return GestureDetector(
-                                onTap: () {
-                                  showModalBottomSheet(
-                                      context: context,
-                                      builder: (context) {
-                                        return bottomCard(
-                                            provider.Pending_List[index]
-                                                ["employeeID"],
-                                            "${provider.Pending_List[index]["Start_Date"]} - ${provider.Pending_List[index]["End_Date"]}",
-                                            provider.Pending_List[index]
-                                                ["Leave_Title"],
-                                            provider.Pending_List[index]
-                                                ["Leave_Reason"],
-                                            provider.Pending_List[index]
-                                                    ["Leave_Count"]
-                                                .toString());
-                                      });
-                                },
-                                child: Container(
-                                  margin: EdgeInsets.symmetric(
-                                      vertical:
-                                          1.0533 * SizeConfig.heightMultiplier),
-                                  height:
-                                      18.96074 * SizeConfig.heightMultiplier,
-                                  decoration: BoxDecoration(
-                                    color: Colours.BUTTON_COLOR_2,
-                                    borderRadius: BorderRadius.circular(
-                                        1.053 * SizeConfig.heightMultiplier),
-                                    border: Border.all(
+                    : provider.Pending_List.length == 0
+                        ? Padding(
+                          padding: EdgeInsets.only(top: 3.6868*SizeConfig.heightMultiplier),
+                          child: notFound1("No Pending Leaves"))
+                        : Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal:
+                                    4.0178 * SizeConfig.widthMultiplier),
+                            child: ListView.builder(
+                                physics: NeverScrollableScrollPhysics(),
+                                shrinkWrap: true,
+                                itemCount: provider.Pending_List.length,
+                                itemBuilder: (context, index) {
+                                  return GestureDetector(
+                                    onTap: () {
+                                      showModalBottomSheet(
+                                          context: context,
+                                          builder: (context) {
+                                            return bottomCard(
+                                                provider.Pending_List[index]
+                                                    ["employeeID"],
+                                                "${provider.Pending_List[index]["Start_Date"]} - ${provider.Pending_List[index]["End_Date"]}",
+                                                provider.Pending_List[index]
+                                                    ["Leave_Title"],
+                                                provider.Pending_List[index]
+                                                    ["Leave_Reason"],
+                                                provider.Pending_List[index]
+                                                        ["Leave_Count"]
+                                                    .toString());
+                                          });
+                                    },
+                                    child: Container(
+                                      margin: EdgeInsets.symmetric(
+                                          vertical: 1.0533 *
+                                              SizeConfig.heightMultiplier),
+                                      height: 18.96074 *
+                                          SizeConfig.heightMultiplier,
+                                      decoration: BoxDecoration(
                                         color: Colours.BUTTON_COLOR_2,
-                                        width: 3),
-                                    boxShadow: [
-                                      BoxShadow(
-                                          color: Colours.BUTTON_COLOR_1,
-                                          spreadRadius: 2,
-                                          blurRadius: 2)
-                                    ],
-                                  ),
-                                  child: Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal:
-                                            3.125 * SizeConfig.widthMultiplier,
-                                        vertical: 1.89607 *
-                                            SizeConfig.heightMultiplier),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        leaveCardPending(
-                                            provider.Pending_List[index]
-                                                ["employeeID"],
-                                            "${provider.Pending_List[index]["Start_Date"]} - ${provider.Pending_List[index]["End_Date"]}"),
-                                        provider.isLoadingApp
-                                            ? SpinKitCircle(
-                                                color: Colors.red,
-                                                size: 2.52809 *
-                                                    SizeConfig.heightMultiplier,
-                                              )
-                                            : Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  buttons(
-                                                      "Reject",
-                                                      Icons.cancel_outlined,
-                                                      Colors.red, () {
-                                                    provider.arLeave(
-                                                        context,
-                                                        "Rejected",
-                                                        provider.Pending_List[
-                                                            index]["Leave_ID"]);
-                                                  }),
-                                                  buttons(
-                                                      "Approve",
-                                                      Icons
-                                                          .check_circle_outline,
-                                                      Colors.green, () {
-                                                    provider.arLeave(
-                                                        context,
-                                                        "Approved",
-                                                        provider.Pending_List[
-                                                            index]["Leave_ID"]);
-                                                  }),
-                                                ],
-                                              )
-                                      ],
+                                        borderRadius: BorderRadius.circular(
+                                            1.053 *
+                                                SizeConfig.heightMultiplier),
+                                        border: Border.all(
+                                            color: Colours.BUTTON_COLOR_2,
+                                            width: 3),
+                                        boxShadow: [
+                                          BoxShadow(
+                                              color: Colours.BUTTON_COLOR_1,
+                                              spreadRadius: 2,
+                                              blurRadius: 2)
+                                        ],
+                                      ),
+                                      child: Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 3.125 *
+                                                SizeConfig.widthMultiplier,
+                                            vertical: 1.89607 *
+                                                SizeConfig.heightMultiplier),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            leaveCardPending(
+                                                provider.Pending_List[index]
+                                                    ["employeeID"],
+                                                "${provider.Pending_List[index]["Start_Date"]} - ${provider.Pending_List[index]["End_Date"]}"),
+                                            provider.isLoadingApp
+                                                ? SpinKitCircle(
+                                                    color: Colors.red,
+                                                    size: 2.52809 *
+                                                        SizeConfig
+                                                            .heightMultiplier,
+                                                  )
+                                                : Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: [
+                                                      buttons(
+                                                          "Reject",
+                                                          Icons.cancel_outlined,
+                                                          Colors.red, () {
+                                                        provider.arLeave(
+                                                            context,
+                                                            "Rejected",
+                                                            provider.Pending_List[
+                                                                    index]
+                                                                ["Leave_ID"]);
+                                                      }),
+                                                      buttons(
+                                                          "Approve",
+                                                          Icons
+                                                              .check_circle_outline,
+                                                          Colors.green, () {
+                                                        provider.arLeave(
+                                                            context,
+                                                            "Approved",
+                                                            provider.Pending_List[
+                                                                    index]
+                                                                ["Leave_ID"]);
+                                                      }),
+                                                    ],
+                                                  )
+                                          ],
+                                        ),
+                                      ),
                                     ),
-                                  ),
-                                ),
-                              );
-                            }),
-                      ),
+                                  );
+                                }),
+                          ),
                 SizedBox(
                   height: 2.6334 * SizeConfig.heightMultiplier,
                 )

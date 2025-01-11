@@ -4,6 +4,7 @@ import 'package:attend_ease/styling/colors.dart';
 import 'package:attend_ease/styling/sizeconfig.dart';
 import 'package:attend_ease/widgets/company/company_hr_widgets.dart';
 import 'package:attend_ease/widgets/employee/employee_main_widgets.dart';
+import 'package:attend_ease/widgets/leave/leave_widgets_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -74,116 +75,120 @@ class _StaffListScreen2State extends State<StaffListScreen2> {
                             color: Colours.DARK_BLUE,
                             size: 8.9536 * SizeConfig.heightMultiplier,
                           )
-                        : Column(
-                            children: [
-                              ListView.builder(
-                                  shrinkWrap: true,
-                                  physics: NeverScrollableScrollPhysics(),
-                                  itemCount:
-                                      provider.attendanceEmployeeList.length,
-                                  itemBuilder: (context, index) {
-                                    return Padding(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: 2.2321 *
-                                              SizeConfig.widthMultiplier,
-                                          vertical: 1.26408 *
-                                              SizeConfig.heightMultiplier),
-                                      child: Container(
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: 3.3482 *
-                                                SizeConfig.widthMultiplier,
-                                            vertical: 1.36938 *
-                                                SizeConfig.heightMultiplier),
-                                        height: 14.7472 *
-                                            SizeConfig.heightMultiplier,
-                                        width: double.infinity,
-                                        decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            borderRadius: BorderRadius.circular(
-                                                1.053 *
+                        : provider.attendanceEmployeeList.length == 0
+                            ? notFound("No Records Found")
+                            : Column(
+                                children: [
+                                  ListView.builder(
+                                      shrinkWrap: true,
+                                      physics: NeverScrollableScrollPhysics(),
+                                      itemCount: provider
+                                          .attendanceEmployeeList.length,
+                                      itemBuilder: (context, index) {
+                                        return Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 2.2321 *
+                                                  SizeConfig.widthMultiplier,
+                                              vertical: 1.26408 *
+                                                  SizeConfig.heightMultiplier),
+                                          child: Container(
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: 3.3482 *
+                                                    SizeConfig.widthMultiplier,
+                                                vertical: 1.36938 *
                                                     SizeConfig
                                                         .heightMultiplier),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                  color: Colors.grey.shade700,
-                                                  spreadRadius: 1.5,
-                                                  blurRadius: 2)
-                                            ]),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              " ${provider.attendanceEmployeeList[index]["Month"]}, ${provider.attendanceEmployeeList[index]["Year"]}",
-                                              style: GoogleFonts.montserrat(
-                                                color: Colors.black,
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 2.5280 *
-                                                    SizeConfig.heightMultiplier,
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              height: 1.8960 *
-                                                  SizeConfig.heightMultiplier,
-                                            ),
-                                            Row(
+                                            height: 14.7472 *
+                                                SizeConfig.heightMultiplier,
+                                            width: double.infinity,
+                                            decoration: BoxDecoration(
+                                                color: Colors.white,
+                                                borderRadius: BorderRadius
+                                                    .circular(1.053 *
+                                                        SizeConfig
+                                                            .heightMultiplier),
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                      color:
+                                                          Colors.grey.shade700,
+                                                      spreadRadius: 1.5,
+                                                      blurRadius: 2)
+                                                ]),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
                                               children: [
+                                                Text(
+                                                  " ${provider.attendanceEmployeeList[index]["Month"]}, ${provider.attendanceEmployeeList[index]["Year"]}",
+                                                  style: GoogleFonts.montserrat(
+                                                    color: Colors.black,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 2.5280 *
+                                                        SizeConfig
+                                                            .heightMultiplier,
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  height: 1.8960 *
+                                                      SizeConfig
+                                                          .heightMultiplier,
+                                                ),
                                                 Row(
                                                   children: [
-                                                    boxIcon(Icons.percent),
-                                                    SizedBox(
-                                                      width: 2.2321 *
-                                                          SizeConfig
-                                                              .widthMultiplier,
-                                                    ),
-                                                    Text("Percentage : ",
-                                                        style: GoogleFonts
-                                                            .montserrat(
-                                                          color: Colors
-                                                              .grey.shade800,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          fontSize: 2.42276 *
+                                                    Row(
+                                                      children: [
+                                                        boxIcon(Icons.percent),
+                                                        SizedBox(
+                                                          width: 2.2321 *
                                                               SizeConfig
-                                                                  .heightMultiplier,
-                                                        )),
-                                                    SizedBox(
-                                                      width: 2.2321 *
-                                                          SizeConfig
-                                                              .widthMultiplier,
-                                                    ),
-                                                    Text(
-                                                        "${PercentageFormatter.calculateDayPercentage(provider.attendanceEmployeeList[index]["Month"], provider.attendanceEmployeeList[index]["daysPresent"]).floorToDouble()} %",
-                                                        style: GoogleFonts
-                                                            .montserrat(
-                                                          color: PercentageFormatter.calculateDayPercentage(
-                                                                          provider.attendanceEmployeeList[index]
-                                                                              [
-                                                                              "Month"],
-                                                                          provider.attendanceEmployeeList[index]
-                                                                              [
-                                                                              "daysPresent"])
-                                                                      .floorToDouble() >
-                                                                  75.0
-                                                              ? Colors.green
-                                                              : Colors.red,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          fontSize: 2.422768 *
+                                                                  .widthMultiplier,
+                                                        ),
+                                                        Text("Percentage : ",
+                                                            style: GoogleFonts
+                                                                .montserrat(
+                                                              color: Colors.grey
+                                                                  .shade800,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              fontSize: 2.42276 *
+                                                                  SizeConfig
+                                                                      .heightMultiplier,
+                                                            )),
+                                                        SizedBox(
+                                                          width: 2.2321 *
                                                               SizeConfig
-                                                                  .heightMultiplier,
-                                                        )),
+                                                                  .widthMultiplier,
+                                                        ),
+                                                        Text(
+                                                            "${PercentageFormatter.calculateDayPercentage(provider.attendanceEmployeeList[index]["Month"], provider.attendanceEmployeeList[index]["daysPresent"]).floorToDouble()} %",
+                                                            style: GoogleFonts
+                                                                .montserrat(
+                                                              color: PercentageFormatter.calculateDayPercentage(
+                                                                              provider.attendanceEmployeeList[index]["Month"],
+                                                                              provider.attendanceEmployeeList[index]["daysPresent"])
+                                                                          .floorToDouble() >
+                                                                      75.0
+                                                                  ? Colors.green
+                                                                  : Colors.red,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              fontSize: 2.422768 *
+                                                                  SizeConfig
+                                                                      .heightMultiplier,
+                                                            )),
+                                                      ],
+                                                    ),
                                                   ],
-                                                ),
+                                                )
                                               ],
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                    );
-                                  })
-                            ],
-                          )
+                                            ),
+                                          ),
+                                        );
+                                      })
+                                ],
+                              )
                   ],
                 ),
               );

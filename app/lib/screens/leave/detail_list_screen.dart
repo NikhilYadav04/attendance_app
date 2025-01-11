@@ -1,6 +1,7 @@
 import 'package:attend_ease/styling/sizeconfig.dart';
 import 'package:attend_ease/widgets/company/company_hr_widgets.dart';
 import 'package:attend_ease/widgets/leave/leave_widgets.dart';
+import 'package:attend_ease/widgets/leave/leave_widgets_2.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
@@ -28,16 +29,7 @@ class _DetailListScreenState extends State<DetailListScreen> {
       backgroundColor: Colors.grey.shade100,
       body: SingleChildScrollView(
         child: widget.list.length == 0
-            ? Center(
-                child: Text(
-                  "No Leave Records Founds",
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontFamily: "Kumbh-Med",
-                      fontWeight: FontWeight.bold,
-                      fontSize: 2.1067*SizeConfig.heightMultiplier),
-                ),
-              )
+            ? Center(child: notFound("No ${widget.title} Leaves"))
             : Column(
                 children: [
                   SizedBox(

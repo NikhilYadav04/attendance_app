@@ -4,6 +4,7 @@ import 'package:attend_ease/screens/company/staff_list_screen_2.dart';
 import 'package:attend_ease/styling/colors.dart';
 import 'package:attend_ease/styling/sizeconfig.dart';
 import 'package:attend_ease/widgets/company/company_hr_widgets.dart';
+import 'package:attend_ease/widgets/leave/leave_widgets_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -80,7 +81,9 @@ class _StaffListScreenState extends State<StaffListScreen> {
                         color: Colours.DARK_BLUE,
                         size: 8.9536 * SizeConfig.heightMultiplier,
                       )
-                    : list(provider.filteredIDList)
+                    : provider.attendanceIDList.length == 0
+                        ? notFound("No Records Found")
+                        : list(provider.filteredIDList)
               ],
             ),
           );

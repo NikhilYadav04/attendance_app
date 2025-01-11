@@ -134,3 +134,34 @@ Widget leaveCardList(BuildContext context, Color border, Color bg, List<dynamic>
     );
   });
 }
+
+Widget notFound(String text){
+  return Column(
+    children: [
+      SizedBox(height: 15.80061*SizeConfig.heightMultiplier,),
+       Image.asset("assets/nfound.png",height: 12.64049*SizeConfig.heightMultiplier,width: 26.785714*SizeConfig.widthMultiplier,),
+       SizedBox(height: 1.58006*SizeConfig.heightMultiplier,),
+       Text(text,style: TextStyle(
+        color: Colors.black,
+        fontFamily: "Kumbh-Med",
+        fontWeight: FontWeight.bold,
+        fontSize: 3.370798*SizeConfig.heightMultiplier
+       ),)
+    ],
+  );
+}
+
+Widget notFound1(String text){
+  return Column(
+    children: [
+       Image.asset("assets/nfound.png",height: 10.64049*SizeConfig.heightMultiplier,width: 22.785714*SizeConfig.widthMultiplier,),
+       SizedBox(height: 1.58006*SizeConfig.heightMultiplier,),
+       Text(text,style: TextStyle(
+        color: Colors.black,
+        fontFamily: "Kumbh-Med",
+        fontWeight: FontWeight.bold,
+        fontSize: 3*SizeConfig.heightMultiplier
+       ),)
+    ],
+  );
+}

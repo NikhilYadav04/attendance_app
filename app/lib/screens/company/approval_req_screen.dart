@@ -2,6 +2,7 @@ import 'package:attend_ease/providers/attendance/company_attendance_provider.dar
 import 'package:attend_ease/styling/colors.dart';
 import 'package:attend_ease/styling/sizeconfig.dart';
 import 'package:attend_ease/widgets/company/company_hr_widgets.dart';
+import 'package:attend_ease/widgets/leave/leave_widgets_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
@@ -71,16 +72,8 @@ class _ApprovalReqScreenState extends State<ApprovalReqScreen> {
                       color: Colours.DARK_BLUE,
                       size: 8.95368 * SizeConfig.heightMultiplier,
                     )
-                  : provider.filteredCountList.isEmpty
-                      ? Center(
-                          child: Text(
-                            "No Record Available",
-                            style: TextStyle(
-                                color: Colours.DARK_BLUE,
-                                fontFamily: "Tansek",
-                                fontSize: 5.4775 * SizeConfig.heightMultiplier),
-                          ),
-                        )
+                  : provider.attendaneCountList.isEmpty
+                      ? notFound("No Records Found")
                       : listApproval(context, provider.filteredCountList)
             ],
           );
