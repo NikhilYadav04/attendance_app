@@ -25,7 +25,8 @@
     "twilio": "^5.2.2"
   },
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "node index.js",
+    "dev": "nodemon index.js"
   },
   "author": "",
   "license": "ISC"
