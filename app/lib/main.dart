@@ -18,11 +18,15 @@ import 'package:attend_ease/screens/employee/employee_main_screen.dart';
 import 'package:attend_ease/styling/colors.dart';
 import 'package:attend_ease/styling/sizeconfig.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  //* load the env
+  await dotenv.load();
   //runApp(DevicePreview(enabled: !kReleaseMode, builder: (context) => MyApp()));
 
   runApp(MyApp());

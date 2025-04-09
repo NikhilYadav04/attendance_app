@@ -57,6 +57,7 @@ dependencies:
   path_provider: ^2.0.15
   skeletonizer: ^1.4.2
   flutter_native_splash: ^2.4.1
+  flutter_dotenv: ^5.2.1
   # image auth packages
 
 dev_dependencies:
@@ -100,6 +101,7 @@ flutter:
     - assets/home_screen/
     - assets/animations/
     - assets/location_screen/
+    - .env
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

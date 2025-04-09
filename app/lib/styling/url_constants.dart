@@ -1,60 +1,60 @@
 //pc ip address
-const PC_IP = "192.168.56.1";
-const PC_IP2 = " 192.168.206.104";
-// const PC_IP = "10.0.0.95";
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-// OTP Verification
-const send_OTP_baseUrl = "http://$PC_IP/api/send-otp";
-const verify_OTP_baseUrl = "http://$PC_IP/api/verify-otp";
+final PC_IP = "${dotenv.get('PC_IP')}";
+final PC_IP2 = "${dotenv.get('PC_IP2')}";
 
-//company setup
-const add_company_baseUrl = "http://$PC_IP/company/add-company";
-const login_company_baseUrl = "http://$PC_IP/company/login-company";
+final url = dotenv.get("URL");
 
-// set location
-const set_location_baseUrl = "http://$PC_IP/location/store-location";
+//*  OTP Verification
+final send_OTP_baseUrl = "${url}/api/send-otp";
+final verify_OTP_baseUrl = "${url}/api/verify-otp";
 
-//get location
-const get_location_baseUrl = "http://$PC_IP/location/get-location";
+//* company setup
+final add_company_baseUrl = "${url}/company/add-company";
+final login_company_baseUrl = "${url}/company/login-company";
 
-//employee add and setup
-const add_employee_baseURl = "http://$PC_IP/employee/add-employee";
-const remove_employee_baseURl = "http://$PC_IP/employee/remove-employee";
-const login_employee_baseURl = "http://$PC_IP/employee/join-employee";
+//*  set location
+final set_location_baseUrl = "${url}/location/store-location";
 
-//mark attendance
-const mark_attendance_url_in = "http://$PC_IP/attendance/mark-in";
-const mark_attendance_url_out = "http://$PC_IP/attendance/mark-out";
+//* get location
+final get_location_baseUrl = "${url}/location/get-location";
 
-//get attendance
-const get_attendance_url = "http://$PC_IP/attendance/get-attend";
-const get_attendance_days_url = "http://$PC_IP/attendance/get-attend-days";
+//* employee add and setup
+final add_employee_baseURl = "${url}/employee/add-employee";
+final remove_employee_baseURl = "${url}/employee/remove-employee";
+final login_employee_baseURl = "${url}/employee/join-employee";
 
-//get report
-const report_employee_baseURl = "http://$PC_IP/employee/get-history";
-const report_company_baseURl = "http://$PC_IP/company/get-report";
+//* mark attendance
+final mark_attendance_url_in = "${url}/attendance/mark-in";
+final mark_attendance_url_out = "${url}/attendance/mark-out";
 
-//get count
-const staff_count = "http://$PC_IP/employee/get-count";
-const staff_change_count = "http://$PC_IP/employee/change-count";
+//* get attendance
+final get_attendance_url = "${url}/attendance/get-attend";
+final get_attendance_days_url = "${url}/attendance/get-attend-days";
 
-//staff history count
-const store_staff_history = "http://$PC_IP/company/store-history";
-const get_staff_history = "http://$PC_IP/company/get-history";
-const staff_list_history = "http://$PC_IP/company/history-list";
+//* get report
+final report_employee_baseURl = "${url}/employee/get-history";
+final report_company_baseURl = "${url}/company/get-report";
 
+//* get count
+final staff_count = "${url}/employee/get-count";
+final staff_change_count = "${url}/employee/change-count";
 
-//whatsapp notification
-const notify =  "http://$PC_IP/company/send-notifications";
+//* staff history count
+final store_staff_history = "${url}/company/store-history";
+final get_staff_history = "${url}/company/get-history";
+final staff_list_history = "${url}/company/history-list";
 
-// leaves
-const req_leave_url = "http://$PC_IP/leave/request-leave";
-const ar_leave_url = "http://$PC_IP/leave/ar_leave";
-const fetch_leave_HR = "http://$PC_IP/leave/fetch-leaves-HR";
-const fetch_leave_employee = "http://$PC_IP/leave//fetch-leaves-employee";
+//* whatsapp notification
+final notify = "${url}/company/send-notifications";
 
-// profile pic
-const upload_url = "http://$PC_IP/employee/upload";
-const get_image_url = "http://$PC_IP/employee/get-profile";
+//*  leaves
+final req_leave_url = "${url}/leave/request-leave";
+final ar_leave_url = "${url}/leave/ar_leave";
+final fetch_leave_HR = "${url}/leave/fetch-leaves-HR";
+final fetch_leave_employee = "${url}/leave//fetch-leaves-employee";
 
-
+//*  profile pic
+final upload_url = "${url}/employee/upload";
+final get_image_url = "${url}/employee/get-profile";

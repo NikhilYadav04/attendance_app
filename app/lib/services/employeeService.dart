@@ -170,7 +170,7 @@ class Employeeservice {
         return jsonDecode(res_body.body)['message'];
       } else if (response.statusCode == 400) {
         return jsonDecode(res_body.body)['message'];
-      }else if (response.statusCode == 500) {
+      } else if (response.statusCode == 500) {
         return "Error : ${jsonDecode(res_body.body)['message']}";
       }
     } on TimeoutException {
