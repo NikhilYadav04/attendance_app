@@ -138,9 +138,7 @@ Attend Ease offers a robust and user-friendly platform for organizations to mana
 
 🗂️ Project Structure
 Frontend (Flutter)
-bash
-Copy
-Edit
+
 lib/
 │
 ├── helpers/        # Utility functions
@@ -150,16 +148,16 @@ lib/
 ├── services/       # API & env configuration
 ├── styling/        # Themes, colors
 └── widgets/        # Reusable UI components
+
 Backend (Node.js)
-bash
-Copy
-Edit
+
 backend/
 │
 ├── routes/         # Endpoints
 ├── controllers/    # Logic for requests
 ├── middlewares/    # Auth and validation
 └── config/         # DB & env setup
+
 ⚙️ Installation and Setup
 Prerequisites
 Flutter SDK
@@ -169,26 +167,20 @@ Node.js
 MongoDB
 
 Clone the repository
-bash
-Copy
-Edit
 git clone https://github.com/yourusername/attend-ease.git
 cd attend-ease
+
 Backend Setup
-bash
-Copy
-Edit
 cd backend
 npm install
 # Create a .env file based on .env.example and add your values
 npm run dev
+
 Frontend Setup
-bash
-Copy
-Edit
 cd frontend
 flutter pub get
 flutter run
+
 🎯 Usage
 HR Users
 Log in with HR credentials.
@@ -223,13 +215,3 @@ Submit a pull request
 Licensed under the MIT License.
 
 Enjoy seamless attendance tracking with Attend Ease! ✨
-
-yaml
-Copy
-Edit
-
----
-
-Paste the above in your `README.md` file and push it to GitHub—your formatting will be clean and structured with proper **headings**, **code blocks**, and **lists**.
-
-Want me to generate this README as a downloadable `.md` file?
