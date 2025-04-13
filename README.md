@@ -14,42 +14,42 @@ Attend Ease offers a robust and user-friendly platform for organizations to mana
 
 ### 🧑‍💼 HR Features
 
-- **Company Account Setup**  
+- **Company Account Setup:**  
   HR personnel can create a company account, set the company’s physical location, and determine a radius within which attendance can be marked.
 
-- **Employee Management**  
+- **Employee Management:**  
   Easily add or remove employees. Each employee is assigned a unique employee ID for seamless login.
 
-- **Attendance Overview**  
+- **Attendance Overview:**  
   View detailed attendance data with calendar and history views.
 
-- **Daily Summary Submission**  
+- **Daily Summary Submission:**  
   Submit end-of-day reports displaying the total number of employees present.
 
 ---
 
 ### 👤 Employee Features
 
-- **Location-Based Attendance**  
+- **Location-Based Attendance:**  
   Employees can mark attendance only when they are within the designated company radius.
 
-- **Biometric Authentication**  
+- **Biometric Authentication:**  
   Complete biometric verification for accurate in-time and out-time recording.
 
-- **Historical Data**  
-  Access attendance records with a dedicated history page and visually appealing calendar view.
+- **Historical Data:**  
+  Access attendance records with a dedicated history page and calendar view.
 
 ---
 
 ### 🌴 Leave Management
 
-- **Leave Quota**  
+- **Leave Quota:**  
   Each employee is allocated eight leaves per cycle.
 
-- **Leave Requests**  
+- **Leave Requests:**  
   Employees can request leave by providing details such as title, date, reason, and duration.
 
-- **Approval Workflow**  
+- **Approval Workflow:**  
   HR can approve or reject leave requests, with leave history visible to both HR and employees.
 
 ---
@@ -57,25 +57,21 @@ Attend Ease offers a robust and user-friendly platform for organizations to mana
 ## 🖥️ Tech Stack
 
 ### Frontend
-- **Flutter** – For a modern and interactive UI along with client-side logic.
 
-### State Management
-- **Provider** – Ensures proper code structure and enhanced state management across the app.
-
-### API & Environment
-- Robust Flutter packages for API integration and environment management.
+- **Flutter** – For a modern and interactive UI.
+- **Provider** – For state management.
 
 ### Backend
-- **Node.js** – Serves as the backbone for authentication, business logic, and API endpoints.
 
-### Database
-- **MongoDB** – Stores attendance records, employee data, and leave information.
+- **Node.js** – Authentication and business logic.
+- **MongoDB** – For storing data.
 
 ---
 
 ## 📦 Flutter Packages
 
 ### UI & Animation
+
 - `cupertino_icons: ^1.0.6`
 - `another_carousel_pro: ^1.0.2`
 - `wolt_modal_sheet: ^0.7.1`
@@ -87,11 +83,13 @@ Attend Ease offers a robust and user-friendly platform for organizations to mana
 - `table_calendar`
 
 ### Storage & State Management
-- `shared_preferences`
+
+- `shread_reference`
 - `provider`
 - `cached_network_image: ^3.4.1`
 
 ### API & Environment
+
 - `flutter_dotenv`
 - `image_picker: ^1.1.2`
 - `path_provider`
@@ -99,68 +97,69 @@ Attend Ease offers a robust and user-friendly platform for organizations to mana
 - `connectivity_plus: ^6.1.1`
 
 ### Local Services
+
 - `geolocator: ^8.2.1`
 
 ---
 
 ## 🔧 Backend Details
 
-The backend of Attend Ease is built on **Node.js**, focusing on **security** and **scalability**.
+### Structure
 
-### File Structure
-
-- `.env` – For environment variable configurations  
-- **Routes** – Definitions for authentication, attendance, leave requests, and more  
-- **Controllers** – Houses business logic for managing API requests  
-- **Middlewares** – Implements security including JWT-based authentication
+- `.env` – Configuration for environment variables.
+- **Routes** – Authentication, attendance, and leave endpoints.
+- **Controllers** – API logic.
+- **Middlewares** – JWT security, validation, error handling.
 
 ### Authentication
-- Uses JWT tokens
-- Password hashing with `bcryptjs`
-- Token management via `jsonwebtoken`
+
+- JWT tokens
+- `bcryptjs` for password hashing
+- `jsonwebtoken` for token management
 
 ### Dependencies
 
-```json
-"bcryptjs": "^2.4.3",
-"body-parser": "^1.20.2",
-"cloudinary": "^2.5.1",
-"cors": "^2.8.5",
-"crypto": "^1.0.1",
-"dotenv": "^16.4.5",
-"express": "^4.19.2",
-"http": "^0.0.1-security",
-"jsonwebtoken": "^9.0.2",
-"mongoose": "^8.5.1",
-"multer": "^1.4.5-lts.1",
-"nodemon": "^3.1.4",
-"otp-generator": "^4.0.1",
-"twilio": "^5.2.2"
+{
+  "bcryptjs": "^2.4.3",
+  "body-parser": "^1.20.2",
+  "cloudinary": "^2.5.1",
+  "cors": "^2.8.5",
+  "crypto": "^1.0.1",
+  "dotenv": "^16.4.5",
+  "express": "^4.19.2",
+  "http": "^0.0.1-security",
+  "jsonwebtoken": "^9.0.2",
+  "mongoose": "^8.5.1",
+  "multer": "^1.4.5-lts.1",
+  "nodemon": "^3.1.4",
+  "otp-generator": "^4.0.1",
+  "twilio": "^5.2.2"
+}
+
 🗂️ Project Structure
 Frontend (Flutter)
-helpers/ – Utility functions (e.g., local storage)
-
-screens/ – UI screens like login, history, attendance
-
-models/ – Data models for employee, attendance, leaves
-
-provider/ – State management logic
-
-services/ – API, environment config
-
-styling/ – Colors, themes
-
-widgets/ – Reusable components
-
+bash
+Copy
+Edit
+lib/
+│
+├── helpers/        # Utility functions
+├── screens/        # Login, attendance, history, etc.
+├── models/         # Data models
+├── provider/       # State management logic
+├── services/       # API & env configuration
+├── styling/        # Themes, colors
+└── widgets/        # Reusable UI components
 Backend (Node.js)
-Routes/ – API endpoints
-
-Controllers/ – Business logic
-
-Middlewares/ – Authentication, validation
-
-Configuration/ – DB connection & .env setup
-
+bash
+Copy
+Edit
+backend/
+│
+├── routes/         # Endpoints
+├── controllers/    # Logic for requests
+├── middlewares/    # Auth and validation
+└── config/         # DB & env setup
 ⚙️ Installation and Setup
 Prerequisites
 Flutter SDK
@@ -169,22 +168,21 @@ Node.js
 
 MongoDB
 
-Setup Instructions
-1. Clone the repository
+Clone the repository
 bash
 Copy
 Edit
 git clone https://github.com/yourusername/attend-ease.git
 cd attend-ease
-2. Backend Setup
+Backend Setup
 bash
 Copy
 Edit
 cd backend
 npm install
-# Create a .env file from .env.example
+# Create a .env file based on .env.example and add your values
 npm run dev
-3. Frontend Setup
+Frontend Setup
 bash
 Copy
 Edit
@@ -192,40 +190,39 @@ cd frontend
 flutter pub get
 flutter run
 🎯 Usage
-For HR Users
-Log in with HR credentials
+HR Users
+Log in with HR credentials.
 
-Set up company location and radius
+Manage company account, define attendance radius, and manage employees.
 
-Add or remove employees
+View attendance in calendar/history.
 
-View attendance reports and approve leave requests
+Submit daily summaries and handle leave requests.
 
-For Employee Users
-Log in with your employee ID
+Employee Users
+Log in using employee ID.
 
-Mark attendance within radius
+Mark attendance only within allowed radius.
 
-Biometric verification for clock-in/out
+Biometric verification for time tracking.
 
-Request and view leave history
+Request leaves and view history.
 
 🤝 Contributing
-We welcome contributions to Attend Ease!
+We welcome contributions!
 
-Fork the repository
+Fork the repo
 
 Create a new branch
 
-Commit changes with clear messages
+Make changes and commit
 
 Submit a pull request
 
 📄 License
-This project is licensed under the MIT License.
+Licensed under the MIT License.
 
 Enjoy seamless attendance tracking with Attend Ease! ✨
-Feel free to further customize and extend this README as your project evolves.
 
 yaml
 Copy
@@ -233,6 +230,6 @@ Edit
 
 ---
 
-You can now copy and paste this markdown into your `README.md` file and GitHub will render it with proper **headings**, **code blocks**, **lists**, etc.
+Paste the above in your `README.md` file and push it to GitHub—your formatting will be clean and structured with proper **headings**, **code blocks**, and **lists**.
 
-Want me to turn this into a PDF or something you can preview locally too?
+Want me to generate this README as a downloadable `.md` file?
