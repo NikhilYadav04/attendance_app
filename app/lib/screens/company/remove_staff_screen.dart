@@ -1,4 +1,4 @@
-import 'package:attend_ease/globalobjects/variables.dart';
+import 'package:attend_ease/global/variables.dart';
 import 'package:attend_ease/providers/employee/employee_add_provider.dart';
 import 'package:attend_ease/styling/colors.dart';
 import 'package:attend_ease/styling/sizeconfig.dart';
