@@ -32,11 +32,11 @@ router.post("/send-otp", phoneValidation, async (req, res) => {
       { upsert: true, new: true, setDefaultsOnInsert: true }
     );
 
-    // await twilioClient.messages.create({
-    //   body: `Your Otp is : ${otp}`,
-    //   to: phoneNumber,
-    //   from: twilioNumber,
-    // });
+    await twilioClient.messages.create({
+      body: `Your Otp is : ${otp}`,
+      to: phoneNumber,
+      from: twilioNumber,
+    });
 
     return res.status(200).json({
       success: true,

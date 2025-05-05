@@ -184,7 +184,7 @@ class CompanyAttendanceProvider extends ChangeNotifier {
       toastMessage(context, "No Internet!", "Check Your Internet Connection",
           ToastificationType.error);
     } else {
-      const String url = 'http://192.168.56.1/company/get/-ids';
+      const String url = 'https://attendance-app-odiw.onrender.com/company/get/-ids';
 
       try {
         // Retrieve the token
