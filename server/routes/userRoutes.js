@@ -1,7 +1,7 @@
 require("dotenv").config();
-
 const express = require("express");
 const router = express.Router();
+const twilio = require('twilio');
 
 const otpGenerator = require("otp-generator");
 const OtpModel = require("../models/otp");
@@ -16,36 +16,34 @@ const twilioNumber = process.env.TWILIO_PHONE_NUMBER;
 router.use(express.json());
 
 //* send otp
+const accountSid = process.env.TWILIO_ACCOUNT_SID;
+const authToken = process.env.TWILIO_ACCOUNT_TOKEN;
+const verifyServiceSid = process.env.TWILIO_VERIFY_SERVICE_SID;
+const client = twilio(accountSid, authToken);
+
+router.use(express.json());
+
+//* send otp via Twilio Verify
 router.post("/send-otp", phoneValidation, async (req, res) => {
+  const { phoneNumber } = req.body;
   try {
-    const { phoneNumber } = req.body;
-
-    const otp = otpGenerator.generate(6, {
-      upperCaseAlphabets: false,
-      lowerCaseAlphabets: false,
-      specialChars: false,
-    });
-
-    await OtpModel.findOneAndUpdate(
-      { phoneNumber },
-      { otp },
-      { upsert: true, new: true, setDefaultsOnInsert: true }
-    );
-
-    await twilioClient.messages.create({
-      body: `Your Otp is : ${otp}`,
-      to: phoneNumber,
-      from: twilioNumber,
-    });
+    const verification = await client.verify
+      .services(verifyServiceSid)
+      .verifications.create({
+        to: `+91${phoneNumber}`,
+        channel: "sms",
+      });
 
     return res.status(200).json({
       success: true,
-      message: otp,
+      sid: verification.sid,
+      message: "OTP sent",
     });
-  } catch (e) {
+  } catch (err) {
+    console.error("Twilio Verify Error:", err);
     return res.status(500).json({
       success: false,
-      message: e.message,
+      message: err.message,
     });
   }
 });
@@ -76,4 +74,4 @@ router.post("/verify-otp", otpValidation, async (req, res) => {
   }
 });
 
-module.exports = {router};
+module.exports = { router };
