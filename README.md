@@ -4,6 +4,12 @@
 
 ---
 
+## 🚀 Check App Preview
+
+Click below to check the preview of the full UI and features:
+
+🔗 [View the Preview](https://drive.google.com/drive/folders/1Kkn_ml5LFtfU1HJpjlMVJMauZxpznDkR)
+
 ## 👀 Overview
 
 Attend Ease streamlines the attendance process using secure features like biometric verification and geo-location. It's a full-stack solution with distinct flows for HR and Employees, complete with leave management, reporting, and analytics.
